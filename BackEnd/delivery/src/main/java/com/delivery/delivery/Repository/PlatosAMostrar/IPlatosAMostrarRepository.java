@@ -1,7 +1,6 @@
 
 package com.delivery.delivery.Repository.PlatosAMostrar;
 
-import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

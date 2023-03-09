@@ -1,14 +1,12 @@
 
 package com.delivery.delivery.Service.PlatosAMostrar;
 
-import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
