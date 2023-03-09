@@ -1,0 +1,1 @@
+Necesito resolver como agregar el idPlato a la sentencia sql guardarPlato(), todo lo que esta hecho hasta el momento no da error pero no guarda nada
