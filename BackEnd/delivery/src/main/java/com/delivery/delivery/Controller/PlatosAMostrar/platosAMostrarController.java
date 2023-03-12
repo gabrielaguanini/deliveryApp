@@ -5,6 +5,7 @@ import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,16 @@ public class platosAMostrarController {
     PlatosAMostrarService plaMosServ;
     
       
-    @GetMapping("/listaplatosamostrar")
+   @GetMapping("/listaplatosamostrar")
     public ResponseEntity<List<PlatosAMostrar>> listaPlatosAMostrar() {
         List<PlatosAMostrar> listaPlatos = plaMosServ.listaPlatosAMostrar();
         return new ResponseEntity(listaPlatos, HttpStatus.OK);
+    }
+    
+    
+    @GetMapping("/platosamostrarxid/{idPlatosAMostrar}")
+    public Optional getOne(@PathVariable Long idPlatosAMostrar) {   
+        return plaMosServ.getOne(idPlatosAMostrar);
     }
     
     

@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface IPlatosAMostrarRepository extends JpaRepository <PlatosAMostrar, Long>{
 
 @Modifying    
-@Query(value = "INSERT INTO platosamostrar(id_platosamostrar, precio_plato, nombre_plato, id_plato) SELECT 1, precio_plato, nombre_plato, id_plato FROM platos WHERE id_plato= :idPlato", nativeQuery = true)
+@Query(value = "INSERT INTO platosamostrar(id_platosamostrar, precio_plato, nombre_plato, id_plato) SELECT 0, precio_plato, nombre_plato, id_plato FROM platos WHERE id_plato= :idPlato", nativeQuery = true)
     public void findByIdAndSave(@Param("idPlato") Long idPlato);
     
 }
