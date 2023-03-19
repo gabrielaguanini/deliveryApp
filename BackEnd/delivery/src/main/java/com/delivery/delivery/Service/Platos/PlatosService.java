@@ -1,5 +1,5 @@
 
-package com.delivery.delivery.Service;
+package com.delivery.delivery.Service.Platos;
 
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
@@ -9,13 +9,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 @Transactional
 public class PlatosService {
-    
-      @Autowired
+     @Autowired
       IPlatosRepository iPlatosRepo;
       
  
@@ -34,12 +31,15 @@ public class PlatosService {
     }
     
   
-    public void guardar(Platos plato){
+    public void guardarPlato(Platos plato){
         iPlatosRepo.save(plato);
+        plato.getIdPlato().toString();
+        iPlatosRepo.executeUpdate();        
     }
     
+   
 
-    public void borrar(Long idPlato){
+    public void borrarPlato(Long idPlato){
         iPlatosRepo.deleteById(idPlato);
     }
     
@@ -53,4 +53,7 @@ public class PlatosService {
          return iPlatosRepo.existsByNombrePlato(nombrePlato);
     }
     
+ 
+  
+   
 }

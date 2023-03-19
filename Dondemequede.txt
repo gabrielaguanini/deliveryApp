@@ -1,1 +1,1 @@
-Necesito resolver como agregar el idPlato a la sentencia sql guardarPlato(), todo lo que esta hecho hasta el momento no da error pero no guarda nada
+Necesito insertar el IdSecundario en la tabla PLATOS, que se formaria (ese idsecundario) con la union del registro de la tabla idPlato + tipoPlato. El query lo estuve tratando de armar pero nada

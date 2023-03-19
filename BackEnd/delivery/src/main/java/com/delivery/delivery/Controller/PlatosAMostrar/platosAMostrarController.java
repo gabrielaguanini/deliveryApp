@@ -36,14 +36,14 @@ public class platosAMostrarController {
                
     }
 
-    @PostMapping("/guardarplato/{idPlato}")
+    @PostMapping("/guardarplatoamostrar/{idPlato}")
     public ResponseEntity<?> guardarPlato(@PathVariable @Param("idPlato") Long idPlato) {
 
         plaMosServ.findByIdAndSave(idPlato);
         return new ResponseEntity(new Mensaje("Plato añadido"), HttpStatus.OK);
     }
 
-    @DeleteMapping("/borrarplato/{idPlatoAMostrar}")
+    @DeleteMapping("/borrarplatoamostrar/{idPlatoAMostrar}")
     public ResponseEntity borrarPlato(@PathVariable Long idPlatoAMostrar) {
         if (!plaMosServ.existsById(idPlatoAMostrar)) {
             return new ResponseEntity(new Mensaje("el id no existe"), HttpStatus.BAD_REQUEST);
