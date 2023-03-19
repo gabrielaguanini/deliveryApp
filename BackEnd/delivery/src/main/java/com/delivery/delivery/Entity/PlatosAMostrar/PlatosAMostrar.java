@@ -28,18 +28,19 @@ public class PlatosAMostrar {
     //@ElementCollection  
     @JsonIgnore
     private Platos platos;
+    private String idSecundario;
     private String nombrePlato;
     private double PrecioPlato;
 
     public PlatosAMostrar() {
     }
 
-    public PlatosAMostrar(Long idPlatosAMostrar, Platos platos, String nombrePlato, double PrecioPlato) {
-        this.idPlatosAMostrar = idPlatosAMostrar;
+    public PlatosAMostrar(Platos platos, String idSecundario, String nombrePlato, double PrecioPlato) {
         this.platos = platos;
+        this.idSecundario = idSecundario;
         this.nombrePlato = nombrePlato;
         this.PrecioPlato = PrecioPlato;
     }
 
-   
+
 }

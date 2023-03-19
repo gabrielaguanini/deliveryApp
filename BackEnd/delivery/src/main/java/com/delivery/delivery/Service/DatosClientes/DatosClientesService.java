@@ -32,12 +32,12 @@ IDatosClienteRepository iDatosCliRepository;
     }
     
   
-    public void guardar(DatosClientes datosCliente){
+    public void guardarCliente(DatosClientes datosCliente){
         iDatosCliRepository.save(datosCliente);
     }
     
 
-    public void borrar(Long idCliente){
+    public void borrarCliente(Long idCliente){
         iDatosCliRepository.deleteById(idCliente);
     }
     

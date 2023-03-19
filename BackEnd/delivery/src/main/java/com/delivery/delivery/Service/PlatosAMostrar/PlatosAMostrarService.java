@@ -42,13 +42,7 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
       iPlatosAMostrarRepo.findByIdAndSave(idPlato);
     }
     
-    
-    
-    
-    
-    
-    
-    
+   
 
     public void borrar(Long idPlatosAMostrar){
         iPlatosAMostrarRepo.deleteById(idPlatosAMostrar);
@@ -59,6 +53,7 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
     public boolean existsById(Long idPlatosAMostrar){
          return iPlatosAMostrarRepo.existsById(idPlatosAMostrar);
     }
-     
-   
+    
+ 
+ 
 }

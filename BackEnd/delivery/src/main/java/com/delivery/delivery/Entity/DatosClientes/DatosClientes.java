@@ -1,4 +1,3 @@
-
 package com.delivery.delivery.Entity.DatosClientes;
 
 import javax.persistence.Entity;
@@ -12,24 +11,23 @@ import lombok.Setter;
 @Setter
 @Entity
 public class DatosClientes {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCliente;
     private String nombreCliente;
     private String direccionCliente;
     private String localidadCliente;
-    private int telefonoCliente;
+    private String telefonoCliente;
 
     public DatosClientes() {
     }
 
-    public DatosClientes(String nombreCliente, String direccionCliente, String localidadCliente, int telefonoCliente) {
+    public DatosClientes(String nombreCliente, String direccionCliente, String localidadCliente, String telefonoCliente) {
         this.nombreCliente = nombreCliente;
         this.direccionCliente = direccionCliente;
         this.localidadCliente = localidadCliente;
         this.telefonoCliente = telefonoCliente;
     }
-   
-    
+
 }
