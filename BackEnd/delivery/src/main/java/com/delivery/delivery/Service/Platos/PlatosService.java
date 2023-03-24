@@ -33,8 +33,12 @@ public class PlatosService {
   
     public void guardarPlato(Platos plato){
         iPlatosRepo.save(plato);
-        plato.getIdPlato().toString();
-        iPlatosRepo.executeUpdate();        
+        
+      
+    }
+    
+    public void executeQuery(){
+       iPlatosRepo.executeQuery();
     }
     
    

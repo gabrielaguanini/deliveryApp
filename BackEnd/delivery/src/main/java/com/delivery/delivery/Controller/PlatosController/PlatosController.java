@@ -40,10 +40,12 @@ public class PlatosController {
                 platos.getTipoPlato(),
                 platos.getNombrePlato(),
                 platos.getPrecioPlato()              
-        );
-           
+        );     
         
         plaServ.guardarPlato(plat);
+        
+        plaServ.executeQuery();
+               
         return new ResponseEntity(new Mensaje("Plato guardado"), HttpStatus.OK);
     };
     

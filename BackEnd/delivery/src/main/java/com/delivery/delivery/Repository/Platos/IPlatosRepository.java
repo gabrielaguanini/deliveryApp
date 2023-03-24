@@ -14,8 +14,8 @@ public interface IPlatosRepository extends JpaRepository <Platos, Long>{
     public Optional<Platos> findByNombrePlato(String nombrePlato);
     public Boolean existsByNombrePlato(String nombrePlato);
   
-    @Modifying 
-    @Query(value="UPDATE platos SET  id_secundario = id_secundario + tipo_plato", nativeQuery = true)
-    public void  executeUpdate();
+   @Modifying 
+   @Query(value="UPDATE platos SET id_secundario = concat(id_plato, '-', tipo_plato) WHERE id_plato > 1", nativeQuery = true)
+   public void  executeQuery();
     
 }
