@@ -15,9 +15,7 @@ public class Platos {
     
         
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-  
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long idPlato;
     private String idSecundario;
     private String tipoPlato;

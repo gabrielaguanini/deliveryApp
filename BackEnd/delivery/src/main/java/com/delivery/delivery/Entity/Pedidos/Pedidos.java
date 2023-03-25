@@ -1,8 +1,8 @@
 
 package com.delivery.delivery.Entity.Pedidos;
 
-import com.delivery.delivery.Entity.DatosClientes.DatosClientes;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,14 +26,10 @@ public class Pedidos {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idPedido;
     
-    @OneToOne
-    @JoinColumn(name = "idCliente")
-    @ElementCollection
-    private DatosClientes datosClientes;
-    
     @ManyToOne
-    @JoinColumn(name = "idBPlatosAMostrar")
+    @JoinColumn(name = "idPlatosAMostrar")
     @ElementCollection
+    //@JsonIgnore
     private PlatosAMostrar platosAMostrar;
     
     private Integer porcionPlato;
@@ -46,14 +41,12 @@ public class Pedidos {
     public Pedidos() {
     }
 
-    public Pedidos(DatosClientes datosClientes, PlatosAMostrar platosAMostrar, Integer porcionPlato, Date fecha, Time hora) {
-        this.datosClientes = datosClientes;
+    public Pedidos(PlatosAMostrar platosAMostrar, Integer porcionPlato, Date fecha, Time hora) {
         this.platosAMostrar = platosAMostrar;
         this.porcionPlato = porcionPlato;
         this.fecha = fecha;
         this.hora = hora;
     }
 
-    
-
 }
+

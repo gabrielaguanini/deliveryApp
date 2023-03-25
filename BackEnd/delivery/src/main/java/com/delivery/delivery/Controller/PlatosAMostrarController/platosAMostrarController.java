@@ -1,4 +1,4 @@
-package com.delivery.delivery.Controller.PlatosAMostrar;
+package com.delivery.delivery.Controller.PlatosAMostrarController;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
@@ -40,6 +40,7 @@ public class platosAMostrarController {
     public ResponseEntity<?> guardarPlato(@PathVariable @Param("idPlato") Long idPlato) {
 
         plaMosServ.findByIdAndSave(idPlato);
+        plaMosServ.executeQuery();
         return new ResponseEntity(new Mensaje("Plato añadido"), HttpStatus.OK);
     }
 

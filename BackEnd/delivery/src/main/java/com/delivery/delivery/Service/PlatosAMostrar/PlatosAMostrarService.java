@@ -37,7 +37,11 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
     }
     
     
+    public void executeQuery(){
+        iPlatosAMostrarRepo.executeQuery();
+    }
   
+    
     public void findByIdAndSave(@Param("idPlato") Long idPlato){       
       iPlatosAMostrarRepo.findByIdAndSave(idPlato);
     }

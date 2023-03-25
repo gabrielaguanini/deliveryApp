@@ -25,11 +25,6 @@ public class PlatosService {
         return iPlatosRepo.findById(idPlato);
     }
     
-   
-    public Optional <Platos> getBynombrePlato(String nombrePlato){
-        return iPlatosRepo.findByNombrePlato(nombrePlato);
-    }
-    
   
     public void guardarPlato(Platos plato){
         iPlatosRepo.save(plato);
@@ -53,11 +48,4 @@ public class PlatosService {
          return iPlatosRepo.existsById(idPlato);
     }
      
-    public boolean existsByNombrePlato(String nombrePlato){
-         return iPlatosRepo.existsByNombrePlato(nombrePlato);
-    }
-    
- 
-  
-   
 }
