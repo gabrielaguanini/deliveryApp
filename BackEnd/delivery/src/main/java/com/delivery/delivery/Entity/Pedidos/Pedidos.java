@@ -30,23 +30,31 @@ public class Pedidos {
     @JoinColumn(name = "idPlatosAMostrar")
     @ElementCollection
     //@JsonIgnore
-    private PlatosAMostrar platosAMostrar;
-    
-    private Integer porcionPlato;
-    
-    private Date fecha;
-    
+    private PlatosAMostrar platosAMostrar; 
+    private Double precioPlato;
+    private Integer porcionPlato;    
+    private Double totalPedido;
+    private Date fecha;    
     private Time hora;
 
     public Pedidos() {
     }
 
-    public Pedidos(PlatosAMostrar platosAMostrar, Integer porcionPlato, Date fecha, Time hora) {
+    public Pedidos(PlatosAMostrar platosAMostrar, Double precioPlato, Integer porcionPlato, Double totalPedido, Date fecha, Time hora) {
         this.platosAMostrar = platosAMostrar;
+        this.precioPlato = precioPlato;
         this.porcionPlato = porcionPlato;
+        this.totalPedido = totalPedido;
         this.fecha = fecha;
         this.hora = hora;
     }
 
+   
+
+    public Pedidos(Integer porcionPlato) {
+        this.porcionPlato = porcionPlato;
+    }
+
+ 
 }
 

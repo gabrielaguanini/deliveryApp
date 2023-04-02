@@ -36,9 +36,15 @@ public class PedidosService {
         iPedidosRepo.deleteById(idPedido);
     }
     
-    public void findByIdAndSave(@Param("idPlatosAMostrar") Long idPlatosAMostrar){       
-        iPedidosRepo.findByIdPlatosAMosAndSave(idPlatosAMostrar);
+    public void findByIdPlatosAMosAndSave(@Param("idPlatosAMostrar") Long idPlatosAMostrar, 
+                                          @Param("porcionPlato") Integer porcionPlato){
+     
+        iPedidosRepo.findByIdPlatosAMosAndSave(idPlatosAMostrar, porcionPlato);
     }
+    
+    public void updatePedidos(){
+        iPedidosRepo.updatePedidos();
+    };
     
 }
 

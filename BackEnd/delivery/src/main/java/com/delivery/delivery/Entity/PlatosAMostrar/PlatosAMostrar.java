@@ -31,12 +31,12 @@ public class PlatosAMostrar {
     private String idSecundario;
     private String nombrePlato;
     private String tipoPlato;
-    private double PrecioPlato;
+    private Double PrecioPlato;
 
     public PlatosAMostrar() {
     }
 
-    public PlatosAMostrar(Platos platos, String idSecundario, String nombrePlato, String tipoPlato, double PrecioPlato) {
+    public PlatosAMostrar(Platos platos, String idSecundario, String nombrePlato, String tipoPlato, Double PrecioPlato) {
         this.platos = platos;
         this.idSecundario = idSecundario;
         this.nombrePlato = nombrePlato;
@@ -44,5 +44,4 @@ public class PlatosAMostrar {
         this.PrecioPlato = PrecioPlato;
     }
 
- 
 }

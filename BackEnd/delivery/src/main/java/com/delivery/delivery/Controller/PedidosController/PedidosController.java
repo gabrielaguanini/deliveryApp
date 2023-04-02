@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,13 +35,13 @@ public class PedidosController {
     
     //GUARDAR UN PEDIDO
     
-    @PostMapping("/guardarpedido/{idPlatosAMostrar}")
-    public ResponseEntity <?> guardarPedido(@PathVariable @Param ("idPlatosAMostrar") Long idPlatosAMostrar){
+    @PostMapping("/guardarpedido/{idPlatosAMostrar}/{porcionPlato}")
+    public ResponseEntity <?> guardarPedido(@PathVariable @Param ("idPlatosAMostrar") Long idPlatosAMostrar, 
+                                            @PathVariable @Param("porcionPlato") Integer porcionPlato){
     
-        //Pedidos pedid = new Pedidos (pedidos.getPlatosAMostrar(), pedidos.getPorcionPlato(), pedidos.getFecha(), pedidos.getHora());
-        //pedidosServ.guardarPedido(pedidos);
         
-       pedidosServ.findByIdAndSave(idPlatosAMostrar);
+        pedidosServ.findByIdPlatosAMosAndSave(idPlatosAMostrar, porcionPlato);
+        pedidosServ.updatePedidos();
         
         return new ResponseEntity(new Mensaje("Pedido guardado"), HttpStatus.OK);
     }
