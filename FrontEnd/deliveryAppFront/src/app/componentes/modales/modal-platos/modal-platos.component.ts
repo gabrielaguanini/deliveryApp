@@ -24,7 +24,7 @@ openModalCarnes(templateCarnes: TemplateRef<any>){
 }
 
 openModalPollos(templatePollos: TemplateRef<any>){
-  this.modalCarnes = this.modalService.show(templatePollos);
+  this.modalPollos = this.modalService.show(templatePollos);
 }
 
 openModalGuarniciones(templateGuarniciones: TemplateRef<any>){

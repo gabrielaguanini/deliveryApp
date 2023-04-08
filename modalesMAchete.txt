@@ -107,10 +107,10 @@
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
                     <div class="mb-4">
-                        <h5 class="card-title mb-0">GUARNICIONES</h5>
+                        <h5 class="card-title mb-0">Guarniciones</h5>
                     </div>
                     <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalGuarniciones(templateGuarniciones)">LISTA GUARNICIONES</button>
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalPollos(templateGuarniciones)">LISTA GUARNICIONES</button>
                         <button type="button" class="btn btn-outline-light btn-sm">AGREGAR GUARNICIONES</button> 
                        </div>  
                 </div>
@@ -136,6 +136,6 @@
    </ng-template>
 
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
     integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
