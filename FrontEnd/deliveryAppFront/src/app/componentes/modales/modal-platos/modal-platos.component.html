@@ -1,0 +1,143 @@
+<div class="col-md-10 ">
+    <div class="row ">
+
+<!-- TARJETA BEBIDAS -->
+        <div class="col-xl-3 col-lg-6">
+            <div class="card bebidas">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Bebidas</h5>
+                    </div> 
+                    <div class="button-divisor">
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalBebidas(templateBebidas)">LISTA BEBIDAS</button>
+                    <button type="button" class="btn btn-outline-light btn-sm">AGREGAR BEBIDA</button> 
+                   </div>              
+                </div>                
+            </div>            
+        </div>
+        
+
+        <!-- MODAL BEBIDAS -->
+        
+        <ng-template #templateBebidas>
+         <div class="container-fluid modal-bebidas">      
+            <div class="modal-header">
+                <h4 class="modal-title">MODAL BEBIDAS</h4>
+                 <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()">
+                    <span aria-hidden="true">&times;</span>
+                 </button>
+            </div>
+             <div class="modal-body d-flex justify-content-center">
+                <p>ESTE ES EL MODAL BEBIDAS</p>
+             </div>
+         </div>   
+        </ng-template>
+
+<!-- TARJETA CARNES -->
+
+        <div class="col-xl-3 col-lg-6">
+            <div class="card carnes">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-utensils"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Carnes</h5>
+                    </div>
+                    <div class="button-divisor">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalCarnes(templateCarnes)">LISTA CARNES</button>
+                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR CARNES</button> 
+                       </div>  
+               </div>
+            </div>
+        </div>
+
+<!-- MODAL CARNES -->
+        
+           <ng-template #templateCarnes>
+            <div class="container-fluid modal-carnes">      
+               <div class="modal-header">
+                   <h4 class="modal-title">MODAL CARNES</h4>
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalCarnes.hide()">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+               </div>
+                <div class="modal-body d-flex justify-content-center">
+                   <p>ESTE ES EL MODAL CARNES</p>
+                </div>
+            </div>   
+           </ng-template>
+
+<!-- TARJETA POLLOS -->      
+        <div class="col-xl-3 col-lg-6">
+            <div class="card pollos">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-drumstick-bite"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Pollos</h5>
+                    </div>
+                    <div class="button-divisor">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalPollos(templatePollos)">LISTA POLLOS</button>
+                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR POLLOS</button> 
+                       </div>  
+                </div>
+            </div>
+        </div>
+
+<!-- MODAL POLLOS -->
+        
+        <ng-template #templatePollos>
+            <div class="container-fluid modal-pollos">      
+               <div class="modal-header">
+                   <h4 class="modal-title">MODAL POLLOS</h4>
+                   <button type="button" class="btn btn-outline-light btn-sm" (click)="modalPollos.hide()">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+               </div>
+                <div class="modal-body d-flex justify-content-center">
+                   <p>ESTE ES EL MODAL POLLOS</p>
+                </div>
+            </div>   
+           </ng-template>
+
+
+<!-- TARJETA GUARNICIONES -->
+
+        <div class="col-xl-3 col-lg-6">
+            <div class="card guarniciones">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Guarniciones</h5>
+                    </div>
+                    <div class="button-divisor">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalPollos(templateGuarniciones)">LISTA GUARNICIONES</button>
+                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR GUARNICIONES</button> 
+                       </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL GUARNICIONES -->
+        
+        <ng-template #templateGuarniciones>
+            <div class="container-fluid modal-guarniciones">      
+               <div class="modal-header">
+                   <h4 class="modal-title">MODAL GUARNICIONES</h4>
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalGuarniciones.hide()">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+               </div>
+                <div class="modal-body d-flex justify-content-center">
+                   <p>ESTE ES EL MODAL GUARNICIONES</p>
+                </div>
+            </div>   
+           </ng-template>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+

@@ -1,0 +1,62 @@
+HTML
+
+<!-- TARJETA QUE CONTENDRA LA LISTA DE BEBIDAS -->
+
+    <div class="row ">
+        <div class="col-xl-3 col-lg-6" type="button" (click)="openModalBebidas(templateBebidas)">
+            <div class="card l-bg-cherry">
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">BEBIDAS</h5>
+                    </div>
+                    <div class="row align-items-center mb-2 d-flex">                        
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </div>  
+
+<!-- MODAL BEBIDAS -->
+
+    <ng-template #templateBebidas>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">MODAL</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalBebidas.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            this is a modal.
+        </div>
+    </ng-template>
+
+
+=======================================================0
+
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
+@Component({
+  selector: 'app-modal-platos',
+  templateUrl: './modal-platos.component.html',
+  styleUrls: ['./modal-platos.component.css']
+})
+export class ModalPlatosComponent {
+modalBebidas!: BsModalRef;
+modalCarnes!: BsModalRef;
+
+
+constructor(private modalService:BsModalService){}
+
+openModalBebidas(templateBebidas: TemplateRef<any>){
+  this.modalBebidas = this.modalService.show(templateBebidas);
+}
+
+openModalCarnes(templateCarnes: TemplateRef<any>){
+  this.modalCarnes = this.modalService.show(templateCarnes);
+}
+
+
+
+}
