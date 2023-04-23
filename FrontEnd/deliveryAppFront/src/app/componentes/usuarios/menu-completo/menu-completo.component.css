@@ -33,7 +33,8 @@
     border-radius: 10px;
 }
 
-.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 
+.card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal{
     font-size: 110px;
     border-radius: 10px;
 }
@@ -44,6 +45,22 @@
     margin-left: 15px;
     color: #000;
     position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+.card-icon{
+    font-size: 110px;
+    border-radius: 10px;
+}
+
+.card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position:relative;
     right: -5px;
     top: 20px;
     opacity: 0.1;

@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { PanelEmpleadosComponent } from './componentes/panel-empleados/panel-empleados.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ModalPlatosComponent } from './componentes/modales/modal-platos/modal-platos.component';
+import { MenuCompletoComponent } from './componentes/usuarios/menu-completo/menu-completo.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    PanelEmpleadosComponent,
-    ModalPlatosComponent,
+    MenuCompletoComponent,
+   
     
   ],
   imports: [
     BrowserModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

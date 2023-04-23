@@ -1,1 +1,1 @@
-Necesito insertar el IdSecundario en la tabla PLATOS, que se formaria (ese idsecundario) con la union del registro de la tabla idPlato + tipoPlato. El query lo estuve tratando de armar pero nada
+CONTROLLER PLATOS, EL METODO PARA GUARDAR UN PLATO NO FUNCIONA, VER ESO

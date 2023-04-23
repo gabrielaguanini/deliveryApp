@@ -2,6 +2,7 @@
 package com.delivery.delivery.Service.Platos;
 
 import com.delivery.delivery.Entity.Platos.Platos;
+import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,12 @@ public class PlatosService {
         return iPlatosRepo.findAll();
     }
     
-   
+    public List <Platos> listaTipoPlato(Long idTipoPlato){
+        return iPlatosRepo.findAllBytipoPlato_IdTipoPlato(idTipoPlato);
+    }
+    
+  
+  
     public Optional<Platos> getOne(Long idPlato){
         return iPlatosRepo.findById(idPlato);
     }

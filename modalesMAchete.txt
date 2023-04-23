@@ -1,3 +1,76 @@
+/* TARJETAS */ 
+
+
+.card{
+    background-color: #fff;
+    border-radius: 10px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.bebidas, .modal-bebidas {
+    background: linear-gradient(to right, #493240, rgb(246, 199, 227)) !important;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.carnes, .modal-carnes {
+    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.pollos, .modal-pollos {
+    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.guarniciones, .modal-guarniciones {
+    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 
+.card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal{
+    font-size: 110px;
+    border-radius: 10px;
+}
+
+.card .card-statistic-3 .card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+.card-icon{
+    font-size: 110px;
+    border-radius: 10px;
+}
+
+.card-icon {
+    text-align: center;
+    line-height: 50px;
+    margin-left: 15px;
+    color: #000;
+    position:relative;
+    right: -5px;
+    top: 20px;
+    opacity: 0.1;
+}
+
+
+
+=================================================
+
+
 <div class="col-md-10 ">
     <div class="row ">
 
@@ -18,21 +91,24 @@
         </div>
         
 
-        <!-- MODAL BEBIDAS -->
+
+<!-- MODAL BEBIDAS -->
         
         <ng-template #templateBebidas>
-         <div class="container-fluid modal-bebidas">      
-            <div class="modal-header">
-                <h4 class="modal-title">MODAL BEBIDAS</h4>
-                 <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()">
-                    <span aria-hidden="true">&times;</span>
-                 </button>
-            </div>
-             <div class="modal-body d-flex justify-content-center">
-                <p>ESTE ES EL MODAL BEBIDAS</p>
-             </div>
-         </div>   
-        </ng-template>
+            <div class="container-fluid modal-bebidas">      
+               <div class="modal-header">
+                   <h4 class="modal-title">MODAL BEBIDAS</h4>
+                   <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div>
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+               </div>
+                <div class="modal-body d-flex justify-content-center">
+                   <p>ESTE ES EL MODAL BEBIDAS</p>
+                   
+                </div>
+            </div>   
+           </ng-template>
 
 <!-- TARJETA CARNES -->
 
@@ -57,6 +133,7 @@
             <div class="container-fluid modal-carnes">      
                <div class="modal-header">
                    <h4 class="modal-title">MODAL CARNES</h4>
+                   <div class="card-icon card-icon-large"><i class="fas fa-utensils"></i></div>
                     <button type="button" class="btn btn-outline-light btn-sm" (click)="modalCarnes.hide()">
                        <span aria-hidden="true">&times;</span>
                     </button>
@@ -89,6 +166,7 @@
     <div class="container-fluid modal-pollos">      
        <div class="modal-header">
            <h4 class="modal-title">MODAL POLLOS</h4>
+           <div class="card-icon card-icon-large"><i class="fas fa-drumstick-bite"></i></div>
             <button type="button" class="btn btn-outline-light btn-sm" (click)="modalPollos.hide()">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -107,10 +185,10 @@
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
                     <div class="mb-4">
-                        <h5 class="card-title mb-0">Guarniciones</h5>
+                        <h5 class="card-title mb-0">GUARNICIONES</h5>
                     </div>
                     <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalPollos(templateGuarniciones)">LISTA GUARNICIONES</button>
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalGuarniciones(templateGuarniciones)">LISTA GUARNICIONES</button>
                         <button type="button" class="btn btn-outline-light btn-sm">AGREGAR GUARNICIONES</button> 
                        </div>  
                 </div>
@@ -125,6 +203,7 @@
     <div class="container-fluid modal-guarniciones">      
        <div class="modal-header">
            <h4 class="modal-title">MODAL GUARNICIONES</h4>
+           <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
             <button type="button" class="btn btn-outline-light btn-sm" (click)="modalGuarniciones.hide()">
                <span aria-hidden="true">&times;</span>
             </button>
@@ -136,6 +215,86 @@
    </ng-template>
 
 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
     integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+
+
+
+<!-- PARA ADAPTAR ESTE COMPONENTE: -->
+
+<!-- A) 1 TARJETA Y MODAL PARA CADA TIPO DE PLATO (CARNES, POLLOS, ETC) SE DEBE COPIAR EL HTML Y ADAPTARLO: -->
+
+<!-- B)  <div class="col-xl-3 col-lg-6">
+            <div class="card bebidas"> =====> ADAPTAR
+                <div class="card-statistic-3 p-4">
+                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div> =====> CAMBIAR ICONO
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0">Bebidas</h5>
+                    </div> 
+                    <div class="button-divisor">
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalBebidas(templateBebidas)">LISTA BEBIDAS</button> =====> CREAR FUNCIONAR PARA ABRIR MODAL Y EL TEMPLATE EN EL COMPONENTE.TS
+                    <button type="button" class="btn btn-outline-light btn-sm">AGREGAR BEBIDA</button> 
+                   </div>              
+                </div>                
+            </div>            
+        </div>
+        -->
+
+
+<!-- MODAL BEBIDAS -->
+        
+<!-- <ng-template #templateBebidas> =====> ADAPTAR CREAR TEMPLATE EN EL COMPONENTE.TS
+    <div class="container-fluid modal-bebidas"> =====> ADAPTAR     
+       <div class="modal-header">
+           <h4 class="modal-title">MODAL BEBIDAS</h4>
+           <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div> =====> CAMBIAR ICONO
+            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()"> =====> INSTANCIAR EN EL COMPONENTE.TS
+               <span aria-hidden="true">&times;</span>
+            </button>
+       </div>
+        <div class="modal-body d-flex justify-content-center">
+           <p>ESTE ES EL MODAL BEBIDAS</p>
+           
+        </div>
+    </div>   
+   </ng-template> -->
+
+===============================================
+
+
+
+import { Component, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
+@Component({
+  selector: 'app-modal-platos',
+  templateUrl: './modal-platos.component.html',
+  styleUrls: ['./modal-platos.component.css']
+})
+export class ModalPlatosComponent {
+modalBebidas!: BsModalRef;
+modalCarnes!: BsModalRef;
+modalPollos!: BsModalRef;
+modalGuarniciones!: BsModalRef;
+
+
+constructor(private modalService:BsModalService){}
+
+openModalBebidas(templateBebidas: TemplateRef<any>){
+  this.modalBebidas = this.modalService.show(templateBebidas);
+}
+
+openModalCarnes(templateCarnes: TemplateRef<any>){
+  this.modalCarnes = this.modalService.show(templateCarnes);
+}
+
+openModalPollos(templatePollos: TemplateRef<any>){
+  this.modalPollos = this.modalService.show(templatePollos);
+}
+
+openModalGuarniciones(templateGuarniciones: TemplateRef<any>){
+  this.modalGuarniciones = this.modalService.show(templateGuarniciones);
+}
+
+}
