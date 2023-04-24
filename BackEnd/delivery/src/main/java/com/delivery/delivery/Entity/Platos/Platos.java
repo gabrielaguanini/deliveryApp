@@ -23,21 +23,18 @@ public class Platos {
     @JoinColumn(name = "idTipoPlato")
     //@ElementCollection  
     private TipoPlato tipoPlato;
-    private String idSecundario;
+    //private String idSecundario;
     private String nombrePlato;
     private float precioPlato;
 
     public Platos() {
     }
 
-    public Platos(Long idPlato, TipoPlato tipoPlato, String idSecundario, String nombrePlato, float precioPlato) {
-        this.idPlato = idPlato;
+    public Platos(TipoPlato tipoPlato, String nombrePlato, float precioPlato) {
         this.tipoPlato = tipoPlato;
-        this.idSecundario = idSecundario;
         this.nombrePlato = nombrePlato;
         this.precioPlato = precioPlato;
     }
 
-  
 
 }

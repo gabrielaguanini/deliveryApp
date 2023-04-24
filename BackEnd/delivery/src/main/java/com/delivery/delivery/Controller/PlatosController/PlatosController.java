@@ -48,16 +48,15 @@ public class PlatosController {
     public ResponseEntity<?> guardarPlato(@RequestBody Platos platos) {
 
         Platos plat = new Platos(
-                platos.getIdPlato(),
+              
                 platos.getTipoPlato(),
-                platos.getIdSecundario(),
-               platos.getNombrePlato(),
+                platos.getNombrePlato(),
                 platos.getPrecioPlato()
         );
 
         plaServ.guardarPlato(plat);
 
-        plaServ.executeQuery();
+       // plaServ.executeQuery();
 
         return new ResponseEntity(new Mensaje("Plato guardado"), HttpStatus.OK);
     };
@@ -70,7 +69,6 @@ public class PlatosController {
       Platos pla = plaServ.getOne(idPlato).get();
       
       pla.setTipoPlato(platos.getTipoPlato());
-      pla.setIdSecundario(platos.getIdSecundario());
       pla.setNombrePlato(platos.getNombrePlato());
       pla.setPrecioPlato(platos.getPrecioPlato());
       

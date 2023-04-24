@@ -38,9 +38,9 @@ public class PlatosService {
       
     }
     
-    public void executeQuery(){
-       iPlatosRepo.executeQuery();
-    }
+   // public void executeQuery(){
+   //    iPlatosRepo.executeQuery();
+   // }
     
    
 
