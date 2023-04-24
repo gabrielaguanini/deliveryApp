@@ -1,17 +1,18 @@
+import { TipoPlato } from "./tipo-plato";
+
 export class MenuCompletoModel {
 
-    idPlato!: number;
-    idSecundario!: string;
-    tipoPlato!: string;
+    idPlato!: number;    
+    tipoPlato: TipoPlato;
     nombrePlato!: string;
     precioPlato!: number;
 
-    constructor(idSecundario: string,
-                tipoPlato: string,
+    constructor(
+                tipoPlato: TipoPlato,
                 nombrePlato: string,
                 precioPlato: number) {
 
-        this.idSecundario = idSecundario;
+       
         this.tipoPlato = tipoPlato;
         this.nombrePlato = nombrePlato;
         this.precioPlato = precioPlato;

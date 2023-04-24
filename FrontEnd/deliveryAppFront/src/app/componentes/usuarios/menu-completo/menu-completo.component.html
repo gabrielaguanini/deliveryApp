@@ -36,14 +36,18 @@
                     <p>ESTE ES EL MODAL BEBIDAS</p>
                 </div>
                     <div *ngFor="let MenuCompletoModel of menuCompModel">                    
-                      <div class="row">
-                         <div class="col-6">
+                      <div class="row" >
+                         <div class="col-4">
                            <p>{{MenuCompletoModel.nombrePlato}}</p>
                          </div>
 
-                         <div class="col-6">
-                           <p>{{MenuCompletoModel.tipoPlato}}</p>
+                         <div class="col-4">
+                           <p>{{MenuCompletoModel.precioPlato}}</p>
                         </div>
+
+                        <div class="col-4">
+                            <p>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</p>
+                         </div>
                     </div>
                        </div>
 
