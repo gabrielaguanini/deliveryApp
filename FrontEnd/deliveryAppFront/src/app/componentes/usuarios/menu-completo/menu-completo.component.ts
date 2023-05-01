@@ -1,7 +1,11 @@
 import { Component, TemplateRef, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model';
+import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-completo-service.service';
+import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
+
 
 @Component({
   selector: 'app-menu-completo',
@@ -10,61 +14,52 @@ import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-comp
 })
 export class MenuCompletoComponent {
 
-//MODALES
+
+
+//MODAL
 /////////////////////////////
 
-  modalBebidas!: BsModalRef;
-  modalCarnes!: BsModalRef;
-  modalPollos!: BsModalRef;
-  modalGuarniciones!: BsModalRef;
+  modalMenuComp!: BsModalRef;
+ 
 
 //LISTAS
 ///////////////////////////////////
 
 menuCompModel:MenuCompletoModel[] = [];
-
-
+tiposPlatosModel:TipoPlato[]=[];
 
 
   
   constructor(private modalService:BsModalService,
-              private menucomServ:MenuCompletoServiceService){}
+              private menucomServ:MenuCompletoServiceService,
+              private tipoPlaServ:TiposPlatosService
+              ){}
 
   ngOnInit(): void {
 
-    this.mostrarListaMenu();
-
+    this.listTipPla();
     
   }
 
-//MODALES
+//MODAL
 /////////
 
-  openModalBebidas(templateBebidas: TemplateRef<any>){
-    this.modalBebidas = this.modalService.show(templateBebidas);
+  openModalMenuComp(templateMenuComp: TemplateRef<any>){
+    this.modalMenuComp = this.modalService.show(templateMenuComp);
   }
   
-  openModalCarnes(templateCarnes: TemplateRef<any>){
-    this.modalCarnes = this.modalService.show(templateCarnes);
-  }
-  
-  openModalPollos(templatePollos: TemplateRef<any>){
-    this.modalPollos = this.modalService.show(templatePollos);
-  }
-  
-  openModalGuarniciones(templateGuarniciones: TemplateRef<any>){
-    this.modalGuarniciones = this.modalService.show(templateGuarniciones);
-  }
-
+ 
 //LISTAS
 ///////////////////////////////////
 
+mostrarListaTipoPlato(idTipoPlato:number):void{  
+  this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);  
+    }
 
-mostrarListaMenu():void{
-
-  
-this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);  
- 
-  
-  }
+listTipPla():void{
+  this.tipoPlaServ.listTiposPlatos().subscribe(data => this.tiposPlatosModel = data);
 }
+}
+
+
+ 

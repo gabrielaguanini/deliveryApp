@@ -1,209 +1,81 @@
-<div class="col-md-10 ">
-    <div class="row ">
 
-        <!-- TARJETA BEBIDAS -->
-        <div class="col-xl-3 col-lg-6">
-            <div class="card bebidas">
+<!-- TARJETA BEBIDAS -->
+
+    
+        <div *ngFor="let TipoPlato of tiposPlatosModel">  
+           <div class="card bebidas">         
                 <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div>
+                    <div class="card-icon card-icon-large">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>                     
                     <div class="mb-4">
-                        <h5 class="card-title mb-0">Bebidas</h5>
+                        <h5 class="card-title mb-0">{{TipoPlato.nombreTipoPlato}}</h5>
                     </div>
                     <div class="button-divisor">
                         <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalBebidas(templateBebidas)">LISTA BEBIDAS</button>
+                            (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA BEBIDAS</button>
                         <button type="button" class="btn btn-outline-light btn-sm">AGREGAR BEBIDA</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
+    
 
+<!-- MODAL BEBIDAS -->
 
-
-        <!-- MODAL BEBIDAS -->
-
-        <ng-template #templateBebidas>
-            <div class="container-fluid modal-bebidas">
-                <div class="modal-header">
+    <ng-template #templateMenuComp>
+        <div class="container-fluid modal-bebidas">
+            <div class="modal-header">
                     <h4 class="modal-title">MODAL BEBIDAS</h4>
-                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div>
-                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div class="card-icon card-icon-large">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="modalMenuComp.hide()">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
             </div>
 
                 <div class="modal-body d-flex justify-content-center">
                     <p>ESTE ES EL MODAL BEBIDAS</p>
                 </div>
                     <div *ngFor="let MenuCompletoModel of menuCompModel">                    
-                      <div class="row" >
-                         <div class="col-4">
+                        <div class="row" >
+                          <div class="col-4">
                            <p>{{MenuCompletoModel.nombrePlato}}</p>
-                         </div>
+                          </div>
 
-                         <div class="col-4">
-                           <p>{{MenuCompletoModel.precioPlato}}</p>
-                        </div>
+                          <div class="col-4">
+                           <p>${{MenuCompletoModel.precioPlato}}</p>
+                          </div>
 
-                        <div class="col-4">
+                          <div class="col-4">
                             <p>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</p>
-                         </div>
+                          </div>
+                        </div>
                     </div>
-                       </div>
-
-            </div>
-
-        </ng-template>
-
-        <!-- TARJETA CARNES -->
-
-        <div class="col-xl-3 col-lg-6">
-            <div class="card carnes">
-                <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large"><i class="fas fa-utensils"></i></div>
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0">Carnes</h5>
-                    </div>
-                    <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalCarnes(templateCarnes)">LISTA CARNES</button>
-                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR CARNES</button>
-                    </div>
-                </div>
-            </div>
         </div>
+    </ng-template>
 
-        <!-- MODAL CARNES -->
+        
 
-        <ng-template #templateCarnes>
-            <div class="container-fluid modal-carnes">
-                <div class="modal-header">
-                    <h4 class="modal-title">MODAL CARNES</h4>
-                    <div class="card-icon card-icon-large"><i class="fas fa-utensils"></i></div>
-                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalCarnes.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                    <p>ESTE ES EL MODAL CARNES</p>
-                </div>
-            </div>
-        </ng-template>
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                                                   <!-- TARJETA BEBIDAS -->
 
-        <!-- TARJETA POLLOS -->
-        <div class="col-xl-3 col-lg-6">
-            <div class="card pollos">
-                <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large"><i class="fas fa-drumstick-bite"></i></div>
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0">Pollos</h5>
-                    </div>
-                    <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalPollos(templatePollos)">LISTA POLLOS</button>
-                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR POLLOS</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL POLLOS -->
-
-        <ng-template #templatePollos>
-            <div class="container-fluid modal-pollos">
-                <div class="modal-header">
-                    <h4 class="modal-title">MODAL POLLOS</h4>
-                    <div class="card-icon card-icon-large"><i class="fas fa-drumstick-bite"></i></div>
-                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalPollos.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                    <p>ESTE ES EL MODAL POLLOS</p>
-                </div>
-            </div>
-        </ng-template>
+<!-- LA TARJETA BEBIDAS RECORRE UNA LISTA DE TIPOS DE PLATOS (*ngFor="let TipoPlato of tiposPlatosModel")                 -->
+<!-- LA CUAL GENERA LAS TARJETAS HTML DEPENDIENDO LA CANTIDAD DE TIPOS DE PLATOS QUE HAYA EN LA TABLA/ENTIDAD TIPO PLATOS -->
+<!-- EN EL BOTON LISTA, FUNCION CLICK, HAY UNA FUNCION QUE ES mostrarListaTipoPlato(idTipoPlato:number) ASOCIADA          -->
+<!-- A MENUCOMPLETOSERVICE . ESTA FUNCION RECIBE TODOS LOS IDTIPOPLATO QUE HAYA EN LA LISTA MENCIONADA Y CON ESTOS ID     -->
+<!-- TRAE SOLO LOS PLATOS QUE EXISTAN EN LA TABLA/ENTIDAD PLATOS QUE TENGAN ESE IDTIPOPLATO, ESTE ID E LA FK              -->
 
 
-        <!-- TARJETA GUARNICIONES -->
+                                                  <!-- MODAL BEBIDAS -->
 
-        <div class="col-xl-3 col-lg-6">
-            <div class="card guarniciones">
-                <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0">GUARNICIONES</h5>
-                    </div>
-                    <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalGuarniciones(templateGuarniciones)">LISTA GUARNICIONES</button>
-                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR GUARNICIONES</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL GUARNICIONES -->
-
-<ng-template #templateGuarniciones>
-    <div class="container-fluid modal-guarniciones">
-        <div class="modal-header">
-            <h4 class="modal-title">MODAL GUARNICIONES</h4>
-            <div class="card-icon card-icon-large"><i class="fas fa-carrot"></i></div>
-            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalGuarniciones.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body d-flex justify-content-center">
-            <p>ESTE ES EL MODAL GUARNICIONES</p>
-        </div>
-    </div>
-</ng-template>
+<!-- PARA EL MODAL SE INSTANCIA UN OBJETO DE TIPO BsModalRef QUE ES UNA LIBRERIA ANGULAR PARA MODALES, SE DECLARA EN     -->
+<!-- EL HTML EL NOMBRE DE LA TEMPLATE ANGULAR (<ng-template #templateBebidas>) Y SE CREA UNA FUNCION QUE ABRIRA EL MODAL -->
+<!-- openModalMenuComp(templateMenuComp: TemplateRef<any>){
+    this.modalMenuComp = this.modalService.show(templateMenuComp);
+  }                                                                                                                      -->
+<!--  ESTE ES EL TUTORIAL QUE SEGUI PARA LOS MODALES https://www.youtube.com/watch?v=eEZlv5j3uRQ                         -->
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
-
-
-
-<!-- PARA ADAPTAR ESTE COMPONENTE: -->
-
-<!-- A) 1 TARJETA Y MODAL PARA CADA TIPO DE PLATO (CARNES, POLLOS, ETC) SE DEBE COPIAR EL HTML Y ADAPTARLO: -->
-
-<!-- B)  <div class="col-xl-3 col-lg-6">
-            <div class="card bebidas"> =====> ADAPTAR
-                <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div> =====> CAMBIAR ICONO
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0">Bebidas</h5>
-                    </div> 
-                    <div class="button-divisor">
-                    <button type="button" class="btn btn-outline-light btn-sm" (click)="openModalBebidas(templateBebidas)">LISTA BEBIDAS</button> =====> CREAR FUNCIONAR PARA ABRIR MODAL Y EL TEMPLATE EN EL COMPONENTE.TS
-                    <button type="button" class="btn btn-outline-light btn-sm">AGREGAR BEBIDA</button> 
-                   </div>              
-                </div>                
-            </div>            
-        </div>
-        -->
-
-
-<!-- MODAL BEBIDAS -->
-
-<!-- <ng-template #templateBebidas> =====> ADAPTAR CREAR TEMPLATE EN EL COMPONENTE.TS
-    <div class="container-fluid modal-bebidas"> =====> ADAPTAR     
-       <div class="modal-header">
-           <h4 class="modal-title">MODAL BEBIDAS</h4>
-           <div class="card-icon card-icon-large"><i class="fas fa-glass-cheers"></i></div> =====> CAMBIAR ICONO
-            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalBebidas.hide()"> =====> INSTANCIAR EN EL COMPONENTE.TS
-               <span aria-hidden="true">&times;</span>
-            </button>
-       </div>
-        <div class="modal-body d-flex justify-content-center">
-           <p>ESTE ES EL MODAL BEBIDAS</p>
-           
-        </div>
-    </div>   
-   </ng-template> -->
+<!--       -->

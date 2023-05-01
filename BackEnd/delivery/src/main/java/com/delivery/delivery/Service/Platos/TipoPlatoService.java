@@ -19,6 +19,7 @@ public class TipoPlatoService {
         return iTipoPlaRepo.findAll();
     }
 
+
     public Optional<TipoPlato> getOne(Long idTipoPlato) {
         return iTipoPlaRepo.findById(idTipoPlato);
     }
