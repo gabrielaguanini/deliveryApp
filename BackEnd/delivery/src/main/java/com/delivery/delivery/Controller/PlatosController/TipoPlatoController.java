@@ -37,7 +37,10 @@ public class TipoPlatoController {
     public ResponseEntity guardarTipoPlato(@RequestBody TipoPlato tipoPlato){
         TipoPlato tipoPla = new TipoPlato(
         tipoPlato.getIdTipoPlato(),
-        tipoPlato.getNombreTipoPlato());
+     tipoPlato.getNombreTipoPlato(),
+       tipoPlato.getImgTipoPlato()
+              
+        );
         
     tipoPlaServ.guardarTipoPlato(tipoPla);
         
@@ -57,6 +60,7 @@ public class TipoPlatoController {
     public ResponseEntity <?> actualizarTipoPlato(@RequestBody TipoPlato tipoPlato, @PathVariable Long idTipoPlato) {
         TipoPlato tipPla = tipoPlaServ.getOne(idTipoPlato).get();       
         tipPla.setNombreTipoPlato(tipoPlato.getNombreTipoPlato());
+        tipPla.setImgTipoPlato(tipoPlato.getImgTipoPlato());
         tipoPlaServ.guardarTipoPlato(tipPla);
         return new ResponseEntity(new Mensaje("Tipo de plato actualizado"), HttpStatus.OK);
     }

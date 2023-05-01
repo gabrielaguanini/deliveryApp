@@ -2,23 +2,23 @@
 <!-- TARJETA BEBIDAS -->
 
     
-        <div *ngFor="let TipoPlato of tiposPlatosModel">  
+<div *ngFor="let TipoPlato of tiposPlatosModel">  
            <div class="card bebidas">         
                 <div class="card-statistic-3 p-4">
                     <div class="card-icon card-icon-large">
-                        <i class="fas fa-glass-cheers"></i>
+                        <i class="{{TipoPlato.imgTipoPlato}}"></i> 
                     </div>                     
                     <div class="mb-4">
                         <h5 class="card-title mb-0">{{TipoPlato.nombreTipoPlato}}</h5>
                     </div>
                     <div class="button-divisor">
                         <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA BEBIDAS</button>
-                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR BEBIDA</button>
+                            (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA {{TipoPlato.nombreTipoPlato}}</button>
+                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR</button>
                     </div>
                 </div>
             </div>
-        </div>  
+          
     
 
 <!-- MODAL BEBIDAS -->
@@ -26,20 +26,16 @@
     <ng-template #templateMenuComp>
         <div class="container-fluid modal-bebidas">
             <div class="modal-header">
-                    <h4 class="modal-title">MODAL BEBIDAS</h4>
+                    <h4 class="modal-title">{{TipoPlato.nombreTipoPlato}}</h4>
                     <div class="card-icon card-icon-large">
-                        <i class="fas fa-glass-cheers"></i>
+                        <i class="{{TipoPlato.imgTipoPlato}}"></i> 
                     </div>
                         <button type="button" class="btn btn-outline-light btn-sm" (click)="modalMenuComp.hide()">
                           <span aria-hidden="true">&times;</span>
                         </button>
             </div>
-
-                <div class="modal-body d-flex justify-content-center">
-                    <p>ESTE ES EL MODAL BEBIDAS</p>
-                </div>
                     <div *ngFor="let MenuCompletoModel of menuCompModel">                    
-                        <div class="row" >
+                        <div class="row p-1" >
                           <div class="col-4">
                            <p>{{MenuCompletoModel.nombrePlato}}</p>
                           </div>
@@ -55,8 +51,10 @@
                     </div>
         </div>
     </ng-template>
+</div>    
 
-        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                                                    <!-- TARJETA BEBIDAS -->
@@ -76,6 +74,4 @@
     this.modalMenuComp = this.modalService.show(templateMenuComp);
   }                                                                                                                      -->
 <!--  ESTE ES EL TUTORIAL QUE SEGUI PARA LOS MODALES https://www.youtube.com/watch?v=eEZlv5j3uRQ                         -->
-
-
-<!--       -->
+<!--  ESTA ES LA PAGINA DE LOS ICONOS https://fontawesome.com/v5/search                                                  -->

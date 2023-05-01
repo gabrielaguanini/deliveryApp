@@ -17,15 +17,17 @@ public class TipoPlato {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long idTipoPlato;
     private String nombreTipoPlato;
-
+    private String imgTipoPlato; // LOS ICONOES SON DE https://fontawesome.com/v5/search
     public TipoPlato() {
     }
 
-    public TipoPlato(Long idTipoPlato, String nombreTipoPlato) {
+    public TipoPlato(Long idTipoPlato, String nombreTipoPlato, String imgTipoPlato) {
         this.idTipoPlato = idTipoPlato;
         this.nombreTipoPlato = nombreTipoPlato;
+        this.imgTipoPlato = imgTipoPlato;
     }
 
+  
     public TipoPlato(String nombreTipoPlato) {
         this.nombreTipoPlato = nombreTipoPlato;
     }
