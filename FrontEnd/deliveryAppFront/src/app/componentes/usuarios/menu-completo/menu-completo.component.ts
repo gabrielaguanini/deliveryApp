@@ -29,6 +29,9 @@ menuCompModel:MenuCompletoModel[] = [];
 tiposPlatosModel:TipoPlato[]=[];
 
 
+
+
+
   
   constructor(private modalService:BsModalService,
               private menucomServ:MenuCompletoServiceService,
@@ -40,6 +43,8 @@ tiposPlatosModel:TipoPlato[]=[];
     this.listTipPla();
     
   }
+
+  
 
 //MODAL
 /////////
@@ -53,7 +58,8 @@ tiposPlatosModel:TipoPlato[]=[];
 ///////////////////////////////////
 
 mostrarListaTipoPlato(idTipoPlato:number):void{  
-  this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);  
+  this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
+  
     }
 
 listTipPla():void{

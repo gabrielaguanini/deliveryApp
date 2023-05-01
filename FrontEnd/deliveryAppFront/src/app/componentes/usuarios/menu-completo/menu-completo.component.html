@@ -1,63 +1,65 @@
-
 <!-- TARJETA BEBIDAS -->
+<div class="container-fluid">
+    <div class="row">
 
-    
-<div *ngFor="let TipoPlato of tiposPlatosModel">  
-           <div class="card bebidas">         
-                <div class="card-statistic-3 p-4">
-                    <div class="card-icon card-icon-large">
-                        <i class="{{TipoPlato.imgTipoPlato}}"></i> 
-                    </div>                     
-                    <div class="mb-4">
-                        <h5 class="card-title mb-0">{{TipoPlato.nombreTipoPlato}}</h5>
-                    </div>
-                    <div class="button-divisor">
-                        <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA {{TipoPlato.nombreTipoPlato}}</button>
-                        <button type="button" class="btn btn-outline-light btn-sm">AGREGAR</button>
-                    </div>
+        <div class="col-lg-4 col-md-6 col-xs-12" *ngFor="let TipoPlato of tiposPlatosModel">
+            <div class="card p-4">
+                <div class="card-icon card-icon-large">
+                    <i class="{{TipoPlato.imgTipoPlato}}"></i>
+                </div>
+                <div class="mb-4">
+                    <h5 class="card-title mb-0">{{TipoPlato.nombreTipoPlato}}</h5>
+                </div>
+                <div class="button-divisor">
+                    <button type="button" class="btn btn-outline-light btn-sm"
+                        (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA
+                        {{TipoPlato.nombreTipoPlato}}</button>
+                    <button type="button" class="btn btn-outline-light btn-sm">AGREGAR</button>
                 </div>
             </div>
-          
-    
 
-<!-- MODAL BEBIDAS -->
 
-    <ng-template #templateMenuComp>
-        <div class="container-fluid modal-bebidas">
-            <div class="modal-header">
-                    <h4 class="modal-title">{{TipoPlato.nombreTipoPlato}}</h4>
-                    <div class="card-icon card-icon-large">
-                        <i class="{{TipoPlato.imgTipoPlato}}"></i> 
-                    </div>
+            <!-- MODAL BEBIDAS -->
+
+            <ng-template #templateMenuComp>
+                <div class="container-fluid modal-menu">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{TipoPlato.nombreTipoPlato}}</h4>
+                        <div class="card-icon card-icon-large">
+                            <i class="{{TipoPlato.imgTipoPlato}}"></i>
+                        </div>
                         <button type="button" class="btn btn-outline-light btn-sm" (click)="modalMenuComp.hide()">
-                          <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
-            </div>
-                    <div *ngFor="let MenuCompletoModel of menuCompModel">                    
-                        <div class="row p-1" >
-                          <div class="col-4">
-                           <p>{{MenuCompletoModel.nombrePlato}}</p>
-                          </div>
+                    </div>
+                    <div *ngFor="let MenuCompletoModel of menuCompModel">
+                        <div class="row p-1">
+                            <div class="col-4">
+                                <p>{{MenuCompletoModel.nombrePlato}}</p>
+                            </div>
 
-                          <div class="col-4">
-                           <p>${{MenuCompletoModel.precioPlato}}</p>
-                          </div>
+                            <div class="col-4">
+                                <p>${{MenuCompletoModel.precioPlato}}</p>
+                            </div>
 
-                          <div class="col-4">
-                            <p>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</p>
-                          </div>
+                            <div class="col-4">
+                                <p>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</p>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </ng-template>
         </div>
-    </ng-template>
-</div>    
+    </div>
+</div>
+
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
     integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                                                   <!-- TARJETA BEBIDAS -->
+<!-- TARJETA BEBIDAS -->
 
 <!-- LA TARJETA BEBIDAS RECORRE UNA LISTA DE TIPOS DE PLATOS (*ngFor="let TipoPlato of tiposPlatosModel")                 -->
 <!-- LA CUAL GENERA LAS TARJETAS HTML DEPENDIENDO LA CANTIDAD DE TIPOS DE PLATOS QUE HAYA EN LA TABLA/ENTIDAD TIPO PLATOS -->
@@ -66,7 +68,7 @@
 <!-- TRAE SOLO LOS PLATOS QUE EXISTAN EN LA TABLA/ENTIDAD PLATOS QUE TENGAN ESE IDTIPOPLATO, ESTE ID E LA FK              -->
 
 
-                                                  <!-- MODAL BEBIDAS -->
+<!-- MODAL BEBIDAS -->
 
 <!-- PARA EL MODAL SE INSTANCIA UN OBJETO DE TIPO BsModalRef QUE ES UNA LIBRERIA ANGULAR PARA MODALES, SE DECLARA EN     -->
 <!-- EL HTML EL NOMBRE DE LA TEMPLATE ANGULAR (<ng-template #templateBebidas>) Y SE CREA UNA FUNCION QUE ABRIRA EL MODAL -->
