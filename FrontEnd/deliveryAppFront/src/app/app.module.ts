@@ -4,13 +4,13 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { MenuCompletoComponent } from './componentes/usuarios/menu-completo/menu-completo.component';
+import { MenucomplComponent } from './usuarios/componentes/menucompl/menucompl.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuCompletoComponent,
+    MenucomplComponent,
    
     
   ],

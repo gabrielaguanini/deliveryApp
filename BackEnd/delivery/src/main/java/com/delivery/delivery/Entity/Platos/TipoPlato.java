@@ -17,7 +17,9 @@ public class TipoPlato {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long idTipoPlato;
     private String nombreTipoPlato;
-    private String imgTipoPlato; // LOS ICONOES SON DE https://fontawesome.com/v5/search
+    private String imgTipoPlato; // LOS ICONOS SON DE https://fontawesome.com/v5/search
+    
+    
     public TipoPlato() {
     }
 

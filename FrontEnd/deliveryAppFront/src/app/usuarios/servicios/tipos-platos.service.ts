@@ -15,10 +15,21 @@ URL = 'http://localhost:8080/';
   //LISTA DE TIPOS DE PLATOS COMPLETA
   public listTiposPlatos(): Observable <TipoPlato[]> {
     return this.httpClient.get<TipoPlato[]>(this.URL + 'listatipoplatos')
-  }
+  };
 
-  //LISTA DE ID DE TIPOS DE PLATOS 
-  public listIdTiPla(): Observable <number[]>{
-    return this.httpClient.get<number[]>(this.URL + 'listaidtipoplatos')
-  }
+  //GUARDAR TIPO PLATO
+  public guardarTipoPlato(tipoPlato: TipoPlato): Observable <any>{
+    return this.httpClient.post<any>(this.URL + 'guardartipoplato', tipoPlato)
+  };
+
+ //ACTUALIZAR TIPO PLATO
+ public actualizarTipoPla(tipoPlato: TipoPlato, idTipoPlato: number): Observable<any>{
+  return this.httpClient.put<any>(this.URL + `actualizartipoplato/${idTipoPlato}`, tipoPlato)
+ }
+
+ //BORRAR TIPO PLATO
+ public borrarTipoPlato(idTipoPlato: string): Observable <any>{
+  return this.httpClient.delete<any>(this.URL + `eliminartipoplatos/${idTipoPlato}`)
+ }
+
 }

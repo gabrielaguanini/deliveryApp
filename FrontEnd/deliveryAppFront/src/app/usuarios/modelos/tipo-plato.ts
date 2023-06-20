@@ -8,4 +8,6 @@ export class TipoPlato {
         this.nombreTipoPlato = nombreTipoPlato;
         this.imgTipoPlato = imgTipoPlato;
     }
+
+    
 }
