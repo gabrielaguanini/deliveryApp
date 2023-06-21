@@ -38,10 +38,8 @@ public class TipoPlatoController {
         TipoPlato tipoPla = new TipoPlato(
         tipoPlato.getIdTipoPlato(),
      tipoPlato.getNombreTipoPlato(),
-       tipoPlato.getImgTipoPlato()
-              
-        );
-        
+       tipoPlato.getImgTipoPlato()              
+        );        
     tipoPlaServ.guardarTipoPlato(tipoPla);
         
      return new ResponseEntity(new Mensaje("Tipo de plato guardado"), HttpStatus.OK);  

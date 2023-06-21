@@ -1,8 +1,11 @@
 
 package com.delivery.delivery.Entity.Platos;
 
+import com.sun.istack.NotNull;
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Getter
 @Setter
@@ -21,6 +26,7 @@ public class Platos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long idPlato;
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idTipoPlato")
     //@ElementCollection  
     private TipoPlato tipoPlato;

@@ -21,5 +21,5 @@ public interface IPedidosRepository extends JpaRepository <Pedidos, Long>{
 @Query(value = "UPDATE pedidos , platosamostrar\n" +
 "SET pedidos.precio_plato = platosamostrar.precio_plato, pedidos.total_pedido = pedidos.porcion_plato * pedidos.precio_plato\n" +
 "WHERE id_pedido > 0", nativeQuery = true)
-   public void updatePedidos();
+   public void updatePedidos(); 
 }

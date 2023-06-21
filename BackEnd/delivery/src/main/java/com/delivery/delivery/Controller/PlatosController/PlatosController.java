@@ -1,12 +1,10 @@
 package com.delivery.delivery.Controller.PlatosController;
 
 import com.delivery.delivery.Entity.Platos.Platos;
-import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.Platos.PlatosService;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController 
 @CrossOrigin(origins = "http://localhost:4200")
 public class PlatosController {
 
@@ -28,10 +26,10 @@ public class PlatosController {
     
     
 //LISTA TODOS LOS PLATOS
-    @GetMapping("/listaplatos")
-    public ResponseEntity<List<Platos>> listaPlatos() {
-        List<Platos> listaPlatos = plaServ.listaPlatos();
-        return new ResponseEntity(listaPlatos, HttpStatus.OK);
+    @GetMapping("/listadeplatos") 
+    public ResponseEntity<List<Platos>> listaDePlatos() {
+        List<Platos> listaDePlatos = plaServ.listaDePlatos();
+        return new ResponseEntity(listaDePlatos, HttpStatus.OK);
     }
     
     
@@ -62,7 +60,7 @@ public class PlatosController {
     };
     
     
-//BORRAR PLATOS  
+//ACTUALIZAR PLATOS  
 
     @PutMapping("/actualizarplato/{idPlato}")
     public ResponseEntity <?> actualizarPlato(@RequestBody Platos platos, @PathVariable Long idPlato){
@@ -85,3 +83,7 @@ public class PlatosController {
         return new ResponseEntity(new Mensaje("Plato eliminado"), HttpStatus.OK);
     }
 }
+
+
+
+

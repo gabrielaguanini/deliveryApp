@@ -1,1 +1,1 @@
-VER PORQUE O COMO CAMBIAR, CUANDO AGREGO ALGUN PLATO, LOS DATOS DE LOS INPUT QUEDAN AHI Y NO SE BORRAN
+back, ver porque no funcionan las listas generales cuyas entidades tienen la anotation @manytoone

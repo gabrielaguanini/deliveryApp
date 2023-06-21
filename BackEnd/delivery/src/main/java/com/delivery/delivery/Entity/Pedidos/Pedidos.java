@@ -2,11 +2,8 @@
 package com.delivery.delivery.Entity.Pedidos;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.sql.Date;
 import java.sql.Time;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +13,8 @@ import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Getter
 @Setter
@@ -27,8 +26,9 @@ public class Pedidos {
     private Long idPedido;
     
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idPlatosAMostrar")
-    @ElementCollection
+    //@ElementCollection
     //@JsonIgnore
     private PlatosAMostrar platosAMostrar; 
     private Double precioPlato;

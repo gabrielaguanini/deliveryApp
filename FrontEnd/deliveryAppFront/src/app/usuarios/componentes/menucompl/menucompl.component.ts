@@ -91,6 +91,8 @@ export class MenucomplComponent {
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       alert("Plato guardado");
+      this.nombrePlato = "";
+      this.precioPlato = 0;
     }, err => {
       alert("No se guardó el plato");
     });

@@ -2,7 +2,6 @@
 package com.delivery.delivery.Service.Platos;
 
 import com.delivery.delivery.Entity.Platos.Platos;
-import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +16,7 @@ public class PlatosService {
       IPlatosRepository iPlatosRepo;
       
  
-    public List <Platos> listaPlatos(){
+    public List <Platos> listaDePlatos(){
         return iPlatosRepo.findAll();
     }
     

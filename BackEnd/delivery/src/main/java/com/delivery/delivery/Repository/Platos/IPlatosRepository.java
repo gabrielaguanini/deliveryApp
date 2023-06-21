@@ -16,8 +16,10 @@ public interface IPlatosRepository extends JpaRepository <Platos, Long>{
   //@Query(value="UPDATE platos SET id_secundario = concat(id_plato, '-', tipo_plato) WHERE id_plato > 1", nativeQuery = true)
   // public void  executeQuery();
 
-   public List<Platos> findAllBytipoPlato_IdTipoPlato(Long idTipoPlato);
+  public List<Platos> findAllBytipoPlato_IdTipoPlato(Long idTipoPlato);
+  
+   
+   }
    
   
-    
-}
+  
