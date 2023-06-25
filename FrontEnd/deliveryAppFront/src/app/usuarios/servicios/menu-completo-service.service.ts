@@ -27,11 +27,11 @@ export class MenuCompletoServiceService {
   }
 
   public actualizarPlato(id:number, menuCompletoModel:MenuCompletoModel): Observable<any>{
-    return this.httpClient.put<any>(this.URL + `actualizarhabilidad/${id}`, menuCompletoModel);
+    return this.httpClient.put<any>(this.URL + `actualizarplato/${id}`, menuCompletoModel);
   }
 
-  public borrarPlato(idPlato:number): Observable<any>{
-    return this.httpClient.delete<any>(this.URL + `borrarhabilidad/${idPlato}`);
+  public borrarPlato(idPlato:number, idTipoPlato:number): Observable<any>{
+    return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
   }
   
 }

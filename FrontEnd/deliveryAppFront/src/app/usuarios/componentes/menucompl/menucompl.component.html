@@ -65,20 +65,7 @@
                             </form>
                         </div>
                     </div>
-
-                    <div>
-                        <div class="row p-1">
-                            <div class="col-4">
-                                <p></p>
-                            </div>
-                            <div class="col-4">
-                                <p></p>
-                            </div>
-                            <div class="col-4">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
+                   <br>
                 </div>
             </ng-template>
 
@@ -100,17 +87,30 @@
                     </div>
                     <div *ngFor="let MenuCompletoModel of menuCompModel">
                         <div class="row p-1">
-                            <div class="col-4">
+                            <div class="col-3">
                                 <p>{{MenuCompletoModel.nombrePlato}}</p>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
                                 <p>${{MenuCompletoModel.precioPlato}}</p>
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
                                 <p>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</p>
                             </div>
+
+                            <div class="col-3 text-center">
+                                <!-- Boton editar-->
+                                <button class="btn btn-outline-light btn-sm" (click)="openModalEditarMenuComp(templateEditarMenuComp)">
+                                    <i class="far fa-edit"></i> </button>
+                               <!-- Boton borrar-->
+                                <button class="btn btn-outline-light btn-sm" (click)="borrarPlato(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
+                                    <i class="far fa-trash-alt"></i></button>
+                            </div>
+                            <br>
+                            <hr>
+
+
                         </div>
                     </div>
                 </div>
@@ -118,6 +118,59 @@
         </div>
     </div>
 </div>
+
+
+<!-- MODAL EDITAR LA LISTA DE PLATOS-->
+
+<ng-template #templateEditarMenuComp>
+    <div class="container-fluid modal-menu">
+        <div class="row">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR</h4>
+                <div class="card-icon card-icon-large">
+                    <i class=""></i>
+                </div>
+                <button type="button" class="btn btn-outline-light btn-sm"
+                    (click)="modalEditarMenuComp.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="row">
+                <form (ngSubmit)="editarPlato()" novalidate #f="ngForm">
+                    <div class="form-group, col-12 pt-3 pb-3">
+                        <label for="idTipoPlato">ID TIPO PLATO </label>
+                        <input type="number" class="form-control" id="idTipoPlato" name="idTipoPlato">
+                    </div>
+                    <div class="form-group, col-12 pb-3">
+                        <label for="nombrePlato">NOMBRE DEL PLATO</label>
+                        <input type="text" class="form-control" id="nombrePlato" name="nombrePlato">
+                       
+                    </div>
+                    <div class="form-group, col-12 pb-3">
+                        <label for="precioPlato">PRECIO DEL PLATO</label>
+                        <input type="text" class="form-control" id="precioPlato" name="precioPlato">
+                            
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <button class="btn btn-outline-light">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+       <br>
+    </div>
+
+</ng-template>
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model'
 import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-completo-service.service';
 import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-menucompl',
@@ -22,6 +23,12 @@ export class MenucomplComponent {
   /////////////////////////////
 
   modalAgregarTiPla!: BsModalRef;
+
+  //MODAL EDITAR PLATO
+  /////////////////////////////
+
+  modalEditarMenuComp!: BsModalRef;
+
 
 
   //LISTAS
@@ -43,7 +50,7 @@ export class MenucomplComponent {
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
     private tipoPlaServ: TiposPlatosService,
-
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -68,6 +75,14 @@ export class MenucomplComponent {
     this.idTipoPla = idTipoPlato;
     this.modalAgregarTiPla = this.modalService.show(templateAgregarTipoPlato);
   }
+  
+  //MODAL EDITAR PLATO
+  //////////////////////
+
+  openModalEditarMenuComp(templateEditarMenuComp: TemplateRef<any>) {
+    this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp);
+  }
+
 
 
   //LISTAS
@@ -98,5 +113,19 @@ export class MenucomplComponent {
     });
   }
 
+  //BORRAR PLATO
+  ///////////////////////////////////
+  borrarPlato(idPlato:number, idTipoPla:number):void{
+  if(idPlato!= undefined){
+   this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
+    alert("Plato eliminado");
+    this.mostrarListaTipoPlato(this.idTipoPla);
+   }, err => alert("No se eliminó el plato"))
+  }
+  };
 
+  //EDITAR PLATO
+  ///////////////////////////////////
+  
+  editarPlato(){};
 }
