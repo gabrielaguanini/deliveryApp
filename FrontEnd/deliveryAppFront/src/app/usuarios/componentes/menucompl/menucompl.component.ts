@@ -22,7 +22,7 @@ export class MenucomplComponent {
   //MODAL AGREGAR PLATO
   /////////////////////////////
 
-  modalAgregarTiPla!: BsModalRef;
+  modalAgregarPla!: BsModalRef;
 
   //MODAL EDITAR PLATO
   /////////////////////////////
@@ -43,8 +43,15 @@ export class MenucomplComponent {
   idPlato!: number;
   tipoPlato!: TipoPlato;
   nombrePlato!: string;
-  precioPlato!: number;
+  precioPlato!: any;
   idTipoPla!: number;
+
+  //EDITAR PLATO
+  ///////////////////////////////////
+  menuCompMod!: MenuCompletoModel;
+  idPla: any = {idPl:""};
+  nombrePla: any = {nombrePla:""};
+  precioPla: any = {precioPla:""};
 
 
   constructor(private modalService: BsModalService,
@@ -56,6 +63,7 @@ export class MenucomplComponent {
   ngOnInit(): void {
 
     this.listTipPla();
+    this.obtenerPlaXId(this.idPlato, this.nombrePlato, this.precioPlato);
 
   }
 
@@ -71,18 +79,17 @@ export class MenucomplComponent {
   //MODAL AGREGAR PLATO
   //////////////////////////
 
-  openModalAgregarTiPl(templateAgregarTipoPlato: TemplateRef<any>, idTipoPlato: number) {
+  openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {
     this.idTipoPla = idTipoPlato;
-    this.modalAgregarTiPla = this.modalService.show(templateAgregarTipoPlato);
+    this.modalAgregarPla = this.modalService.show(templateAgregarPlato, { ignoreBackdropClick: true });
   }
-  
+
   //MODAL EDITAR PLATO
   //////////////////////
 
   openModalEditarMenuComp(templateEditarMenuComp: TemplateRef<any>) {
     this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp);
   }
-
 
 
   //LISTAS
@@ -107,7 +114,7 @@ export class MenucomplComponent {
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       alert("Plato guardado");
       this.nombrePlato = "";
-      this.precioPlato = 0;
+      this.precioPlato = "";
     }, err => {
       alert("No se guardó el plato");
     });
@@ -120,12 +127,36 @@ export class MenucomplComponent {
    this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
     alert("Plato eliminado");
     this.mostrarListaTipoPlato(this.idTipoPla);
-   }, err => alert("No se eliminó el plato"))
+   }, err => console.log("No se pueden traer los registros de la db para editar"))
   }
   };
 
   //EDITAR PLATO
   ///////////////////////////////////
   
-  editarPlato(){};
+  obtenerPlaXId(idPlato:number, nombrePlato:string, precioPlato:number):void{
+   this.idPla = idPlato;
+   this.nombrePla = nombrePlato;
+   this.precioPla = precioPlato;
+  };
+
+  editarPlato(idPlato:number, menuCompletoModel:MenuCompletoModel){
+   this.menucomServ.actualizarPlato(this.idPla, this.menuCompMod).subscribe( data =>
+    {this.mostrarListaTipoPlato(this.idTipoPla);})
+  };
+
+
+
+
+
+
+//FUNCIONES VARIAS
+///////////////////////////////////
+ borrarInputs(): void{
+  this.nombrePlato = "";
+  this.precioPlato = 0;
+ }
 }
+
+
+

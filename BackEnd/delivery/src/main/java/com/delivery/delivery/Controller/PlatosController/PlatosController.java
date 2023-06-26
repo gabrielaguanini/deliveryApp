@@ -82,6 +82,13 @@ public class PlatosController {
         plaServ.borrarPlato(idPlato);
         return new ResponseEntity(new Mensaje("Plato eliminado"), HttpStatus.OK);
     }
+    
+//OBTNER 1 PLATO POR ID    
+    @GetMapping("/obtenerplatoxid/{idPlato}")
+    public ResponseEntity<Platos> obtPlatoXId(@PathVariable("idPlato") Long idPlato) {
+        Platos pla = plaServ.getOne(idPlato).get();
+        return new ResponseEntity(pla, HttpStatus.OK);
+    }
 }
 
 

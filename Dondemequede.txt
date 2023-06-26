@@ -1,1 +1,1 @@
-back, ver porque no funcionan las listas generales cuyas entidades tienen la anotation @manytoone
+no funciona editarPLatos, ver eso
