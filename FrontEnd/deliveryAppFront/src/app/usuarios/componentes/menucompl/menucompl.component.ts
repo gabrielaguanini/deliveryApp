@@ -37,21 +37,19 @@ export class MenucomplComponent {
   menuCompModel: MenuCompletoModel[] = [];
   tiposPlatosModel: TipoPlato[] = [];
 
-  //CREAR PLATO
+  //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
-
+  
+  menuCompMod!: MenuCompletoModel;
   idPlato!: number;
   tipoPlato!: TipoPlato;
   nombrePlato!: string;
   precioPlato!: any;
   idTipoPla!: number;
 
-  //EDITAR PLATO
-  ///////////////////////////////////
-  menuCompMod!: MenuCompletoModel;
-  idPla: any = {idPl:""};
-  nombrePla: any = {nombrePla:""};
-  precioPla: any = {precioPla:""};
+ 
+ 
+
 
 
   constructor(private modalService: BsModalService,
@@ -62,8 +60,7 @@ export class MenucomplComponent {
 
   ngOnInit(): void {
 
-    this.listTipPla();
-    this.obtenerPlaXId(this.idPlato, this.nombrePlato, this.precioPlato);
+    this.listTipPla();   
 
   }
 
@@ -127,24 +124,35 @@ export class MenucomplComponent {
    this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
     alert("Plato eliminado");
     this.mostrarListaTipoPlato(this.idTipoPla);
-   }, err => console.log("No se pueden traer los registros de la db para editar"))
+   }, err => console.log("No se pueden traer los registros de la db para borrar"))
   }
   };
 
   //EDITAR PLATO
   ///////////////////////////////////
   
-  obtenerPlaXId(idPlato:number, nombrePlato:string, precioPlato:number):void{
-   this.idPla = idPlato;
-   this.nombrePla = nombrePlato;
-   this.precioPla = precioPlato;
+  obtenerPlaXId(idPlato:number, nombrePlato:string, precioPlato:number, idTipoPlato:number):void{
+   this.idPlato = idPlato;
+   this.nombrePlato = nombrePlato;
+   this.precioPlato = precioPlato;
+   this.idTipoPla = idTipoPlato;
   };
 
-  editarPlato(idPlato:number, menuCompletoModel:MenuCompletoModel){
-   this.menucomServ.actualizarPlato(this.idPla, this.menuCompMod).subscribe( data =>
-    {this.mostrarListaTipoPlato(this.idTipoPla);})
-  };
+  editarPlato(): void {
+  
 
+    const tipoPlato = new TipoPlato(this.idTipoPla,"", "");
+
+    const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato);
+    this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
+      alert("Plato editado");
+      this.nombrePlato = "";
+      this.precioPlato = "";
+      this.mostrarListaTipoPlato(this.idTipoPla);
+    }, err => {
+      alert("No se editó el plato");
+    });
+  }
 
 
 

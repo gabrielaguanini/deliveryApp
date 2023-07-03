@@ -106,7 +106,7 @@
                                 <!-- Boton editar-->
                                 <!-- Este boton abre el modal #templateEditarMenuComp y cierra el modal #templateMenuComp (se programó asi-->
                                 <!-- porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
-                                <button class="btn btn-outline-light btn-sm" (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato); modalMenuComp.hide()">
+                                <button class="btn btn-outline-light btn-sm" (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato); modalMenuComp.hide()">
                                     <i class="far fa-edit"></i> </button>
                                <!-- Boton borrar-->
                                 <button class="btn btn-outline-light btn-sm" (click)="borrarPlato(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
@@ -139,22 +139,32 @@
                                     </div>
                         
                                     <div class="row">
-                                        <form (ngSubmit)="editarPlato(MenuCompletoModel.idPlato, MenuCompletoModel)" novalidate #f="ngForm">
+                                        <form (ngSubmit)="editarPlato(); modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp)" novalidate #f="ngForm">
+
+                                               
+                                            <div class="form-group, col-12 pt-3 pb-3">
+                                                <label for="idTipoPlato">ID TIPO PLATO </label>
+                                                <input type="number" class="form-control" id="idTipoPlato" name="idTipoPlato"
+                                                [(ngModel)]="idTipoPla" required>
+                                            </div>
+
+
+
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idPlato">ID PLATO </label>
                                                 <input type="number" class="form-control" id="idPlato" name="idPlato"
-                                                [(ngModel)]="idPla" required>
+                                                [(ngModel)]="idPlato" required>
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                 <input type="text" class="form-control" id="nombrePlato" name="nombrePlato"
-                                                [(ngModel)]="nombrePla" required>
+                                                [(ngModel)]="nombrePlato" required>
                                                
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="precioPlato">PRECIO DEL PLATO</label>
                                                 <input type="text" class="form-control" id="precioPlato" name="precioPlato"
-                                                [(ngModel)]="precioPla" required>
+                                                [(ngModel)]="precioPlato" required>
                                                     
                                             </div>
                                             <br>

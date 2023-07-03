@@ -32,16 +32,14 @@ public class PlatosService {
     
   
     public void guardarPlato(Platos plato){
-        iPlatosRepo.save(plato);
-        
-      
+        iPlatosRepo.save(plato);     
     }
     
    // public void executeQuery(){
    //    iPlatosRepo.executeQuery();
    // }
-    
-   
+       
+
 
     public void borrarPlato(Long idPlato){
         iPlatosRepo.deleteById(idPlato);
