@@ -23,13 +23,18 @@ URL = 'http://localhost:8080/';
   };
 
  //ACTUALIZAR TIPO PLATO
- public actualizarTipoPla(tipoPlato: TipoPlato, idTipoPlato: number): Observable<any>{
+ public actualizarTipoPla(idTipoPlato: number, tipoPlato: TipoPlato): Observable<any>{
   return this.httpClient.put<any>(this.URL + `actualizartipoplato/${idTipoPlato}`, tipoPlato)
  }
 
  //BORRAR TIPO PLATO
- public borrarTipoPlato(idTipoPlato: string): Observable <any>{
+ public borrarTipoPlato(idTipoPlato: number): Observable <any>{
   return this.httpClient.delete<any>(this.URL + `eliminartipoplatos/${idTipoPlato}`)
+ }
+ 
+ //OBTENER TIPO PLATO POR ID
+ public obtenerTipoPlatoXId(idTipoPlato: number): Observable <TipoPlato>{
+  return this.httpClient.get<TipoPlato>(this.URL + `obtenertiplaxid/${idTipoPlato}`)
  }
 
 }

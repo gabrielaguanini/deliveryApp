@@ -28,8 +28,7 @@ public class TipoPlatoController {
     public ResponseEntity<List<TipoPlato>> listaTipoPlato() {
         List<TipoPlato> listaTipoPlato = tipoPlaServ.listaTipoPlato();
         return new ResponseEntity(listaTipoPlato, HttpStatus.OK);
-    }
-    
+    };
  
     
    //AGREGAR TIPO PLATO     
@@ -43,14 +42,14 @@ public class TipoPlatoController {
     tipoPlaServ.guardarTipoPlato(tipoPla);
         
      return new ResponseEntity(new Mensaje("Tipo de plato guardado"), HttpStatus.OK);  
-    }
+    };
     
     //BORRAR TIPO DE PLATO
     @DeleteMapping("/eliminartipoplatos/{idTipoPlato}")
     public ResponseEntity borrarTipoPlato(@PathVariable Long idTipoPlato) {
         tipoPlaServ.borrarTipoPlato(idTipoPlato);
         return new ResponseEntity(new Mensaje("Tipo de plato eliminado"), HttpStatus.OK);
-    }
+    };
     
     //ACTUALIZAR TIPO DE PLATO
     
@@ -61,7 +60,15 @@ public class TipoPlatoController {
         tipPla.setImgTipoPlato(tipoPlato.getImgTipoPlato());
         tipoPlaServ.guardarTipoPlato(tipPla);
         return new ResponseEntity(new Mensaje("Tipo de plato actualizado"), HttpStatus.OK);
-    }
+    };
+    
+    //OBTENER PLATO POR ID
+    
+    @GetMapping("/obtenertiplaxid/{idTipoPlato}")
+    public ResponseEntity<TipoPlato> obtenerTipoPlatoXId(@PathVariable Long idTipoPlato){
+        TipoPlato tipoPl = tipoPlaServ.getOne(idTipoPlato).get();
+        return new ResponseEntity(tipoPl, HttpStatus.OK);
+    };
     
 }
     

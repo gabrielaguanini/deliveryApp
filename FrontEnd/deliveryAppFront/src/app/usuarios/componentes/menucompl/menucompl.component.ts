@@ -29,6 +29,15 @@ export class MenucomplComponent {
 
   modalEditarMenuComp!: BsModalRef;
 
+  //MODAL AGREGAR TIPO DE PLATO
+  //////////////////////////////
+
+  modalAgregarTipoPlato!: BsModalRef;
+
+  //MODAL AGREGAR TIPO DE PLATO
+  //////////////////////////////
+
+  modalEditarTipoPlato!: BsModalRef;
 
 
   //LISTAS
@@ -46,6 +55,13 @@ export class MenucomplComponent {
   nombrePlato!: string;
   precioPlato!: any;
   idTipoPla!: number;
+
+  //CREAR Y EDITAR TIPO DE PLATO
+  ///////////////////////////////
+
+  idTipoPlato!:number;
+  nombreTipoPlato! : string;
+  imgTipoPlato!: string;
 
  
  
@@ -87,6 +103,22 @@ export class MenucomplComponent {
   openModalEditarMenuComp(templateEditarMenuComp: TemplateRef<any>) {
     this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp);
   }
+
+  //MODAL AGREGAR TIPO PLATO
+  //////////////////////
+
+  openModalAgregarTipoPlato(templateAgregarTipoPlato: TemplateRef<any>) {
+      this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato);
+  }
+
+  //MODAL AGREGAR TIPO PLATO
+  //////////////////////
+
+  openModalEditarTipoPlato(templateEditarTipoPlato: TemplateRef<any>) {
+    this.borrarInputs();
+    this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato);
+}
+
 
 
   //LISTAS
@@ -155,6 +187,54 @@ export class MenucomplComponent {
   }
 
 
+//CREAR TIPO DE PLATO
+///////////////////////
+
+onCreateTipoPla(): void {
+
+ const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+ this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {alert("Tipo de plato guardado");
+ this.listTipPla()},
+ err => {alert("No se creo el tipo de plato")})
+};
+
+//BORRAR TIOPO DE PLATO
+/////////////////////////
+
+borrarTipoPlato(idTipoPlato:number){
+  if(idTipoPlato != undefined){
+    this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {alert("Tipo de plato eliminado");
+    this.listTipPla()},
+   err => {alert("no se pudo eliminar el tipo de plato")})
+  }
+};
+
+
+//EDITAR TIPO DE PLATO
+/////////////////////////
+
+obtenerTipoPlaXId(idTipoPla:number, nombreTipoPla:string, imgTipoPla:string):void{
+  this.idTipoPlato = idTipoPla;
+  this.nombreTipoPlato = nombreTipoPla;
+  this.imgTipoPlato = imgTipoPla;
+ };
+
+editarTipoPlato(){
+
+  const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+  this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe( data =>{
+   alert("Tipo de plato editado");
+   this.nombreTipoPlato = "";
+   this.imgTipoPlato = "";
+  this.mostrarListaTipoPlato(this.idTipoPla);
+  }, err =>{
+    alert("No se pudo editar el tipo de plato")
+  })
+};
+
+
+
+
 
 
 
@@ -163,6 +243,11 @@ export class MenucomplComponent {
  borrarInputs(): void{
   this.nombrePlato = "";
   this.precioPlato = 0;
+
+  
+  this.nombreTipoPlato = "";
+  this.imgTipoPlato= "";
+
  }
 }
 

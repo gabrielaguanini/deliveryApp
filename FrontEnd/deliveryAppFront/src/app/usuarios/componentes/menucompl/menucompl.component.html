@@ -1,4 +1,4 @@
-<!-- TARJETA  -->
+<!-- TARJETAS  -->
 
 <div class="container-fluid">
     <div class="row">
@@ -17,14 +17,14 @@
                         (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA
                         {{TipoPlato.nombreTipoPlato}}</button>
                     <!-- este boton abre el modal templateAgregarPlato y envia al input con id="idTipoPlato" del formulario-->
-                    <!-- de este modal el id del tipo de plato para solo agregar platos que correspondal al idTipoPlato de la card seleccionada-->    
+                    <!-- de este modal el id del tipo de plato para solo agregar platos que correspondal al idTipoPlato de la card seleccionada-->
                     <button type="button" class="btn btn-outline-light btn-sm"
-                    (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato)">AGREGAR</button>
+                        (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato)">AGREGAR</button>
                 </div>
             </div>
 
 
-            <!-- MODAL AGREGAR PLATO -->  
+            <!-- MODAL AGREGAR PLATO -->
 
             <ng-template #templateAgregarPlato>
                 <div class="container-fluid modal-menu">
@@ -68,11 +68,9 @@
                             </form>
                         </div>
                     </div>
-                   <br>
+                    <br>
                 </div>
             </ng-template>
-
-
 
 
             <!-- MODAL QUE MUESTRA LA LISTA DE PLATOS-->
@@ -106,10 +104,12 @@
                                 <!-- Boton editar-->
                                 <!-- Este boton abre el modal #templateEditarMenuComp y cierra el modal #templateMenuComp (se programó asi-->
                                 <!-- porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
-                                <button class="btn btn-outline-light btn-sm" (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato); modalMenuComp.hide()">
+                                <button class="btn btn-outline-light btn-sm"
+                                    (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato); modalMenuComp.hide()">
                                     <i class="far fa-edit"></i> </button>
-                               <!-- Boton borrar-->
-                                <button class="btn btn-outline-light btn-sm" (click)="borrarPlato(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
+                                <!-- Boton borrar-->
+                                <button class="btn btn-outline-light btn-sm"
+                                    (click)="borrarPlato(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
                                     <i class="far fa-trash-alt"></i></button>
                             </div>
                             <br>
@@ -118,9 +118,7 @@
 
 
 
-
-
-                      <!-- MODAL EDITAR LA LISTA DE PLATOS-->
+                        <!-- MODAL EDITAR LA LISTA DE PLATOS-->
 
                         <ng-template #templateEditarMenuComp>
                             <div class="container-fluid modal-menu">
@@ -137,35 +135,31 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                        
                                     <div class="row">
-                                        <form (ngSubmit)="editarPlato(); modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp)" novalidate #f="ngForm">
-
-                                               
+                                        <form
+                                            (ngSubmit)="editarPlato(); modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp)"
+                                            novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idTipoPlato">ID TIPO PLATO </label>
-                                                <input type="number" class="form-control" id="idTipoPlato" name="idTipoPlato"
-                                                [(ngModel)]="idTipoPla" required>
+                                                <input type="number" class="form-control" id="idTipoPlato"
+                                                    name="idTipoPlato" [(ngModel)]="idTipoPla" required>
                                             </div>
-
-
-
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idPlato">ID PLATO </label>
                                                 <input type="number" class="form-control" id="idPlato" name="idPlato"
-                                                [(ngModel)]="idPlato" required>
+                                                    [(ngModel)]="idPlato" required>
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
-                                                <input type="text" class="form-control" id="nombrePlato" name="nombrePlato"
-                                                [(ngModel)]="nombrePlato" required>
-                                               
+                                                <input type="text" class="form-control" id="nombrePlato"
+                                                    name="nombrePlato" [(ngModel)]="nombrePlato" required>
+
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="precioPlato">PRECIO DEL PLATO</label>
-                                                <input type="text" class="form-control" id="precioPlato" name="precioPlato"
-                                                [(ngModel)]="precioPlato" required>
-                                                    
+                                                <input type="text" class="form-control" id="precioPlato"
+                                                    name="precioPlato" [(ngModel)]="precioPlato" required>
+
                                             </div>
                                             <br>
                                             <div class="row">
@@ -178,21 +172,9 @@
                                         </form>
                                     </div>
                                 </div>
-                               <br>
+                                <br>
                             </div>
-                        
                         </ng-template>
-
-
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
             </ng-template>
@@ -201,22 +183,150 @@
 </div>
 
 
+<!-- TARJETA QUE MUESTRA LISTA DE LOS TIPOS DE PLATOS -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <div class="card p-4">
+                <div class="card-icon card-icon-large">
+                    <i class=></i>
+                </div>
+                <div class="mb-1">
+                    <h5 class="card-title pb-3">LISTA TIPO PLATOS</h5>
+                    <div class="button-divisor pb-4">
+                        <button type="button" class="btn btn-outline-light btn-sm"
+                            (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato)">
+                            AGREGAR TIPO DE PLATO
+                        </button>
+                    </div>
+                    <div class="row" *ngFor="let TipoPlato of tiposPlatosModel">
+                        <div class="col-4">
+                            <p>{{TipoPlato.nombreTipoPlato}}</p>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-outline-light btn-sm"
+                                (click)="borrarTipoPlato(TipoPlato.idTipoPlato)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            <button class="btn btn-outline-light btn-sm"
+                               (click)="openModalEditarTipoPlato(templateEditarTipoPlato); obtenerTipoPlaXId(TipoPlato.idTipoPlato, TipoPlato.nombreTipoPlato, TipoPlato.imgTipoPlato)">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- MODAL AGREGAR TIPOS DE PLATOS-->
+
+    <ng-template #templateAgregarTipoPlato>
+        <div class="container-fluid modal-menu">
+            <div class="row">
+                <div class="modal-header">
+                    <h4 class="modal-title pb-4">AGREGAR TIPO DE PLATO</h4>
+                    <div class="card-icon card-icon-large">
+                        <i class=""></i>
+                    </div>
+                    <button type="button" class="btn btn-outline-light btn-sm" (click)="modalAgregarTipoPlato.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <form (ngSubmit)="onCreateTipoPla()" novalidate #f="ngForm">
+                        <div class="form-group, col-12 pb-3 pt-3">
+                            <label for="nombreTipoPlato">NOMBRE DEL TIPO DE PLATO</label>
+                            <input type="text" class="form-control" id="nombreTipoPlato" name="nombreTipoPlato"
+                                [(ngModel)]="nombreTipoPlato" required>
+                        </div>
+                        <div class="form-group, col-12 pb-3 pt-3">
+                            <label for="imgTipoPlato">IMAGEN DEL TIPO DE PLATO</label>
+                            <input type="text" class="form-control" id="imgTipoPlato" name="imgTipoPlato"
+                                [(ngModel)]="imgTipoPlato" required>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-4">
+                                <button class="btn btn-outline-light">
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+        </div>
+    </ng-template>
+
+    <!-- MODAL EDITAR TIPOS DE PLATOS-->
+
+    <ng-template #templateEditarTipoPlato>
+        <div class="container-fluid modal-menu">
+            <div class="row">
+                <div class="modal-header">
+                    <h4 class="modal-title">EDITAR</h4>
+                    <div class="card-icon card-icon-large">
+                        <i class=""></i>
+                    </div>
+                    <!-- Este boton cierra el modal #templateEditarMenuComp y vuelve a abrir la lista de platos-->
+                    <!--(se programó asi porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
+                    <button type="button" class="btn btn-outline-light btn-sm"
+                        (click)="modalEditarTipoPlato.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <form
+                        (ngSubmit)="editarTipoPlato(); modalEditarTipoPlato.hide(); openModalEditarTipoPlato(templateEditarTipoPlato)"
+                        novalidate #f="ngForm">
+                        <div class="form-group, col-12 pt-3 pb-3">
+                            <label for="idTipoPlato">ID TIPO PLATO </label>
+                            <input type="number" class="form-control" id="idTipoPlato"
+                                name="idTipoPlato" [(ngModel)]="idTipoPlato" required>
+                        </div>
+                        <div class="form-group, col-12 pb-3">
+                            <label for="nombreTipoPlato">NOMBRE TIPO PLATO</label>
+                            <input type="text" class="form-control" id="nombreTipoPlato"
+                                name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
+
+                        </div>
+                        <div class="form-group, col-12 pb-3">
+                            <label for="imgTipoPlato">ICONO DEL TIPO DE PLATO</label>
+                            <input type="text" class="form-control" id="imgTipoPlato"
+                                name="imgTipoPlato" [(ngModel)]="imgTipoPlato" required>
+
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-4">
+                                <button class="btn btn-outline-light">
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+        </div>     
+    </ng-template>
 
 
-
-
-
-
-
-
-
-
-
+</div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
     integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+
+
+
+
+
+
 
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 <!-- TARJETA  -->
@@ -244,15 +354,15 @@
 <!-- MODAL AGREGAR PLATO  -->
 <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL QUE MUESTRA LA LISTA -->
 <!-- Dentro del modal #templateAgregarPlato hay un formulario con 3 input, el formulario responde a la funcion onCreate()   -->
-<!-- los 3 input responden a las variables "idTipoPla" "nombrePlato" y "precioPlato". "idTipoPla" se pasa a su input con la --> 
+<!-- los 3 input responden a las variables "idTipoPla" "nombrePlato" y "precioPlato". "idTipoPla" se pasa a su input con la -->
 <!-- openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {this.idTipoPla = idTipoPlato;         -->
-<!--    this.modalAgregarPla = this.modalService.show(templateAgregarPlato);}  -->  
+<!--    this.modalAgregarPla = this.modalService.show(templateAgregarPlato);}  -->
 
 
 <!-- MODAL EDITAR PLATO -->
 <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL EL RESTO DE LOS MODALES -->
 <!-- Dentro del modal #templateEditarMenuComp hay un formulario que responde a la funcion editarPlato() con 3 input-->
-<!--  que corresponden a las variables "idPla","nombrePla" y "precioPla", a estos input se les pasa el valor con la -->
+<!--  que corresponden a las variables "idPlato","nombrePlato" y "precioPlato", a estos input se les pasa el valor con la -->
 <!-- funcion obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato); -->
 <!--  que se encuentra en el button editar de la lista (tiene un icono, no nombre esta etiqueta) -->
 <!--   -->
