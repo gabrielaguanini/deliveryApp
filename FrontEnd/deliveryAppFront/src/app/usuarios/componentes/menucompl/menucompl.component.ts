@@ -48,7 +48,7 @@ export class MenucomplComponent {
 
   //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
-  
+
   menuCompMod!: MenuCompletoModel;
   idPlato!: number;
   tipoPlato!: TipoPlato;
@@ -59,13 +59,9 @@ export class MenucomplComponent {
   //CREAR Y EDITAR TIPO DE PLATO
   ///////////////////////////////
 
-  idTipoPlato!:number;
-  nombreTipoPlato! : string;
+  idTipoPlato!: number;
+  nombreTipoPlato!: string;
   imgTipoPlato!: string;
-
- 
- 
-
 
 
   constructor(private modalService: BsModalService,
@@ -76,7 +72,7 @@ export class MenucomplComponent {
 
   ngOnInit(): void {
 
-    this.listTipPla();   
+    this.listTipPla();
 
   }
 
@@ -108,16 +104,15 @@ export class MenucomplComponent {
   //////////////////////
 
   openModalAgregarTipoPlato(templateAgregarTipoPlato: TemplateRef<any>) {
-      this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato);
+    this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato);
   }
 
   //MODAL AGREGAR TIPO PLATO
   //////////////////////
 
   openModalEditarTipoPlato(templateEditarTipoPlato: TemplateRef<any>) {
-    this.borrarInputs();
     this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato);
-}
+  }
 
 
 
@@ -142,8 +137,6 @@ export class MenucomplComponent {
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       alert("Plato guardado");
-      this.nombrePlato = "";
-      this.precioPlato = "";
     }, err => {
       alert("No se guardó el plato");
     });
@@ -151,35 +144,33 @@ export class MenucomplComponent {
 
   //BORRAR PLATO
   ///////////////////////////////////
-  borrarPlato(idPlato:number, idTipoPla:number):void{
-  if(idPlato!= undefined){
-   this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
-    alert("Plato eliminado");
-    this.mostrarListaTipoPlato(this.idTipoPla);
-   }, err => console.log("No se pueden traer los registros de la db para borrar"))
-  }
+  borrarPlato(idPlato: number, idTipoPla: number): void {
+    if (idPlato != undefined) {
+      this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
+        alert("Plato eliminado");
+        this.mostrarListaTipoPlato(this.idTipoPla);
+      }, err => console.log("No se pueden traer los registros de la db para borrar"))
+    }
   };
 
   //EDITAR PLATO
   ///////////////////////////////////
-  
-  obtenerPlaXId(idPlato:number, nombrePlato:string, precioPlato:number, idTipoPlato:number):void{
-   this.idPlato = idPlato;
-   this.nombrePlato = nombrePlato;
-   this.precioPlato = precioPlato;
-   this.idTipoPla = idTipoPlato;
+
+  obtenerPlaXId(idPlato: number, nombrePlato: string, precioPlato: number, idTipoPlato: number): void {
+    this.idPlato = idPlato;
+    this.nombrePlato = nombrePlato;
+    this.precioPlato = precioPlato;
+    this.idTipoPla = idTipoPlato;
   };
 
   editarPlato(): void {
-  
 
-    const tipoPlato = new TipoPlato(this.idTipoPla,"", "");
+
+    const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
 
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato);
     this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
       alert("Plato editado");
-      this.nombrePlato = "";
-      this.precioPlato = "";
       this.mostrarListaTipoPlato(this.idTipoPla);
     }, err => {
       alert("No se editó el plato");
@@ -187,68 +178,84 @@ export class MenucomplComponent {
   }
 
 
-//CREAR TIPO DE PLATO
-///////////////////////
+  //CREAR TIPO DE PLATO
+  ///////////////////////
 
-onCreateTipoPla(): void {
+  onCreateTipoPla(): void {
 
- const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
- this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {alert("Tipo de plato guardado");
- this.listTipPla()},
- err => {alert("No se creo el tipo de plato")})
-};
+    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+    this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {
+      alert("Tipo de plato guardado");
+      this.listTipPla()
+    },
+      err => { alert("No se creo el tipo de plato") })
+  };
 
-//BORRAR TIOPO DE PLATO
-/////////////////////////
+  //BORRAR TIOPO DE PLATO
+  /////////////////////////
 
-borrarTipoPlato(idTipoPlato:number){
-  if(idTipoPlato != undefined){
-    this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {alert("Tipo de plato eliminado");
-    this.listTipPla()},
-   err => {alert("no se pudo eliminar el tipo de plato")})
+  //funcion que elimina el plato sin advertir
+  borrarTipoPlato(idTipoPlato: number) {
+    if (idTipoPlato != undefined) {
+
+      this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {
+        alert("Tipo de plato eliminado");
+        this.listTipPla()
+      },
+        err => { alert("no se pudo eliminar el tipo de plato") })
+    }
+  };
+
+  //funcion que muestra un cartel de warning antes de borrar
+  borrarTiPladvEli(idTipoPlato:number): void{
+    const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
+    if(msjAdvertenciaElim){
+      this.borrarTipoPlato(idTipoPlato);
+    } else {
+      ""
+    };
+  };
+
+
+  //EDITAR TIPO DE PLATO
+  /////////////////////////
+
+  obtenerTipoPlaXId(idTipoPla: number, nombreTipoPla: string, imgTipoPla: string): void {
+    this.idTipoPlato = idTipoPla;
+    this.nombreTipoPlato = nombreTipoPla;
+    this.imgTipoPlato = imgTipoPla;
+  };
+
+  editarTipoPlato() {
+
+    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+    this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
+      alert("Tipo de plato editado");
+    }, err => {
+      alert("No se pudo editar el tipo de plato")
+    })
+  };
+
+
+
+
+
+
+
+  //FUNCIONES VARIAS
+  ///////////////////////////////////
+  borrarInputs(): void {
+    this.nombrePlato = "";
+    this.precioPlato = 0;
+
+
+    this.nombreTipoPlato = "";
+    this.imgTipoPlato = "";
+
   }
-};
 
-
-//EDITAR TIPO DE PLATO
-/////////////////////////
-
-obtenerTipoPlaXId(idTipoPla:number, nombreTipoPla:string, imgTipoPla:string):void{
-  this.idTipoPlato = idTipoPla;
-  this.nombreTipoPlato = nombreTipoPla;
-  this.imgTipoPlato = imgTipoPla;
- };
-
-editarTipoPlato(){
-
-  const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
-  this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe( data =>{
-   alert("Tipo de plato editado");
-   this.nombreTipoPlato = "";
-   this.imgTipoPlato = "";
-  this.mostrarListaTipoPlato(this.idTipoPla);
-  }, err =>{
-    alert("No se pudo editar el tipo de plato")
-  })
-};
-
-
-
-
-
-
-
-//FUNCIONES VARIAS
-///////////////////////////////////
- borrarInputs(): void{
-  this.nombrePlato = "";
-  this.precioPlato = 0;
-
-  
-  this.nombreTipoPlato = "";
-  this.imgTipoPlato= "";
-
- }
+ 
+ 
 }
 
 

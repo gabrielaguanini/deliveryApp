@@ -1,0 +1,29 @@
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Nombre del Restaurante</a>
+      <button class="navbar-toggler" type="button" (click)="toggleCollapse()"
+       [attr.aria-expanded]="isExpanded ? 'true' : 'false'" [attr.aria-controls]="'collapseExample'">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav" [ngClass]="{'collapse': !isExpanded, 'show': isExpanded}">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/menucompleto">Ingresar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Menú</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reservaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br>
+
+ 

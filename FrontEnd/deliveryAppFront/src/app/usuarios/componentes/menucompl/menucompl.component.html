@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <!-- TARJETAS  -->
 
 <div class="container-fluid">
@@ -183,7 +184,7 @@
 </div>
 
 
-<!-- TARJETA QUE MUESTRA LISTA DE LOS TIPOS DE PLATOS -->
+<!-- TARJETA GRANDE QUE MUESTRA LISTA DE LOS TIPOS DE PLATOS -->
 
 <div class="container-fluid">
     <div class="row">
@@ -196,7 +197,7 @@
                     <h5 class="card-title pb-3">LISTA TIPO PLATOS</h5>
                     <div class="button-divisor pb-4">
                         <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato)">
+                            (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato); borrarInputs()">
                             AGREGAR TIPO DE PLATO
                         </button>
                     </div>
@@ -206,7 +207,7 @@
                         </div>
                         <div class="col-4">
                             <button class="btn btn-outline-light btn-sm"
-                                (click)="borrarTipoPlato(TipoPlato.idTipoPlato)">
+                                (click)="borrarTiPladvEli(TipoPlato.idTipoPlato)">
                                 <i class="far fa-trash-alt"></i>
                             </button>
                             <button class="btn btn-outline-light btn-sm"
