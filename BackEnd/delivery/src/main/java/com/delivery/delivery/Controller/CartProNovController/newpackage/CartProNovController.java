@@ -37,7 +37,10 @@ public class CartProNovController {
     public ResponseEntity agregarPromoNov(@RequestBody CarteleraPromocionesNovedades carProNov){
         CarteleraPromocionesNovedades carProNovedades = new CarteleraPromocionesNovedades(
         carProNov.getIdPromo(),
+        carProNov.getImgParaCelOPc(),
+        carProNov.getTituloPromo(),
         carProNov.getTextoPromo(),
+        carProNov.getUrlImagenPromo(),
          carProNov.getFechaPromo()
         );
         carProNovServ.guardarPromo(carProNovedades);
@@ -56,7 +59,10 @@ public class CartProNovController {
     public ResponseEntity <?> actualizarPromoNov(@RequestBody CarteleraPromocionesNovedades carProNov, @PathVariable Long idPromo){
         CarteleraPromocionesNovedades carProNovedades = carProNovServ.getOne(idPromo).get();
         carProNovedades.setIdPromo(carProNov.getIdPromo());
+        carProNovedades.setImgParaCelOPc(carProNov.getImgParaCelOPc());
+        carProNovedades.setTituloPromo(carProNov.getTituloPromo());
         carProNovedades.setTextoPromo(carProNov.getTextoPromo());
+        carProNovedades.setUrlImagenPromo(carProNov.getUrlImagenPromo());
         carProNovedades.setFechaPromo(carProNov.getFechaPromo());
         carProNovServ.guardarPromo(carProNovedades);
          return new ResponseEntity(new Mensaje("Promo/Novedad actualizada"), HttpStatus.OK);

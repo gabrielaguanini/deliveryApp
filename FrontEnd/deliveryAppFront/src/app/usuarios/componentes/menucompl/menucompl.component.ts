@@ -5,6 +5,8 @@ import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-completo-service.service';
 import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
 import { Location } from '@angular/common';
+import { Cartelera } from '../../modelos/cartelera';
+import { CarteleraService } from '../../servicios/cartelera.service';
 
 @Component({
   selector: 'app-menucompl',
@@ -45,6 +47,7 @@ export class MenucomplComponent {
 
   menuCompModel: MenuCompletoModel[] = [];
   tiposPlatosModel: TipoPlato[] = [];
+  promosyNovedadesModel: Cartelera[] = [];
 
   //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
@@ -67,12 +70,14 @@ export class MenucomplComponent {
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
     private tipoPlaServ: TiposPlatosService,
-    private location: Location
+    private location: Location,
+    private cartServ: CarteleraService,
   ) { }
 
   ngOnInit(): void {
 
     this.listTipPla();
+    this.listaPromoNovedad();
 
   }
 
@@ -121,12 +126,15 @@ export class MenucomplComponent {
 
   mostrarListaTipoPlato(idTipoPlato: number): void {
     this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
-
-  }
+  };
 
   listTipPla(): void {
     this.tipoPlaServ.listTiposPlatos().subscribe(data => this.tiposPlatosModel = data);
-  }
+  };
+
+  listaPromoNovedad():void {
+    this.cartServ.listPromosNov().subscribe(data => this.promosyNovedadesModel = data);
+  };
 
   //CREAR PLATO
   ///////////////////////////////////
@@ -191,7 +199,7 @@ export class MenucomplComponent {
       err => { alert("No se creo el tipo de plato") })
   };
 
-  //BORRAR TIOPO DE PLATO
+  //BORRAR TIPO DE PLATO
   /////////////////////////
 
   //funcion que elimina el plato sin advertir
@@ -235,6 +243,12 @@ export class MenucomplComponent {
       alert("No se pudo editar el tipo de plato")
     })
   };
+
+
+
+  //BORRAR PROMOCION/NOVEDAD
+  /////////////////////////
+  borrarPromo(idPromo: number){};
 
 
 
