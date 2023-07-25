@@ -35,5 +35,9 @@ public class TipoPlatoService {
     public boolean existsById(Long idTipoPlato) {
         return iTipoPlaRepo.existsById(idTipoPlato);
     }
+    //METODO PARA GENERAR UNA LISTA FILTRADA CON LOS REGISTROS DE LA ENTIDAD PLATOS PRESENTES EN LA ENTIDAD TIPOPLATO
+    public List <TipoPlato> listaFiltradaTipoPlato(){
+        return iTipoPlaRepo.findAllWithPlatos();
+    };
 
 }

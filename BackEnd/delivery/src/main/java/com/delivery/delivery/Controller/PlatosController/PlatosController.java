@@ -49,7 +49,8 @@ public class PlatosController {
               
                 platos.getTipoPlato(),
                 platos.getNombrePlato(),
-                platos.getPrecioPlato()
+                platos.getPrecioPlato(),
+                platos.getImgPlato()
         );
 
         plaServ.guardarPlato(plat);
@@ -69,6 +70,7 @@ public class PlatosController {
       pla.setTipoPlato(platos.getTipoPlato());
       pla.setNombrePlato(platos.getNombrePlato());
       pla.setPrecioPlato(platos.getPrecioPlato());
+      pla.setImgPlato(platos.getImgPlato());
       
       plaServ.guardarPlato(pla);
       

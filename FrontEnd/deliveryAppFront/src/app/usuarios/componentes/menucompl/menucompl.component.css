@@ -1,6 +1,5 @@
 /* ///////////// TARJETAS /////////////  */ 
 
-
 .card{
     background-color: #fff;
     border-radius: 10px;
@@ -10,18 +9,15 @@
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
     background: linear-gradient(to right, #3C3C3C, rgb(246, 199, 227)) !important;
     color: #fff;
-    border-radius: 10px;   
+    border-radius: 10px; 
 }
-
-
-
-
 
 
 /* formato imagen de las tarjetas */ 
 .card-icon{
-    font-size: 110px;
+    font-size: 60px;
     border-radius: 10px;
+
 }
 
 
@@ -34,9 +30,7 @@
     line-height: 50px;
     margin-left: 15px;
     color: #000;
-    position:relative;
-    right: -5px;
-    top: 20px;
+    position:relative;  
     opacity: 0.1;
 }
 
@@ -47,17 +41,5 @@
     border-radius: 10px;
 }
 
-/* ///////////// TARJETAS Y MODAL /////////////  */ 
 
-/* formato de las tarjetas y modal */ 
-.card .card-icon {
-    text-align: center;
-    line-height: 50px;
-    margin-left: 15px;
-    color: #000;
-    position: absolute;
-    right: -5px;
-    top: 20px;
-    opacity: 0.1;
-}
 

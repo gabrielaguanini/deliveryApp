@@ -6,17 +6,19 @@ export class MenuCompletoModel {
     tipoPlato!: TipoPlato;
     nombrePlato!: string;
     precioPlato!: number;
+    imgPlato!: string;
 
     constructor(idPlato: number,
                 tipoPlato: TipoPlato,
                 nombrePlato: string,
-                precioPlato: number) {
+                precioPlato: number,
+                imgPlato: string) {
 
         this.idPlato = idPlato,
         this.tipoPlato = tipoPlato;       
         this.nombrePlato = nombrePlato;
         this.precioPlato = precioPlato;
-    }
-
+        this.imgPlato = imgPlato;
+    };
   
 }

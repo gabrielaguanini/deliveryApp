@@ -9,10 +9,7 @@ import { AppRoutingModule } from './rutas/app-routing.module';
 import { HomeComponent } from './clientes/home/home.component';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -29,8 +26,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
- 
-    RouterModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule,
+     
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,10 +4,10 @@ export class Cartelera {
     tituloPromo!: string;
     textoPromo!: string;
     urlImagenPromo!: string;
-    fechaPromo!:Date;
+    fechaPromo!:string;
 
 
-    constructor(idPromo: number, imgParaCelOPc: string, tituloPromo: string, textoPromo: string, urlImagenPromo: string, fechaPromo:Date){
+    constructor(idPromo: number, imgParaCelOPc: string, tituloPromo: string, textoPromo: string, urlImagenPromo: string, fechaPromo:string){
         this.idPromo = idPromo;
         this.imgParaCelOPc = imgParaCelOPc;
         this.tituloPromo = tituloPromo;
