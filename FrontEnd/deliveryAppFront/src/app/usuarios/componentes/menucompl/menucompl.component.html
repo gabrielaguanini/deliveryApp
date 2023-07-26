@@ -13,7 +13,7 @@
 
 
 <!-- MODAL QUE INSERTA CARDS PEQUEÑAS Y AGREGA PLATOS-->
-<ng-template #templateEditarPaAgregarCard>
+<ng-template #templateEditarPaAgregarCard >
     <div class="container-fluid modal-menu">
         <div class="row">
             <div class="modal-header">
@@ -21,14 +21,12 @@
                 <div class="card-icon card-icon-large">
                     <i class=""></i>
                 </div>
-                <!-- Este boton cierra el modal #templateEditarMenuComp y vuelve a abrir la lista de platos-->
-                <!--(se programó asi porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
                 <button type="button" class="btn btn-outline-light btn-sm" (click)="modalEditarPaAgregarCard.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="row">
-                <form (ngSubmit)="editarPlatoGenCard()" novalidate #f="ngForm">
+                <form (ngSubmit)="generarCardPequena()" novalidate #f="ngForm">
                     <div class="form-group col-12 pt-3 pb-3">
                         <label for="idTipoPlato">SELECCIONE EL TIPO PLATO</label>
                         <!-- Reemplaza el input con el dropdown -->
@@ -57,7 +55,7 @@
                     <br>
                     <div class="row">
                         <div class="col-4">
-                            <button class="btn btn-outline-light" (click)="refrescarMenuCompletoPagina()">
+                            <button class="btn btn-outline-light">
                                 Enviar
                             </button>
                         </div>
@@ -71,6 +69,7 @@
 
 
 <!-- TARJETAS GENERADAS POR LA ENTIDAD TIPOPLATO -->
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-2 col-md-6" *ngFor="let TipoPlato of tiposPlatosFiltrados">
@@ -83,13 +82,10 @@
                     <i class="{{TipoPlato.imgTipoPlato}}"></i>
                 </div>
 
-                <div class="button-divisor text-center pb-2">
-                    <!-- este boton abre el modal templateMenuComp y muestra en ese modal una lista x cada tipo de plato -->
+                <div class="button-divisor text-center pb-2">              
                     <button type="button" class="btn btn-outline-light btn-sm m-2"
                         (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA
-                    </button>
-                    <!-- este boton abre el modal templateAgregarPlato y envia al input con id="idTipoPlato" del formulario-->
-                    <!-- de este modal el id del tipo de plato para solo agregar platos que correspondal al idTipoPlato de la card seleccionada-->
+                    </button>                  
                     <button type="button" class="btn btn-outline-light btn-sm m-2"
                         (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato); borrarInputs()">AGREGAR</button>
                 </div>
@@ -117,7 +113,7 @@
                         </div>
 
                         <div class="row">
-                            <form (ngSubmit)="onCreate(); borrarInputs()" novalidate #f="ngForm">
+                            <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
                                 <div class="form-group, col-12 pt-3 pb-3">
                                     <label for="idTipoPlato">ID TIPO PLATO </label>
                                     <input type="number" class="form-control" id="idTipoPlato" name="idTipoPlato"
@@ -140,9 +136,14 @@
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-6">
                                         <button class="btn btn-outline-light">
                                             Enviar
+                                        </button>
+                                    </div> 
+                                    <div class="col-6 ps-5">   
+                                        <button type="button" class="btn btn-outline-secondary" (click)="modalAgregarPla.hide(); openModalMenuComp(templateMenuComp);  mostrarListaTipoPlato(TipoPlato.idTipoPlato)">
+                                            Ver lista actualizada
                                         </button>
                                     </div>
                                 </div>
@@ -177,19 +178,17 @@
                                 <p>${{MenuCompletoModel.precioPlato}}</p>
                             </div>
                             <div class="col-3">
-                                <img class="img-fluid rounded-pill pb-1" src="{{MenuCompletoModel.imgPlato}}">
+                                <img class="img-fluid rounded-pill w-100 h-100 border border-white border-5 rounded-5 border-opacity-50" src="{{MenuCompletoModel.imgPlato}}">
                             </div>
 
                             <div class="col-3 text-center">
                                 <!-- Boton editar-->
-                                <!-- Este boton abre el modal #templateEditarMenuComp y cierra el modal #templateMenuComp (se programó asi-->
-                                <!-- porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
                                 <button class="btn btn-outline-light btn-sm"
                                     (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato, MenuCompletoModel.imgPlato); modalMenuComp.hide()">
                                     <i class="far fa-edit"></i> </button>
                                 <!-- Boton borrar-->
                                 <button class="btn btn-outline-light btn-sm"
-                                    (click)="borrarPlaMsjEli(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato); refrescarMenuCompletoPagina()">
+                                    (click)="borrarPlaMsjEli(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
                                     <i class="far fa-trash-alt"></i></button>
                             </div>
                             <br>
@@ -208,17 +207,13 @@
                                         <div class="card-icon card-icon-large">
                                             <i class=""></i>
                                         </div>
-                                        <!-- Este boton cierra el modal #templateEditarMenuComp y vuelve a abrir la lista de platos-->
-                                        <!--(se programó asi porque la lista, si tiene muchos registros, queda mas grande que el modal para editar)-->
                                         <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp)">
+                                            (click)="modalEditarMenuComp.hide()">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="row">
-                                        <form
-                                            (ngSubmit)="editarPlato(); modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp)"
-                                            novalidate #f="ngForm">
+                                        <form (ngSubmit)="editarPlato()" novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idTipoPlato">ID TIPO PLATO </label>
                                                 <input type="number" class="form-control" id="idTipoPlato"
@@ -246,11 +241,16 @@
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-4">
-                                                    <button class="btn btn-outline-light" (click)="mostrarListaTipoPlato(TipoPlato.idTipoPlato)">
+                                                <div class="col-6">
+                                                    <button class="btn btn-outline-light">
                                                         Enviar
                                                     </button>
                                                 </div>
+                                                <div class="col-6 ps-5">   
+                                                    <button type="button" class="btn btn-outline-secondary" (click)="modalEditarMenuComp.hide(); openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">
+                                                        Ver lista actualizada
+                                                    </button>
+                                                </div>    
                                             </div>
                                         </form>
                                     </div>
@@ -270,14 +270,14 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-1">
+        <div class="col-lg-6 col-sm-1">
             <div class="card p-4">
                 <div class="card-icon card-icon-large">
                     <i class=></i>
                 </div>
                 <div class="mb-1">
-                    <h5 class="card-title pb-3">LISTA TIPO PLATOS</h5>
-                    <div class="button-divisor pb-4">
+                    <h5 class="card-title pb-3 text-center">LISTA TIPO PLATOS</h5>
+                    <div class="button-divisor pb-4 text-center">
                         <button type="button" class="btn btn-outline-light btn-sm"
                             (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato); borrarInputs()">
                             AGREGAR TIPO DE PLATO
@@ -316,10 +316,7 @@
                             <button class="btn btn-outline-light btn-sm"
                                 (click)="openModalEditarTipoPlato(templateEditarTipoPlato); obtenerTipoPlaXId(TipoPlato.idTipoPlato, TipoPlato.nombreTipoPlato, TipoPlato.imgTipoPlato)">
                                 <i class="far fa-edit"></i>
-                            </button>
-                            <button class="btn btn-outline-light btn-sm">
-                                <i class="fas fa-plus-square"></i>
-                            </button>
+                            </button>                        
                         </div>
                     </div>
                 </div>
@@ -329,13 +326,13 @@
 
         <!-- TARJETA GRANDE QUE MUESTRA LISTA DE LAS PROMOCIONES Y NOVEDADES -->
 
-        <div class="col-lg-6 col-md-6 col-sm-1">
+        <div class="col-lg-6">
             <div class="card p-4">
                 <div class="card-icon card-icon-large">
                     <i class=></i>
                 </div>
                 <div class="mb-1">
-                    <h5 class="card-title pb-3">LISTA PROMOS Y NOVEDADES PARA CARTELERA</h5>
+                    <h5 class="card-title pb-3 text-center">LISTA PROMOS Y NOVEDADES PARA CARTELERA</h5>
                     <div class="button-divisor pb-4">
 
                     </div>
@@ -370,23 +367,6 @@
                             <br>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
 
   <ng-template #templateEditarPromoNovedad>
@@ -402,17 +382,15 @@
                 </button>
             </div>
             <div class="row">
-                <form
-                    (ngSubmit)="editarTipoPlato()"
-                    novalidate #f="ngForm">
+                <form (ngSubmit)="editarCartelera()" novalidate #f="ngForm">
                     <div class="form-group, col-12 pt-3 pb-3">
                         <label for="idPromo">ID PROMO </label>
-                        <input type="number" class="form-control" id="idPromo" name="idPromo"
-                            [(ngModel)]="idPromo" required>
+                        <input readonly type="number" class="form-control" id="idPromo" name="idPromo"
+                         [(ngModel)]="idPromo" required>
                     </div>
                     <div class="form-group, col-12 pb-3">
                         <label for="imgParaCelOPc">IMAGEN PARA PC O CELULARES</label>
-                        <input type="text" class="form-control" id="imgParaCelOPc" name="imgParaCelOPc"
+                        <input readonly type="text" class="form-control" id="imgParaCelOPc" name="imgParaCelOPc"
                             [(ngModel)]="imgParaCelOPc" required>
 
                     </div>
@@ -433,13 +411,13 @@
                     </div>
                     <div class="form-group, col-12 pb-3">
                         <label for="fechaPromo">FECHA DE CARGA</label>
-                        <input type="text" class="form-control" id="fechaPromo" name="fechaPromo"
+                        <input readonly type="text" class="form-control" id="fechaPromo" name="fechaPromo" 
                             [(ngModel)]="fechaPromo" required>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-4">
-                            <button class="btn btn-outline-light" (click)="refrescarMenuCompletoPagina()">
+                            <button class="btn btn-outline-light" (click)="listaPromoNovedad()">
                                 Enviar
                             </button>
                         </div>
@@ -450,33 +428,6 @@
         <br>
     </div>
 </ng-template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -566,7 +517,7 @@
                         <br>
                         <div class="row">
                             <div class="col-4">
-                                <button class="btn btn-outline-light" (click)="refrescarMenuCompletoPagina()">
+                                <button class="btn btn-outline-light">
                                     Enviar
                                 </button>
                             </div>

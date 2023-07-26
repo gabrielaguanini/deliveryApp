@@ -117,7 +117,10 @@ export class MenucomplComponent {
   //////////////////////
 
   openModalMenuComp(templateMenuComp: TemplateRef<any>) {
-    this.modalMenuComp = this.modalService.show(templateMenuComp);
+    this.modalMenuComp = this.modalService.show(templateMenuComp, {backdrop: 'static'});
+  }
+  closeModalMenuComp() {
+    this.modalMenuComp.hide();
   }
 
   //MODAL AGREGAR PLATO
@@ -125,47 +128,47 @@ export class MenucomplComponent {
 
   openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {
     this.idTipoPla = idTipoPlato;
-    this.modalAgregarPla = this.modalService.show(templateAgregarPlato);
+    this.modalAgregarPla = this.modalService.show(templateAgregarPlato, {backdrop: 'static'});
   }
 
   //MODAL EDITAR PLATO
   //////////////////////
 
   openModalEditarMenuComp(templateEditarMenuComp: TemplateRef<any>) {
-    this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp);
+    this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp, {backdrop: 'static'});
   }
 
   //MODAL AGREGAR TIPO PLATO
   //////////////////////
 
   openModalAgregarTipoPlato(templateAgregarTipoPlato: TemplateRef<any>) {
-    this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato);
+    this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato, {backdrop: 'static'});
   }
 
   //MODAL AGREGAR TIPO PLATO
   //////////////////////
 
   openModalEditarTipoPlato(templateEditarTipoPlato: TemplateRef<any>) {
-    this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato);
+    this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato, {backdrop: 'static'});
   }
 
  //MODAL AGREGAR TARJETA
   //////////////////////
 
   openModalEditarcard(templateEditarPaAgregarCard: TemplateRef<any>) {
-    this.modalEditarPaAgregarCard = this.modalService.show(templateEditarPaAgregarCard);
+    this.modalEditarPaAgregarCard = this.modalService.show(templateEditarPaAgregarCard, {backdrop: 'static'});
   }
 
   //MODAL EDITAR PROMO/NOVEDAD
   //////////////////////
 
   openModalEditarPromoNovedad(templateEditarPromoNovedad: TemplateRef<any>) {
-    this.modalEditarPromoNovedad = this.modalService.show(templateEditarPromoNovedad);
+    this.modalEditarPromoNovedad = this.modalService.show(templateEditarPromoNovedad, {backdrop: 'static'});
   }
 
 
 
-  //LISTAS
+  // FUNCIONES PARA MOSTRAR LISTAS
   ///////////////////////////////////
 
   mostrarListaTipoPlato(idTipoPlato: number): void {
@@ -203,9 +206,9 @@ export class MenucomplComponent {
   borrarPlato(idPlato: number, idTipoPla: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
-        alert("Plato eliminado");
-        this.mostrarListaTipoPlato(this.idTipoPla);
-      }, err => console.log("No se pueden traer los registros de la db para borrar"))
+        alert("Plato eliminado");      
+        this.mostrarListaTipoPlato(this.idTipoPla); //refresca la lista con el registro eliminado    
+       }, err => console.log("No se pueden traer los registros de la db para borrar"))
     }
   };
 
@@ -232,14 +235,11 @@ export class MenucomplComponent {
   };
 
   editarPlato(): void {
-
-
     const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
 
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
       alert("Plato editado");
-      this.mostrarListaTipoPlato(this.idTipoPla);
     }, err => {
       alert("No se editó el plato");
     });
@@ -254,7 +254,7 @@ export class MenucomplComponent {
     const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
     this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {
       alert("Tipo de plato guardado");
-      this.listTipPla()
+      this.listTipPla();
     },
       err => { alert("No se creo el tipo de plato") })
   };
@@ -268,8 +268,8 @@ export class MenucomplComponent {
 
       this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {
         alert("Tipo de plato eliminado");
-        this.listTipPla()
-      },
+        this.listTipPla();
+        },
         err => { alert("no se pudo eliminar el tipo de plato") })
     }
   };
@@ -278,7 +278,7 @@ export class MenucomplComponent {
   borrarTiPladvEli(idTipoPlato:number): void{
     const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
     if(msjAdvertenciaElim){
-      this.borrarTipoPlato(idTipoPlato);
+      this.borrarTipoPlato(idTipoPlato); //refresca la lista con el registro eliminado
     } else {
       ""
     };
@@ -299,20 +299,22 @@ export class MenucomplComponent {
     const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
     this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
       alert("Tipo de plato editado");
+      this.listTipPla();
     }, err => {
       alert("No se pudo editar el tipo de plato")
     })
   };
 
-  //EDITAR PLATO Q DEPENDE DE
-  //LA CARD QUE GENERA TARJETAS
+  
+  //GENERAR CARD PEQUEÑA (PARA HACERLO SE DEBE AGREGAR UN PLATO, LA FUNCION EN REALIDAD HACE ESO Y X ESO GENERA LA CARD PEQUEÑA)
   /////////////////////////
 
-  editarPlatoGenCard(){
+  generarCardPequena(): void {
     const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       alert("Plato guardado");
+      this.listaFiltradaTipPla(); //refresca la lista de cards de tipos de platos cuando se agrega
     }, err => {
       alert("No se guardó el plato");
     });
@@ -332,8 +334,15 @@ export class MenucomplComponent {
 
   };
 
-  editarCartelera(idPromo: number){
-
+  editarCartelera(): void{
+    const cartelera = new Cartelera (this.idPromo, this.imgParaCelOPc, this.tituloPromo, this.textoPromo, this.urlImagenPromo, this.fechaPromo)
+    this.cartServ.actualizarPromosNov(this.idPromo, cartelera).subscribe(data => 
+      {        
+        alert("Cartelera editada");    
+        this.listaPromoNovedad();   
+      }, err => {
+        alert("No se editó la cartelera");
+      });
   };
 
 
@@ -344,29 +353,23 @@ export class MenucomplComponent {
 
   //FUNCIONES VARIAS
   ///////////////////////////////////
-  borrarInputs(): void {
-    this.nombrePlato = "";
-    this.precioPlato = 0;
-    this.imgPlato = "";
-   
+  
+ borrarInputs(): void{
+  
+  this.idTipoPlato = 0;
+  this.nombrePlato = "";
+  this.precioPlato = 0;
+  this.imgPlato  = "";
 
+  this.nombreTipoPlato = "";
+  this. imgTipoPlato = "";
 
-    this.nombreTipoPlato = "";
-    this.imgTipoPlato = "";
-
-    this.idPromo= 0;
-    this.imgParaCelOPc = "";
-    this.tituloPromo = "";
-    this.textoPromo = "";
-    this.urlImagenPromo = "";
-    this.fechaPromo = "0-00-0000";
-
-  }
-  //se usa cuando se edita un registro de la lista de tipos de platos y se quiere refrescar una lista, el bsmodal no deja usar routerlink
-  refrescarMenuCompletoPagina(): void {
-    window.location.href = '/menucompleto';  
-  }
+  this. imgParaCelOPc = "";
+  this. tituloPromo = "";
+  this.textoPromo = "";
+  this.urlImagenPromo = "";
  
+ };
 }
 
 
