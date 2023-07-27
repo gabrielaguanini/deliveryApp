@@ -1,12 +1,14 @@
 export class TipoPlato {
     idTipoPlato!: number;
     nombreTipoPlato!: string;
-    imgTipoPlato!:string;
+    iconoTipoPlato!:string;    
+    colorCardTipoPlato!: string;
 
-    constructor(idTipoPlato: number, nombreTipoPlato: string, imgTipoPlato:string){
+    constructor(idTipoPlato: number, nombreTipoPlato: string, iconoTipoPlato:string, colorCardTipoPlato: string){
         this.idTipoPlato = idTipoPlato;
         this.nombreTipoPlato = nombreTipoPlato;
-        this.imgTipoPlato = imgTipoPlato;
+        this.iconoTipoPlato = iconoTipoPlato;
+        this.colorCardTipoPlato = colorCardTipoPlato;
     }
     
 }

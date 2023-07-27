@@ -12,7 +12,8 @@ export class MenuCompletoModel {
                 tipoPlato: TipoPlato,
                 nombrePlato: string,
                 precioPlato: number,
-                imgPlato: string) {
+                imgPlato: string
+                ) {
 
         this.idPlato = idPlato,
         this.tipoPlato = tipoPlato;       

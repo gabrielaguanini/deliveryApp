@@ -46,9 +46,22 @@ public class TipoPlatoController {
     public ResponseEntity<List<TipoPlato>> listaFiltradaTipoPlato() {
         List<TipoPlato> listaFiltradaTipoPlato = tipoPlaServ.listaFiltradaTipoPlato();
         return new ResponseEntity(listaFiltradaTipoPlato, HttpStatus.OK);
-    }
-
-    ;
+    };
+    
+        
+    //LISTA DE COLORES YA CARGADOS EN LA TABLA TIPO PLATO
+    @GetMapping("/listacolorestipoplatos")
+    public ResponseEntity<List<String>> listaColorTipoPlato() {
+        List<String> listaColorTipoPlato = tipoPlaServ.listaColoresTipoPlato();
+        return new ResponseEntity(listaColorTipoPlato, HttpStatus.OK);
+    };
+    
+    //LISTA DE ICONOS YA CARGADOS EN LA TABLA TIPO PLATO
+    @GetMapping("/listaiconostipoplatos")
+    public ResponseEntity<List<String>> listaIconosTipoPlato() {
+        List<String> listaIconosTipoPlato = tipoPlaServ.listaIconosTipoPlato();
+        return new ResponseEntity(listaIconosTipoPlato, HttpStatus.OK);
+    };
  
  
     
@@ -58,7 +71,8 @@ public class TipoPlatoController {
         TipoPlato tipoPla = new TipoPlato(
                 tipoPlato.getIdTipoPlato(),
                 tipoPlato.getNombreTipoPlato(),
-                tipoPlato.getImgTipoPlato()
+                tipoPlato.getIconoTipoPlato(),
+                tipoPlato.getColorCardTipoPlato()
         );
         tipoPlaServ.guardarTipoPlato(tipoPla);
 
@@ -82,7 +96,8 @@ public class TipoPlatoController {
     public ResponseEntity<?> actualizarTipoPlato(@RequestBody TipoPlato tipoPlato, @PathVariable Long idTipoPlato) {
         TipoPlato tipPla = tipoPlaServ.getOne(idTipoPlato).get();
         tipPla.setNombreTipoPlato(tipoPlato.getNombreTipoPlato());
-        tipPla.setImgTipoPlato(tipoPlato.getImgTipoPlato());
+        tipPla.setIconoTipoPlato(tipoPlato.getIconoTipoPlato());
+        tipPla.setColorCardTipoPlato(tipoPlato.getColorCardTipoPlato());
         tipoPlaServ.guardarTipoPlato(tipPla);
         return new ResponseEntity(new Mensaje("Tipo de plato actualizado"), HttpStatus.OK);
     }

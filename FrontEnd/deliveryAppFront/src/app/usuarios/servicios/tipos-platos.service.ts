@@ -23,6 +23,17 @@ URL = 'http://localhost:8080/';
     return this.httpClient.get<TipoPlato[]>(this.URL + 'listafiltradatipoplatos')
   };
 
+  //LISTA DE COLORES PARA LAS CARDS PEQUEÑAS
+  public listColoresTipPlat(): Observable<String[]> {
+    return this.httpClient.get<String[]>(this.URL + 'listacolorestipoplatos')
+  };
+
+  //LISTA DE ICONOS PARA LAS CARDS PEQUEÑAS O LISTA TIPOSPLATO
+  public listIconosTipPlat(): Observable<String[]> {
+    return this.httpClient.get<String[]>(this.URL + 'listaiconostipoplatos')
+  };
+
+
   //GUARDAR TIPO PLATO
   public guardarTipoPlato(tipoPlato: TipoPlato): Observable <any>{
     return this.httpClient.post<any>(this.URL + 'guardartipoplato', tipoPlato)

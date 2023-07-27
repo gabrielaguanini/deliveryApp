@@ -35,9 +35,23 @@ public class TipoPlatoService {
     public boolean existsById(Long idTipoPlato) {
         return iTipoPlaRepo.existsById(idTipoPlato);
     }
+    
     //METODO PARA GENERAR UNA LISTA FILTRADA CON LOS REGISTROS DE LA ENTIDAD PLATOS PRESENTES EN LA ENTIDAD TIPOPLATO
     public List <TipoPlato> listaFiltradaTipoPlato(){
         return iTipoPlaRepo.findAllWithPlatos();
     };
+    
+    //METODO PARA GENERAR UNA LISTA CON LOS COLORES CARGADOS EN LA TABLA TIPOPLATO
+    public List <String> listaColoresTipoPlato(){
+        return iTipoPlaRepo.filterColorCardTipoPlato();
+    };
+    
+    //METODO PARA GENERAR UNA LISTA CON LOS ICONOS CARGADOS EN LA TABLA TIPOPLATO
+    public List <String> listaIconosTipoPlato(){
+        return iTipoPlaRepo.filterIconoTipoPlato();
+    };
+    
+    
+    
 
 }

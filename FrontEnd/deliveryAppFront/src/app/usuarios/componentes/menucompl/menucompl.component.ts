@@ -58,6 +58,9 @@ export class MenucomplComponent {
 
   //LISTAS
   ///////////////////////////////////
+  listaIconosTipoPlato: String [] = [];
+  listaColorTipoPlato: String [] = [];
+
 
   menuCompModel: MenuCompletoModel[] = [];
   tiposPlatosModel: TipoPlato[] = [];
@@ -79,10 +82,12 @@ export class MenucomplComponent {
 
   //CREAR Y EDITAR TIPO DE PLATO
   ///////////////////////////////
-
   idTipoPlato!: number;
   nombreTipoPlato!: string;
-  imgTipoPlato!: string;
+  iconoTipoPlato!: string;
+  iconoTipoPlatoParaInput!: string;
+  colorCardTipoPlato!: string;
+  colorCardTipoPlatoParaInput!: string;
 
    //EDITAR PROMO/NOVEDAD/CARTELERA
   /////////////////////////////////
@@ -100,11 +105,11 @@ export class MenucomplComponent {
     private menucomServ: MenuCompletoServiceService,
     private tipoPlaServ: TiposPlatosService,
     private router: Router,
-    private cartServ: CarteleraService,
+    private cartServ: CarteleraService,  
   ) { }
 
   ngOnInit(): void {
-     
+    
     this.listaFiltradaTipPla(); //genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
     this.listaPromoNovedad();
@@ -168,10 +173,18 @@ export class MenucomplComponent {
 
 
 
-  // FUNCIONES PARA MOSTRAR LISTAS
+  // FUNCIONES PARA LISTAS
   ///////////////////////////////////
 
-  mostrarListaTipoPlato(idTipoPlato: number): void {
+  listaIconos(): void {
+    this.tipoPlaServ.listIconosTipPlat().subscribe(data => this.listaIconosTipoPlato = data)
+  };
+
+  listaColores(): void {
+    this.tipoPlaServ.listColoresTipPlat().subscribe(data => this.listaColorTipoPlato = data)
+  };
+
+   mostrarListaTipoPlato(idTipoPlato: number): void {
     this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
   };
 
@@ -191,7 +204,7 @@ export class MenucomplComponent {
   ///////////////////////////////////
   onCreate(): void {
 
-    const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
+    const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
 
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
@@ -235,7 +248,7 @@ export class MenucomplComponent {
   };
 
   editarPlato(): void {
-    const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
+    const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
 
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
@@ -251,7 +264,7 @@ export class MenucomplComponent {
 
   onCreateTipoPla(): void {
 
-    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato||this.iconoTipoPlatoParaInput, this.colorCardTipoPlato||this.colorCardTipoPlatoParaInput);
     this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {
       alert("Tipo de plato guardado");
       this.listTipPla();
@@ -269,6 +282,7 @@ export class MenucomplComponent {
       this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {
         alert("Tipo de plato eliminado");
         this.listTipPla();
+        this.listaFiltradaTipPla();
         },
         err => { alert("no se pudo eliminar el tipo de plato") })
     }
@@ -288,18 +302,23 @@ export class MenucomplComponent {
   //EDITAR TIPO DE PLATO
   /////////////////////////
 
-  obtenerTipoPlaXId(idTipoPla: number, nombreTipoPla: string, imgTipoPla: string): void {
+  obtenerTipoPlaXId(idTipoPla: number, nombreTipoPla: string, iconoTipoPlato: string, colorCardTipoPlato: string): void {
     this.idTipoPlato = idTipoPla;
     this.nombreTipoPlato = nombreTipoPla;
-    this.imgTipoPlato = imgTipoPla;
+    this.iconoTipoPlato = iconoTipoPlato;
+    this.colorCardTipoPlato = colorCardTipoPlato;
+    
+    
+    
   };
 
   editarTipoPlato() {
 
-    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.imgTipoPlato);
+    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato||this.iconoTipoPlatoParaInput, this.colorCardTipoPlato||this.colorCardTipoPlatoParaInput);
     this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
       alert("Tipo de plato editado");
       this.listTipPla();
+      this.listaFiltradaTipPla();
     }, err => {
       alert("No se pudo editar el tipo de plato")
     })
@@ -310,7 +329,7 @@ export class MenucomplComponent {
   /////////////////////////
 
   generarCardPequena(): void {
-    const tipoPlato = new TipoPlato(this.idTipoPla, "", "");
+    const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       alert("Plato guardado");
@@ -362,7 +381,11 @@ export class MenucomplComponent {
   this.imgPlato  = "";
 
   this.nombreTipoPlato = "";
-  this. imgTipoPlato = "";
+  this.iconoTipoPlato = "";
+  this.iconoTipoPlatoParaInput = "";
+  this.colorCardTipoPlato = "";
+  this.colorCardTipoPlatoParaInput = "";
+  
 
   this. imgParaCelOPc = "";
   this. tituloPromo = "";
