@@ -18,11 +18,13 @@ public interface ITipoPlatoRepository extends JpaRepository <TipoPlato, Long>{
     
     
     @Modifying 
-    @Query(value = "SELECT color_card_tipo_plato FROM tipo_plato", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT color_card_tipo_plato FROM tipo_plato;", nativeQuery = true)
     List<String> filterColorCardTipoPlato();
     
+    
     @Modifying 
-    @Query(value = "SELECT icono_tipo_plato FROM tipo_plato", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT icono_tipo_plato FROM tipo_plato", nativeQuery = true)
     List<String> filterIconoTipoPlato();
     
+ 
   }

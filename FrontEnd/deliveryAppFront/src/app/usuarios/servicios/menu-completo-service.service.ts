@@ -15,7 +15,7 @@ export class MenuCompletoServiceService {
   constructor(private httpClient:HttpClient) { }
 
   public listaPlatos(): Observable<MenuCompletoModel[]> {
-    return this.httpClient.get<MenuCompletoModel[]>(this.URL + 'listaplatos');  
+    return this.httpClient.get<MenuCompletoModel[]>(this.URL + 'listadeplatos');  
   }
 
   public listaTipoPlatos(idTipoPlato:number): Observable<MenuCompletoModel[]> {
@@ -29,10 +29,16 @@ export class MenuCompletoServiceService {
   public actualizarPlato(idPlato:number, menuCompletoModel:MenuCompletoModel): Observable<any>{
     return this.httpClient.put<any>(this.URL + `actualizarplato/${idPlato}`, menuCompletoModel);
   }
-
+//Borra plato con el idPlato y el isTipoPlato, es para usar con las tarjetas pequeñas
   public borrarPlato(idPlato:number, idTipoPlato:number): Observable<any>{
     return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
   }
+
+//Borra plato solo con el idPlato y el isTipoPlato, es para usar con la lista de platos completa
+  public borrarPlatoLisCompleta(idPlato:number): Observable<any>{
+    return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
+  }
+
 
   public obtPlatoXID(idPlato:number): Observable<MenuCompletoModel>{
     return this.httpClient.get<MenuCompletoModel>(this.URL + `obtenerplatoxid/${idPlato}`);

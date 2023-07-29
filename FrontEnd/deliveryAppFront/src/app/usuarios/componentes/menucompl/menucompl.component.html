@@ -1,22 +1,119 @@
 <app-navbar></app-navbar>
 <!-- TARJETAS  -->
-
+<div class="container-fluid">
 <!-- BOTON QUE INSERTA TARJETAS PEQUEÑAS (SE UBICA ACA PORQUE ABAJO DE LA LISTA Q GENERA LAS TARJETAS PEQUEÑAS)-->
 <!-- INTERFIERE Y SE MULTIPLICA CON LA LISTA QUE ESTA EN ESE TRAMO DE CODIGO)-->
 
 <div class="container-fluid">
-    <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputs()" type="button"
-        class="btn btn-outline-secondary btn-sm">AGREGAR TARJETA</button>
-    <br>
-    <br>
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <div class="btn-group col-md-6 col-12 border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto">
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputsCerrarModalito()" type="button" class="btn btn-primary btn-sm rounded-pill btn-block">
+              AGREGAR TARJETA
+            </button>
+          </div>
+          <div class="col-md-12 mb-2">
+            <button (click)="openModalListaComPlatos(templateListaComPlato); listaPlatosCompleta()" type="button" class="btn btn-success btn-sm rounded-pill btn-block">
+              VER LISTA COMPLETA DE PLATOS
+            </button>
+          </div>
+          <div class="col-md-12 mb-2">
+            <button (click)="generateExcel()" type="button" class="btn btn-danger btn-success btn-sm rounded-pill btn-block">
+              DESCARGAR LISTA COMPLETA DEL DASHBOARD
+            </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
 </div>
+
+  
+  
+
+
+<!-- MODAL QUE MUESTRA LA LISTA COMPLETA DE PLATOS-->
+
+<ng-template #templateListaComPlato>
+    <div class="container-fluid modal-menu">
+        <div class="modal-header">
+            <h4 class="modal-title">LISTA COMPLETA DE PLATOS</h4>
+            <div class="card-icon card-icon-large">
+                <i class=""></i>
+            </div>
+            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalListaComPlatos.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="row" id="tituloListaCompletaPlato">
+            <div class="col-3 text-center pt-2">
+                <blockquote class="blockquote border-end border-top border-white">
+                    <p class="small">Plato</p>
+                </blockquote>
+            </div>
+            <div class="col-2 text-center pt-2">
+                <blockquote class="blockquote border-end border-top border-white">
+                    <p class="small text-center">Tipo plato</p>
+                </blockquote>
+            </div>
+            <div class="col-2 text-center pt-2">
+                <blockquote class="blockquote border-end border-top border-white">
+                    <p class="small">Precio</p>
+                </blockquote>
+            </div>
+            <div class="col-3 text-center pt-2">
+                <blockquote class="blockquote border-end border-top border-white">
+                    <p class="small">Imagen</p>
+                </blockquote>
+            </div>
+            <div class="col-2 text-center pt-2">
+                <blockquote class="blockquote border-end border-top border-white">
+                    <p class="small">Edicion</p>
+                </blockquote>
+            </div>
+            <hr>
+        </div>
+        <div *ngFor="let MenuCompletoModel of menuCompModel">
+            <div class="row">
+                <div class="col-3 text-center">
+                    <p>{{MenuCompletoModel.nombrePlato}}</p>
+                </div>
+                <div class="col-2 text-center">
+                    <p><small>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</small></p>
+                </div>
+
+                <div class="col-2 text-center">
+                    <p>${{MenuCompletoModel.precioPlato}}</p>
+                </div>
+                <div class="col-3 text-center">
+                    <img class="img-fluid rounded-pill w-100 h-100 border border-white border-5 rounded-5 border-opacity-50"
+                        src="{{MenuCompletoModel.imgPlato}}">
+                </div>
+
+                <div class="col-2 text-center">
+                   
+                    <!-- Boton borrar-->
+                    <button class="btn btn-outline-light btn-sm" (click)="borrarPlaLisComMsjEli(MenuCompletoModel.idPlato)">
+                        <i class="far fa-trash-alt"></i></button>
+                </div>
+                <br>
+                <hr>
+            </div>
+        </div>
+    </div>
+   
+</ng-template>
 
 
 <!-- MODAL QUE INSERTA CARDS PEQUEÑAS Y AGREGA PLATOS-->
 <ng-template #templateEditarPaAgregarCard>
     <div class="container-fluid modal-menu">
         <div class="row">
-            <div class="modal-header">
+            <div class="modal-header text-center">
                 <h4 class="modal-title">CREAR TARJETA PEQUEÑA</h4>
                 <div class="card-icon card-icon-large">
                     <i class=""></i>
@@ -88,7 +185,7 @@
                         (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)">LISTA
                     </button>
                     <button type="button" class="btn btn-outline-light btn-sm m-2"
-                        (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato); borrarInputs()">AGREGAR</button>
+                        (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato); borrarInputsCerrarModalito()">AGREGAR</button>
                 </div>
 
 
@@ -170,21 +267,54 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+                        <div class="row" id="titulosListaxTipoPla">
+                            <div class="col-lg-4 d-none d-lg-block pt-2">
+                                <blockquote class="blockquote border-end border-top border-white">
+                                    <p class="small ps-5">Plato</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 d-none d-lg-block pt-2">
+                                <blockquote class="blockquote text-center border-end border-top border-white">
+                                    <p class="small text-center">$$$</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-2 text-center d-none d-lg-block pt-2">
+                                <blockquote class="blockquote border-end border-top border-white">
+                                    <p class="small">Tipo de Plato</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-3 text-center d-none d-lg-block pt-2">
+                                <blockquote class="blockquote border-end border-top border-white">
+                                    <p class="small">Imagen</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-2 text-center d-none d-lg-block pt-2">
+                                <blockquote class="blockquote border-end border-top border-white">
+                                    <p class="small">Edicion</p>
+                                </blockquote>
+                            </div>
+                            <hr>
+                        </div>
+                        
+                        
                         <div *ngFor="let MenuCompletoModel of menuCompModel">
                             <div class="row p-1">
-                                <div class="col-3">
-                                    <p>{{MenuCompletoModel.nombrePlato}}</p>
+                                <div class="col-lg-4 col-md-1 d-flex align-items-center">
+                                    <p class="">{{MenuCompletoModel.nombrePlato}}</p>
                                 </div>
 
-                                <div class="col-3">
-                                    <p>${{MenuCompletoModel.precioPlato}}</p>
+                                <div class="col-lg-1 col-md-2 d-flex align-items-center ps-4">
+                                    <p class="text-center">${{MenuCompletoModel.precioPlato}}</p>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-lg-2 col-md-2 d-flex align-items-center ps-5">
+                                    <p class="text-center"><small>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</small></p>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 d-flex align-items-center">
                                     <img class="img-fluid rounded-pill w-100 h-100 border border-white border-5 rounded-5 border-opacity-50"
                                         src="{{MenuCompletoModel.imgPlato}}">
-                                </div>
-
-                                <div class="col-3 text-center">
+                                </div>                               
+                                <div class="col-lg-1 col-md-2 text-center  d-flex align-items-center ps-5">
                                     <!-- Boton editar-->
                                     <button class="btn btn-outline-light btn-sm"
                                         (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato, MenuCompletoModel.imgPlato); modalMenuComp.hide()">
@@ -283,11 +413,11 @@
                         <h5 class="card-title pb-3 text-center">LISTA TIPO PLATOS</h5>
                         <div class="button-divisor pb-4 text-center">
                             <button type="button" class="btn btn-outline-light btn-sm"
-                                (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato); borrarInputs()">
+                                (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato); borrarInputsCerrarModalito()">
                                 AGREGAR TIPO DE PLATO
                             </button>
                         </div>
-                        <div class="row" id="tituloListaTipoPlato">
+                        <div class="row">
                             <div class="col-4">
                                 <blockquote class="blockquote border-end border-top border-white">
                                     <p class="small">Nombre</p>
@@ -306,8 +436,8 @@
                         </div>
                         <div class="row" *ngFor="let TipoPlato of tiposPlatosModel">
                             <hr>
-                            <div class="col-4">
-                                <p>{{TipoPlato.nombreTipoPlato}}</p>
+                            <div class="col-4 text-justify">
+                                <p class="text-justify">{{TipoPlato.nombreTipoPlato}}</p>
                             </div>
                             <div class="col-4 text-center">
                                 <i class="{{TipoPlato.iconoTipoPlato}} display-4 border border-white p-3"></i>
@@ -315,13 +445,12 @@
                             </div>
                             <div class="col-4 text-center">
                                 <button class="btn btn-outline-light btn-sm"
-                                    (click)="borrarTiPladvEli(TipoPlato.idTipoPlato)">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button class="btn btn-outline-light btn-sm"
                                     (click)="openModalEditarTipoPlato(templateEditarTipoPlato); obtenerTipoPlaXId(TipoPlato.idTipoPlato, TipoPlato.nombreTipoPlato, TipoPlato.iconoTipoPlato, TipoPlato.colorCardTipoPlato)">
                                     <i class="far fa-edit"></i>
                                 </button>
+                                <button class="btn btn-outline-light btn-sm" (click)="borrarTiPladvEli(TipoPlato.idTipoPlato)">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>                               
                             </div>
                         </div>
                     </div>
@@ -373,7 +502,7 @@
                                 <br>
                             </div>
 
-                            <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
+                <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
 
                             <ng-template #templateEditarPromoNovedad>
                                 <div class="container-fluid modal-menu">
@@ -436,10 +565,6 @@
                                     <br>
                                 </div>
                             </ng-template>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -461,6 +586,45 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+
+
+                    <div class="muestraColoresIconos p-3 text-center">                  
+                    
+                        <button class="btn btn-outline-light btn-sm text-center" (click)="mostrarOcultarModalitoColores(); listaColores()">
+                            VER COLORES
+                        </button>
+                        <div class="Modalito p-5" *ngIf="mostrarModalitoColores">
+                            <a class="custom-link text-white" href="https://html-color-codes.info/codigos-de-colores-hexadecimales/index.html"
+                            target="_blank"><i class="fa fa-link px-1"></i> <p><small>MAS COLORES</small></p></a>   
+                            <div class="row justify-content-center align-items-center" *ngFor="let listaColoresModalito of listaColorTipoPlato">
+                        
+                                <div class="col-lg-4" [style.background-color]="listaColoresModalito" style="width: 100px; height: 50px;">
+                                </div>
+                                <div class="col-lg-4">
+                                <p class="listaColores">{{listaColoresModalito}}</p>
+                                </div>
+                            </div>                           
+                        </div>
+                
+                   
+                        <button class="btn btn-outline-light btn-sm" (click)="mostrarOcultarModalitoIconos(); listaIconos()">
+                            VER ICONOS
+                        </button>
+                        <div class="Modalito p-5" *ngIf="mostrarModalitoIconos">
+                            <a class="custom-link text-white" href="https://fontawesome.com/search"
+                            target="_blank"><i class="fa fa-link px-1"></i> <p><small>MAS ICONOS</small></p></a>  
+                            <div class="row justify-content-center align-items-center" *ngFor="let listaIconosModalito of listaIconosTipoPlato">
+                        
+                                <div class="col-lg-6">
+                                    <i class="{{listaIconosModalito}} fa-2x"></i>
+                                </div>
+                                <div class="col-lg-6">
+                                <p class="">{{listaIconosModalito}}</p>
+                                </div>
+                            </div>
+                        </div>                                      
+                    </div>
+
                     <div class="row">
                         <form (ngSubmit)="onCreateTipoPla()" novalidate #f="ngForm">
                             <div class="form-group, col-12 pb-3 pt-3">
@@ -473,14 +637,14 @@
                                     <a class="custom-link text-white" href="https://fontawesome.com/search"
                                         target="_blank"><i class="fa fa-link px-1"></i></a>
                                 </label>
-                                <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
+                                <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato" (click)="listaIconos()"
                                     [(ngModel)]="iconoTipoPlato" required>
                                     <option disabled selected>Seleccionar</option>
-                                    <option *ngFor="let TipoPlato of tiposPlatosModel"
-                                        [ngValue]="TipoPlato.iconoTipoPlato">
-                                        {{TipoPlato.iconoTipoPlato}}
-                                    </option>                                   
-                                    <option value="">Seleccionar un icono</option>
+                                    <option *ngFor="let listaIconos of listaIconosTipoPlato"
+                                        [ngValue]="listaIconos">
+                                        {{listaIconos}}
+                                    </option>                       
+                                <option value="">Seleccionar un icono</option>
                                 </select>
                                 <input placeHolder="Ingresar un icono de la url font awesome" type="text"
                                     class="form-control" id="iconoTipoPlatoParaInput" name="iconoTipoPlatoParaInput"
@@ -493,11 +657,11 @@
                                         target="_blank"><i class="fa fa-link px-1"></i></a>
                                 </label>
                                 <select class="form-select" id="colorCardTipoPlato" name="colorCardTipoPlato"
-                                    [(ngModel)]="colorCardTipoPlato" required>
+                                    [(ngModel)]="colorCardTipoPlato" required (click)="listaColores()">
                                     <option disabled selected>Seleccionar un color</option>
-                                    <option *ngFor="let TipoPlato of tiposPlatosModel"
-                                        [ngValue]="TipoPlato.colorCardTipoPlato">
-                                        {{TipoPlato.colorCardTipoPlato}}
+                                    <option *ngFor="let listaColores of listaColorTipoPlato"
+                                        [ngValue]="listaColores">
+                                        {{listaColores}}
                                     </option>
                                     <option value="">Seleccionar un color</option>
                                 </select>
@@ -553,6 +717,9 @@
                                     <a class="custom-link text-white" href="https://fontawesome.com/search"
                                         target="_blank"><i class="fa fa-link px-1"></i></a>
                                 </label>
+                    <!-- no se usa en esta parte del codigo la lista del tipo listaIconosTipoPlato-->
+                    <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
+                    <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
                                 <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
                                     [(ngModel)]="iconoTipoPlato" required>
                                     <option disabled selected>Seleccionar</option>
@@ -572,6 +739,9 @@
                                         href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
                                         target="_blank"><i class="fa fa-link px-1"></i></a>
                                 </label>
+                    <!-- no se usa en esta parte del codigo la lista del tipo listaColorTipoPlato-->
+                    <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
+                    <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->            
                                 <select class="form-select" id="colorCardTipoPlato" name="colorCardTipoPlato"
                                     [(ngModel)]="colorCardTipoPlato" required>
                                     <option disabled selected>Seleccionar un color</option>
@@ -602,7 +772,7 @@
     </div>
 
 
-
+</div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
         integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />

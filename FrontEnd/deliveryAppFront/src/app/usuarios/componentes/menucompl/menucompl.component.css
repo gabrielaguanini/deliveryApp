@@ -69,4 +69,7 @@
 }
 
 
-
+/* SEPARA EN SILABAS LAS PALABRAS DEMASIADO GRANDES */ 
+p {    
+    word-break:break-all;
+  }

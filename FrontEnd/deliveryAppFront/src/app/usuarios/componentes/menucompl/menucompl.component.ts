@@ -4,10 +4,11 @@ import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model'
 import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-completo-service.service';
 import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
-import { Location } from '@angular/common';
 import { Cartelera } from '../../modelos/cartelera';
 import { CarteleraService } from '../../servicios/cartelera.service';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
+
 
 
 @Component({
@@ -52,8 +53,14 @@ export class MenucomplComponent {
   ///////////////////////
   modalEditarPromoNovedad!: BsModalRef;
 
+  //MODAL VER LISTA COMPLETA DE PLATOS
+  ////////////////////////////////////
+  modalListaComPlatos!: BsModalRef;
 
-  
+  //MODALITO NGIF (NO BSMODALREF) PARA MOSTRAR COLORES E ICONOS
+  //////////////////////////////////////////////////////////////
+  mostrarModalitoColores: Boolean = false;
+  mostrarModalitoIconos: Boolean = false;
 
 
   //LISTAS
@@ -113,6 +120,7 @@ export class MenucomplComponent {
     this.listaFiltradaTipPla(); //genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
     this.listaPromoNovedad();
+    this.listaPlatosCompleta();
   
   }
 
@@ -122,11 +130,11 @@ export class MenucomplComponent {
   //////////////////////
 
   openModalMenuComp(templateMenuComp: TemplateRef<any>) {
-    this.modalMenuComp = this.modalService.show(templateMenuComp, {backdrop: 'static'});
-  }
-  closeModalMenuComp() {
-    this.modalMenuComp.hide();
-  }
+    const modalConfig = {
+      class: 'modal-dialog-centered modal-xl' // 'modal-lg' por 'modal-xl' para un modal más ancho
+    };
+    this.modalMenuComp = this.modalService.show(templateMenuComp, { backdrop: 'static', ...modalConfig });
+  };
 
   //MODAL AGREGAR PLATO
   //////////////////////////
@@ -165,11 +173,22 @@ export class MenucomplComponent {
   }
 
   //MODAL EDITAR PROMO/NOVEDAD
-  //////////////////////
+  ////////////////////////////
 
   openModalEditarPromoNovedad(templateEditarPromoNovedad: TemplateRef<any>) {
     this.modalEditarPromoNovedad = this.modalService.show(templateEditarPromoNovedad, {backdrop: 'static'});
   }
+
+  //MODAL VER LISTA COMPLETA DE PLATOS
+  ////////////////////////////////////
+
+  openModalListaComPlatos(templateListaComPlato: TemplateRef<any>){
+    const modalConfig = {
+      class: 'modal-dialog-centered modal-lg' // 'modal-lg' por 'modal-xl' para un modal más ancho
+    };
+    this.modalListaComPlatos = this.modalService.show(templateListaComPlato, { backdrop: 'static', ...modalConfig });
+    
+  };
 
 
 
@@ -200,6 +219,10 @@ export class MenucomplComponent {
     this.cartServ.listPromosNov().subscribe(data => this.promosyNovedadesModel = data);
   };
 
+  listaPlatosCompleta(): void{
+    this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
+  };
+
   //CREAR PLATO
   ///////////////////////////////////
   onCreate(): void {
@@ -214,13 +237,14 @@ export class MenucomplComponent {
     });
   }
 
-  //BORRAR PLATO
+  //BORRAR PLATO CON IDTIPOPLATO E IDPLATO
   ///////////////////////////////////
   borrarPlato(idPlato: number, idTipoPla: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
         alert("Plato eliminado");      
-        this.mostrarListaTipoPlato(this.idTipoPla); //refresca la lista con el registro eliminado    
+        this.mostrarListaTipoPlato(this.idTipoPla); //refresca la lista de platos con el registro eliminado  
+        this.listaFiltradaTipPla();  //refresca la lista que genera las card pequeñas
        }, err => console.log("No se pueden traer los registros de la db para borrar"))
     }
   };
@@ -230,6 +254,29 @@ export class MenucomplComponent {
       const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
       if(msjAdvertenciaElim){
         this.borrarPlato(idPlato, idTipoPla);
+      } else {
+        ""
+      };
+    };
+
+  
+    
+  //BORRAR PLATO SOLO CON IDPLATO
+  ///////////////////////////////////
+  borrarPlatoLisComp(idPlato: number): void {
+    if (idPlato != undefined) {
+      this.menucomServ.borrarPlatoLisCompleta(idPlato).subscribe(data => {
+        alert("Plato eliminado");      
+        this.listaPlatosCompleta();
+       }, err => console.log("No se pueden traer los registros de la db para borrar"))
+    }
+  };
+
+    //funcion que muestra un cartel de warning antes de borrar
+    borrarPlaLisComMsjEli(idPlato:number): void{
+      const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
+      if(msjAdvertenciaElim){
+        this.borrarPlatoLisComp(idPlato);
       } else {
         ""
       };
@@ -366,14 +413,76 @@ export class MenucomplComponent {
 
 
 
+  //FUNCION PARA CREAR EXCEL CON LISTA COMPLETA
+  ///////////////////////////////////////////////////
+
+  generateExcel() {
+
+    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
+    if(msjAdvertenciaDescarga){
+
+      
+    // Crear una nueva lista con los registros transformados del tipoPlato
+    const menuCompModelFormatted = this.menuCompModel.map(item => {
+      // Crear un nuevo objeto solo con las propiedades que deseas mantener
+      return {
+        idPlato: item.idPlato,
+        nombre_plato: item.nombrePlato,
+        precio_plato: item.precioPlato,
+        imagen_plato: item.imgPlato,
+        id_tipo_plato: item.tipoPlato.idTipoPlato,
+        nombre_tipo_plato: item.tipoPlato.nombreTipoPlato,
+        // Otras propiedades que deseas mantener...
+      };
+    });
+  
+    // Crear un nuevo libro de Excel
+    const archivoExcel = XLSX.utils.book_new();
+    const hojaArchivoExcel = XLSX.utils.json_to_sheet(menuCompModelFormatted);
+  
+    // Agregar la hoja "ListaCompletaPlatos" al libro de Excel
+    XLSX.utils.book_append_sheet(archivoExcel, hojaArchivoExcel, 'ListaCompletaPlatos');
+  
+    // Agregar la hoja "TLiostaTiposPlatos"
+    const hojaTiposPlatosFiltrados = XLSX.utils.json_to_sheet(this.tiposPlatosModel);
+    XLSX.utils.book_append_sheet(archivoExcel, hojaTiposPlatosFiltrados, 'ListaTiposPlatos');
+  
+    // Agregar la hoja "promosyNovedadesModel"
+    const hojaPromosyNovedadesModel = XLSX.utils.json_to_sheet(this.promosyNovedadesModel);
+    XLSX.utils.book_append_sheet(archivoExcel, hojaPromosyNovedadesModel, "PromosyNovedadesModel");
+  
+    // Guardar el archivo Excel
+    const buffer = XLSX.write(archivoExcel, { type: 'buffer' });
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'lista_completa_platos.xlsx'; // Nombre del archivo Excel
+    a.click();
+    window.URL.revokeObjectURL(url);
+      
+    } else {
+      ""
+    };
+  };
 
 
+  // FUNCION PARA MODALITO NGIF (NO BSMODALREF) PARA MOSTRAR COLORES E ICONOS
+  ///////////////////////////////////////////////////////////////////////////
+  mostrarOcultarModalitoColores(){
+    this.mostrarModalitoColores = !this.mostrarModalitoColores;
+  };
 
+  mostrarOcultarModalitoIconos(){
+    this.mostrarModalitoIconos = !this.mostrarModalitoIconos;
+  };
+  
+  
 
   //FUNCIONES VARIAS
   ///////////////////////////////////
   
- borrarInputs(): void{
+ borrarInputsCerrarModalito(): void{
   
   this.idTipoPlato = 0;
   this.nombrePlato = "";
@@ -391,6 +500,10 @@ export class MenucomplComponent {
   this. tituloPromo = "";
   this.textoPromo = "";
   this.urlImagenPromo = "";
+ 
+  //NO BORRA INPUTS, CIERRA MODALITOS
+  this.mostrarModalitoColores = false;
+  this.mostrarModalitoIconos = false;
  
  };
 }
