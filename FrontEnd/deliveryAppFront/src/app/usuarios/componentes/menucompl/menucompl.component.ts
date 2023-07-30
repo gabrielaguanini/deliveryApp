@@ -62,6 +62,10 @@ export class MenucomplComponent {
   mostrarModalitoColores: Boolean = false;
   mostrarModalitoIconos: Boolean = false;
 
+  //MODAL VER LISTA COMPLETA DE PLATOS
+  ////////////////////////////////////
+  modalInfo!: BsModalRef;
+
 
   //LISTAS
   ///////////////////////////////////
@@ -184,13 +188,23 @@ export class MenucomplComponent {
 
   openModalListaComPlatos(templateListaComPlato: TemplateRef<any>){
     const modalConfig = {
-      class: 'modal-dialog-centered modal-lg' // 'modal-lg' por 'modal-xl' para un modal más ancho
+      class: 'modal-dialog-centered modal-xl' // 'modal-lg' por 'modal-xl' para un modal más ancho
     };
     this.modalListaComPlatos = this.modalService.show(templateListaComPlato, { backdrop: 'static', ...modalConfig });
     
   };
 
+  //MODAL INFORMACION
+  ////////////////////////////////////
+  
+  openModalInfo(templateModalInfo: TemplateRef<any>) {
+    this.modalInfo = this.modalService.show(templateModalInfo, {backdrop: 'static'});
+  }
 
+  //MODAL EDITAR PROMO/NOVEDAD
+  ////////////////////////////
+
+  
 
   // FUNCIONES PARA LISTAS
   ///////////////////////////////////
