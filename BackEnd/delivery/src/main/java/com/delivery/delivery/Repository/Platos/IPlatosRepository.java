@@ -17,7 +17,11 @@ public interface IPlatosRepository extends JpaRepository <Platos, Long>{
   // public void  executeQuery();
 
   public List<Platos> findAllBytipoPlato_IdTipoPlato(Long idTipoPlato);
-   }
+   
+
+  public Boolean existsByNombrePlato(String nombrePlato); 
+
+}
    
   
   

@@ -51,7 +51,7 @@
                 <div class="card-icon card-icon-large">
                     <i class=""></i>
                 </div>
-                <button type="button" class="btn btn-outline-light btn-sm" (click)="modalListaComPlatos.hide()">
+                <button type="button" class="btn btn-outline-light btn-sm" (click)="borrarInputsCerrarModalito(); modalListaComPlatos.hide()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -89,7 +89,8 @@
                         <p>{{MenuCompletoModel.nombrePlato}}</p>
                     </div>
                     <div class="col-2 text-center">
-                        <p><small>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</small></p>
+                       <p><small>{{ MenuCompletoModel.tipoPlato ? MenuCompletoModel.tipoPlato.nombreTipoPlato : '' }}</small></p>
+
                     </div>
 
                     <div class="col-2 text-center">
@@ -101,14 +102,83 @@
                     </div>
 
                     <div class="col-2 text-center">
+                        <!-- Boton editar-->
+                        <button class="btn btn-outline-light btn-lg"  (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
+                        obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
+                                      MenuCompletoModel?.nombrePlato || '',
+                                      MenuCompletoModel?.precioPlato || 0,
+                                      MenuCompletoModel?.tipoPlato?.idTipoPlato || 0,
+                                      MenuCompletoModel?.imgPlato || '');">
+                        <i class="far fa-edit"></i></button>
 
                         <!-- Boton borrar-->
                         <button class="btn btn-outline-light btn-lg"
                             (click)="borrarPlaLisComMsjEli(MenuCompletoModel.idPlato)">
-                            <i class="far fa-trash-alt"></i></button>
+                            <i class="far fa-trash-alt"> </i></button>
                     </div>
                     <br>
-                    <hr>
+                      <!-- MODAL EDITAR LA LISTA COMPLETA DE PLATOS-->
+
+                      <ng-template #templateEditarListCompPlatos>
+                        <div class="container-fluid modal-menu">
+                            <div class="row">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">EDITAR LISTA COMPLETA DE PLATOS</h4>
+                                    <div class="card-icon card-icon-large">
+                                        <i class=""></i>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-light btn-sm"
+                                        (click)="modalEditarListCompPlatos.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <form (ngSubmit)="editarPlato()" novalidate #f="ngForm">
+                                        <div class="form-group, col-12 pt-3 pb-3">                                       
+                                            <label for="idTipoPlato">ID TIPO PLATO</label>
+                                            <select class="form-select" id="idTipoPlato" name="idTipoPlato"
+                                            [(ngModel)]="idTipoPla" required>
+                                            <option disabled selected>Seleccionar</option>
+                                            <option *ngFor="let TipoPlato of tiposPlatosModel"
+                                                [ngValue]="TipoPlato.idTipoPlato">
+                                                {{TipoPlato.idTipoPlato}} - {{TipoPlato.nombreTipoPlato}}
+                                            </option>                                          
+                                        </select>
+                                        </div>
+                                        <div class="form-group, col-12 pt-3 pb-3">
+                                            <label for="idPlato">ID PLATO </label>
+                                            <input readonly type="number" class="form-control" id="idPlato"
+                                                name="idPlato" [(ngModel)]="idPlato" required>
+                                        </div>
+                                        <div class="form-group, col-12 pb-3">
+                                            <label for="nombrePlato">NOMBRE DEL PLATO</label>
+                                            <input type="text" class="form-control" id="nombrePlato"
+                                                name="nombrePlato" [(ngModel)]="nombrePlato" required>
+                                        </div>
+                                        <div class="form-group, col-12 pb-3">
+                                            <label for="precioPlato">PRECIO DEL PLATO</label>
+                                            <input type="text" class="form-control" id="precioPlato"
+                                                name="precioPlato" [(ngModel)]="precioPlato" required>
+                                        </div>
+                                        <div class="form-group, col-12 pb-3">
+                                            <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
+                                            <input type="text" class="form-control" id="imgPlato"
+                                                name="imgPlato" [(ngModel)]="imgPlato" required>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button class="btn btn-outline-light">
+                                                    Enviar
+                                                </button>
+                                            </div>                                        
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </ng-template><hr>
                 </div>
             </div>
         </div>
@@ -136,7 +206,7 @@
         <div class="container-fluid modal-menu">
             <div class="row">
                 <div class="modal-header text-center">
-                    <h4 class="modal-title">CREAR TARJETA PEQUEÑA</h4>
+                    <h4 class="modal-title">AGREGAR PLATO</h4>
                     <div class="card-icon card-icon-large">
                         <i class=""></i>
                     </div>
@@ -148,7 +218,7 @@
                 <div class="row">
                     <form (ngSubmit)="generarCardPequena()" novalidate #f="ngForm">
                         <div class="form-group col-12 pt-3 pb-3">
-                            <label for="idTipoPlato">SELECCIONE EL TIPO PLATO</label>
+                            <label for="idTipoPla">SELECCIONE EL TIPO PLATO</label>
                             <select class="form-select" id="idTipoPlato" name="idTipoPlato" [(ngModel)]="idTipoPla"
                                 required>
                                 <option disabled selected>Seleccionar</option>
@@ -195,7 +265,7 @@
                 <div class="col-md-12 mb-2 text-center">
                     <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputsCerrarModalito()"
                         type="button" class="btn btn-secondary btn-sm rounded-pill btn-block">
-                        AGREGAR TARJETA
+                        AGREGAR PLATO
                     </button>
                     <br>
                 </div>
@@ -225,7 +295,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
 
@@ -348,7 +417,7 @@
                                     </div>
                                     <div class="col-lg-2 col-md-2 border-end d-flex align-items-center ps-5">
                                         <p class="text-center">
-                                            <small>{{MenuCompletoModel.tipoPlato.nombreTipoPlato}}</small>
+                                            <small>{{ MenuCompletoModel.tipoPlato ? MenuCompletoModel.tipoPlato.nombreTipoPlato : '' }}</small>
                                         </p>
                                     </div>
 
@@ -391,7 +460,7 @@
                                                 <form (ngSubmit)="editarPlato()" novalidate #f="ngForm">
                                                     <div class="form-group, col-12 pt-3 pb-3">
                                                         <label for="idTipoPlato">ID TIPO PLATO</label>
-                                                        <input readonly type="number" class="form-control"
+                                                        <input readonly ="number" class="form-control"
                                                             id="idTipoPlato" name="idTipoPlato" [(ngModel)]="idTipoPla"
                                                             required>
                                                     </div>
@@ -447,7 +516,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12">
                     <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
                         id="bordesYBackGrCardGde">
                         <div class="cardGrandeTipoPla p-4">
@@ -668,7 +737,7 @@
                                 </button>
                             </div>
                             <div class="Modalito p-5" *ngIf="mostrarModalitoIconos">
-                                <a class="custom-link text-white" href="https://fontawesome.com/search"
+                                <a class="custom-link text-white" href="https://fontawesome.com/v5/search?o=r&m=free"
                                     target="_blank"><i class="fa fa-link px-1"></i>
                                     <p><small>MAS ICONOS</small></p>
                                 </a>
@@ -694,7 +763,7 @@
                                 </div>
                                 <div class="form-group col-12 pt-3 pb-3">
                                     <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
-                                        <a class="custom-link text-white" href="https://fontawesome.com/search"
+                                        <a class="custom-link text-white" href="https://fontawesome.com/v5/search?o=r&m=free"
                                             target="_blank"><i class="fa fa-link px-1"></i></a>
                                     </label>
                                     <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
@@ -775,20 +844,19 @@
                                 </div>
                                 <div class="form-group col-12 pt-3 pb-3">
                                     <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
-                                        <a class="custom-link text-white" href="https://fontawesome.com/search"
+                                        <a class="custom-link text-white" href="https://fontawesome.com/v5/search?o=r&m=free"
                                             target="_blank"><i class="fa fa-link px-1"></i></a>
                                     </label>
                                     <!-- no se usa en esta parte del codigo la lista del tipo listaIconosTipoPlato-->
                                     <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
                                     <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
                                     <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
-                                        [(ngModel)]="iconoTipoPlato" required>
-                                        <option disabled selected>Seleccionar</option>
+                                        [(ngModel)]="iconoTipoPlato" required>                               
                                         <option *ngFor="let TipoPlato of tiposPlatosModel"
                                             [ngValue]="TipoPlato.iconoTipoPlato">
                                             {{TipoPlato.iconoTipoPlato}}
                                         </option>
-                                        <option value="">Seleccionar un icono</option>
+                                        <option value="">No seleccionar ningun ícono</option>
                                     </select>
                                     <input placeHolder="Ingresar un icono de la url font awesome" type="text"
                                         class="form-control" id="iconoTipoPlatoParaInput" name="iconoTipoPlatoParaInput"
@@ -805,12 +873,11 @@
                                     <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
                                     <select class="form-select" id="colorCardTipoPlato" name="colorCardTipoPlato"
                                         [(ngModel)]="colorCardTipoPlato" required>
-                                        <option disabled selected>Seleccionar un color</option>
                                         <option *ngFor="let TipoPlato of tiposPlatosModel"
                                             [ngValue]="TipoPlato.colorCardTipoPlato">
                                             {{TipoPlato.colorCardTipoPlato}}
                                         </option>
-                                        <option value="">Seleccionar un color</option>
+                                        <option value="">No seleccionar ningun color</option>
                                     </select>
                                     <input placeHolder="Ingrese un color en hexadecimal" type="text"
                                         class="form-control" id="colorCardTipoPlatoParaInput"
@@ -838,7 +905,7 @@
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  />
 
 
 

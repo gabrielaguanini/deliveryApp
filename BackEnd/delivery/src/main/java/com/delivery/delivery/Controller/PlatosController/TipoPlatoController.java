@@ -2,15 +2,15 @@ package com.delivery.delivery.Controller.PlatosController;
 
 import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Mensaje.Mensaje;
-import com.delivery.delivery.Service.Platos.PlatosService;
 import com.delivery.delivery.Service.Platos.TipoPlatoService;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.PostPersist;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +37,7 @@ public class TipoPlatoController {
                 .collect(Collectors.toList());
 
         return new ResponseEntity(tiposPlatosOrdenados, HttpStatus.OK);
-    }
-
-    ;
+    };
     
     //LISTA FILTRADA DE TIPOS DE PLATOS(PARA GENERAR LAS CARDS PEQUEÑAS EN EL FRONT)
     @GetMapping("/listafiltradatipoplatos")
@@ -67,7 +65,12 @@ public class TipoPlatoController {
     
    //AGREGAR TIPO PLATO     
     @PostMapping("/guardartipoplato")
-    public ResponseEntity guardarTipoPlato(@RequestBody TipoPlato tipoPlato) {
+    public ResponseEntity<?> guardarTipoPlato(@Valid @RequestBody TipoPlato tipoPlato) {
+   
+      if(tipoPlaServ.existeNombreTipoPlato(tipoPlato.getNombreTipoPlato())){
+           return new ResponseEntity(new Mensaje("No se pueden guardar tipos de plato duplicados"), HttpStatus.BAD_REQUEST);
+      } else {
+        
         TipoPlato tipoPla = new TipoPlato(
                 tipoPlato.getIdTipoPlato(),
                 tipoPlato.getNombreTipoPlato(),
@@ -77,18 +80,16 @@ public class TipoPlatoController {
         tipoPlaServ.guardarTipoPlato(tipoPla);
 
         return new ResponseEntity(new Mensaje("Tipo de plato guardado"), HttpStatus.OK);
-    }
+    }};
 
-    ;
+    
     
     //BORRAR TIPO DE PLATO
     @DeleteMapping("/eliminartipoplatos/{idTipoPlato}")
     public ResponseEntity borrarTipoPlato(@PathVariable Long idTipoPlato) {
         tipoPlaServ.borrarTipoPlato(idTipoPlato);
         return new ResponseEntity(new Mensaje("Tipo de plato eliminado"), HttpStatus.OK);
-    }
-
-    ;
+    };
     
     //ACTUALIZAR TIPO DE PLATO
     
@@ -100,9 +101,7 @@ public class TipoPlatoController {
         tipPla.setColorCardTipoPlato(tipoPlato.getColorCardTipoPlato());
         tipoPlaServ.guardarTipoPlato(tipPla);
         return new ResponseEntity(new Mensaje("Tipo de plato actualizado"), HttpStatus.OK);
-    }
-
-    ;
+    };
     
     //OBTENER PLATO POR ID
     
@@ -110,12 +109,17 @@ public class TipoPlatoController {
     public ResponseEntity<TipoPlato> obtenerTipoPlatoXId(@PathVariable Long idTipoPlato) {
         TipoPlato tipoPl = tipoPlaServ.getOne(idTipoPlato).get();
         return new ResponseEntity(tipoPl, HttpStatus.OK);
-    }
-;
+    };
+    
+    //SABER SI UN TIPO DE PLATO EXISTE POR SU NOMBRE
+    @GetMapping("/tipoplatoexistenombre/{nombreTipoPlato}")
+    public Boolean existePorNombre(@PathVariable String nombreTipoPlato){
+      return  tipoPlaServ.existeNombreTipoPlato(nombreTipoPlato);
+    };
+    
+  
 
 }
     
 
-    
-////////////AL CRUD DE ESTE CONTROLLER SOLO SE ACCEDE CON POSTMAN, EL CLIENTE NO PODRÁ//////////// 
-////////////AGREGAR TIPOS DE PLATOS, ESO LO GENERO YO////////////
+

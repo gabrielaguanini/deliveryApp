@@ -51,7 +51,10 @@ public class TipoPlatoService {
         return iTipoPlaRepo.filterIconoTipoPlato();
     };
     
-    
+    //METODO PARA SABER SI EL NOMBRE DEL TIPO DE PLATO ESTA PRESENTE EN LA TABLA 
+    public boolean existeNombreTipoPlato(String nombreTipoPlato){
+      return iTipoPlaRepo.existsByNombreTipoPlato(nombreTipoPlato);
+    }; 
     
 
 }

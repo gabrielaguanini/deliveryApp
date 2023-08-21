@@ -52,5 +52,9 @@ public class PlatosService {
          return iPlatosRepo.existsById(idPlato);
     }
     
+    //METODO PARA SABER SI EL NOMBRE DEL PLATO ESTA PRESENTE EN LA TABLA 
+    public boolean existeNombrePlato(String nombrePlato){
+      return iPlatosRepo.existsByNombrePlato(nombrePlato);
+    }; 
 
 }

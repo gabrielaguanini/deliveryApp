@@ -1,1 +1,14 @@
-AGREGADO CRUD PARA TIPO DE PLATOS, FALTA BORRAR INPUTS (CUANDO CLICKEO EN EDITAR TIPOPLATO, ESOS DATOS QUEDAN CUANDO CLICKEO EN AGREGAR TIPOPLATO)  y demas pequeñeces
+CREAR UN MODAL PARA EDITAR LA LISTA DE PLATOS COMPLETA
+
+PORCION DE CODIGO PARA SELECCIONAR DE LA LISTA DE TIPOSPLATOS
+
+   <div class="col-3 text-center">
+                    <select class="form-select" id="idTipoPlato" name="idTipoPlato"
+                    [(ngModel)]="idTipoPlato" (click)="listTipPla()">
+                    <option disabled selected>Seleccionar un tipo de plato</option>
+                    <option *ngFor="let TiposPlatosModel of tiposPlatosModel">                       
+                        {{TiposPlatosModel.idTipoPlato}} - {{TiposPlatosModel.nombreTipoPlato}}
+                    </option>
+                    <option value="">Seleccionar un tipo de plato</option>
+                </select>
+                </div> 

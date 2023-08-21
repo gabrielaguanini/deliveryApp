@@ -54,4 +54,9 @@ URL = 'http://localhost:8080/';
   return this.httpClient.get<TipoPlato>(this.URL + `obtenertiplaxid/${idTipoPlato}`)
  }
 
+//SABER SI UN PLATO EXISTE EN LA DB POR SU NOMBRE
+public existeXNombre(nombreTipoPlato: string){
+  return this.httpClient.get<boolean>(this.URL + `tipoplatoexistenombre/${nombreTipoPlato}`)
+};
+
 }

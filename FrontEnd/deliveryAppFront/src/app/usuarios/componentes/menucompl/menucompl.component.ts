@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model';
 import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
@@ -33,6 +33,8 @@ export class MenucomplComponent {
   /////////////////////////////
 
   modalEditarMenuComp!: BsModalRef;
+  @ViewChild('templateEditarMenuComp') templateEditarMenuComp!: TemplateRef<any>; // Declaración usando @ViewChild
+
 
   //MODAL AGREGAR TIPO DE PLATO
   //////////////////////////////
@@ -57,12 +59,16 @@ export class MenucomplComponent {
   ////////////////////////////////////
   modalListaComPlatos!: BsModalRef;
 
+  //MODAL EDITAR LISTA COMPLETA DE PLATOS
+  ////////////////////////////////////
+  modalEditarListCompPlatos!: BsModalRef;
+
   //MODALITO NGIF (NO BSMODALREF) PARA MOSTRAR COLORES E ICONOS
   //////////////////////////////////////////////////////////////
   mostrarModalitoColores: Boolean = false;
   mostrarModalitoIconos: Boolean = false;
 
-  //MODAL VER LISTA COMPLETA DE PLATOS
+  //MODAL VER INFORMACION DE USO
   ////////////////////////////////////
   modalInfo!: BsModalRef;
 
@@ -90,6 +96,7 @@ export class MenucomplComponent {
   precioPlato!: any;
   idTipoPla!: number;
   imgPlato!: string;
+  
 
   //CREAR Y EDITAR TIPO DE PLATO
   ///////////////////////////////
@@ -155,6 +162,7 @@ export class MenucomplComponent {
     this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp, {backdrop: 'static'});
   }
 
+
   //MODAL AGREGAR TIPO PLATO
   //////////////////////
 
@@ -193,6 +201,14 @@ export class MenucomplComponent {
     this.modalListaComPlatos = this.modalService.show(templateListaComPlato, { backdrop: 'static', ...modalConfig });
     
   };
+
+  //MODAL EDITAR LISTA COMPLETA DE PLATOS
+  ////////////////////////////////////
+
+  openModalEditarListCompPlatos(templateEditarListCompPlatos: TemplateRef<any>) {
+    this.modalEditarListCompPlatos = this.modalService.show(templateEditarListCompPlatos, {backdrop: 'static'});
+  }
+
 
   //MODAL INFORMACION
   ////////////////////////////////////
@@ -239,17 +255,35 @@ export class MenucomplComponent {
 
   //CREAR PLATO
   ///////////////////////////////////
+  //verifica antes de guardar que no exista el plato
   onCreate(): void {
 
-    const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
 
-    const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
-    this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
-      alert("Plato guardado");
-    }, err => {
-      alert("No se guardó el plato");
-    });
+    this.menucomServ.existeXNombre(this.nombrePlato).subscribe(
+      (existePlato: boolean) => {
+        if (existePlato) {
+          alert("el plato ya existe");
+        } else {
+          const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
+  
+          const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
+          this.menucomServ.guardarPlato(menuCompMod).subscribe(
+            data => {
+              alert("Plato guardado");
+            },
+            err => {
+              alert("No se guardó el plato");
+            }
+          );
+        }
+      },
+      err => {
+        alert("Campo vacío o error al intentar guardar");
+      }
+    );
   }
+  
+  
 
   //BORRAR PLATO CON IDTIPOPLATO E IDPLATO
   ///////////////////////////////////
@@ -313,32 +347,53 @@ export class MenucomplComponent {
 
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
+      this.listaPlatosCompleta();
       alert("Plato editado");
     }, err => {
       alert("No se editó el plato");
     });
-  }
+  };
+
 
 
   //CREAR TIPO DE PLATO
   ///////////////////////
-
+     //antes de crear el tipo de plato, verifica que no exista en la tabla
   onCreateTipoPla(): void {
-
-    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato||this.iconoTipoPlatoParaInput, this.colorCardTipoPlato||this.colorCardTipoPlatoParaInput);
-    this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(data => {
-      alert("Tipo de plato guardado");
-      this.listTipPla();
-    },
-      err => { alert("No se creo el tipo de plato") })
-  };
+    this.tipoPlaServ.existeXNombre(this.nombreTipoPlato).subscribe(
+      (existePlato: boolean) => {
+        if (existePlato) {
+          alert("El tipo de plato ya existe");
+        } else {
+          const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
+          this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(
+            data => {
+              console.log(data.mensajePersonalizado);
+              alert("Tipo de plato guardado");
+              this.listTipPla();
+            },
+            err => {
+              alert("No se pudo guardar el tipo de plato");
+            }
+          );
+        }
+      },
+      err => {
+        alert("Campo vacío o error al intentar guardar");
+      }
+    );
+  }
+  
 
   //BORRAR TIPO DE PLATO
   /////////////////////////
 
   //funcion que elimina el plato sin advertir
   borrarTipoPlato(idTipoPlato: number) {
+    
+
     if (idTipoPlato != undefined) {
+      
 
       this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {
         alert("Tipo de plato eliminado");
@@ -497,7 +552,7 @@ export class MenucomplComponent {
   ///////////////////////////////////
   
  borrarInputsCerrarModalito(): void{
-  
+  //borrar inputs
   this.idTipoPlato = 0;
   this.nombrePlato = "";
   this.precioPlato = 0;
@@ -510,12 +565,12 @@ export class MenucomplComponent {
   this.colorCardTipoPlatoParaInput = "";
   
 
-  this. imgParaCelOPc = "";
-  this. tituloPromo = "";
+  this.imgParaCelOPc = "";
+  this.tituloPromo = "";
   this.textoPromo = "";
   this.urlImagenPromo = "";
  
-  //NO BORRA INPUTS, CIERRA MODALITOS
+  //cerrar modalitos
   this.mostrarModalitoColores = false;
   this.mostrarModalitoIconos = false;
  

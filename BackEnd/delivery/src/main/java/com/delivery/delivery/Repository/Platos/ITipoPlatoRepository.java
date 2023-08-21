@@ -26,5 +26,10 @@ public interface ITipoPlatoRepository extends JpaRepository <TipoPlato, Long>{
     @Query(value = "SELECT DISTINCT icono_tipo_plato FROM tipo_plato", nativeQuery = true)
     List<String> filterIconoTipoPlato();
     
- 
-  }
+    public Boolean existsByNombreTipoPlato(String nombreTipoPlato);
+    
+
+    
+  };
+
+    

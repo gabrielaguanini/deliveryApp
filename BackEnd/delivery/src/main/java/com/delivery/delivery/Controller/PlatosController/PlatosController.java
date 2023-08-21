@@ -44,6 +44,10 @@ public class PlatosController {
 //GUARDAR PLATO
     @PostMapping("/guardarplato")
     public ResponseEntity<?> guardarPlato(@RequestBody Platos platos) {
+    
+    if(plaServ.existeNombrePlato(platos.getNombrePlato())){
+        return new ResponseEntity(new Mensaje("No se pueden guardar platos duplicados"), HttpStatus.BAD_REQUEST);
+    } else {    
 
         Platos plat = new Platos(
               
@@ -58,8 +62,7 @@ public class PlatosController {
        // plaServ.executeQuery();
 
         return new ResponseEntity(new Mensaje("Plato guardado"), HttpStatus.OK);
-    };
-    
+     }};
     
 //ACTUALIZAR PLATOS  
 
@@ -90,7 +93,15 @@ public class PlatosController {
     public ResponseEntity<Platos> obtPlatoXId(@PathVariable("idPlato") Long idPlato) {
         Platos pla = plaServ.getOne(idPlato).get();
         return new ResponseEntity(pla, HttpStatus.OK);
-    }
+    };
+
+  //SABER SI UN PLATO EXISTE POR SU NOMBRE
+    @GetMapping("/platoexistenombre/{nombrePlato}")
+    public Boolean existePorNombre(@PathVariable String nombrePlato){
+      return  plaServ.existeNombrePlato(nombrePlato);
+    };
+    
+    
 }
 
 
