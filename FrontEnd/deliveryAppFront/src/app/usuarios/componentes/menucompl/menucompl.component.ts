@@ -233,7 +233,7 @@ export class MenucomplComponent {
     this.tipoPlaServ.listColoresTipPlat().subscribe(data => this.listaColorTipoPlato = data)
   };
 
-   mostrarListaTipoPlato(idTipoPlato: number): void {
+  mostrarListaTipoPlato(idTipoPlato: number): void {
     this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
   };
 
@@ -314,7 +314,8 @@ export class MenucomplComponent {
   borrarPlatoLisComp(idPlato: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlatoLisCompleta(idPlato).subscribe(data => {
-        alert("Plato eliminado");      
+        alert("Plato eliminado");   
+        this.listaFiltradaTipPla();   
         this.listaPlatosCompleta();
        }, err => console.log("No se pueden traer los registros de la db para borrar"))
     }
@@ -325,7 +326,7 @@ export class MenucomplComponent {
       const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
       if(msjAdvertenciaElim){
         this.borrarPlatoLisComp(idPlato);
-      } else {
+        } else {
         ""
       };
     };
@@ -557,6 +558,7 @@ export class MenucomplComponent {
   this.nombrePlato = "";
   this.precioPlato = 0;
   this.imgPlato  = "";
+  this.idTipoPla = 0;
 
   this.nombreTipoPlato = "";
   this.iconoTipoPlato = "";

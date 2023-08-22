@@ -6,12 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
-isExpanded? = false;
+  isExpanded? = false;
   toggleCollapse() {
     this.isExpanded = !this.isExpanded;
   }
 
-
 }
-

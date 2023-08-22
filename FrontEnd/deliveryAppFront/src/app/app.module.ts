@@ -4,20 +4,21 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MenucomplComponent } from './usuarios/componentes/menucompl/menucompl.component';
-import { NavbarComponent } from './usuarios/componentes/generales/navbar/navbar.component';
 import { AppRoutingModule } from './rutas/app-routing.module';
-import { HomeComponent } from './clientes/home/home.component';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './componentes_generales/navbar/navbar.component';
+import { HomeComponent } from './componentes_generales/home/home.component';
+import { CartelerasliderComponent } from './componentes_generales/carteleraslider/carteleraslider.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenucomplComponent,
-    NavbarComponent,
-    HomeComponent,  
+    CartelerasliderComponent,  
+    NavbarComponent, HomeComponent 
     
   ],
   imports: [
