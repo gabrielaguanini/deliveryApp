@@ -1,0 +1,109 @@
+#container-sliderCel{
+
+  background-color: #101010;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:White;
+  font-size:min(30px, max(3.75vw, 25px));
+  text-align: center;
+  display: flex;
+  justify-content:center;
+  position: absolute;   
+  overflow-x: hidden;
+}
+
+.labelCel{cursor: pointer;}
+
+/* CONTENEDOR PARA CENTRAR */
+.ContainerCenterCel{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+}
+/* INPUT */
+.inputCel{display: none}
+
+
+
+/* SLIDER */
+.CarruselsCel{
+  height: 70vh;
+  width: 50vh;
+  position: relative;
+  overflow-x: hidden;
+  
+ 
+}
+.CarruselCel{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  transition: all .5s ease;
+}
+
+
+
+
+/* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
+
+/* Estado 1 */
+#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(0%, 0);}
+#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(100%, 0);}
+#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(200%, 0);}
+/* Estado 2 */
+#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(-100%, 0);}
+#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(0%, 0);}
+#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(100%, 0);}
+/* Estado 3 */
+#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(-200%, 0);}
+#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(-100%, 0);}
+#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(0%, 0);}
+
+
+/* FLECHAS */
+.CarruselsCel .ArrowLeftCel, .CarruselsCel .ArrowRightCel{
+  position: absolute;
+  height: 100%;
+  width: 2em;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  user-select: none;
+  color:transparent;
+}
+.CarruselsCel .ArrowLeftCel{left: 0px;}
+.CarruselsCel .ArrowRightCel{right: 0px;}
+
+/* CONFIGURACION DE FLECHAS INDIVIDUALES */
+#SliderCel1:checked ~ .CarruselsCel .ArrowCel1{display: flex;}
+#SliderCel2:checked ~ .CarruselsCel .ArrowCel2{display: flex;}
+#SliderCel3:checked ~ .CarruselsCel .ArrowCel3{display: flex;}
+
+
+/* SELECTORES */
+.SelectorsCel {
+  width: 60px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.SelectorsCel .SelectorCel {
+  background-color: #FFF;
+  height: 10px;
+  width: 10px;
+  display: block;
+  border-radius: 5px;
+}
+/* CONDICIONALES PARA BOTÓN INFERIOR */
+#SliderCel1:checked ~ .SelectorsCel .SelectorCel:nth-of-type(1) {background-color: #999999;}
+#SliderCel2:checked ~ .SelectorsCel .SelectorCel:nth-of-type(2) {background-color: #999999;}
+#SliderCel3:checked ~ .SelectorsCel .SelectorCel:nth-of-type(3) {background-color: #999999;}
+
+

@@ -1,0 +1,20 @@
+
+  /* Estilos generales para ambos elementos */
+  #cartelerapc, #carteleraslidercel {
+    display: none; /* Ocultar ambos elementos por defecto */
+  }
+
+  /* Media query para pantallas grandes y medianas */
+  @media (min-width: 768px) {
+    #cartelerapc {
+      display: block; /* Mostrar el elemento con id "cartelerapc" en pantallas grandes y medianas */
+    }
+  }
+
+  /* Media query para celulares o pantallas pequeñas */
+  @media (max-width: 767px) {
+    #carteleraslidercel {
+      display: block; /* Mostrar el elemento con id "carteleraslidercel" en celulares o pantallas pequeñas */
+    }
+  }
+

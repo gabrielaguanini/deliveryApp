@@ -18,6 +18,7 @@ export class CartelerasliderService {
     return this.httpClient.get<Carteleramodel[]>(this.URL + 'listacartelera')
   };
 
+
   //GUARDAR PROMO O NOVEDAD
   public guardarPromosNov(cartelera: Carteleramodel): Observable <any>{
     return this.httpClient.post<any>(this.URL + 'guardarpromonovedades', cartelera)

@@ -4,13 +4,14 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-      font-family: Arial;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color:White;
     font-size:min(30px, max(3.75vw, 25px));
     text-align: center;
     display: flex;
     justify-content:center;
-    align-items: center;
+    position: absolute;   
+    overflow-x: hidden;
   }
   
   label{cursor: pointer;}
@@ -20,6 +21,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    
   }
   /* INPUT */
   input{display: none}
@@ -28,10 +30,11 @@
   
   /* SLIDER */
   .Carrusels{
-    height: 600px;
-    width: 1250px;
+    height: 550px;
+    width: 1100px;
     position: relative;
     overflow-x: hidden;
+    
    
   }
   .Carrusel{
@@ -49,9 +52,7 @@
   
   
   /* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
-  .Carrusels .Carrusel:nth-child(1) {background-image: url(https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80);}
-  .Carrusels .Carrusel:nth-child(2) {background-image: url(https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80);}
-  .Carrusels .Carrusel:nth-child(3) {background-image: url(https://images.unsplash.com/photo-1558030137-d464dd688b00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80);}
+ 
   /* Estado 1 */
   #Slider1:checked ~ .Carrusels .Carrusel:nth-of-type(1) {transform: translate(0%, 0);}
   #Slider1:checked ~ .Carrusels .Carrusel:nth-of-type(2) {transform: translate(100%, 0);}
@@ -83,49 +84,8 @@
   /* CONFIGURACION DE FLECHAS INDIVIDUALES */
   #Slider1:checked ~ .Carrusels .Arrow1{display: flex;}
   #Slider2:checked ~ .Carrusels .Arrow2{display: flex;}
-  #Slider3:checked ~ .Carrusels .Arrow3{display: flex;}
-  
-  /* MEDIA QUERIES PARA AJUSTAR EL TAMAÑO DE LAS IMÁGENES DE FONDO EN DIFERENTES TAMAÑOS DE PANTALLA */
-  
-  /* Para pantallas de hasta 768px (tablets y celulares en orientación vertical) */
-  @media (max-width: 768px) {
-    #container-slider {
-      aspect-ratio: 16 / 9; /* Relación de aspecto 16:9 para mantener el tamaño del contenedor */
-    }
-  
-    .Carrusel {
-      background-size: contain; /* Ajustar el tamaño de la imagen para que se vea completa dentro del contenedor */
-      background-position: center center; /* Centrar la imagen tanto horizontal como verticalmente */
-    }
-    .Carrusels .Carrusel:nth-child(1) {background-image: url(https://images.unsplash.com/photo-1542574271-7f3b92e6c821?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80);}
-    .Carrusels .Carrusel:nth-child(2) {background-image: url(https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80);}
-    .Carrusels .Carrusel:nth-child(3) {background-image: url(https://images.unsplash.com/photo-1600028068383-ea11a7a101f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2574&q=80);}
-  }
-  
-  /* Para pantallas de 768px a 1024px (tablets en orientación horizontal) */
-  @media (min-width: 768px) and (max-width: 1024px) {
-    #container-slider {
-      aspect-ratio: 16 / 9; /* Relación de aspecto 16:9 para mantener el tamaño del contenedor */
-    }
-  
-    .Carrusel {
-      background-size: contain; /* Ajustar el tamaño de la imagen para que se vea completa dentro del contenedor */
-      background-position: center center; /* Centrar la imagen tanto horizontal como verticalmente */
-    }
-  }
-  
-  /* Para pantallas más grandes de 1024px (pantallas de escritorio) */
-  @media (min-width: 1024px) {
-    #container-slider {
-      aspect-ratio: 16 / 9; /* Relación de aspecto 16:9 para mantener el tamaño del contenedor */
-    }
-  
-    .Carrusel {
-      background-size: contain; /* Ajustar el tamaño de la imagen para que se vea completa dentro del contenedor */
-      background-position: center center; /* Centrar la imagen tanto horizontal como verticalmente */
-    }
-  }
-  
+  #Slider3:checked ~ .Carrusels .Arrow3{display: flex;} 
+ 
   
   
   /* SELECTORES */

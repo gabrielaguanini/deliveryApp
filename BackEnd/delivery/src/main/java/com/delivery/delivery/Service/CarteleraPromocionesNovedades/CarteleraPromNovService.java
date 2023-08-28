@@ -19,7 +19,8 @@ public class CarteleraPromNovService {
     public List <CarteleraPromocionesNovedades> listaCartelera(){
         return iCartRepo.findAll();
     };
-    
+
+
     public Optional <CarteleraPromocionesNovedades> getOne(Long idPromo){
         return iCartRepo.findById(idPromo);
     };

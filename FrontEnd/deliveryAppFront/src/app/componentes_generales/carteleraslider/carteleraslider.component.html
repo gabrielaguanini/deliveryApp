@@ -1,17 +1,29 @@
-<div class="container-fluid" id="container-slider">
+<div class="container-fluid pt-2" id="container-slider">
 
     <div class="ContainerCenter">
       <!-- Radio Seleccionar -->
-      <input type="radio" name="Carrusel" id="Slider1" checked>
-      <input type="radio" name="Carrusel" id="Slider2">
-      <input type="radio" name="Carrusel" id="Slider3">
+      <input type="radio" name="Carrusel" id="Slider1" [checked]="currentIndex === 0">
+      <input type="radio" name="Carrusel" id="Slider2" [checked]="currentIndex === 1">
+      <input type="radio" name="Carrusel" id="Slider3" [checked]="currentIndex === 2">
   
       <div class="Carrusels">
         <!-- Imagen contenido -->
       <div class="listaCarrousel">
-        <div class="Carrusel" *ngFor="let Carteleramodel of cartelera.slice(0, 3); let i = index">
+        <div class="Carrusel" *ngFor="let Carteleramodel of cartelera.slice(0, 3); let i = index" 
+        [style.background-image]="'url(' + Carteleramodel.urlImagenPromo + ')'" style="background-size: cover; 
+        background-position: center;">
+          <p class="display-5">{{ Carteleramodel.tituloPromo }}</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
           <p>{{ Carteleramodel.textoPromo }}</p>
         </div>
+        
        
       </div>
         <!-- Flechas a la izquierda por cada imagen: NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE VEN -->
@@ -31,6 +43,14 @@
         <label for="Slider2" class="Selector"></label>
         <label for="Slider3" class="Selector"></label>
       </div>
-    </div>
+    </div>  
   
   </div>
+
+
+
+  
+
+
+
+  

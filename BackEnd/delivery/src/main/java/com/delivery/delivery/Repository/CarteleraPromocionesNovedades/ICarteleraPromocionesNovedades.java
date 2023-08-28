@@ -5,6 +5,10 @@ import com.delivery.delivery.Entity.CarteleraPromocionesNovedades.CarteleraPromo
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
+
 public interface ICarteleraPromocionesNovedades extends JpaRepository <CarteleraPromocionesNovedades,Long>{
+ 
     
 }
+
+

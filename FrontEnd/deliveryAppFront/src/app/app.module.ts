@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './componentes_generales/navbar/navbar.component';
 import { HomeComponent } from './componentes_generales/home/home.component';
 import { CartelerasliderComponent } from './componentes_generales/carteleraslider/carteleraslider.component';
+import { CarteleraslidercelComponent } from './componentes_generales/carteleraslidercel/carteleraslidercel.component';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { CartelerasliderComponent } from './componentes_generales/carteleraslide
     AppComponent,
     MenucomplComponent,
     CartelerasliderComponent,  
-    NavbarComponent, HomeComponent 
+    NavbarComponent, HomeComponent, CarteleraslidercelComponent 
     
   ],
   imports: [

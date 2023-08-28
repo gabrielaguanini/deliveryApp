@@ -31,6 +31,8 @@ public class CartProNovController {
      List<CarteleraPromocionesNovedades> listaPromo = carProNovServ.listaCartelera();
      return new ResponseEntity (listaPromo, HttpStatus.OK);
     };
+
+    
     
 //CREAR PROMOS Y NOVEDADES    
     @PostMapping("/guardarpromonovedades")

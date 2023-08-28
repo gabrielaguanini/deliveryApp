@@ -1,0 +1,56 @@
+<div class="container-fluid pt-2" id="container-sliderCel">
+
+  <div class="ContainerCenterCel">
+    <!-- Radio Seleccionar -->
+    <input class="inputCel" type="radio" name="CarruselCel" id="SliderCel1" [checked]="currentIndexCel === 0">
+    <input class="inputCel" type="radio" name="CarruselCel" id="SliderCel2" [checked]="currentIndexCel === 1">
+    <input class="inputCel" type="radio" name="CarruselCel" id="SliderCel3" [checked]="currentIndexCel === 2">
+
+    <div class="CarruselsCel">
+      <!-- Imagen contenido -->
+    <div class="listaCarrouselCel">
+      <div class="CarruselCel" *ngFor="let Carteleramodel of carteleraCel.slice(3, 6); let i = index" 
+      [style.background-image]="'url(' + Carteleramodel.urlImagenPromo + ')'" style="background-size: cover; 
+      background-position: center;">
+        <p class="display-5">{{ Carteleramodel.tituloPromo }}</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>{{ Carteleramodel.textoPromo }}</p>
+      </div>
+      
+     
+    </div>
+      <!-- Flechas a la izquierda por cada imagen: NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE VEN -->
+      <label class="labelCel" for="SliderCel3" class="ArrowLeftCel ArrowCel1">❮</label>
+      <label class="labelCel" for="SliderCel1" class="ArrowLeftCel ArrowCel2">❮</label>
+      <label class="labelCel" for="SliderCel2" class="ArrowLeftCel ArrowCel3">❮</label>
+
+      <!-- Flechas a la derecha por cada imagen NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE VEN -->
+      <label class="labelCel" for="SliderCel2" class="ArrowRightCel ArrowCel1">❯</label>
+      <label class="labelCel" for="SliderCel3" class="ArrowRightCel ArrowCel2">❯</label>
+      <label class="labelCel" for="SliderCel1" class="ArrowRightCel ArrowCel3">❯</label>
+    </div>
+
+    <!-- Selector circulos inferiores colgantes -->
+    <div class="SelectorsCel">
+      <label class="labelCel" for="SliderCel1" class="SelectorCel"></label>
+      <label class="labelCel" for="SliderCel2" class="SelectorCel"></label>
+      <label class="labelCel" for="SliderCel3" class="SelectorCel"></label>
+    </div>
+  </div>  
+
+</div>
+
+
+
+
+
+
+
+
