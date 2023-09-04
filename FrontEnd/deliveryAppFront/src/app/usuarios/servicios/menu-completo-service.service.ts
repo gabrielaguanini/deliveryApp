@@ -29,7 +29,7 @@ export class MenuCompletoServiceService {
   public actualizarPlato(idPlato:number, menuCompletoModel:MenuCompletoModel): Observable<any>{
     return this.httpClient.put<any>(this.URL + `actualizarplato/${idPlato}`, menuCompletoModel);
   };
-//Borra plato con el idPlato y el isTipoPlato, es para usar con las tarjetas pequeñas
+//Borra plato con el idPlato y el idTipoPlato, es para usar con las tarjetas pequeñas
   public borrarPlato(idPlato:number, idTipoPlato:number): Observable<any>{
     return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
   };

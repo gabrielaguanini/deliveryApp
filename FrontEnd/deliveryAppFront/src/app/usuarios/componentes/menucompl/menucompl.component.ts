@@ -8,6 +8,8 @@ import { Cartelera } from '../../modelos/cartelera';
 import { CarteleraService } from '../../servicios/cartelera.service';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
+import { PlatosAMostrar } from '../../modelos/platos-amostrar';
+import { PlatosAMostrarService } from '../../servicios/platos-amostrar.service';
 
 
 
@@ -84,7 +86,7 @@ export class MenucomplComponent {
   tiposPlatosFiltrados: TipoPlato[] = [];
   promosyNovedadesModel: Cartelera[] = [];
 
-
+  platosAMostrarList: PlatosAMostrar[] = [];
 
   //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
@@ -117,13 +119,17 @@ export class MenucomplComponent {
   urlImagenPromo!: string;
   fechaPromo!: string;
 
+ //EDITAR PROMO/NOVEDAD/CARTELERA
+/////////////////////////////////
+
 
 
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
     private tipoPlaServ: TiposPlatosService,
     private router: Router,
-    private cartServ: CarteleraService,  
+    private cartServ: CarteleraService,
+    private PlaMosServ: PlatosAMostrarService
   ) { }
 
   ngOnInit(): void {
@@ -132,6 +138,7 @@ export class MenucomplComponent {
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
     this.listaPromoNovedad();
     this.listaPlatosCompleta();
+    this.listaPlatosAMostrar() //mustra la lista de platos a mostrar
   
   }
 
@@ -217,9 +224,16 @@ export class MenucomplComponent {
     this.modalInfo = this.modalService.show(templateModalInfo, {backdrop: 'static'});
   }
 
-  //MODAL EDITAR PROMO/NOVEDAD
+  //MODAL PLATOS A MOSTRAR
   ////////////////////////////
+  openModalPlatosAMos(){};
 
+
+  //MODAL EDITAR PLATOS A MOSTRAR
+  ////////////////////////////
+  openModalEditarPlatosAMos(){};
+
+  
   
 
   // FUNCIONES PARA LISTAS
@@ -252,6 +266,12 @@ export class MenucomplComponent {
   listaPlatosCompleta(): void{
     this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
   };
+
+  listaPlatosAMostrar(): void{
+    this.PlaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data)
+  };
+
+
 
   //CREAR PLATO
   ///////////////////////////////////
@@ -404,6 +424,14 @@ export class MenucomplComponent {
         err => { alert("no se pudo eliminar el tipo de plato") })
     }
   };
+
+
+  
+  //BORRAR TIPO DE PLATO
+  /////////////////////////
+  
+  borrarPlatoAMostrar(){};
+
 
   //funcion que muestra un cartel de warning antes de borrar
   borrarTiPladvEli(idTipoPlato:number): void{

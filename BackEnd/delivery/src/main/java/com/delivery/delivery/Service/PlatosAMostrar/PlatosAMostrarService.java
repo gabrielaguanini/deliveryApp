@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -36,15 +35,6 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
         iPlatosAMostrarRepo.save(platosAMostrar);
     }
     
-    
-    public void executeQuery(){
-        iPlatosAMostrarRepo.executeQuery();
-    }
-  
-    
-    public void findByIdAndSave(@Param("idPlato") Long idPlato){       
-      iPlatosAMostrarRepo.findByIdAndSave(idPlato);
-    }
     
    
 

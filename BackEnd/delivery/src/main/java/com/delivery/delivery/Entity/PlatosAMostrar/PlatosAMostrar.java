@@ -2,7 +2,6 @@ package com.delivery.delivery.Entity.PlatosAMostrar;
 
 
 import com.delivery.delivery.Entity.Platos.Platos;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 //import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,22 +28,17 @@ public class PlatosAMostrar {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idPlato")
     //@ElementCollection  
-    @JsonIgnore
     private Platos platos;
-    private String idSecundario;
-    private String nombrePlato;
-    private String tipoPlato;
-    private Double PrecioPlato;
+    private String descripcionPlatoAMostrar;
+
 
     public PlatosAMostrar() {
     }
 
-    public PlatosAMostrar(Platos platos, String idSecundario, String nombrePlato, String tipoPlato, Double PrecioPlato) {
+    public PlatosAMostrar(Platos platos, String descripcionPlatoAMostrar) {
         this.platos = platos;
-        this.idSecundario = idSecundario;
-        this.nombrePlato = nombrePlato;
-        this.tipoPlato = tipoPlato;
-        this.PrecioPlato = PrecioPlato;
+        this.descripcionPlatoAMostrar = descripcionPlatoAMostrar;
     }
 
+   
 }

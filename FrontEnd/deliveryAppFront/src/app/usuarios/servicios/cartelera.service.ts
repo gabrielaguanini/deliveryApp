@@ -38,3 +38,6 @@ export class CarteleraService {
  }
 
 }
+ //CONSOLA
+//////////////////////////
+console.log("Cartelera service esta corriendo");

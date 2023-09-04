@@ -60,3 +60,7 @@ public existeXNombre(nombreTipoPlato: string){
 };
 
 }
+
+//CONSOLA
+//////////////////////////
+console.log("Tipos Platos service esta corriendo");
