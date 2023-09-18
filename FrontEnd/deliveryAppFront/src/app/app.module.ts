@@ -12,6 +12,7 @@ import { NavbarComponent } from './componentes_generales/navbar/navbar.component
 import { HomeComponent } from './componentes_generales/home/home.component';
 import { CartelerasliderComponent } from './componentes_generales/carteleraslider/carteleraslider.component';
 import { CarteleraslidercelComponent } from './componentes_generales/carteleraslidercel/carteleraslidercel.component';
+import { PedidosplatosamostrarComponent } from './usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { CarteleraslidercelComponent } from './componentes_generales/cartelerasl
     AppComponent,
     MenucomplComponent,
     CartelerasliderComponent,  
-    NavbarComponent, HomeComponent, CarteleraslidercelComponent 
+    NavbarComponent, HomeComponent, CarteleraslidercelComponent, PedidosplatosamostrarComponent 
     
   ],
   imports: [

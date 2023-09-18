@@ -86,8 +86,7 @@ export class MenucomplComponent {
   tiposPlatosFiltrados: TipoPlato[] = [];
   promosyNovedadesModel: Cartelera[] = [];
 
-  platosAMostrarList: PlatosAMostrar[] = [];
-
+ 
   //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
 
@@ -138,7 +137,7 @@ export class MenucomplComponent {
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
     this.listaPromoNovedad();
     this.listaPlatosCompleta();
-    this.listaPlatosAMostrar() //mustra la lista de platos a mostrar
+    
   
   }
 
@@ -224,17 +223,6 @@ export class MenucomplComponent {
     this.modalInfo = this.modalService.show(templateModalInfo, {backdrop: 'static'});
   }
 
-  //MODAL PLATOS A MOSTRAR
-  ////////////////////////////
-  openModalPlatosAMos(){};
-
-
-  //MODAL EDITAR PLATOS A MOSTRAR
-  ////////////////////////////
-  openModalEditarPlatosAMos(){};
-
-  
-  
 
   // FUNCIONES PARA LISTAS
   ///////////////////////////////////
@@ -267,9 +255,6 @@ export class MenucomplComponent {
     this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
   };
 
-  listaPlatosAMostrar(): void{
-    this.PlaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data)
-  };
 
 
 
@@ -424,13 +409,6 @@ export class MenucomplComponent {
         err => { alert("no se pudo eliminar el tipo de plato") })
     }
   };
-
-
-  
-  //BORRAR TIPO DE PLATO
-  /////////////////////////
-  
-  borrarPlatoAMostrar(){};
 
 
   //funcion que muestra un cartel de warning antes de borrar

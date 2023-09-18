@@ -1,1 +1,1 @@
-slider, solo trae el textopromo de la base de datos, claramente hay que rediseñarlo
+ver la funcion para agregar platos a mostrar, el form no funciona

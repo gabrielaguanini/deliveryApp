@@ -4,11 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MenucomplComponent } from '../usuarios/componentes/menucompl/menucompl.component';
 import { HomeComponent } from '../componentes_generales/home/home.component';
+import { PedidosplatosamostrarComponent } from '../usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomeComponent },
   { path: '', component: HomeComponent },
-  { path: 'menucompleto', component: MenucomplComponent}
+  { path: 'menucompleto', component: MenucomplComponent},
+  { path: 'pedidosplatosamos', component: PedidosplatosamostrarComponent}
 
 ];
 

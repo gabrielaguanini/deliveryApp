@@ -7,7 +7,6 @@ import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -58,7 +57,7 @@ public class platosAMostrarController {
             plaMosServ.guardar(platosAMostrar);
             return new ResponseEntity(new Mensaje("Plato añadido"), HttpStatus.OK);
         } else {
-            return new ResponseEntity(new Mensaje("El Plato no existe"), HttpStatus.OK);
+            return new ResponseEntity(new Mensaje("El Plato no se guardo"), HttpStatus.OK);
         }
 
     };   

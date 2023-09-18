@@ -3,8 +3,8 @@ package com.delivery.delivery.Controller.PlatosController;
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.Platos.PlatosService;
+import java.util.Comparator;
 import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +25,11 @@ public class PlatosController {
     PlatosService plaServ;
     
     
-//LISTA TODOS LOS PLATOS
+//LISTA TODOS LOS PLATOS COMPLETA
     @GetMapping("/listadeplatos") 
     public ResponseEntity<List<Platos>> listaDePlatos() {
         List<Platos> listaDePlatos = plaServ.listaDePlatos();
+         listaDePlatos.sort(Comparator.comparing(Platos::getIdPlato));
         return new ResponseEntity(listaDePlatos, HttpStatus.OK);
     }
     
@@ -38,7 +39,8 @@ public class PlatosController {
     public ResponseEntity<List<Platos>> listaTipoPlato(@PathVariable Long idTipoPlato) {
         List<Platos> listaTipoPlato = plaServ.listaTipoPlato(idTipoPlato);
         return new ResponseEntity(listaTipoPlato, HttpStatus.OK);
-    }
+    }    
+    
     
 
 //GUARDAR PLATO
