@@ -2,8 +2,7 @@
 package com.delivery.delivery.Entity.Pedidos;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,30 +30,26 @@ public class Pedidos {
     //@ElementCollection
     //@JsonIgnore
     private PlatosAMostrar platosAMostrar; 
-    private Double precioPlato;
     private Integer porcionPlato;    
     private Double totalPedido;
-    private Date fecha;    
-    private Time hora;
+    private Timestamp fecha;    
+   
 
     public Pedidos() {
-    }
+    };
+    
 
-    public Pedidos(PlatosAMostrar platosAMostrar, Double precioPlato, Integer porcionPlato, Double totalPedido, Date fecha, Time hora) {
+    public Pedidos(PlatosAMostrar platosAMostrar, Integer porcionPlato, Double totalPedido, Timestamp fecha) {
         this.platosAMostrar = platosAMostrar;
-        this.precioPlato = precioPlato;
         this.porcionPlato = porcionPlato;
         this.totalPedido = totalPedido;
-        this.fecha = fecha;
-        this.hora = hora;
-    }
-
-   
+        this.fecha = fecha;       
+    };
+ 
 
     public Pedidos(Integer porcionPlato) {
         this.porcionPlato = porcionPlato;
-    }
-
+    };
  
 }
 

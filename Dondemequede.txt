@@ -1,1 +1,2 @@
-ver la funcion para agregar platos a mostrar, el form no funciona
+Front, componente platosamostrar y pedidos, hecho el servicio, funcionando lista completa de pedidos. Dar formato a esta lista y continuar con el CRUD
+Tener en cuenta que tipo de operaciones se haran con este crud

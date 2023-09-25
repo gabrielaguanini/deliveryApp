@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -36,16 +35,17 @@ public class PedidosService {
         iPedidosRepo.deleteById(idPedido);
     }
     
-    public void findByIdPlatosAMosAndSave(@Param("idPlatosAMostrar") Long idPlatosAMostrar, 
-                                          @Param("porcionPlato") Integer porcionPlato){
-     
-        iPedidosRepo.findByIdPlatosAMosAndSave(idPlatosAMostrar, porcionPlato);
-    }
-    
-    public void updatePedidos(){
-        iPedidosRepo.updatePedidos();
+    public void updateFecha(Long idPedido){     
+        iPedidosRepo.updatePedidosFecha(idPedido);
     };
     
+    public void updateTotalPedidos(Long idPedido){
+        iPedidosRepo.updatePedidosPorcion(idPedido);
+    };
+    
+    public boolean existById(Long idPlatosAMostrar){
+       return iPedidosRepo.existsById(idPlatosAMostrar);};
+      
 }
 
 

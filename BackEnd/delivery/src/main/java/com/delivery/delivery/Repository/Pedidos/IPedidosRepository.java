@@ -8,18 +8,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 
+
 public interface IPedidosRepository extends JpaRepository <Pedidos, Long>{
  
 //METODO ABSTRACTO PARA INSERTAR REGISTROS CON PARAMETROS IDPLATOSAMOSTRAR Y PORCIONPLATO  
 @Modifying    
-@Query(value = "INSERT INTO pedidos(id_pedido, fecha, hora,  porcion_plato, id_platosamostrar) SELECT 0, now(), curtime(), :porcionPlato, id_platosamostrar FROM platosamostrar WHERE id_platosamostrar = :idPlatosAMostrar", nativeQuery = true)
-   public void findByIdPlatosAMosAndSave(@Param("idPlatosAMostrar") Long idPlatosAMostrar, 
-                                         @Param("porcionPlato") Integer porcionPlato);
+@Query(value = "UPDATE pedidos SET fecha = NOW() WHERE id_pedido = :idPedido", nativeQuery = true)
+   public void updatePedidosFecha(@Param("idPedido") Long idPedido);
 
-//METODO ABSTRACTO PARA ACRUALIZAR LA TABLA PEDIDO CON EL PRECIO DEL PLATO Y EL TOTAL DEL PEDIDO   
+//METODO ABSTRACTO PARA INSERTAR EL PRECIO TOTAL DEL PEDIDO    
 @Modifying    
-@Query(value = "UPDATE pedidos , platosamostrar\n" +
-"SET pedidos.precio_plato = platosamostrar.precio_plato, pedidos.total_pedido = pedidos.porcion_plato * pedidos.precio_plato\n" +
-"WHERE id_pedido > 0", nativeQuery = true)
-   public void updatePedidos(); 
+@Query(value = "UPDATE pedidos SET total_pedido = porcion_plato * (SELECT precio_plato FROM platos WHERE id_plato = ( SELECT id_plato FROM platosamostrar WHERE id_platosamostrar = pedidos.id_platosamostrar))WHERE id_pedido = :idPedido", nativeQuery = true)
+   public void updatePedidosPorcion(@Param("idPedido") Long idPedido);   
+
 }

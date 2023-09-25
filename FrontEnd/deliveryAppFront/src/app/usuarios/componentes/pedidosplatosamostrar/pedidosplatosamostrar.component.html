@@ -1,4 +1,80 @@
 <div class="container-fluid">
+
+    <!-- LISTA DE PEDIDOS A MOSTRAR -->
+
+    <div class="row">
+        <div class="col-lg-2 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Nombre del plato</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Descripcion del plato</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Precio</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Tipo de plato</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Imagen</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">Edición</p>
+            </blockquote>
+        </div>
+    </div>
+    <div class="row" *ngFor="let PedidosModel of pedidosList">
+        <hr>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">{{PedidosModel.idPedido}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">{{PedidosModel.platosAMostrar.idPlatosAMostrar}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">$ {{PedidosModel.platosAMostrar.platos.nombrePlato}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">{{PedidosModel.porcionPlato}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 pb-3">
+            <img class="img-fluid rounded border-secondary-subtle border border-3"
+                src="{{PedidosModel.platosAMostrar.platos.imgPlato}}">
+        </div>
+        <div class="col-lg-2 col-md-1 text-center" id="">
+            <!-- Boton editar -->
+            <button class="btn btn-outline-light btn-md">
+                <i class="far fa-edit"></i>
+            </button>
+            <!-- Boton borrar -->
+            <button class="btn btn-outline-light btn-md">
+                <i class="far fa-trash-alt"></i>
+            </button>
+        </div>        
+   
+</div>
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+<!-- PLATOS A MOSTRAR -->
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
@@ -41,7 +117,8 @@
                                                             <option
                                                                 *ngFor="let MenuCompletoModel of platosListForSelect"
                                                                 [ngValue]="MenuCompletoModel.idPlato">
-                                                                {{MenuCompletoModel.idPlato}} - {{MenuCompletoModel.nombrePlato}}
+                                                                {{MenuCompletoModel.idPlato}} -
+                                                                {{MenuCompletoModel.nombrePlato}}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -66,9 +143,11 @@
                                         </div>
                                         <br>
                                     </div>
-                                </ng-template>
-
+                                </ng-template>                        
                             </div>
+
+                 <!-- LISTA DE PLATOS A MOSTRAR -->
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-1 d-none d-lg-block">
                                     <blockquote class="blockquote border-end border-top border-white">
@@ -121,80 +200,74 @@
                                 </div>
                                 <div class="col-lg-2 col-md-1 text-center" id="">
                                     <!-- Boton editar -->
-                                    <button class="btn btn-outline-light btn-md" (click)="openModalEditarPlatosAMos(templateEditarPlatoAMostrar); obtenerPlaMosXId(PlatosAMostrar.idPlatosAMostrar, PlatosAMostrar.platos.idPlato, PlatosAMostrar.descripcionPlatoAMostrar)">
+                                    <button class="btn btn-outline-light btn-md"
+                                        (click)="openModalEditarPlatosAMos(templateEditarPlatoAMostrar); obtenerPlaMosXId(PlatosAMostrar.idPlatosAMostrar, PlatosAMostrar.platos.idPlato, PlatosAMostrar.descripcionPlatoAMostrar)">
                                         <i class="far fa-edit"></i>
                                     </button>
                                     <!-- Boton borrar -->
-                                    <button class="btn btn-outline-light btn-md" (click)="borrarPlatMosMensajeAdv(PlatosAMostrar.idPlatosAMostrar)">
+                                    <button class="btn btn-outline-light btn-md"
+                                        (click)="borrarPlatMosMensajeAdv(PlatosAMostrar.idPlatosAMostrar)">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
 
-                                
-                   <!-- MODAL EDITAR PLATO A MOSTRAR -->
 
-                   <ng-template #templateEditarPlatoAMostrar>
-                    <div class="container-fluid modal-menu">
-                        <div class="row">
-                            <div class="modal-header">
-                                <h4 class="modal-title">EDITAR</h4>
-                                <button type="button" class="btn btn-outline-light btn-sm"
-                                    (click)="modalEditarPlatosAMos.hide()">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                                    <!-- MODAL EDITAR PLATO A MOSTRAR -->
 
-                            <div class="row">
-                                <form (ngSubmit)="editarPlatoAMos()" novalidate #f="ngForm">
-                                    <div class="form-group, col-12 pb-3">
-                                        <label for="idPlatosAMostrar">ID PLATO A MOSTRAR
-                                            PLATO</label>
-                                        <input type="number" class="form-control"
-                                            id="idPlatosAMostrar"
-                                            name="idPlatosAMostrar"
-                                            [(ngModel)]="idPlatosAMostrar" required>
-                                    </div>
-                                    <div class="form-group, col-12 pb-3">
-                                        <label for="idPlato">ID PLATO</label>
-                                        <select class="form-select" id="idPlatoParaEditar" name="idPlato"
-                                            [(ngModel)]="idPlato"
-                                            required>
-                                            <option
-                                                *ngFor="let MenuCompletoModel of platosListForSelect"
-                                                [ngValue]="MenuCompletoModel.idPlato">
-                                                {{MenuCompletoModel.idPlato}} - {{MenuCompletoModel.nombrePlato}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group, col-12 pb-3">
-                                        <label for="descripcionPlatoAMostrar">DESCRIPCION DEL
-                                            PLATO</label>
-                                        <textarea type="text" class="form-control"
-                                            id="descripcionPlatoAMostrar"
-                                            name="descripcionPlatoAMostrar"
-                                            [(ngModel)]="descripcionPlatoAMostrar" required></textarea>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <button class="btn btn-outline-light">
-                                                Enviar
-                                            </button>
+                                    <ng-template #templateEditarPlatoAMostrar>
+                                        <div class="container-fluid modal-menu">
+                                            <div class="row">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">EDITAR</h4>
+                                                    <button type="button" class="btn btn-outline-light btn-sm"
+                                                        (click)="modalEditarPlatosAMos.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="row">
+                                                    <form (ngSubmit)="editarPlatoAMos()" novalidate #f="ngForm">
+                                                        <div class="form-group, col-12 pb-3">
+                                                            <label for="idPlatosAMostrar">ID PLATO A MOSTRAR
+                                                                PLATO</label>
+                                                            <input type="number" class="form-control"
+                                                                id="idPlatosAMostrar" name="idPlatosAMostrar"
+                                                                [(ngModel)]="idPlatosAMostrar" required>
+                                                        </div>
+                                                        <div class="form-group, col-12 pb-3">
+                                                            <label for="idPlato">ID PLATO</label>
+                                                            <select class="form-select" id="idPlatoParaEditar"
+                                                                name="idPlato" [(ngModel)]="idPlato" required>
+                                                                <option
+                                                                    *ngFor="let MenuCompletoModel of platosListForSelect"
+                                                                    [ngValue]="MenuCompletoModel.idPlato">
+                                                                    {{MenuCompletoModel.idPlato}} -
+                                                                    {{MenuCompletoModel.nombrePlato}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group, col-12 pb-3">
+                                                            <label for="descripcionPlatoAMostrar">DESCRIPCION DEL
+                                                                PLATO</label>
+                                                            <textarea type="text" class="form-control"
+                                                                id="descripcionPlatoAMostrar"
+                                                                name="descripcionPlatoAMostrar"
+                                                                [(ngModel)]="descripcionPlatoAMostrar"
+                                                                required></textarea>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <button class="btn btn-outline-light">
+                                                                    Enviar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <br>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </ng-template>
-
-
-
-
-
-
-
-
+                                    </ng-template>
                                 </div>
                             </div>
                         </div>
@@ -204,4 +277,7 @@
         </div>
     </div>
 </div>
+</div>
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />

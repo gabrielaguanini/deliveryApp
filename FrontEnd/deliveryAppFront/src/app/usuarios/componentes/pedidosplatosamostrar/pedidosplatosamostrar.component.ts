@@ -5,6 +5,8 @@ import { PlatosAMostrarService } from '../../servicios/platos-amostrar.service';
 import { MenuCompletoModel } from '../../modelos/menu-completo-model';
 import { TipoPlato } from '../../modelos/tipo-plato';
 import { MenuCompletoServiceService } from '../../servicios/menu-completo-service.service';
+import { PedidosModel } from '../../modelos/pedidos-model';
+import { PedidosService } from '../../servicios/pedidos.service';
 
 @Component({
   selector: 'app-pedidosplatosamostrar',
@@ -27,6 +29,7 @@ export class PedidosplatosamostrarComponent {
   ///////////////////////////////////
   platosAMostrarList: PlatosAMostrar[] = [];
   platosListForSelect: MenuCompletoModel [] = [];
+  pedidosList: PedidosModel [] = [];
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
   ///////////////////////////////////
@@ -39,13 +42,15 @@ export class PedidosplatosamostrarComponent {
 
   constructor(private modalService: BsModalService,
               private plaMosServ: PlatosAMostrarService,
-              private platosServ: MenuCompletoServiceService            
+              private platosServ: MenuCompletoServiceService,
+              private pedidosServ: PedidosService          
   ) {};
 
 
   ngOnInit(): void {
-    this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar
+    this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
+    this.listaPedidos(); // muestra la lista de pedidos completa
  
   };
 
@@ -72,7 +77,11 @@ export class PedidosplatosamostrarComponent {
 
   listaPlatosForSelect():void{
     this.platosServ.listaPlatos().subscribe( data => this.platosListForSelect = data);
-  }
+  };
+
+  listaPedidos():void{
+    this.pedidosServ.listaPedidos().subscribe( data => this.pedidosList = data)
+  };
 
 
   //AGREGAR PLATOS A MOSTRAR
