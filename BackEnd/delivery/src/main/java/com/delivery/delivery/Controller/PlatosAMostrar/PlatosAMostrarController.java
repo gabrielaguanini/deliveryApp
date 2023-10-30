@@ -1,4 +1,4 @@
-package com.delivery.delivery.Controller.PlatosAMostrarController;
+package com.delivery.delivery.Controller.PlatosAMostrar;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
@@ -20,17 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class platosAMostrarController {
+public class PlatosAMostrarController {
 
     @Autowired
     PlatosAMostrarService plaMosServ;
-    
+
     @Autowired
     PlatosService platosServ;
-    
-    
+
 //LISTA DE PLATOS A MOSTRAR 
-    
     @GetMapping("/listaplatosamostrar")
     public ResponseEntity<List<PlatosAMostrar>> listaPlatosAMostrar() {
 
@@ -44,7 +42,7 @@ public class platosAMostrarController {
     public Optional getOne(@PathVariable Long idPlatosAMostrar) {
 
         return plaMosServ.getOne(idPlatosAMostrar);
-               
+
     };
     
 //GUARDAR PLATO A MOSTRAR    
@@ -68,13 +66,13 @@ public class platosAMostrarController {
     @PutMapping("/editarplatoamostrar/{idPlatoAMostrar}")
     public ResponseEntity<?> editarPlato(@RequestBody PlatosAMostrar platosAMostrar, @PathVariable Long idPlatoAMostrar) {
         PlatosAMostrar plaMostrar = plaMosServ.getOne(idPlatoAMostrar).get();
-      
+
         plaMostrar.setPlatos(platosAMostrar.getPlatos());
         plaMostrar.setDescripcionPlatoAMostrar(platosAMostrar.getDescripcionPlatoAMostrar());
-        
+
         plaMosServ.guardar(plaMostrar);
-        return new ResponseEntity( new Mensaje("Plato a mostrar actualizado"), HttpStatus.OK);
-       
+        return new ResponseEntity(new Mensaje("Plato a mostrar actualizado"), HttpStatus.OK);
+
     };
         
     
@@ -96,11 +94,11 @@ public class platosAMostrarController {
     
     @GetMapping("/existeporid/{idPlatoAMostrar}")
     public ResponseEntity existeXId(@PathVariable Long idPlatoAMostrar) {
-        if(plaMosServ.existsById(idPlatoAMostrar) == true ){
+        if (plaMosServ.existsById(idPlatoAMostrar) == true) {
             return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
         } else {
-          return new ResponseEntity(new Mensaje("El plato no existe"), HttpStatus.BAD_REQUEST);
-        }   
-    }; 
+            return new ResponseEntity(new Mensaje("El plato no existe"), HttpStatus.BAD_REQUEST);
+        }
+    };
 
 }

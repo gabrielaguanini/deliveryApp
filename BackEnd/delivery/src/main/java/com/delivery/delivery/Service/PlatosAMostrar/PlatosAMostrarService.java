@@ -9,12 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @Transactional
 public class PlatosAMostrarService {
-    
-
     
 @Autowired
 IPlatosAMostrarRepository iPlatosAMostrarRepo;
@@ -22,32 +19,26 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
 
  public List <PlatosAMostrar> listaPlatosAMostrar(){
         return iPlatosAMostrarRepo.findAll();
-    }
- 
+    }; 
  
    
     public Optional<PlatosAMostrar> getOne(Long idPlatosAMostrar){
         return iPlatosAMostrarRepo.findById(idPlatosAMostrar);
-    }
+    };
     
       
     public void guardar(PlatosAMostrar platosAMostrar){
         iPlatosAMostrarRepo.save(platosAMostrar);
-    }
-    
-    
+    };   
    
 
     public void borrar(Long idPlatosAMostrar){
         iPlatosAMostrarRepo.deleteById(idPlatosAMostrar);
-    }
-    
+    };   
 
     
     public boolean existsById(Long idPlatosAMostrar){
          return iPlatosAMostrarRepo.existsById(idPlatosAMostrar);
-    }
+    };
     
- 
- 
 }

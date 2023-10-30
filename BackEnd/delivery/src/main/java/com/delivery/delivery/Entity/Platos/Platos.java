@@ -47,6 +47,5 @@ public class Platos {
         this.nombrePlato = nombrePlato;
         this.precioPlato = precioPlato;
         this.imgPlato = imgPlato;
-    }
-
+    };
 }

@@ -1,2 +1,3 @@
-Front, componente platosamostrar y pedidos, hecho el servicio, funcionando lista completa de pedidos. Dar formato a esta lista y continuar con el CRUD
-Tener en cuenta que tipo de operaciones se haran con este crud
+BUSCAR UNA FORMA DE INGRESAR LA MULTIPLICACION PARA LLENAR EL REGISTRO DE TOTAL_PEDIDO DESDE EL FRONT. YA GENERE UNA LISTA QUE FILTA POR ID_PEDIDO Y EN EL JSON TRAE EL PRECIO UNITARIO DEL PLATO.
+
+PARECIESE QUE FUNCIONA TODO DESDE POSTMAN, PERO COMO ESTOY CANSADA AHORA, MEJOR VER QUE SEA ASI ANTES DE PASAR AL FRONT
