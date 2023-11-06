@@ -2,21 +2,22 @@ import { PlatosAMostrar } from "./platos-amostrar";
 
 export class PedidosModel {
     idPedido!: number;
-    platosAMostrar!: PlatosAMostrar;
-    porcionPlato!: number;
-    totalPedido!: number;
+    listaPlatosDelPedido!: string;
     fecha!: Date;
+    hora!: string;
 
     constructor(idPedido: number,
-        platosAMostrar: PlatosAMostrar,
-        porcionPlato: number,
-        totalPedido: number,
-        fecha: Date) {
+                listaPlatosDelPedido: string,
+                fecha: Date,
+                hora: string) {
 
         this.idPedido = idPedido;
-        this.platosAMostrar = platosAMostrar;
-        this.porcionPlato = porcionPlato;
-        this.totalPedido = totalPedido;
+        this.listaPlatosDelPedido = listaPlatosDelPedido;
         this.fecha = fecha;
+        this.hora = hora;
     };
 }
+
+
+
+

@@ -16,6 +16,10 @@ export class PedidosService {
     public listaPedidos(): Observable<PedidosModel[]> {
       return this.httpClient.get<PedidosModel[]>(this.URL + 'listapedidos');  
     };
+
+    public listaPedidosDeHoy(): Observable<PedidosModel[]> {
+      return this.httpClient.get<PedidosModel[]>(this.URL + 'listapedidosdehoy');  
+    };
   
     public guardarPedido(pedido:PedidosModel): Observable<any>{
       console.log('JSON enviado al servidor:', JSON.stringify(pedido));

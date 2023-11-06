@@ -7,6 +7,8 @@ import { TipoPlato } from '../../modelos/tipo-plato';
 import { MenuCompletoServiceService } from '../../servicios/menu-completo-service.service';
 import { PedidosModel } from '../../modelos/pedidos-model';
 import { PedidosService } from '../../servicios/pedidos.service';
+import { DetallePedidos } from '../../modelos/detalle-pedidos';
+import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 
 @Component({
   selector: 'app-pedidosplatosamostrar',
@@ -29,7 +31,8 @@ export class PedidosplatosamostrarComponent {
   ///////////////////////////////////
   platosAMostrarList: PlatosAMostrar[] = [];
   platosListForSelect: MenuCompletoModel [] = [];
-  pedidosList: PedidosModel [] = [];
+  pedidosDeHoyList: PedidosModel [] = [];
+  detallePedidosList: DetallePedidos [] = [];
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
   ///////////////////////////////////
@@ -43,14 +46,16 @@ export class PedidosplatosamostrarComponent {
   constructor(private modalService: BsModalService,
               private plaMosServ: PlatosAMostrarService,
               private platosServ: MenuCompletoServiceService,
-              private pedidosServ: PedidosService          
+              private pedidosServ: PedidosService,
+              private detallePedidServ: DetallePedidosService        
   ) {};
 
 
   ngOnInit(): void {
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
-    this.listaPedidos(); // muestra la lista de pedidos completa
+    this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
+    this.listaDetallePedidos(); // muestra la lista de pedidos completa
  
   };
 
@@ -79,8 +84,12 @@ export class PedidosplatosamostrarComponent {
     this.platosServ.listaPlatos().subscribe( data => this.platosListForSelect = data);
   };
 
-  listaPedidos():void{
-    this.pedidosServ.listaPedidos().subscribe( data => this.pedidosList = data)
+  listaPedidosDeHoy():void{
+    this.pedidosServ.listaPedidosDeHoy().subscribe( data => this.pedidosDeHoyList = data)
+  };
+
+  listaDetallePedidos():void{
+    this.detallePedidServ.listaDetallePedidos().subscribe( data => this.detallePedidosList = data);
   };
 
 

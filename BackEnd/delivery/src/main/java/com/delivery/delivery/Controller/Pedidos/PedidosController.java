@@ -35,11 +35,22 @@ public class PedidosController {
         return new ResponseEntity(listapedidos, HttpStatus.OK);
     };
     
+    //LISTA PEDIDOS DE LA FECHA SOLAMENTE
+    @GetMapping("/listapedidosdehoy")
+    public ResponseEntity<List<Pedidos>> listapedidosdehoy() {
+
+        List<Pedidos> listapedidosdeldia = pedidosServ.obtenerPedidosDelDia();
+        return new ResponseEntity(listapedidosdeldia, HttpStatus.OK);
+    };
+    
+    //LISTA DE CADENAS DE TEXTO GENERADA DE DETALLEPEDIDO PARA GUARDAR EN LA COLUMNA listaPlatosDelPedido
+ 
+    
       // GUARDAR UN PEDIDO
    @PostMapping("/guardarpedido")
     public ResponseEntity<?> guardarPedido(@RequestBody Pedidos pedidos) {
         pedidosServ.guardarPedido(pedidos);
-        pedidosServ.updateFecha(pedidos.getIdPedido());       
+        pedidosServ.updateFechaHora(pedidos.getIdPedido());       
 
         if (pedidosServ.existsById(pedidos.getIdPedido())) {
             return new ResponseEntity(new Mensaje("El id del pedido ha sido creado"), HttpStatus.OK);

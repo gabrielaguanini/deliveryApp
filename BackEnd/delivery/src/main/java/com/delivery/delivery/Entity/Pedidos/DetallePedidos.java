@@ -41,8 +41,9 @@ public class DetallePedidos {
     public DetallePedidos() {
     };
 
-    public DetallePedidos(Pedidos pedidos, Integer porcionPlato, Double totalPedido) {
+    public DetallePedidos(Pedidos pedidos, PlatosAMostrar platosAmostrar, Integer porcionPlato, Double totalPedido) {
         this.pedidos = pedidos;
+        this.platosAMostrar = platosAMostrar;
         this.porcionPlato = porcionPlato;
         this.totalPedido = totalPedido;
     };

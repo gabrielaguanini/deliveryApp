@@ -3,8 +3,9 @@ import { MenuCompletoModel } from "./menu-completo-model";
 export class PlatosAMostrar {
 
     idPlatosAMostrar!: number;
-    descripcionPlatoAMostrar!: string;
     platos!: MenuCompletoModel;
+    descripcionPlatoAMostrar!: string;
+   
    
 
     constructor(idPlatosAMostrar: number,
@@ -13,8 +14,9 @@ export class PlatosAMostrar {
         ) {
 
         this.idPlatosAMostrar = idPlatosAMostrar;
-        this.descripcionPlatoAMostrar = descripcionPlatoAMostrar;
         this.platos = platos;
+        this.descripcionPlatoAMostrar = descripcionPlatoAMostrar;
+        
       
 
     };

@@ -33,13 +33,12 @@ public class DetallePedidosController {
         return new ResponseEntity(listaDetallePedidos, HttpStatus.OK);
     };
     
-    
+    //LISTA QUE FILTRA DE LA TABLA DETALLE PEDIDOS POR ID_PEDIDO
     @GetMapping("/listadetpedidpedido/{idPedido}")
     public ResponseEntity<List<DetallePedidos>> listaXIdPedido(@PathVariable Long idPedido) {
         List<DetallePedidos> detallesPedidos = detpeServ.listaXIdPedido(idPedido);
         return new ResponseEntity<>(detallesPedidos, HttpStatus.OK);
-    }
-    
+    };    
     
        
     
@@ -78,9 +77,12 @@ public class DetallePedidosController {
     public ResponseEntity <?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido){
       DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
       
-      detPedid.setIdDetallePedido(detallePedidos.getIdDetallePedido());
+    
       detPedid.setPedidos(detallePedidos.getPedidos());
-      //detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
+      detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
+      detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
+      detPedid.setTotalPedido(detallePedidos.getTotalPedido());
+      
      
       
       detpeServ.guardarDetallePedido(detPedid);    

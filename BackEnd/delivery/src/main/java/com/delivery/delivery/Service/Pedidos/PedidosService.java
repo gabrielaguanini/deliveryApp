@@ -1,9 +1,12 @@
 
 package com.delivery.delivery.Service.Pedidos;
 
+import com.delivery.delivery.Entity.Pedidos.DetallePedidos;
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -22,6 +25,14 @@ public class PedidosService {
        return iPedidosRepo.findAll();
     };
     
+    public List<Pedidos> obtenerPedidosDelDia() {
+        LocalDate fechaActual = LocalDate.now();
+        return iPedidosRepo.obtenerPedidosDelDia(fechaActual);
+    };
+
+   
+      
+    
     public Optional <Pedidos> getOne(Long idPedido){
        return iPedidosRepo.findById(idPedido);
     };    
@@ -39,9 +50,10 @@ public class PedidosService {
        return iPedidosRepo.existsById(idPedido);
     };
     
-    public void updateFecha(Long idPedido){     
-       iPedidosRepo.updatePedidosFecha(idPedido);
+    public void updateFechaHora(Long idPedido){     
+       iPedidosRepo.actualizarFechaYHoraDelPedido(idPedido);
     };
-
+    
+  
      
 }
