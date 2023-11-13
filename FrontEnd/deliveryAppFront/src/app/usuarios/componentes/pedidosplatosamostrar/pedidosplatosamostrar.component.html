@@ -3,17 +3,17 @@
  <!-- LISTA DE PEDIDOS DE LA FECHA ACTUAL -->
 
  <div class="row">
-    <div class="col-lg-2 col-md-1 d-none d-lg-block">
+    <div class="col-lg-1 col-md-1 d-none d-lg-block">
         <blockquote class="blockquote border-end border-top border-white">
             <p class="small">ID DEL PEDIDO</p>
         </blockquote>
     </div>
-    <div class="col-lg-2 col-md-1 d-none d-lg-block">
+    <div class="col-lg-1 col-md-1 d-none d-lg-block">
         <blockquote class="blockquote border-end border-top border-white">
             <p class="small">FECHA DEL PEDIDO</p>
         </blockquote>
     </div>
-    <div class="col-lg-2 col-md-1 d-none d-lg-block">
+    <div class="col-lg-1 col-md-1 d-none d-lg-block">
         <blockquote class="blockquote border-end border-top border-white">
             <p class="small">HORA DEL PEDIDO</p>
         </blockquote>
@@ -23,36 +23,62 @@
             <p class="small">DETALLE DEL PEDIDO</p>
         </blockquote>
     </div>
-    <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
+    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
         <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">Imagen</p>
+            <p class="small">TOTAL PEDIDO</p>
+        </blockquote>
+    </div>
+    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+        <blockquote class="blockquote border-end border-top border-white">
+            <p class="small">NOMBRE CLIENTE</p>
+        </blockquote>
+    </div>
+    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+        <blockquote class="blockquote border-end border-top border-white">
+            <p class="small">TELEFONO CLIENTE</p>
         </blockquote>
     </div>
     <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
         <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">Edición</p>
+            <p class="small">DIRECCION CLIENTE</p>
+        </blockquote>
+    </div>
+    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+        <blockquote class="blockquote border-end border-top border-white">
+            <p class="small">LOCALIDAD CLIENTE</p>
         </blockquote>
     </div>
 </div>
 <div class="row" *ngFor="let DetallePedidosHoy of pedidosDeHoyList">
      <hr>
-    <div class="col-lg-2 col-md-1 text-justify">
+    <div class="col-lg-1 col-md-1 text-justify">
         <p class="text-justify">{{DetallePedidosHoy.idPedido}}</p>
     </div>
-    <div class="col-lg-2 col-md-1 text-justify">
+    <div class="col-lg-1 col-md-1 text-justify">
         <p class="text-justify">{{DetallePedidosHoy.fecha}}</p>
     </div>
-    <div class="col-lg-2 col-md-1 text-justify">
-        <p class="text-justify">$ {{DetallePedidosHoy.hora}}</p>
+    <div class="col-lg-1 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.hora}}</p>
     </div>
     <div class="col-lg-2 col-md-1 text-justify">
         <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
     </div>
-    <div class="col-lg-2 col-md-1 pb-3">
-        <img class="img-fluid rounded border-secondary-subtle border border-3"
-            src="{{DetallePedidosHoy.idPedido}}">
+    <div class="col-lg-1 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
     </div>
-    <div class="col-lg-2 col-md-1 text-center" id="">
+    <div class="col-lg-1 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.nombreCliente}}</p>
+    </div>
+    <div class="col-lg-1 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.telefonoCliente}}</p>
+    </div>
+    <div class="col-lg-2 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.direccionCliente}}</p>
+    </div>
+    <div class="col-lg-1 col-md-1 text-justify">
+        <p class="text-justify">{{DetallePedidosHoy.localidadCliente}}</p>
+    </div>
+    <div class="col-lg-1 col-md-1 text-center" id="">
         <!-- Boton editar -->
         <button class="btn btn-outline-light btn-md">
             <i class="far fa-edit"></i>
@@ -63,6 +89,13 @@
         </button>
     </div>
 </div>    
+
+
+
+<div>==================================================================================================================================</div>
+<div>==================================================================================================================================</div>
+<div>==================================================================================================================================</div>
+
 
 
     <!-- LISTA DE PEDIDOS HISTORICA -->

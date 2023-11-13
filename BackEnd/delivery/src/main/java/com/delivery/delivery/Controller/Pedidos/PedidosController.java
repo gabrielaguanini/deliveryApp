@@ -2,6 +2,7 @@ package com.delivery.delivery.Controller.Pedidos;
 
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
@@ -23,6 +24,9 @@ public class PedidosController {
 
     @Autowired
     PedidosService pedidosServ;
+    
+    @Autowired
+    DetallePedidosService detpeServ;
 
     @Autowired
     PlatosAMostrarService platosAMosServ;
@@ -43,10 +47,24 @@ public class PedidosController {
         return new ResponseEntity(listapedidosdeldia, HttpStatus.OK);
     };
     
-    //LISTA DE CADENAS DE TEXTO GENERADA DE DETALLEPEDIDO PARA GUARDAR EN LA COLUMNA listaPlatosDelPedido
- 
     
-      // GUARDAR UN PEDIDO
+    
+    // GUARDA LA LISTA DE STRINGS GENERADA A PARTIR DE PASAR UN ID A DETALLE PEDIDOS EN LA COLUMNA lista_platos_del_pedido DE LA TABLA PEDIDOS
+    // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO guardarPedido()
+    @PostMapping("/actualizarpedidosconlistastring/{idPedido}")
+    public ResponseEntity<String> actualizarListaPlatos(@PathVariable Long idPedido) {
+        try {
+            List<String> listaCadenas = detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
+            pedidosServ.guardarListaPlatosEnPedido(idPedido, listaCadenas);
+            return new ResponseEntity<>("Lista de platos de detalle pedidos guardada correctamente.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al actualizar la lista de platos de detalle pedidos.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    };  
+    
+    
+   // GUARDAR UN PEDIDO
+   // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
    @PostMapping("/guardarpedido")
     public ResponseEntity<?> guardarPedido(@RequestBody Pedidos pedidos) {
         pedidosServ.guardarPedido(pedidos);
@@ -56,7 +74,7 @@ public class PedidosController {
             return new ResponseEntity(new Mensaje("El id del pedido ha sido creado"), HttpStatus.OK);
         } else {
             return new ResponseEntity(new Mensaje("El id del pedido no se creo"), HttpStatus.OK);
-        }
+        }        
     };    
     
     //BORRAR PEDIDO    

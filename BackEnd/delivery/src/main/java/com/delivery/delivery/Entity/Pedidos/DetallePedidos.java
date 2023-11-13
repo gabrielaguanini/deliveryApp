@@ -47,5 +47,7 @@ public class DetallePedidos {
         this.porcionPlato = porcionPlato;
         this.totalPedido = totalPedido;
     };
+    
+    
    
 }

@@ -89,6 +89,20 @@ public class DetallePedidosController {
 
       
       return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
-    };   
+    };
+    
+ 
+    
+    //OBTIENE UNA LISTA DE STRING FILTRADA X EL IDPEDIDO DE LA TABLA DETALLE PEDIDOS, SE GUARDARÁ EN 
+    // LA TABLA PEDIDOS, COLUMNA lista_platos_del_pedido
+    @GetMapping("/listastringxidpedidodesdedetalles/{idPedido}")
+    public ResponseEntity<List<String>> obtenerListaCadenasPorIdPedido(@PathVariable Long idPedido) {
+        try {
+            List<String> listaCadenas = detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
+            return new ResponseEntity<>(listaCadenas, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    };
     
 }
