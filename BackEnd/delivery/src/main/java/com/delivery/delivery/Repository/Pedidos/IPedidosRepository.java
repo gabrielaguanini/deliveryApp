@@ -22,4 +22,6 @@ public List<Pedidos> obtenerPedidosDelDia(@Param("fechaActual") LocalDate fechaA
 //METODO ABSTRACTO PARA OBTENER UNA LISTA DE CADENAS DE TEXTO DE LA ENTIDAD DETALLE_PEDIDOS  
 @Query("SELECT p FROM Pedidos p WHERE p.idPedido = :idPedido")
 public List<String> obtenerListaPedDeDetPed(@Param("idPedido") Long idPedido);
-}
+};
+
+

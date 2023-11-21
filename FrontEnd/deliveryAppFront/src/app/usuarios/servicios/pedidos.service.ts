@@ -33,6 +33,10 @@ export class PedidosService {
     public actualizarPedido(idPedido:number, pedido:PedidosModel): Observable<any>{
       return this.httpClient.put<any>(this.URL + `actualizarpedido/${idPedido}`, pedido);
     };
+
+    public obtenerPedidoXId(idPedido:number): Observable<PedidosModel>{
+      return this.httpClient.get<PedidosModel>(this.URL + `obtenerpedidoxid/${idPedido}`)
+    };
   
   }
 

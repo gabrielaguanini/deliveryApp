@@ -1,11 +1,13 @@
 
 package com.delivery.delivery.Service.Pedidos;
 
+
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class PedidosService {
     
     @Autowired
     DetallePedidosService detallePedidosService;
+    
+    @Autowired
+    private EntityManager entityManager; //LIBRERIA QUE SOLO SE UTILIZA PARA EL METODO public void calcularImporteTotalPedido(Long idPedido)
     
     
     
@@ -78,5 +83,7 @@ public class PedidosService {
     };
     
   
-     
+    
+  
+ 
 }

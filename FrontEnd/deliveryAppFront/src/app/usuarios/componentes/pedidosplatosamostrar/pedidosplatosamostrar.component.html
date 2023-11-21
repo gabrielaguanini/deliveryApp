@@ -1,94 +1,194 @@
 <div class="container-fluid">
 
- <!-- LISTA DE PEDIDOS DE LA FECHA ACTUAL -->
+    <!-- LISTA DE PEDIDOS DE LA FECHA ACTUAL -->
 
- <div class="row">
-    <div class="col-lg-1 col-md-1 d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">ID DEL PEDIDO</p>
-        </blockquote>
+    <div class="row">
+        <div class="col-lg-1 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">ID DEL PEDIDO</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">FECHA DEL PEDIDO</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">HORA DEL PEDIDO</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">DETALLE DEL PEDIDO</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">NOMBRE CLIENTE</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">TELEFONO CLIENTE</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">DIRECCION CLIENTE</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">LOCALIDAD CLIENTE</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">TOTAL PEDIDO</p>
+            </blockquote>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
+            <blockquote class="blockquote border-end border-top border-white">
+                <p class="small">EDICION</p>
+            </blockquote>
+        </div>
     </div>
-    <div class="col-lg-1 col-md-1 d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">FECHA DEL PEDIDO</p>
-        </blockquote>
+    <div class="row" *ngFor="let DetallePedidosHoy of pedidosDeHoyList">
+        <hr>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.idPedido}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.fecha}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.hora}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.nombreCliente}}</p>
+        </div>
+        <div class="col-lg-2 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.telefonoCliente}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.direccionCliente}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.localidadCliente}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-justify">
+            <p class="text-justify">{{DetallePedidosHoy.importeTotalPedido}}</p>
+        </div>
+        <div class="col-lg-1 col-md-1 text-center" id="">
+            <!-- Boton editar -->
+            <button class="btn btn-light btn-md" (click)="openModalEditarPedidos(templateEditarPedido);
+             obtPedidoXId(DetallePedidosHoy.idPedido, DetallePedidosHoy.fecha, DetallePedidosHoy.hora, DetallePedidosHoy.nombreCliente, DetallePedidosHoy.telefonoCliente, DetallePedidosHoy.direccionCliente, DetallePedidosHoy.localidadCliente, DetallePedidosHoy.listaPlatosDelPedido)">
+                <i class="far fa-edit"></i>
+            </button>
+            <!-- Boton borrar -->
+            <button class="btn btn-light btn-md">
+                <i class="far fa-trash-alt"></i>
+            </button>
+        </div>
+
+
+
+    <!-- MODAL EDITAR PEDIDO -->
+        <ng-template #templateEditarPedido>
+            <div class="container-fluid modal-menu">
+                <div class="row">
+                    <div class="modal-header">
+                        <h4 class="modal-title">EDITAR</h4>
+                        <div class="card-icon card-icon-large">
+                            <i class=""></i>
+                        </div>
+                        <button type="button" class="btn btn-outline-light btn-sm"
+                            (click)="modalEditarPedido.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <form (ngSubmit)="editarPedido()" novalidate #f="ngForm">
+                            <div class="form-group, col-12 pb-3">
+                                <label for="idPedido">ID PEDIDO</label>
+                                <input readonly="number" class="form-control"
+                                    id="idPedido" name="idPedido"
+                                    [(ngModel)]="idPedido" required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="fechaPedido">FECHA </label>
+                                <input readonly type="text" class="form-control"
+                                    id="fechaPedido" name="fechaPedido" [(ngModel)]="fechaPedido"
+                                    required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="horaPedido">HORA</label>
+                                <input readonly type="text" class="form-control" id="horaPedido"
+                                    name="horaPedido" [(ngModel)]="horaPedido" required>
+                            </div>                                            
+                            <div class="form-group, col-12 pb-3">
+                                <label for="nombreCliente">NOMBRE CLIENTE</label>
+                                <input type="text" class="form-control" id="nombreCliente"
+                                    name="nombreCliente" [(ngModel)]="nombreCliente" required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="telefonoCliente">TELEFONO CLIENTE</label>
+                                <input type="text" class="form-control" id="telefonoCliente"
+                                    name="telefonoCliente" [(ngModel)]="telefonoCliente" required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="direccionCliente">DIRECCION</label>
+                                <input type="text" class="form-control" id="direccionCliente"
+                                    name="direccionCliente" [(ngModel)]="direccionCliente" required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="hora">LOCALIDAD</label>
+                                <input type="text" class="form-control" id="localidadCliente"
+                                    name="localidadCliente" [(ngModel)]="localidadCliente" required>
+                            </div>
+                            <div class="form-group, col-12 pb-3">
+                                <label for="listaPlatosDelPedido">DETALLE DEL PEDIDO</label>
+                                <textarea type="text" class="form-control" id="listaPlatosDelPedido"
+                                    name="listaPlatosDelPedido" [(ngModel)]="listaPlatosDelPedido" required></textarea>
+                            </div>   
+                            <div class="form-group, col-12 pb-3">
+                                <label for="importeTotalPedido">TOTAL</label>
+                                <input readonly type="number" class="form-control" id="importeTotalPedido"
+                                    name="importeTotalPedido" [(ngModel)]="importeTotalPedido" required>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-light">
+                                        Enviar
+                                    </button>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
-    <div class="col-lg-1 col-md-1 d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">HORA DEL PEDIDO</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-2 col-md-1 d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">DETALLE DEL PEDIDO</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">TOTAL PEDIDO</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">NOMBRE CLIENTE</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">TELEFONO CLIENTE</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-2 col-md-1 text-center d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">DIRECCION CLIENTE</p>
-        </blockquote>
-    </div>
-    <div class="col-lg-1 col-md-1 text-center d-none d-lg-block">
-        <blockquote class="blockquote border-end border-top border-white">
-            <p class="small">LOCALIDAD CLIENTE</p>
-        </blockquote>
-    </div>
-</div>
-<div class="row" *ngFor="let DetallePedidosHoy of pedidosDeHoyList">
-     <hr>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.idPedido}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.fecha}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.hora}}</p>
-    </div>
-    <div class="col-lg-2 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.nombreCliente}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.telefonoCliente}}</p>
-    </div>
-    <div class="col-lg-2 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.direccionCliente}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-justify">
-        <p class="text-justify">{{DetallePedidosHoy.localidadCliente}}</p>
-    </div>
-    <div class="col-lg-1 col-md-1 text-center" id="">
-        <!-- Boton editar -->
-        <button class="btn btn-outline-light btn-md">
-            <i class="far fa-edit"></i>
-        </button>
-        <!-- Boton borrar -->
-        <button class="btn btn-outline-light btn-md">
-            <i class="far fa-trash-alt"></i>
-        </button>
-    </div>
-</div>    
 
 
 
@@ -113,7 +213,7 @@
         </div>
         <div class="col-lg-2 col-md-1 d-none d-lg-block">
             <blockquote class="blockquote border-end border-top border-white">
-                <p class="small">Total Pedido</p>
+                <p class="small">Total Plato</p>
             </blockquote>
         </div>
         <div class="col-lg-2 col-md-1 d-none d-lg-block">

@@ -34,11 +34,12 @@ public class Pedidos {
     private String localidadCliente;
     private LocalDate fecha;
     private LocalTime hora;
+    private Double importeTotalPedido;
    
 
     public Pedidos() {};
 
-    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, String localidadCliente, LocalDate fecha, LocalTime hora) {
+    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, String localidadCliente, LocalDate fecha, LocalTime hora, Double importeTotalPedido) {
         this.listaPlatosDelPedido = listaPlatosDelPedido;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
@@ -46,6 +47,7 @@ public class Pedidos {
         this.localidadCliente = localidadCliente;
         this.fecha = fecha;
         this.hora = hora;
+        this.importeTotalPedido = importeTotalPedido;
     }
 
     

@@ -17,14 +17,17 @@ import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 })
 export class PedidosplatosamostrarComponent {
 
-  //MODAL MOSTRAR LISTA
+  //MODAL AGREGAR PLATOS A MOSTRAR
   /////////////////////////////
   modalAgregarPlatosAMos!: BsModalRef;
 
-  //MODAL MOSTRAR LISTA
+  //MODAL EDITAR PLATO A MOSTRAR
   /////////////////////////////
   modalEditarPlatosAMos!: BsModalRef;
 
+   //MODAL EDITAR PEDIDO
+  /////////////////////////////
+  modalEditarPedido!: BsModalRef;
 
 
   //LISTAS
@@ -40,6 +43,25 @@ export class PedidosplatosamostrarComponent {
   idPlatosAMostrar!:number;
   descripcionPlatoAMostrar!: string;  
   platosAMostrar!: PlatosAMostrar;
+  fecha!: Date;
+  hora!: string;
+
+
+  //EDITAR PEDIDO
+  //////////////////
+  idPedido!: number;
+  fechaPedido!: Date;
+  horaPedido!: string;
+  nombreCliente!: string;
+  telefonoCliente!: string;
+  direccionCliente!: string;
+  localidadCliente!: string;
+  listaPlatosDelPedido!: string;
+  importeTotalPedido!: number;
+ 
+
+ 
+
  
 
 
@@ -72,6 +94,13 @@ export class PedidosplatosamostrarComponent {
   openModalEditarPlatosAMos(templateEditarPlatoAMostrar: TemplateRef<any>){
     this.modalEditarPlatosAMos = this.modalService.show(templateEditarPlatoAMostrar, {backdrop: 'static'})
   };
+
+  //MODAL EDITAR PEDIDOS
+  ////////////////////////////
+  openModalEditarPedidos(templateEditarPedido: TemplateRef<any>){
+    this.modalEditarPedido = this.modalService.show(templateEditarPedido, {backdrop: 'static'})
+  };
+
 
 
   // FUNCIONES PARA LISTAS
@@ -128,13 +157,11 @@ export class PedidosplatosamostrarComponent {
       descripcionPlatoAMostrar: plaMos.descripcionPlatoAMostrar,
       platos: {
         idPlato: plaMos.platos.idPlato
-        // Agrega otros campos relevantes de 'platos' si los tienes
-      }
+       }
     };
     console.log("Datos del plato para editar (antes de la solicitud HTTP):", requestData);
   
-    // Realizar la solicitud HTTP y el resto del código
-    this.plaMosServ.actualizarPlatoAMostrar(this.idPlatosAMostrar, plaMos).subscribe(data => {
+     this.plaMosServ.actualizarPlatoAMostrar(this.idPlatosAMostrar, plaMos).subscribe(data => {
       this.listaPlatosAMostrar();
       alert("Plato actualizado");
     }, err => {
@@ -163,6 +190,30 @@ export class PedidosplatosamostrarComponent {
     ""
   };
  };
+
+  //EDITAR PEDIDO
+  /////////////////////////
+  obtPedidoXId( idPedido: number, fechaPedido: Date, horaPedido: string, nombreCliente: string, telefonoCliente: string,
+     direccionCliente: string, localidadCliente: string, listaPlatosDelPedido: string ): void {
+
+    this.idPedido = idPedido;
+    this.nombreCliente = nombreCliente;
+    this.telefonoCliente = telefonoCliente;
+    this.direccionCliente = direccionCliente;
+    this.localidadCliente = localidadCliente;
+    this.listaPlatosDelPedido = listaPlatosDelPedido;
+    this.fechaPedido = fechaPedido;
+    this.horaPedido = horaPedido;
+    };
+
+ 
+
+  editarPedido(): void {};
+      
+    
+     
+
+
 
   //FUNCIONES VARIAS
   ///////////////////////////////////

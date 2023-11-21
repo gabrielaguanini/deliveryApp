@@ -9,6 +9,7 @@ export class PedidosModel {
     listaPlatosDelPedido!: string;
     fecha!: Date;
     hora!: string;
+    importeTotalPedido!: number;
 
     constructor(idPedido: number,
                 nombreCliente: string,
@@ -17,7 +18,8 @@ export class PedidosModel {
                 localidadCliente: string,
                 listaPlatosDelPedido: string,
                 fecha: Date,
-                hora: string) {
+                hora: string,
+                importeTotalPedido: number) {
 
         this.idPedido = idPedido;
         this.nombreCliente = nombreCliente;
@@ -27,6 +29,7 @@ export class PedidosModel {
         this.listaPlatosDelPedido = listaPlatosDelPedido;
         this.fecha = fecha;
         this.hora = hora;
+        this.importeTotalPedido = importeTotalPedido;
     };
 }
 

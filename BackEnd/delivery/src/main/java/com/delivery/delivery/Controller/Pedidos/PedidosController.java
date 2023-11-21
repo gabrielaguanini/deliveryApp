@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,14 +67,16 @@ public class PedidosController {
    @PostMapping("/guardarpedido")
     public ResponseEntity<?> guardarPedido(@RequestBody Pedidos pedidos) {
         pedidosServ.guardarPedido(pedidos);
-        pedidosServ.updateFechaHora(pedidos.getIdPedido());       
-
+        pedidosServ.updateFechaHora(pedidos.getIdPedido());
+ 
         if (pedidosServ.existsById(pedidos.getIdPedido())) {
             return new ResponseEntity(new Mensaje("El id del pedido ha sido creado"), HttpStatus.OK);
         } else {
             return new ResponseEntity(new Mensaje("El id del pedido no se creo"), HttpStatus.OK);
         }        
-    };    
+    };
+    
+     
     
     //BORRAR PEDIDO    
     @DeleteMapping("/borrarpedido/{idPedido}")

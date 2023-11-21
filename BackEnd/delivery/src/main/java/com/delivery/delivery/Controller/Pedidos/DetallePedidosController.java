@@ -46,7 +46,7 @@ public class DetallePedidosController {
     @PostMapping("/guardardetallepedido")
     public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detallePedidos) {
         detpeServ.guardarDetallePedido(detallePedidos); 
-   //   detpeServ.updateTotalPedidos(detallePedidos.getIdDetallePedido());
+        detpeServ.guardarIdPlatoTotalPrecio(detallePedidos); //INGRESA LOS VALORES ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN LA COLUMNA CORRESPONDIENTE 
      
         if (detpeServ.existsById(detallePedidos.getIdDetallePedido())) {
             return new ResponseEntity(new Mensaje("Detalle del pedido enviado"), HttpStatus.OK);
@@ -80,13 +80,14 @@ public class DetallePedidosController {
     
       detPedid.setPedidos(detallePedidos.getPedidos());
       detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
+      detPedid.setPlatos(detallePedidos.getPlatos());
       detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
-      detPedid.setTotalPedido(detallePedidos.getTotalPedido());
-      
-     
+      detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
+      detPedid.setTotalPlato(detallePedidos.getTotalPlato());    
       
       detpeServ.guardarDetallePedido(detPedid);    
 
+      detpeServ.guardarIdPlatoTotalPrecio(detPedid); //INGRESA LOS VALORES ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN LA COLUMNA CORRESPONDIENTE 
       
       return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
     };

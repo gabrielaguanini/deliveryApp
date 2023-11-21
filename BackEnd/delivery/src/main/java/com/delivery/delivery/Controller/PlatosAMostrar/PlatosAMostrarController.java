@@ -53,6 +53,7 @@ public class PlatosAMostrarController {
         //VERIFICA SI EL PLATO QUE SE VA A GUARDAR EXISTE EN LA TABLA PLATOS, GUARDA EL PLATO SI ÉSTE EXISTE
         if (platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
             plaMosServ.guardar(platosAMostrar);
+            //plaMosServ.updatePrecioPlato(platosAMostrar.getIdPlatosAMostrar());
             return new ResponseEntity(new Mensaje("Plato añadido"), HttpStatus.OK);
         } else {
             return new ResponseEntity(new Mensaje("El Plato no se guardo"), HttpStatus.OK);
