@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { DetallePedidos } from '../modelos/detalle-pedidos';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { PedidosModel } from '../modelos/pedidos-model';
+import { DetallePedidosAcotadaModel } from '../modelos/detalle-pedidos-acotadaModel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,8 @@ export class DetallePedidosService {
     return this.httpClient.get<DetallePedidos>(this.URL + `obtenerdetallepedidoxid/${idDetallePedido}`);
   };
 
+  public guardarVariosDetallesPedido(detallesPedidosAcotada: DetallePedidosAcotadaModel[]): Observable<any> {  
+    return this.httpClient.post<any>(this.URL + 'guardarvariosdetallespedido', detallesPedidosAcotada);
+  };
 
 }

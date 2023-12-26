@@ -106,4 +106,11 @@ public class DetallePedidosController {
         }
     };
     
+    
+    @PostMapping("/guardarvariosdetallespedido")
+    public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
+    detpeServ.guardarVariosDetallesPedido(detallesPedidos);
+    return new ResponseEntity(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
+    };
+    
 }

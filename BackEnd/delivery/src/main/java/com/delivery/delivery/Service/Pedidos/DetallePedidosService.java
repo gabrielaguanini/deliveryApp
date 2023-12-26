@@ -35,9 +35,9 @@ public class DetallePedidosService {
         List<DetallePedidos> detallesFiltrados = listaXIdPedido(idPedido);
 
         return detallesFiltrados.stream()
-                .map(detalle -> detalle.getPlatosAMostrar().getPlatos().getNombrePlato()
-                + " Porciones " + detalle.getPorcionPlato()
-                + " $ " + detalle.getPlatosAMostrar().getPlatos().getPrecioPlato() + " / ")
+                .map(detalle -> " Plato: " + detalle.getPlatosAMostrar().getPlatos().getNombrePlato()
+                + " - Porciones: " + detalle.getPorcionPlato()
+                + " - $ unitario: " + detalle.getPlatosAMostrar().getPlatos().getPrecioPlato() + " / ")
                 .collect(Collectors.toList());
     }
 
@@ -103,9 +103,17 @@ public class DetallePedidosService {
 
         entityManager.persist(detallePedido);
     };
-;
+    
+    public void guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
+    for (DetallePedidos detallePedido : detallesPedidos) {
+        detPeRepo.save(detallePedido);
+        // Realiza las operaciones adicionales si es necesario
+    }
+}
+
+
 
 //  public void updateTotalPedidos(Long idDetallePedido){
 //      detPeRepo.updateDetallePedidosPorcion(idDetallePedido);
 //  };
-}
+};

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,12 +66,12 @@ public class PedidosController {
    // GUARDAR UN PEDIDO
    // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
    @PostMapping("/guardarpedido")
-    public ResponseEntity<?> guardarPedido(@RequestBody Pedidos pedidos) {
-        pedidosServ.guardarPedido(pedidos);
+    public ResponseEntity<Pedidos> guardarPedido(@RequestBody Pedidos pedidos) {
+        Pedidos pedidoGuardado = pedidosServ.guardarPedido(pedidos);
         pedidosServ.updateFechaHora(pedidos.getIdPedido());
  
         if (pedidosServ.existsById(pedidos.getIdPedido())) {
-            return new ResponseEntity(new Mensaje("El id del pedido ha sido creado"), HttpStatus.OK);
+            return new ResponseEntity<>(pedidoGuardado, HttpStatus.CREATED);
         } else {
             return new ResponseEntity(new Mensaje("El id del pedido no se creo"), HttpStatus.OK);
         }        
@@ -99,11 +100,18 @@ public class PedidosController {
     };
 
 //ACTUALIZAR PEDIDOS (ESTA ENTIDAD SOLO GUARDA UN IDPEDIDO, NO SE NECESITA ACTUALIZAR) 
-//@PutMapping("/actualizarpedido/{idPedido}")
-// public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
-//    Pedidos pedid = pedidosServ.getOne(idPedido).get();       
-//    pedid.setDetallePedidos(pedidos.getDetallePedidos());      
-//    pedidosServ.guardarPedido(pedid);      
-//    return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
-// };
+@PutMapping("/actualizarpedido/{idPedido}")
+public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
+    Pedidos pedid = pedidosServ.getOne(idPedido).get();       
+    pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
+    pedid.setNombreCliente(pedidos.getNombreCliente());
+    pedid.setTelefonoCliente(pedidos.getTelefonoCliente());
+    pedid.setDireccionCliente(pedidos.getDireccionCliente());
+    pedid.setLocalidadCliente(pedidos.getLocalidadCliente());
+    pedid.setFecha(pedidos.getFecha());
+    pedid.setHora(pedidos.getHora());
+    pedid.setImporteTotalPedido(pedidos.getImporteTotalPedido());
+    pedidosServ.guardarPedido(pedid);      
+    return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
+ };
 }

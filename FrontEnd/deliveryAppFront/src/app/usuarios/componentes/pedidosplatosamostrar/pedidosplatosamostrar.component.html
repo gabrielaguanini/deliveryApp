@@ -1,8 +1,155 @@
 <div class="container-fluid">
 
+
+    <br>
+    <!-- BOTON AGREGAR PEDIDO -->
+    <div class="containermodalagregar">
+        <div class="row" id="">
+            <div class="col-12" id="">
+                <!-- Boton editar -->
+                <button class="btn btn-light btn-md" title="AGREGAR PEDIDO"
+                    (click)="openModalAgregarPedidos(templateAgregarPedido)">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <br>
+                <br>
+            </div>
+        </div>
+
+
+
+        <!-- MODAL AGREGAR PEDIDO -->
+        <ng-template #templateAgregarPedido>
+            <div class="container-fluid modal-menu">
+                <div class="row">
+                    <div class="modal-header">
+                        <h4 class="modal-title">AGREGAR PEDIDO</h4>
+                        <div class="card-icon card-icon-large">
+                            <i class=""></i>
+                        </div>
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="borrarInputs(); modalAgregarPedido.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row align-items-center">
+                        <form (ngSubmit)="agregarPedido()" novalidate #f="ngForm">
+
+
+                            <div class="row text-center">
+
+                                <div class="form-group, col-6 pb-3">
+                                    <label for="nombreCliente">NOMBRE CLIENTE</label>
+                                    <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
+                                        [(ngModel)]="nombreCliente" required>
+                                </div>
+                                <div class="form-group, col-6 pb-3">
+                                    <label for="telefonoCliente">TELEFONO CLIENTE</label>
+                                    <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente"
+                                        [(ngModel)]="telefonoCliente" required>
+                                </div>
+                                <div class="form-group, col-6 pb-3">
+                                    <label for="direccionCliente">DIRECCION</label>
+                                    <input type="text" class="form-control" id="direccionCliente"
+                                        name="direccionCliente" [(ngModel)]="direccionCliente" required>
+                                </div>
+                                <div class="form-group, col-6 pb-3">
+                                    <label for="hora">LOCALIDAD</label>
+                                    <input type="text" class="form-control" id="localidadCliente"
+                                        name="localidadCliente" [(ngModel)]="localidadCliente" required>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <button class="btn btn-outline-light btn-sm" type="button"
+                                            (click)="mostrarOcultarModalitoAgregarDetPed(); agregarPedido()">
+                                            AGREGAR PLATOS AL PEDIDO
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <!-- modalito ngIf para agregar platos al pedido-->
+                                <div class="modalitoDetPed p-5" *ngIf="mostrarModalitoAgregarPlatos">
+                                    <form novalidate #f="ngForm">
+                                        <div class="container d-flex justify-content-center">
+                                            <div class="table-responsive-sm">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                ID PLA MOS
+                                                            </th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                ID PEDIDO
+                                                            </th>
+                                                            <th class="col-lg-2 align-middle text-center" scope="col">
+                                                                NOMBRE PLATO</th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                PRECIO UNITARIO</th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                PORCION</th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                TOTAL PEDIDO</th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                DESCRIPCION</th>
+                                                            <th class="col-lg-1 align-middle text-center" scope="col">
+                                                                SELECCIONADO</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="align-content-stretch align-content-stretch">
+                                                        <tr *ngFor="let PlatosAMostrar of platosAMostrarList; let i = index">
+
+                                                            <td class="col-lg-1 align-middle text-center">
+                                                                <input readonly type="number" class="form-control text-center" 
+                                                                [value]="PlatosAMostrar.idPlatosAMostrar">
+                                                            </td>
+                                                                <td class="col-lg-1 align-middle text-center">
+                                                                <input name="idPedido" readonly type="number" class="form-control text-center" 
+                                                                [value]="idPedido">
+                                                            </td>
+                                                            <td class="col-lg-2 align-middle text-center">
+                                                                {{PlatosAMostrar.platos.nombrePlato}}</td>
+                                                            <td class="col-lg-1 align-middle text-center">$
+                                                                {{PlatosAMostrar.platos.precioPlato}}</td>
+                                                            <td class="col-lg-1 align-middle text-center"><input
+                                                                    type="number" class="form-control text-center"
+                                                                    [(ngModel)]="porcionesPlatosList[i]" min="1"
+                                                                    name="porcionPlato"></td>
+                                                            <td class="col-lg-1 align-middle text-center">
+                                                                <input readonly type="number" class="form-control text-center"
+                                                                [value]="PlatosAMostrar.platos.precioPlato *
+                                                                 porcionesPlatosList[i] || 0"></td>
+                                                            <td class="col-lg-1 align-middle text-center">
+                                                                {{PlatosAMostrar.descripcionPlatoAMostrar}}</td>
+                                                            <td class="col-lg-1 align-middle text-center">
+                                                                <input type="checkbox" [checked]="platosSeleccionadosSioNo[i]" (change)="chekBoxSeleccion(i)">
+                                                            </td>
+                                                        </tr>                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="row justify-content-center">
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-light" (click)="enviarElementosSeleccionadosADb()">
+                                                GENERAR PEDIDO Y AGREGAR PLATOS
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </ng-template>
+    </div>
+
     <!-- LISTA DE PEDIDOS DE LA FECHA ACTUAL -->
 
     <div class="row">
+
         <div class="col-lg-1 col-md-1 d-none d-lg-block">
             <blockquote class="blockquote border-end border-top border-white">
                 <p class="small">ID DEL PEDIDO</p>
@@ -54,6 +201,7 @@
             </blockquote>
         </div>
     </div>
+
     <div class="row" *ngFor="let DetallePedidosHoy of pedidosDeHoyList">
         <hr>
         <div class="col-lg-1 col-md-1 text-justify">
@@ -85,19 +233,19 @@
         </div>
         <div class="col-lg-1 col-md-1 text-center" id="">
             <!-- Boton editar -->
-            <button class="btn btn-light btn-md" (click)="openModalEditarPedidos(templateEditarPedido);
-             obtPedidoXId(DetallePedidosHoy.idPedido, DetallePedidosHoy.fecha, DetallePedidosHoy.hora, DetallePedidosHoy.nombreCliente, DetallePedidosHoy.telefonoCliente, DetallePedidosHoy.direccionCliente, DetallePedidosHoy.localidadCliente, DetallePedidosHoy.listaPlatosDelPedido)">
+            <button class="btn btn-light btn-md"
+                (click)="openModalEditarPedidos(templateEditarPedido);
+             obtPedidoXId(DetallePedidosHoy.idPedido, DetallePedidosHoy.fecha, DetallePedidosHoy.hora, DetallePedidosHoy.nombreCliente, DetallePedidosHoy.telefonoCliente, DetallePedidosHoy.direccionCliente, DetallePedidosHoy.localidadCliente, DetallePedidosHoy.listaPlatosDelPedido, DetallePedidosHoy.importeTotalPedido)">
                 <i class="far fa-edit"></i>
             </button>
             <!-- Boton borrar -->
-            <button class="btn btn-light btn-md">
+            <button class="btn btn-light btn-md" (click)="eliminarPedido(DetallePedidosHoy.idPedido)">
                 <i class="far fa-trash-alt"></i>
             </button>
         </div>
 
 
-
-    <!-- MODAL EDITAR PEDIDO -->
+        <!-- MODAL EDITAR PEDIDO -->
         <ng-template #templateEditarPedido>
             <div class="container-fluid modal-menu">
                 <div class="row">
@@ -106,8 +254,7 @@
                         <div class="card-icon card-icon-large">
                             <i class=""></i>
                         </div>
-                        <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="modalEditarPedido.hide()">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="modalEditarPedido.hide()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -115,46 +262,44 @@
                         <form (ngSubmit)="editarPedido()" novalidate #f="ngForm">
                             <div class="form-group, col-12 pb-3">
                                 <label for="idPedido">ID PEDIDO</label>
-                                <input readonly="number" class="form-control"
-                                    id="idPedido" name="idPedido"
+                                <input readonly="number" class="form-control" id="idPedido" name="idPedido"
                                     [(ngModel)]="idPedido" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="fechaPedido">FECHA </label>
-                                <input readonly type="text" class="form-control"
-                                    id="fechaPedido" name="fechaPedido" [(ngModel)]="fechaPedido"
-                                    required>
+                                <input readonly type="text" class="form-control" id="fechaPedido" name="fechaPedido"
+                                    [(ngModel)]="fechaPedido" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="horaPedido">HORA</label>
-                                <input readonly type="text" class="form-control" id="horaPedido"
-                                    name="horaPedido" [(ngModel)]="horaPedido" required>
-                            </div>                                            
+                                <input readonly type="text" class="form-control" id="horaPedido" name="horaPedido"
+                                    [(ngModel)]="horaPedido" required>
+                            </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="nombreCliente">NOMBRE CLIENTE</label>
-                                <input type="text" class="form-control" id="nombreCliente"
-                                    name="nombreCliente" [(ngModel)]="nombreCliente" required>
+                                <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
+                                    [(ngModel)]="nombreCliente" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="telefonoCliente">TELEFONO CLIENTE</label>
-                                <input type="text" class="form-control" id="telefonoCliente"
-                                    name="telefonoCliente" [(ngModel)]="telefonoCliente" required>
+                                <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente"
+                                    [(ngModel)]="telefonoCliente" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="direccionCliente">DIRECCION</label>
-                                <input type="text" class="form-control" id="direccionCliente"
-                                    name="direccionCliente" [(ngModel)]="direccionCliente" required>
+                                <input type="text" class="form-control" id="direccionCliente" name="direccionCliente"
+                                    [(ngModel)]="direccionCliente" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="hora">LOCALIDAD</label>
-                                <input type="text" class="form-control" id="localidadCliente"
-                                    name="localidadCliente" [(ngModel)]="localidadCliente" required>
+                                <input type="text" class="form-control" id="localidadCliente" name="localidadCliente"
+                                    [(ngModel)]="localidadCliente" required>
                             </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="listaPlatosDelPedido">DETALLE DEL PEDIDO</label>
-                                <textarea type="text" class="form-control" id="listaPlatosDelPedido"
+                                <textarea type="text" readonly="text" class="form-control" id="listaPlatosDelPedido"
                                     name="listaPlatosDelPedido" [(ngModel)]="listaPlatosDelPedido" required></textarea>
-                            </div>   
+                            </div>
                             <div class="form-group, col-12 pb-3">
                                 <label for="importeTotalPedido">TOTAL</label>
                                 <input readonly type="number" class="form-control" id="importeTotalPedido"
@@ -167,7 +312,7 @@
                                         Enviar
                                     </button>
                                 </div>
-                                
+
                             </div>
                         </form>
                     </div>
@@ -175,19 +320,6 @@
                 <br>
             </div>
         </ng-template>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
 
 

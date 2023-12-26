@@ -10,6 +10,7 @@ export class DetallePedidos {
     porcionPlato!: number;
     precioPlatosAMostrar!: number;
     totalPedido!: number;
+    
 
     constructor(idDetallePedido: number,
         pedidos: PedidosModel,
@@ -17,7 +18,8 @@ export class DetallePedidos {
         platos: MenuCompletoModel,
         porcionPlato: number,
         precioPlatosAMostrar: number,
-        totalPedido: number) {
+        totalPedido: number        
+        ) {
 
         this.idDetallePedido = idDetallePedido;
         this.pedidos = pedidos;
@@ -25,8 +27,9 @@ export class DetallePedidos {
         this.platos = platos;
         this.porcionPlato = porcionPlato;
         this.precioPlatosAMostrar = precioPlatosAMostrar;
-        this.totalPedido = totalPedido;
-       
+        this.totalPedido = totalPedido;   
     };
+
+    
 
 }

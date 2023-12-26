@@ -64,8 +64,8 @@ public class PedidosService {
        return iPedidosRepo.findById(idPedido);
     };    
     
-    public void guardarPedido(Pedidos pedidos){
-        iPedidosRepo.save(pedidos);   
+    public Pedidos guardarPedido(Pedidos pedidos){
+       return iPedidosRepo.save(pedidos);   
             
     };    
  

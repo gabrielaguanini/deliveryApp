@@ -22,7 +22,6 @@ export class PedidosService {
     };
   
     public guardarPedido(pedido:PedidosModel): Observable<any>{
-      console.log('JSON enviado al servidor:', JSON.stringify(pedido));
       return this.httpClient.post<any>(this.URL + 'guardarpedido', pedido);
     };
 
