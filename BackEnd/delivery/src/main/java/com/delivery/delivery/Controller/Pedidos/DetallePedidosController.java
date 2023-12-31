@@ -109,7 +109,13 @@ public class DetallePedidosController {
     
     @PostMapping("/guardarvariosdetallespedido")
     public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
+        //Itera sobre la lista detallesPedidos y en cada elemento utiliza el metodo guardarIdPlatoTotalPrecio(detallePedido)
+        for (DetallePedidos detallePedido : detallesPedidos) {
+        detpeServ.guardarIdPlatoTotalPrecio(detallePedido);
+    };
+
     detpeServ.guardarVariosDetallesPedido(detallesPedidos);
+
     return new ResponseEntity(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
     };
     

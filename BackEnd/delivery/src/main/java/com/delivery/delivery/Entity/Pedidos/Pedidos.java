@@ -35,11 +35,14 @@ public class Pedidos {
     private LocalDate fecha;
     private LocalTime hora;
     private Double importeTotalPedido;
+    private Boolean pedidoConfirmado ;
    
 
     public Pedidos() {};
 
-    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, String localidadCliente, LocalDate fecha, LocalTime hora, Double importeTotalPedido) {
+    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, 
+                   String localidadCliente, LocalDate fecha, LocalTime hora, Double importeTotalPedido, 
+                   Boolean pedidoConfirmado) {
         this.listaPlatosDelPedido = listaPlatosDelPedido;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
@@ -48,7 +51,10 @@ public class Pedidos {
         this.fecha = fecha;
         this.hora = hora;
         this.importeTotalPedido = importeTotalPedido;
-    }
+        this.pedidoConfirmado = pedidoConfirmado;
+    };
+    
+    
 
     
     //METODO PARA QUE LA FECHA Y HORA SEA SIEMPRE LA DE ARGENTINA
@@ -59,7 +65,5 @@ public class Pedidos {
 
         fecha = fechaYHoraArgentina.toLocalDate();
         hora = fechaYHoraArgentina.toLocalTime();
-    }
-
-   
+    };   
 }

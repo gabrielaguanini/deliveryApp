@@ -3,8 +3,10 @@ package com.delivery.delivery.Service.PlatosAMostrar;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,14 @@ IPlatosAMostrarRepository iPlatosAMostrarRepo;
 
 
  public List <PlatosAMostrar> listaPlatosAMostrar(){
-        return iPlatosAMostrarRepo.findAll();
+       List<PlatosAMostrar> platosAMostrarList = iPlatosAMostrarRepo.findAll();
+        
+        // Ordenar la lista por idPlatosAMostrar
+        List<PlatosAMostrar> platosAMostrarOrdenados = platosAMostrarList.stream()
+                .sorted(Comparator.comparing(PlatosAMostrar::getIdPlatosAMostrar))
+                .collect(Collectors.toList());
+
+        return platosAMostrarOrdenados;
     }; 
  
    

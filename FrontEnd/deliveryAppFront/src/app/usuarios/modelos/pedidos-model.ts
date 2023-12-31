@@ -10,6 +10,7 @@ export class PedidosModel {
     fecha!: Date;
     hora!: string;
     importeTotalPedido!: number;
+    pedidoConfirmado?: boolean = false;
 
     constructor(idPedido: number,
                 nombreCliente: string,
@@ -19,7 +20,8 @@ export class PedidosModel {
                 listaPlatosDelPedido: string,
                 fecha: Date,
                 hora: string,
-                importeTotalPedido: number) {
+                importeTotalPedido: number,
+                pedidoConfirmado: boolean) {
 
         this.idPedido = idPedido;
         this.nombreCliente = nombreCliente;
@@ -30,6 +32,7 @@ export class PedidosModel {
         this.fecha = fecha;
         this.hora = hora;
         this.importeTotalPedido = importeTotalPedido;
+        this.pedidoConfirmado = pedidoConfirmado;
     };
 }
 

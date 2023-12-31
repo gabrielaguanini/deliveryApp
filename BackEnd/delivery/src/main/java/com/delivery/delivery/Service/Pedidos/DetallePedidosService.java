@@ -90,11 +90,11 @@ public class DetallePedidosService {
                 Platos platosAsociado = platosAMostrarPersistido.getPlatos();
                 detallePedido.setPlatos(platosAsociado);
 
-                // Obtener el precio_plato desde la entidad Platos
+                // Obtiene el precio_plato desde la entidad Platos
                 Float precioPlato = platosAsociado.getPrecioPlato();
                 detallePedido.setPrecioPlatoAMostrar(precioPlato);
 
-                // Multiplicar porcionPlato por precioPlatoAMostrar y establecer el resultado
+                // Multiplica porcionPlato por precioPlatoAMostrar y establece el resultado
                 if (detallePedido.getPorcionPlato() != null) {
                     detallePedido.setTotalPlato(detallePedido.getPorcionPlato() * precioPlato.doubleValue());
                 }
@@ -109,7 +109,9 @@ public class DetallePedidosService {
         detPeRepo.save(detallePedido);
         // Realiza las operaciones adicionales si es necesario
     }
-}
+};
+    
+   
 
 
 

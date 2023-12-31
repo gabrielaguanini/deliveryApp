@@ -36,6 +36,12 @@ export class PedidosService {
     public obtenerPedidoXId(idPedido:number): Observable<PedidosModel>{
       return this.httpClient.get<PedidosModel>(this.URL + `obtenerpedidoxid/${idPedido}`)
     };
+
+    public actualizarImporteTotalPedido(idPedido: number): Observable<any> {
+      const body = { "importeTotalPedido": 0 }; // Puedes enviar cualquier valor, ya que el backend lo calculará
+      return this.httpClient.put<any>(this.URL + `actualizartotalpedido/${idPedido}`, body);
+    }
+    
   
   }
 

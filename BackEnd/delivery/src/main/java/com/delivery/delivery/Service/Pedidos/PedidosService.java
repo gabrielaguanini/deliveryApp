@@ -3,10 +3,13 @@ package com.delivery.delivery.Service.Pedidos;
 
 
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
+import com.delivery.delivery.Repository.Pedidos.IDetallePedidosRepository;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +26,33 @@ public class PedidosService {
     DetallePedidosService detallePedidosService;
     
     @Autowired
+    IDetallePedidosRepository detallePedidosRepo;
+    
+    @Autowired
     private EntityManager entityManager; //LIBRERIA QUE SOLO SE UTILIZA PARA EL METODO public void calcularImporteTotalPedido(Long idPedido)
     
     
     
-    public List <Pedidos> listapedidos(){    
-       return iPedidosRepo.findAll();
+    public List <Pedidos> listapedidos(){  
+        List<Pedidos> pedidosList = iPedidosRepo.findAll();
+        
+        List<Pedidos> pedidosListOrdenada = pedidosList.stream()
+                .sorted(Comparator.comparing(Pedidos::getIdPedido))
+                .collect(Collectors.toList());       
+        
+       return pedidosListOrdenada;
     };
     
     public List<Pedidos> obtenerPedidosDelDia() {
         LocalDate fechaActual = LocalDate.now();
-        return iPedidosRepo.obtenerPedidosDelDia(fechaActual);
+        
+        List<Pedidos> pedidosDiaList = iPedidosRepo.obtenerPedidosDelDia(fechaActual);
+        
+        List<Pedidos> pedidosDiaListOrdenada = pedidosDiaList.stream()
+                .sorted(Comparator.comparing(Pedidos::getIdPedido).reversed())
+                .collect(Collectors.toList());     
+        
+        return pedidosDiaListOrdenada;
     };
     
  
@@ -80,10 +99,27 @@ public class PedidosService {
     
     public void updateFechaHora(Long idPedido){     
        iPedidosRepo.actualizarFechaYHoraDelPedido(idPedido);
-    };
-    
-  
-    
-  
+    };  
  
+    
+  public Pedidos actualizarImporteTotalPedido(Long idPedido) {
+    Pedidos pedido = iPedidosRepo.findById(idPedido).orElse(null);
+
+    if (pedido != null || !pedido.equals(0)) {
+        Double totalImportePedido = detallePedidosRepo.findTotalPlatoAndAdd(idPedido);
+
+        pedido.setImporteTotalPedido(totalImportePedido != null ? totalImportePedido : 0.0);
+        return iPedidosRepo.saveAndFlush(pedido);
+    } else {
+        return null;
+    }
+    };
+
+
 }
+
+
+
+   
+   
+

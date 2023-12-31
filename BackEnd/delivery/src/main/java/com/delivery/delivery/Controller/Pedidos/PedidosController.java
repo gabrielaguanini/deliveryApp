@@ -1,5 +1,6 @@
 package com.delivery.delivery.Controller.Pedidos;
 
+import com.delivery.delivery.Entity.Pedidos.DetallePedidos;
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
@@ -111,7 +112,24 @@ public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVar
     pedid.setFecha(pedidos.getFecha());
     pedid.setHora(pedidos.getHora());
     pedid.setImporteTotalPedido(pedidos.getImporteTotalPedido());
+    pedid.setPedidoConfirmado(pedidos.getPedidoConfirmado());
     pedidosServ.guardarPedido(pedid);      
     return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
  };
+
+
+@PutMapping("/actualizartotalpedido/{idPedido}")
+public ResponseEntity<?> actualizarImporteTotalPedido(@PathVariable Long idPedido, @RequestBody Pedidos pedid) {
+    Pedidos pedidoActualizado = pedidosServ.actualizarImporteTotalPedido(idPedido);
+    
+    if (pedidoActualizado != null) {
+        return new ResponseEntity<>(new Mensaje("Importe total del pedido actualizado"), HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(new Mensaje("Error al actualizar el importe total del pedido"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+};
+
+
+
+ 
 }

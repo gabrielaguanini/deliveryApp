@@ -38,6 +38,9 @@ export class PedidosplatosamostrarComponent {
   //PARA SELECCIONAR PLATO DEL PEDIDO
   /////////////////////////////////////
   mostrarModalitoAgregarPlatos: boolean = false;
+  //MODALITO NGIF (NO BSMODALREF) 
+  //PARA CONFIRMAR EL PEDIDO Y EL DETALLE PEDIDO
+  mostrarModalitoEnviarPedido: boolean = false;
   
 
 
@@ -51,6 +54,8 @@ export class PedidosplatosamostrarComponent {
   platosSeleccionadosList: DetallePedidos[] = [];
   platosSeleccionadosSioNo: Boolean[] = []; //lista en la que se agregan los datos de los chekbox seleccionados
 
+  
+
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
   ///////////////////////////////////
   idPlato!:number;
@@ -59,6 +64,7 @@ export class PedidosplatosamostrarComponent {
   platosAMostrar!: PlatosAMostrar;
   fecha!: Date;
   hora!: string;
+
 
 
   //EDITAR PEDIDO
@@ -72,17 +78,16 @@ export class PedidosplatosamostrarComponent {
   localidadCliente!: string;
   listaPlatosDelPedido!: string;
   importeTotalPedido!: number;
+  pedidoConfirmado: boolean = false;
+
+
  
   //AGREGAR DETALLE PEDIDO (SOLO SE PUEDE AGREGAR SI SE GENERO EL ID PEDIDO O PEDIDO)
   //////////////////
   idDetallePedido!: number;
   porcionPlato!: number;
   precioPlatosAMostrar!: number;
-  totalPedido!: number;
-  
-
-
- 
+  totalPedido!: number; 
 
 
   constructor(private modalService: BsModalService,
@@ -90,7 +95,7 @@ export class PedidosplatosamostrarComponent {
               private platosServ: MenuCompletoServiceService,
               private pedidosServ: PedidosService,
               private detallePedidServ: DetallePedidosService        
-  ) {};
+  ) { };
 
 
   ngOnInit(): void {
@@ -98,7 +103,9 @@ export class PedidosplatosamostrarComponent {
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
     this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
- 
+
+   
+
   };
 
 
@@ -138,6 +145,13 @@ export class PedidosplatosamostrarComponent {
   mostrarOcultarModalitoAgregarDetPed(){
     this.mostrarModalitoAgregarPlatos = !this.mostrarModalitoAgregarPlatos;
   };
+
+  //MODALITO NGIF (NO BSMODALREF)
+  //PARA CONFIRMAR EL PEDIDO Y EL DETALLE PEDIDO
+  mostrarOcultarModalitoEnviarPedido(){
+    this.mostrarModalitoEnviarPedido = !this.mostrarModalitoEnviarPedido;
+  };
+  
   
 
 
@@ -146,6 +160,7 @@ export class PedidosplatosamostrarComponent {
   ///////////////////////////////////
   listaPlatosAMostrar(): void{
     this.plaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data)
+    
   };
 
   listaPlatosForSelect():void{
@@ -234,9 +249,11 @@ export class PedidosplatosamostrarComponent {
 
   //AGREGAR PEDIDO
   /////////////////////////
-  agregarPedido(): void {  
 
-    const pedido = new PedidosModel(this.idPedido,
+ 
+  agregarPedido(): void {  
+    const pedido = new PedidosModel(
+      this.idPedido,
       this.nombreCliente,
       this.telefonoCliente,
       this.direccionCliente,
@@ -244,15 +261,20 @@ export class PedidosplatosamostrarComponent {
       this.listaPlatosDelPedido,
       this.fechaPedido,
       this.horaPedido,
-      this.importeTotalPedido);
-
-    this.pedidosServ.guardarPedido(pedido).subscribe(data => {
-      this.listaPedidosDeHoy();
-      this.idPedido = data.idPedido;
-      alert("Pedido guardado");
-    },
-      err => { alert("No se guardó el pedido"); });    
-   };   
+      this.importeTotalPedido,
+      this.pedidoConfirmado
+    );
+  
+    this.pedidosServ.guardarPedido(pedido).subscribe(
+      (data: PedidosModel) => {
+        this.idPedido = data.idPedido;        
+        this.listaPedidosDeHoy();
+        alert("Pedido guardado con ID: " + this.idPedido);
+      },
+      err => { alert("No se guardó el pedido"); }
+    );
+  }
+  
 
 
   
@@ -283,7 +305,8 @@ export class PedidosplatosamostrarComponent {
       this.listaPlatosDelPedido,
       this.fechaPedido,
       this.horaPedido,
-      this.importeTotalPedido);
+      this.importeTotalPedido,
+      this.pedidoConfirmado);
 
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
       this.listaPedidosDeHoy();
@@ -309,39 +332,66 @@ export class PedidosplatosamostrarComponent {
 //paso 1: tomar los elementos de los chekbox seleccionados
  chekBoxSeleccion(index: number): void {
   this.platosSeleccionadosSioNo[index] = !this.platosSeleccionadosSioNo[index];
+ };
+
+
+
+
+
+ enviarElementosSeleccionadosADb(): void {
+  // Filtra los elementos seleccionados
+  const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
+    .map((PlatosAMostrar, index) => {
+      if (this.platosSeleccionadosSioNo[index] && this.porcionesPlatosList[index] !== undefined) {
+        return {
+          pedidos: { idPedido: this.idPedido },
+          platosAMostrar: { idPlatosAMostrar: PlatosAMostrar.idPlatosAMostrar },
+          porcionPlato: this.porcionesPlatosList[index],
+        };
+      }
+      return null;
+    })
+    .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];
+  console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
+
+  this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
+    data => {
+      // Manejar la respuesta del servidor si es necesario
+      console.log('Pedido generado:', data);
+    },
+    error => {
+      // Manejar errores si es necesario
+      console.error('Error, no se generó el pedido:', error);
+    }
+  );
+}
+
+
+
+getPlatosSeleccionados(): PlatosAMostrar[] {
+  return this.platosAMostrarList.filter((_, index) => this.platosSeleccionadosSioNo[index]);
 };
 
 
 
 
-
-enviarElementosSeleccionadosADb(): void {
-  // Filtra los elementos seleccionados
-  const elementosSeleccionados = this.platosAMostrarList
-  .filter((_, index) => this.platosSeleccionadosSioNo[index])
-  .map((PlatosAMostrar, index) => {
-    return {
-      pedidos: {idPedido: this.idPedido,
-      },
-      platosAMostrar: {
-        idPlatosAMostrar: PlatosAMostrar.idPlatosAMostrar,
-      },
-      porcionPlato: this.porcionesPlatosList[index],
-    };
-  });
-  console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
- 
-  this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
+actualizarImporteTotalPedido(): void {
+  this.pedidosServ.actualizarImporteTotalPedido(this.idPedido).subscribe(
     data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log('Pedido generado:', data);  
+      // Maneja la respuesta del servidor si es necesario
+      console.log('Importe total actualizado:', data);
     },
     error => {
-      // Manejar errores si es necesario
-      console.error('Error, no se genero el pedido:', error);
+      // Maneja errores si es necesario
+      console.error('Error al actualizar importe total:', error);
     }
   );
 }
+
+
+
+
+
 
 
 
@@ -374,19 +424,17 @@ mostrarElementosSeleccionadosEnConsola(): void {
 
 
     
-     
 
 
 
   //FUNCIONES VARIAS
   ///////////////////////////////////
 
-  borrarInputs(): void{
+  borrarInputs(): void{ 
+
     this.idPlato = 0
-    this.descripcionPlatoAMostrar = "";
-    this.idPlato = 0;
-    this.idPlatosAMostrar = 0;
     this.descripcionPlatoAMostrar = "";   
+    this.idPlatosAMostrar = 0;   
     this.fecha = new Date('2000-01-01');
     this.hora = "";
     this.idPedido = 0;
@@ -399,10 +447,16 @@ mostrarElementosSeleccionadosEnConsola(): void {
     this.listaPlatosDelPedido = "";
     this.importeTotalPedido = 0;
     this.totalPedido = 0;
+    this.mostrarModalitoAgregarPlatos = false;
+    this.mostrarModalitoEnviarPedido = false;
     this.porcionesPlatosList = [];
-
-  };
-
+    //deseleccionar chekbox
+    for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
+      if (this.platosSeleccionadosSioNo[i]) {
+          this.chekBoxSeleccion(i);
+      }
+  }; 
+};
 
 
 

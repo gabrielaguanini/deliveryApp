@@ -11,6 +11,12 @@ public interface IDetallePedidosRepository extends JpaRepository <DetallePedidos
 
 List<DetallePedidos> findByPedidosIdPedido(Long idPedido);
 
+//METODO ABSTRACTO PARA OBTENER EL IMPORTE TOTAL DEL PEDIDO 
+
+@Query ("SELECT COALESCE(SUM(totalPlato), 0) FROM DetallePedidos WHERE id_pedido = :idPedido")
+public Double findTotalPlatoAndAdd(@Param("idPedido") Long idPedido);
+
 
 
 }
+
