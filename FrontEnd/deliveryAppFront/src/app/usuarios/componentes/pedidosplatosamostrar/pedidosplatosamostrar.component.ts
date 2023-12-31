@@ -51,7 +51,7 @@ export class PedidosplatosamostrarComponent {
   pedidosDeHoyList: PedidosModel [] = [];
   porcionesPlatosList: number[] = []; //lista para que cada input en donde se ingresa la porcion sea unico o sea no se repita con la lista platosAMostrarList
   detallePedidosList: DetallePedidos [] = [];
-  platosSeleccionadosList: DetallePedidos[] = [];
+  //platosSeleccionadosList: DetallePedidos[] = []; //borrar cuando este segura de que no se utiliza
   platosSeleccionadosSioNo: Boolean[] = []; //lista en la que se agregan los datos de los chekbox seleccionados
 
   
@@ -87,7 +87,7 @@ export class PedidosplatosamostrarComponent {
   idDetallePedido!: number;
   porcionPlato!: number;
   precioPlatosAMostrar!: number;
-  totalPedido!: number; 
+  totalPlato!: number; 
 
 
   constructor(private modalService: BsModalService,
@@ -318,11 +318,24 @@ export class PedidosplatosamostrarComponent {
   //BORRAR PEDIDO
   ///////////////////////////////////
    eliminarPedido(idPedido:number): void {
-     this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
-      alert("Pedido eliminado");      
-      this.listaPedidosDeHoy();
-     }, err => console.log("No se pudo eliminar el pedido"))
-  };
+    
+    //Advertencia para eliminar el pedido
+    const confirmacion = window.confirm("El pedido se eliminará");
+
+    if(confirmacion){
+      this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
+        alert("Pedido eliminado.");      
+        this.listaPedidosDeHoy();
+       }, err => {
+        // Error al eliminar el pedido
+        console.log("No se pudo eliminar el pedido", err);
+        alert("Error al eliminar el pedido.");
+      }
+    );
+  }
+}
+
+    
 
 
   
@@ -335,8 +348,9 @@ export class PedidosplatosamostrarComponent {
  };
 
 
-
-
+porcionPlatosMos(index:number):void{
+  this.porcionesPlatosList;
+};
 
  enviarElementosSeleccionadosADb(): void {
   // Filtra los elementos seleccionados
@@ -358,19 +372,56 @@ export class PedidosplatosamostrarComponent {
     data => {
       // Manejar la respuesta del servidor si es necesario
       console.log('Pedido generado:', data);
+      alert("Pedido creado");
     },
     error => {
       // Manejar errores si es necesario
       console.error('Error, no se generó el pedido:', error);
+      alert("Error, no se creó el pedido");
     }
   );
 }
 
 
 
-getPlatosSeleccionados(): PlatosAMostrar[] {
-  return this.platosAMostrarList.filter((_, index) => this.platosSeleccionadosSioNo[index]);
-};
+
+getPlatosSeleccionados(): DetallePedidos[] {
+  // Filtra los elementos seleccionados
+  const seleccionados = this.platosAMostrarList
+    .filter((_, index) => this.platosSeleccionadosSioNo[index])
+    .map((platoAMostrar, index) => {
+      return {
+        idDetallePedido: 0, // Asigna el valor adecuado si es necesario
+        totalPlato: this.totalPlato, //ver mañana como mostrarlo
+        pedidos: {
+          idPedido: this.idPedido,
+          nombreCliente: this.nombreCliente,
+          telefonoCliente: this.telefonoCliente,
+          direccionCliente: this.direccionCliente,
+          localidadCliente: this.localidadCliente,
+          listaPlatosDelPedido: this.listaPlatosDelPedido,
+          fecha: this.fecha,
+          hora: this.hora,
+          importeTotalPedido: this.importeTotalPedido,
+        },
+        platosAMostrar: platoAMostrar,
+        platos: platoAMostrar.platos,     
+        porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
+        precioPlatosAMostrar: this.precioPlatosAMostrar, 
+        totalPedido: 0, // Asigna el valor adecuado si es necesario
+      };
+    });
+
+  // Log para verificar los elementos seleccionados
+  console.log('Platos seleccionados:', seleccionados);
+
+  return seleccionados;
+}
+
+
+
+
+
 
 
 
@@ -419,7 +470,7 @@ mostrarElementosSeleccionadosEnConsola(): void {
 
 
 
-  agregarDetallePedido(): void {};
+  
   
 
 
@@ -430,34 +481,31 @@ mostrarElementosSeleccionadosEnConsola(): void {
   //FUNCIONES VARIAS
   ///////////////////////////////////
 
-  borrarInputs(): void{ 
+  
+//resetea formularios, toma el id del form, deselecciona chekbox
+resetFormCleanChekBox(idFormulario: string) {  
+  const formulario = document.getElementById(idFormulario) as HTMLFormElement | null;
 
-    this.idPlato = 0
-    this.descripcionPlatoAMostrar = "";   
-    this.idPlatosAMostrar = 0;   
-    this.fecha = new Date('2000-01-01');
-    this.hora = "";
-    this.idPedido = 0;
-    this.fechaPedido = new Date('2000-01-01');
-    this.horaPedido = "";
-    this.nombreCliente = "";
-    this.telefonoCliente = "";
-    this.direccionCliente = "";
-    this.localidadCliente = "";
-    this.listaPlatosDelPedido = "";
-    this.importeTotalPedido = 0;
-    this.totalPedido = 0;
-    this.mostrarModalitoAgregarPlatos = false;
-    this.mostrarModalitoEnviarPedido = false;
-    this.porcionesPlatosList = [];
-    //deseleccionar chekbox
-    for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
-      if (this.platosSeleccionadosSioNo[i]) {
-          this.chekBoxSeleccion(i);
-      }
-  }; 
+  if (formulario) {
+    formulario.reset();
+  };
+  //deseleccionar chekbox
+  for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
+    if (this.platosSeleccionadosSioNo[i]) {
+        this.chekBoxSeleccion(i);
+    };
+  };  
+};
+
+//cierra modalitos (no bsmodalref)
+cerrarModalitos(): void {
+  this.mostrarModalitoAgregarPlatos = false;
+  this.mostrarModalitoEnviarPedido = false;
 };
 
 
-
 }
+
+
+
+

@@ -30,13 +30,16 @@
                 <div class="card-icon card-icon-large">
                     <i class=""></i>
                 </div>
-                <button type="button" class="btn btn-outline-light btn-sm" (click)="borrarInputs(); modalAgregarPedido.hide()">
+                <button type="button" class="btn btn-outline-light btn-sm" (click)="modalAgregarPedido.hide(); 
+                                                                                    resetFormCleanChekBox('formularioPedidYDetPedid');
+                                                                                    cerrarModalitos()">
+                                                                                                                                                    
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>
         <div class="row align-items-center">
-            <form novalidate #f="ngForm" class="pedidosForm" (ngSubmit)="agregarPedido()">
+            <form novalidate #f="ngForm" class="pedidosForm" id="formularioPedidYDetPedid">
                 <div class="row text-center">
                     <div class="form-group col-6 pb-3">
                         <label for="nombreCliente">NOMBRE CLIENTE</label>
@@ -93,7 +96,7 @@
                                             PORCION
                                         </th>
                                         <th class="col-lg-1 align-middle text-center" scope="col">
-                                            TOTAL PEDIDO
+                                            TOTAL PLATO
                                         </th>
                                         <th class="col-lg-1 align-middle text-center" scope="col">
                                             DESCRIPCION
@@ -147,36 +150,46 @@
                         </div>
                     </div>
                 <div class="row justify-content-center">
-                    <div class="col-6 text-center">
-                        <button class="btn btn-outline-light" type="button" (click)="enviarElementosSeleccionadosADb()">
-                            PROBAR DETALLE PEDIDO
-                        </button>
-                        <button class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido()">
+                    <div class="col-6 text-center">                       
+                        <button class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido();
+                                                                                     agregarPedido()">
                             GENERAR PEDIDO
                         </button>
                     </div>              
                 </div>
             </div>   
             
-            <div *ngIf="mostrarModalitoEnviarPedido">
+            <div *ngIf="mostrarModalitoEnviarPedido"  id="iDmodalitoEnviarPedido">
                 <p>Platos Seleccionados:</p>
                 <div *ngFor="let platoSeleccionado of getPlatosSeleccionados(); let i = index">
-                  <ng-container *ngIf="platoSeleccionado && platoSeleccionado?.platos">
-                   
-                      Nombre del plato {{ i + 1 }}: {{ platoSeleccionado.platos.nombrePlato }}
-                      Precio unitario: {{ platoSeleccionado.platos.precioPlato }}
-                      Descripcion: {{ platoSeleccionado.descripcionPlatoAMostrar }}
+                  <ng-container *ngIf="platoSeleccionado && platoSeleccionado?.platos">                   
+                  
+                         <!-- div class="d-flex flex-row" hace que la lista sea horizontal>-->
+                      <div class="d-flex flex-row justify-content-center">
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-primary">Nombre del plato {{ i + 1 }}: {{ platoSeleccionado.platos.nombrePlato }}</li>
+                        </ul>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-secondary">Total: $ {{ platoSeleccionado.platos.precioPlato }}</li>
+                        </ul>
+                        <ul class="list-group">
+                          <li class="list-group-item list-group-item-success">Porciones: {{ platoSeleccionado.porcionPlato }}</li>
+                        </ul>
+                      </div>                      
                     
-                      Porciones: {{ porcionesPlatosList[i] }}
-
-                    
-                    
-                  </ng-container>
+                  </ng-container>                                 
+                </div> 
+                <div class="col-12 text-center">
+                    <br>  
+                    <br> 
+                    <button class="btn btn-outline-light" type="button" (click)="enviarElementosSeleccionadosADb()">
+                        CREAR PEDIDO
+                    </button>  
+                    <br>    
+                    <br>  
+                    <br>    
                 </div>
-              </div>
-              
-              
-              
+              </div>  
             </form>
         </div>
     </div>
