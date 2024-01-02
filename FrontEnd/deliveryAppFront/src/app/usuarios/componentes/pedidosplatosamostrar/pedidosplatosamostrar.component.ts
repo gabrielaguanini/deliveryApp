@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, HostListener, TemplateRef } from '@angular/core';
 import { PlatosAMostrar } from '../../modelos/platos-amostrar';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PlatosAMostrarService } from '../../servicios/platos-amostrar.service';
@@ -49,11 +49,11 @@ export class PedidosplatosamostrarComponent {
   platosAMostrarList: PlatosAMostrar[] = [];
   platosListForSelect: MenuCompletoModel [] = [];
   pedidosDeHoyList: PedidosModel [] = [];
-  porcionesPlatosList: number[] = []; //lista para que cada input en donde se ingresa la porcion sea unico o sea no se repita con la lista platosAMostrarList
+  porcionesPlatosList: number[] = []; // Array para almacenar los totales de cada plato, esta lista se itera con el let i = index del componente
   detallePedidosList: DetallePedidos [] = [];
   //platosSeleccionadosList: DetallePedidos[] = []; //borrar cuando este segura de que no se utiliza
   platosSeleccionadosSioNo: Boolean[] = []; //lista en la que se agregan los datos de los chekbox seleccionados
-
+  totalesPlatosList: number[] = []; // Array para almacenar los totales de cada plato, esta lista se itera con el let i = index del componente
   
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
@@ -87,7 +87,7 @@ export class PedidosplatosamostrarComponent {
   idDetallePedido!: number;
   porcionPlato!: number;
   precioPlatosAMostrar!: number;
-  totalPlato!: number; 
+  totalPlato!: number;
 
 
   constructor(private modalService: BsModalService,
@@ -104,7 +104,7 @@ export class PedidosplatosamostrarComponent {
     this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
 
-   
+    this.inicializarTotalesPlatos(); // Llama a esta función cuando los datos están disponibles
 
   };
 
@@ -348,11 +348,15 @@ export class PedidosplatosamostrarComponent {
  };
 
 
-porcionPlatosMos(index:number):void{
-  this.porcionesPlatosList;
+calcularTotalPlato(index: number): void {
+  this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || 0;
 };
 
- enviarElementosSeleccionadosADb(): void {
+inicializarTotalesPlatos(): void {
+  this.totalesPlatosList = Array(this.platosAMostrarList.length).fill(0);
+}
+
+ enviarDetallePedidos(): void {
   // Filtra los elementos seleccionados
   const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
     .map((PlatosAMostrar, index) => {
@@ -392,7 +396,7 @@ getPlatosSeleccionados(): DetallePedidos[] {
     .map((platoAMostrar, index) => {
       return {
         idDetallePedido: 0, // Asigna el valor adecuado si es necesario
-        totalPlato: this.totalPlato, //ver mañana como mostrarlo
+        
         pedidos: {
           idPedido: this.idPedido,
           nombreCliente: this.nombreCliente,
@@ -408,7 +412,7 @@ getPlatosSeleccionados(): DetallePedidos[] {
         platos: platoAMostrar.platos,     
         porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
         precioPlatosAMostrar: this.precioPlatosAMostrar, 
-        totalPedido: 0, // Asigna el valor adecuado si es necesario
+        totalPlato: this.totalesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0 // Asigna el valor adecuado si es necesario
       };
     });
 
@@ -493,6 +497,7 @@ resetFormCleanChekBox(idFormulario: string) {
   for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
     if (this.platosSeleccionadosSioNo[i]) {
         this.chekBoxSeleccion(i);
+        
     };
   };  
 };
@@ -502,6 +507,15 @@ cerrarModalitos(): void {
   this.mostrarModalitoAgregarPlatos = false;
   this.mostrarModalitoEnviarPedido = false;
 };
+
+// Evita que se ingresen numeros o porciones manualmente en el input
+handleKeydown(event: KeyboardEvent): void { 
+  event.preventDefault();
+};
+
+
+
+
 
 
 }

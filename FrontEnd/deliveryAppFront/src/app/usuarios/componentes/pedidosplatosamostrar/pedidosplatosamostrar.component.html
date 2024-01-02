@@ -107,14 +107,15 @@
                                     </tr>
                                 </thead>
                                 <tbody class="align-content-stretch align-content-stretch">
-                                    <tr *ngFor="let PlatosAMostrar of platosAMostrarList; let i = index">
+                                    <tr *ngFor="let PlatosAMostrar of platosAMostrarList; let i = index" (click)="calcularTotalPlato(i)">
+                                  
                                         <td class="col-lg-1 align-middle text-center">
                                             <input readonly type="number" class="form-control text-center" 
                                             [value]="PlatosAMostrar.idPlatosAMostrar">
                                         </td>
                                         <td class="col-lg-1 align-middle text-center">
-                                            <input name="idPedido_{{i}}" type="number" class="form-control text-center" 
-                                            [(ngModel)]="idPedido">
+                                            <input readonly name="idPedido_{{i}}" inputmode="numeric" type="text" 
+                                            class="form-control text-center" [(ngModel)]="idPedido">
                                         </td>
                                         
                                         <td class="col-lg-2 align-middle text-center">
@@ -124,15 +125,17 @@
                                         <td class="col-lg-1 align-middle text-center">
                                             ${{PlatosAMostrar.platos.precioPlato}}
                                         </td>
-
-                                        <td class="col-lg-1 align-middle text-center">
-                                            <input type="number" class="form-control text-center"
-                                            [(ngModel)]="porcionesPlatosList[i]" min="1" name="porcionPlato_{{i}}">                                          
+                                        <!-- "calcularTotalPlato(i)"se activa siempre que se haga click en las flechas del input-->
+                                        <!-- (keydown)="handleKeydown($event) no permite ingresar manualmente numeros al input-->
+                                        <td class="col-lg-1 align-middle text-center"> 
+                                            <input type="number" [value]="porcionesPlatosList[i]" (keydown)="handleKeydown($event)"                                            
+                                             type="number" class="form-control text-center" (click)="calcularTotalPlato(i)"                                                                            
+                                            [(ngModel)]="porcionesPlatosList[i]" min="1" max="10" name="porcionPlato_{{i}}">                                          
                                         </td>
 
                                         <td class="col-lg-1 align-middle text-center">
-                                            <input readonly type="number" class="form-control text-center"
-                                            [value]="PlatosAMostrar.platos.precioPlato * porcionesPlatosList[i] || 0">
+                                            <input readonly type="number" name="totalPlato_{{i}}" class="form-control text-center"
+                                            [(ngModel)]="totalesPlatosList[i]">
                                         </td>
 
                                         <td class="col-lg-1 align-middle text-center">
@@ -144,34 +147,41 @@
                                             
                                         </td>
                                       
-                                    </tr>                                                       
+                                 
+                                    </tr>  
+                                                                                      
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 <div class="row justify-content-center">
                     <div class="col-6 text-center">                       
-                        <button class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido();
+                        <button class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido(); 
+                                                                                                           
                                                                                      agregarPedido()">
-                            GENERAR PEDIDO
+                            CREAR PEDIDO
                         </button>
                     </div>              
                 </div>
             </div>   
             
             <div *ngIf="mostrarModalitoEnviarPedido"  id="iDmodalitoEnviarPedido">
-                <p>Platos Seleccionados:</p>
+                <p class="d-flex flex-row justify-content-center h5">Tu pedido:</p>
+                <br>
                 <div *ngFor="let platoSeleccionado of getPlatosSeleccionados(); let i = index">
                   <ng-container *ngIf="platoSeleccionado && platoSeleccionado?.platos">                   
                   
                          <!-- div class="d-flex flex-row" hace que la lista sea horizontal>-->
                       <div class="d-flex flex-row justify-content-center">
                         <ul class="list-group">
-                          <li class="list-group-item list-group-item-primary">Nombre del plato {{ i + 1 }}: {{ platoSeleccionado.platos.nombrePlato }}</li>
+                          <li class="list-group-item list-group-item-primary">Plato {{ i + 1 }}: {{ platoSeleccionado.platos.nombrePlato }}</li>
                         </ul>
                         <ul class="list-group">
-                          <li class="list-group-item list-group-item-secondary">Total: $ {{ platoSeleccionado.platos.precioPlato }}</li>
+                          <li class="list-group-item list-group-item-secondary">Total: $ {{ platoSeleccionado.totalPlato }}</li>
                         </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-secondary">Precio unitario: $ {{ platoSeleccionado.platos.precioPlato }}</li>
+                          </ul>
                         <ul class="list-group">
                           <li class="list-group-item list-group-item-success">Porciones: {{ platoSeleccionado.porcionPlato }}</li>
                         </ul>
@@ -182,8 +192,8 @@
                 <div class="col-12 text-center">
                     <br>  
                     <br> 
-                    <button class="btn btn-outline-light" type="button" (click)="enviarElementosSeleccionadosADb()">
-                        CREAR PEDIDO
+                    <button class="btn btn-outline-light" type="button" (click)="enviarDetallePedidos()">
+                        ENVIAR PEDIDO
                     </button>  
                     <br>    
                     <br>  
