@@ -3,6 +3,7 @@ package com.delivery.delivery.Service.Pedidos;
 import com.delivery.delivery.Entity.Pedidos.DetallePedidos;
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
+import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Repository.Pedidos.IDetallePedidosRepository;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,8 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -104,13 +107,22 @@ public class DetallePedidosService {
         entityManager.persist(detallePedido);
     };
     
-    public void guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
-    for (DetallePedidos detallePedido : detallesPedidos) {
+    
+    
+       public void guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
+        for (DetallePedidos detallePedido : detallesPedidos) {
         detPeRepo.save(detallePedido);
-        // Realiza las operaciones adicionales si es necesario
+      
     }
 };
-    
+
+
+
+        
+        
+   
+};
+
    
 
 
@@ -118,4 +130,4 @@ public class DetallePedidosService {
 //  public void updateTotalPedidos(Long idDetallePedido){
 //      detPeRepo.updateDetallePedidosPorcion(idDetallePedido);
 //  };
-};
+

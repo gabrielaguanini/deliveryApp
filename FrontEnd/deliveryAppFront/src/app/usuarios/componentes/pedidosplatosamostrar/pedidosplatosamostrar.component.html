@@ -130,7 +130,7 @@
                                         <td class="col-lg-1 align-middle text-center"> 
                                             <input type="number" [value]="porcionesPlatosList[i]" (keydown)="handleKeydown($event)"                                            
                                              type="number" class="form-control text-center" (click)="calcularTotalPlato(i)"                                                                            
-                                            [(ngModel)]="porcionesPlatosList[i]" min="1" max="10" name="porcionPlato_{{i}}">                                          
+                                             [(ngModel)]="porcionesPlatosList[i]" min="1" max="10" name="porcionPlato_{{i}}">                                          
                                         </td>
 
                                         <td class="col-lg-1 align-middle text-center">
@@ -156,7 +156,7 @@
                     </div>
                 <div class="row justify-content-center">
                     <div class="col-6 text-center">                       
-                        <button class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido(); 
+                        <button [disabled]="botonDisabled" class="btn btn-outline-light" type="button" (click)="mostrarOcultarModalitoEnviarPedido(); 
                                                                                                            
                                                                                      agregarPedido()">
                             CREAR PEDIDO

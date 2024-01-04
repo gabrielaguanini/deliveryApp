@@ -89,6 +89,9 @@ export class PedidosplatosamostrarComponent {
   precioPlatosAMostrar!: number;
   totalPlato!: number;
 
+  //VARIOS
+  botonDisabled: boolean = false;
+
 
   constructor(private modalService: BsModalService,
               private plaMosServ: PlatosAMostrarService,
@@ -252,31 +255,56 @@ export class PedidosplatosamostrarComponent {
 
  
   agregarPedido(): void {  
-    const pedido = new PedidosModel(
-      this.idPedido,
-      this.nombreCliente,
-      this.telefonoCliente,
-      this.direccionCliente,
-      this.localidadCliente,
-      this.listaPlatosDelPedido,
-      this.fechaPedido,
-      this.horaPedido,
-      this.importeTotalPedido,
-      this.pedidoConfirmado
-    );
+    const seleccionados = this.platosAMostrarList
+      .filter((_, index) => this.platosSeleccionadosSioNo[index]); 
+    
+  
+    if (seleccionados.length === 0 ) {
+      alert("Selecciona al menos un plato");
+      this.mostrarModalitoEnviarPedido = false;
+      
+      return;
+    };    
+
+    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
+
+    console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
+
+    if(porcionesNoIngresadas)
+    { 
+      alert("Ingresa porcion/es");
+    this.mostrarModalitoEnviarPedido = false;
+    //console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
+    return;
+  };   
+
+  const pedido = new PedidosModel(
+    this.idPedido,
+    this.nombreCliente,
+    this.telefonoCliente,
+    this.direccionCliente,
+    this.localidadCliente,
+    this.listaPlatosDelPedido,
+    this.fechaPedido,
+    this.horaPedido,
+    this.importeTotalPedido,
+    this.pedidoConfirmado
+  ); 
   
     this.pedidosServ.guardarPedido(pedido).subscribe(
       (data: PedidosModel) => {
         this.idPedido = data.idPedido;        
         this.listaPedidosDeHoy();
-        alert("Pedido guardado con ID: " + this.idPedido);
+        alert("Pedido N° " + this.idPedido + " creado");
+        this.botonDisabled = true;
       },
-      err => { alert("No se guardó el pedido"); }
+      err => { 
+        alert("No se guardó el pedido");
+      }
     );
+    
   }
   
-
-
   
   //EDITAR PEDIDO
   /////////////////////////
@@ -370,25 +398,26 @@ inicializarTotalesPlatos(): void {
       return null;
     })
     .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];
-  console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
+  //console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
+ 
 
   this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
     data => {
       // Manejar la respuesta del servidor si es necesario
-      console.log('Pedido generado:', data);
-      alert("Pedido creado");
+      console.log('Pedido enviado:', data);
+      alert("Pedido " + data.idPedido + " enviado");
     },
     error => {
       // Manejar errores si es necesario
       console.error('Error, no se generó el pedido:', error);
-      alert("Error, no se creó el pedido");
+      alert( error.error.mensaje);
     }
   );
 }
 
 
 
-
+//muestra una lista de platos seleccionados para el pedido antes de enviarla a la DB
 getPlatosSeleccionados(): DetallePedidos[] {
   // Filtra los elementos seleccionados
   const seleccionados = this.platosAMostrarList
@@ -417,7 +446,7 @@ getPlatosSeleccionados(): DetallePedidos[] {
     });
 
   // Log para verificar los elementos seleccionados
-  console.log('Platos seleccionados:', seleccionados);
+  //console.log('Platos seleccionados:', seleccionados);
 
   return seleccionados;
 }
@@ -506,6 +535,12 @@ resetFormCleanChekBox(idFormulario: string) {
 cerrarModalitos(): void {
   this.mostrarModalitoAgregarPlatos = false;
   this.mostrarModalitoEnviarPedido = false;
+  //reinicia la lista de porciones para borrarla y que cuando
+  //la funcion agregarPedido() valide si hay porciones por segunda vez
+  //la lista de porciones comience vacio, sin esto contendria el valor agregado la 
+  //primera vez que se envia un pedido
+  this.porcionesPlatosList = [];
+  this.botonDisabled = false;
 };
 
 // Evita que se ingresen numeros o porciones manualmente en el input

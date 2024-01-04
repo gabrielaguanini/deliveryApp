@@ -41,4 +41,6 @@ export class DetallePedidosService {
     return this.httpClient.post<any>(this.URL + 'guardarvariosdetallespedido', detallesPedidosAcotada);
   };
 
+
+
 }

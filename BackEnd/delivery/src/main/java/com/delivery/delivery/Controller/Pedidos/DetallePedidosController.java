@@ -3,6 +3,7 @@ package com.delivery.delivery.Controller.Pedidos;
 import com.delivery.delivery.Entity.Pedidos.DetallePedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
+import com.delivery.delivery.Service.Pedidos.PedidosService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class DetallePedidosController {
     
     @Autowired
     DetallePedidosService detpeServ;
+    
+    @Autowired
+    PedidosService pedidosService;
     
     
     //LISTA DETALLE PEDIDOS    
@@ -106,17 +110,30 @@ public class DetallePedidosController {
         }
     };
     
-    
-    @PostMapping("/guardarvariosdetallespedido")
-    public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
-        //Itera sobre la lista detallesPedidos y en cada elemento utiliza el metodo guardarIdPlatoTotalPrecio(detallePedido)
-        for (DetallePedidos detallePedido : detallesPedidos) {
+    //GUARDA VARIOS DETALLES PLATOS A LA VEZ, INGRESA SU IDPEDIDO CORRESPONDIENTE      
+   @PostMapping("/guardarvariosdetallespedido")
+   public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
+    // Verifica por si acaso si la lista de detallesPedidos está vacía aunque los datos necesarios como porción y totalplato se validan en el front
+    if (detallesPedidos.isEmpty()) {
+        return new ResponseEntity<>(new Mensaje("Seleccione cantidad/es de porciones"), HttpStatus.BAD_REQUEST);
+    }
+
+    // Itera sobre la lista detallesPedidos 
+    for (DetallePedidos detallePedido : detallesPedidos) {
+        Long idPedido = detallePedido.getPedidos().getIdPedido();
+        // en cada elemento utiliza el método guardarIdPlatoTotalPrecio(detallePedido) con la lista iterada
         detpeServ.guardarIdPlatoTotalPrecio(detallePedido);
-    };
+    }
 
-    detpeServ.guardarVariosDetallesPedido(detallesPedidos);
-
-    return new ResponseEntity(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
-    };
+    // guarda la lista de detallesPedidos o platos seleccionados y el importeTotalPedido en la tabla Pedidos
+    Long idPedido = detallesPedidos.get(0).getPedidos().getIdPedido();
     
-}
+    detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
+    pedidosService.actualizarImporteTotalPedido(idPedido);
+
+    return new ResponseEntity<>(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
+};
+
+
+};
+
