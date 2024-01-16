@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlatosAMostrar } from '../modelos/platos-amostrar';
@@ -37,9 +37,10 @@ export class PedidosService {
       return this.httpClient.get<PedidosModel>(this.URL + `obtenerpedidoxid/${idPedido}`)
     };
 
-    public actualizarImporteTotalPedido(idPedido: number): Observable<any> {
-      const body = { "importeTotalPedido": 0 }; // Puedes enviar cualquier valor, ya que el backend lo calculará
-      return this.httpClient.put<any>(this.URL + `actualizartotalpedido/${idPedido}`, body);
+   
+    public actualizarPedidosConListaPlatos(idPedido: number): Observable<string> {
+      const headers = new HttpHeaders({'Content-Type': 'application/json'});
+      return this.httpClient.post(this.URL + `actualizarpedidosconlistastring/${idPedido}`, null, { headers, responseType: 'text' });
     }
     
   

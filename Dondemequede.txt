@@ -1,64 +1,99 @@
-EN EL FRONT CONTINUAR CON LAS LISTAS (PARA USUARIOS NO PARA CLIENTES) PEDIDOS Y DETALLE_PEDIDOS.
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
+                id="bordesYBackGrCardGde">
+                <div class="cardGrandeTipoPla p-4">
+                    <div class="card-icon card-icon-large">
+                        <i class=></i>
+                    </div>
+                    <div class="mb-1">
+                        <h5 class="card-title pb-3 text-center">LISTA TIPO PLATOS</h5>
+                        <div class="button-divisor pb-4 text-center">
+                            <button type="button" class="btn btn-outline-light btn-sm">
+                                AGREGAR TIPO DE PLATO
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1 col-md-1">
+                                <blockquote class="blockquote">
+                                    <p class="small">ID</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">FECHA</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">HORA</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-2 col-md-2 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">DETALLE DEL PEDIDO</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">
+                                        NOMBRE CLIENTE</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">
+                                        TELEFONO CLIENTE</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-2 col-md-2 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">
+                                        DIRECCION CLIENTE</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">
+                                        LOCALIDAD CLIENTE</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">
+                                        TOTAL PEDIDO</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-lg-1 col-md-1 text-center">
+                                <blockquote class="blockquote">
+                                    <p class="small">Edición</p>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr>
+                            <div class="col-lg-4 col-md-3 text-justify">
+                                <p class="text-justify">gggg</p>
+                            </div>
+                            <div class="col-lg-4 col-md-3 text-center">
+                                <p>gggg</p>
+                            </div>
+                            <div class="col-lg-4 col-md-3 text-center">
+                                <button class="btn btn-outline-light btn-md">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="btn btn-outline-light btn-md">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-
-17-12-23: donde deje: BUSCANDO UNA FORMA DE GENERAR EL IDPEDIDO Y EL DETALLEPEDIDO. EN EL BACK YA TENGO EL METODO DEL CONTROLLER DEL DETALLEPEDIDO PARA GUARDAR VARIOS PEDIDOS A LA VEZ, ES ESTE:  @PostMapping("/guardarvariosdetallespedido")
-    public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
-    detpeServ.guardarVariosDetallesPedido(detallesPedidos);
-    return new ResponseEntity(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
-    };
-FUNCIONA PERFECTAMENTE CON POSTMAN, AHORA HAY QUE APLICARLO EN EL FRONT. EN EL FRONT YA TENGO HECHO UN MODELO DE FORMULARIO, PERO HAY TRANFORMAR EN INPUT LOS DATOS QUE QUIERO PASARLE A LA TABLA DETALLEPEDIDOS, ACTUALMENTE SOLO MUESTRA UNA LISTA. YA SE TRANFORMO EN INPUT PARA AGREGAR MANUALMENTE PORCIONPLATO Y SE CALCULA CON ESTA PORCIONPLATO QUE AGREGA EL USUARUIO Y EL PRECIO UNITARIO QUE VIENE DE LA LISTA EL TOTAL DEL PEDIDO, EL CUAL TAMBIEN SE ESAT GUARDADANDO EN EL INPUT. EN SINTESIS, NECESITO TOMAR EL IDPEDIDO QUE VIENE EN LA RESPONSE CUANDO GUARDO UN PEDIDO, PARA LUEGO USARLO EN EL FORMULARIO DE DETALLE PEDIDO. VER QUE MAS PORQUE ACA ME QUEDE SIN GANAS
-
-
-
-***Diseñar la lista de detalle-pedidos en el front. 
-
-***Continuar con el diseño de pedidos en el front; los datos ya los trae todos, expeto TOTAL PEDIDO, hay que buscar una forma de calcularlo desde el front e ingresarlo a su columna correspondiente en la db (probablemente esto se tenga q hacer cuando el cliente realiza el pedido y no en la lista q se muestra al usuario).
-
-*** Arreglar la lista de platosamostrar en el front
-
-
-
-*** UNA LISTA DE DETALLE PEDIDOS COMPLETA Y QUE  SE PUEDA DESCARGAR EN EXCEL. RECORDAR QUE EN LA TABLA DETALLE PEDIDOS PRECIO_PLATOAMOSTRAR, TOTAL_PLATO Y E ID_PLATO SE GENERAN SOLOS CON UN METODO DESDE LA API.
-
-
-
-
-agregarPedido(): void {  
-
-    const pedido = new PedidosModel(this.idPedido,
-      this.nombreCliente,
-      this.telefonoCliente,
-      this.direccionCliente,
-      this.localidadCliente,
-      this.listaPlatosDelPedido,
-      this.fechaPedido,
-      this.horaPedido,
-      this.importeTotalPedido);
-
-    this.pedidosServ.guardarPedido(pedido).subscribe(data => {
-      this.listaPedidosDeHoy();
-      this.idPedido = data.idPedido;
-      alert("Pedido guardado");
-    },
-      err => { alert("No se guardó el pedido"); });    
-   };   
-
-
-
-
-
-
-
-
-
-
-
-
-============>>>>>  RECORDAR QUE MODIFIFIQUE EL METODO GUARDARPEDIDO() DE LA ENTIDAD PEDIDOS PARA QUE DEVUELVA AL FRONT EN EL HEADER EL OBJETO QUE GUARDA, ASI PUEDO TOMAR EL IDPEDIDO PARA INGRESAR REGISTROS A DETALLEPEDIDOS<<<<<============
-
-============>>>>>   RECORDAR QUE CUANDO SE LLEGUE EN EL FRONT A ARMAR EL PEDIDO PARA UN USUARIO, QUE EL METODO (DEL CONTROLLER DEL BACK) guardarPedido() y actualizarListaPlatos() deben utilizarse juntos, primero guardar el pedido y despues actualizarListaPlatos (esta es la lista de string que se genera desde detalle pedidos para guardar en la entidad pedidos) <<<<<============
-
-============>>>>>   VER FORMA DE GUARDAR IDPEDIDO Y IDDETALLEPEDIDO, YA QUE TANTO UNA ENTIDAD COMO LA OTRA UTILIZA EL IDPEDIDO 
-PARA CASI TODO <<<<<============
 

@@ -3,6 +3,7 @@ package com.delivery.delivery.Entity.Pedidos;
 
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class DetallePedidos {
     private Long idDetallePedido;
 
     @ManyToOne
-    @NotFound(action = NotFoundAction.IGNORE)
+    @NotFound(action = NotFoundAction.IGNORE)   
     @JoinColumn(name = "id_pedido")
     private Pedidos pedidos;
 
@@ -36,6 +37,7 @@ public class DetallePedidos {
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idPlato")
+    @JsonIgnore
     //@ElementCollection  
     private Platos platos;       
     private Integer porcionPlato;
@@ -56,6 +58,7 @@ public class DetallePedidos {
         this.precioPlatoAMostrar = precioPlatoAMostrar;        
         this.totalPlato= totalPlato;
     };
-    
+
   
+    
 }

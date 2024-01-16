@@ -20,120 +20,117 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class DetallePedidosController {
-    
-    
+
     @Autowired
     DetallePedidosService detpeServ;
-    
+
     @Autowired
     PedidosService pedidosService;
-    
-    
+
     //LISTA DETALLE PEDIDOS    
     @GetMapping("/listadetallepedidos")
-    public ResponseEntity <List<DetallePedidos>> listaDetallePedidos(){
-    
-        List <DetallePedidos> listaDetallePedidos = detpeServ.listaDetallePedidos();
+    public ResponseEntity<List<DetallePedidos>> listaDetallePedidos() {
+
+        List<DetallePedidos> listaDetallePedidos = detpeServ.listaDetallePedidos();
         return new ResponseEntity(listaDetallePedidos, HttpStatus.OK);
-    };
+    }
+
+    ;
     
-    //LISTA QUE FILTRA DE LA TABLA DETALLE PEDIDOS POR ID_PEDIDO
-    @GetMapping("/listadetpedidpedido/{idPedido}")
+    //LISTA QUE OBTIENE DETALLES PEDIDOS POR ID_PEDIDO Y NO X IDDETALLEPEDIDO
+    @GetMapping("/listadetpedidosidpedido/{idPedido}")
     public ResponseEntity<List<DetallePedidos>> listaXIdPedido(@PathVariable Long idPedido) {
+
         List<DetallePedidos> detallesPedidos = detpeServ.listaXIdPedido(idPedido);
         return new ResponseEntity<>(detallesPedidos, HttpStatus.OK);
-    };    
-    
+    }
+
+    ;    
+        
        
     
-    //GUARDAR UN PEDIDO
+    //GUARDAR UN DETALLE PEDIDO
     @PostMapping("/guardardetallepedido")
     public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detallePedidos) {
-        detpeServ.guardarDetallePedido(detallePedidos); 
+        detpeServ.guardarDetallePedido(detallePedidos);
         detpeServ.guardarIdPlatoTotalPrecio(detallePedidos); //INGRESA LOS VALORES ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN LA COLUMNA CORRESPONDIENTE 
-     
+
         if (detpeServ.existsById(detallePedidos.getIdDetallePedido())) {
             return new ResponseEntity(new Mensaje("Detalle del pedido enviado"), HttpStatus.OK);
         } else {
             return new ResponseEntity(new Mensaje("El detalle del pedido no se pudo enviar"), HttpStatus.OK);
         }
-    };
+    }
+
+    ;
     
     
     //BORRAR DETALLE PEDIDO    
     @DeleteMapping("/borrardetallepedido/{idDetallePedido}")
-    public ResponseEntity <?> borrarDetallePedido(@PathVariable("idDetallePedido") Long idDetallePedido){
-       
-        detpeServ.borrarDetallePedido(idDetallePedido);        
-        return new ResponseEntity(new Mensaje("Detalle del pedido elminado"), HttpStatus.OK);
-        
-    };
+    public ResponseEntity<?> borrarDetallePedido(@PathVariable("idDetallePedido") Long idDetallePedido) {
+        try {
+            detpeServ.borrarDetallePedido(idDetallePedido);
+            return new ResponseEntity(new Mensaje("Detalle del pedido eliminado"), HttpStatus.OK);
+        } catch (Exception e) {
+            // Manejo de excepciones
+            return new ResponseEntity(new Mensaje("Error al eliminar el detalle del pedido: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    ;
+    
     
     //OBTENER 1 DETALLE PEDIDO POR ID    
     @GetMapping("/obtenerdetallepedidoxid/{idDetallePedido}")
     public ResponseEntity<DetallePedidos> obtDetallePedidoXId(@PathVariable("idDetallePedido") Long idDetallePedido) {
         DetallePedidos detallePedido = detpeServ.getOne(idDetallePedido).get();
         return new ResponseEntity(detallePedido, HttpStatus.OK);
-    };
+    }
+
+    ;
     
-    //ACTUALIZAR DETALLE PEDIDOS
+  
+    
+    
+    //ACTUALIZAR 1 DETALLE PEDIDOS
     @PutMapping("/actualizardetallepedido/{idDetallePedido}")
-    public ResponseEntity <?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido){
-      DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
-      
-    
-      detPedid.setPedidos(detallePedidos.getPedidos());
-      detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
-      detPedid.setPlatos(detallePedidos.getPlatos());
-      detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
-      detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
-      detPedid.setTotalPlato(detallePedidos.getTotalPlato());    
-      
-      detpeServ.guardarDetallePedido(detPedid);    
+    public ResponseEntity<?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido) {
+        DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
 
-      detpeServ.guardarIdPlatoTotalPrecio(detPedid); //INGRESA LOS VALORES ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN LA COLUMNA CORRESPONDIENTE 
+        detPedid.setPedidos(detallePedidos.getPedidos());
+        detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
+        detPedid.setPlatos(detallePedidos.getPlatos());
+        detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
+        detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
+        detPedid.setTotalPlato(detallePedidos.getTotalPlato());
+
+        detpeServ.guardarDetallePedido(detPedid);
+
+        detpeServ.guardarIdPlatoTotalPrecio(detPedid); //INGRESA LOS VALORES ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN LA COLUMNA CORRESPONDIENTE 
+
+        return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
+    }
+
+    ; 
       
-      return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
-    };
     
- 
-    
-    //OBTIENE UNA LISTA DE STRING FILTRADA X EL IDPEDIDO DE LA TABLA DETALLE PEDIDOS, SE GUARDARÁ EN 
-    // LA TABLA PEDIDOS, COLUMNA lista_platos_del_pedido
-    @GetMapping("/listastringxidpedidodesdedetalles/{idPedido}")
-    public ResponseEntity<List<String>> obtenerListaCadenasPorIdPedido(@PathVariable Long idPedido) {
+    //GUARDAR VARIOS DETALLESPEDIDOS EN UN SOLO POST
+     @PostMapping("/guardarvariosdetallespedidos")
+    public ResponseEntity<String> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
         try {
-            List<String> listaCadenas = detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-            return new ResponseEntity<>(listaCadenas, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            detpeServ.guardarVariosDetallesPedido(detallesPedidos);
+            // Mensaje de éxito
+            return new ResponseEntity<>("Detalles del pedido guardados correctamente.", HttpStatus.OK);
+        } catch (RuntimeException e) {
+            // Manejo de errores
+            return new ResponseEntity<>("Error al procesar detalles del pedido: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    };
-    
-    //GUARDA VARIOS DETALLES PLATOS A LA VEZ, INGRESA SU IDPEDIDO CORRESPONDIENTE      
-   @PostMapping("/guardarvariosdetallespedido")
-   public ResponseEntity<?> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
-    // Verifica por si acaso si la lista de detallesPedidos está vacía aunque los datos necesarios como porción y totalplato se validan en el front
-    if (detallesPedidos.isEmpty()) {
-        return new ResponseEntity<>(new Mensaje("Seleccione cantidad/es de porciones"), HttpStatus.BAD_REQUEST);
     }
-
-    // Itera sobre la lista detallesPedidos 
-    for (DetallePedidos detallePedido : detallesPedidos) {
-        Long idPedido = detallePedido.getPedidos().getIdPedido();
-        // en cada elemento utiliza el método guardarIdPlatoTotalPrecio(detallePedido) con la lista iterada
-        detpeServ.guardarIdPlatoTotalPrecio(detallePedido);
-    }
-
-    // guarda la lista de detallesPedidos o platos seleccionados y el importeTotalPedido en la tabla Pedidos
-    Long idPedido = detallesPedidos.get(0).getPedidos().getIdPedido();
     
-    detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-    pedidosService.actualizarImporteTotalPedido(idPedido);
-
-    return new ResponseEntity<>(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
+    
+    
+    
+    
+    
+    
 };
-
-
-};
-

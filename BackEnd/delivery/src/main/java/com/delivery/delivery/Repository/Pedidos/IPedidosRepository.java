@@ -19,9 +19,7 @@ public void actualizarFechaYHoraDelPedido(@Param("idPedido") Long idPedido);
 @Query("SELECT p FROM Pedidos p WHERE p.fecha = :fechaActual")
 public List<Pedidos> obtenerPedidosDelDia(@Param("fechaActual") LocalDate fechaActual);
 
-//METODO ABSTRACTO PARA OBTENER UNA LISTA DE CADENAS DE TEXTO DE LA ENTIDAD DETALLE_PEDIDOS  
-@Query("SELECT p FROM Pedidos p WHERE p.idPedido = :idPedido")
-public List<String> obtenerListaPedDeDetPed(@Param("idPedido") Long idPedido);
+
 };
 
 

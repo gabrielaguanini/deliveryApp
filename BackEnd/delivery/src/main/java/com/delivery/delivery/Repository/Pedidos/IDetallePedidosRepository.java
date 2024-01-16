@@ -8,8 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface IDetallePedidosRepository extends JpaRepository <DetallePedidos, Long> {
-
-List<DetallePedidos> findByPedidosIdPedido(Long idPedido);
+    
+ //@Query(value = "SELECT * FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
+ //List<DetallePedidos> findAllByPedidosIdPedido(@Param("idPedido") Long idPedido);
+    @Query(value = "SELECT * FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
+     List<DetallePedidos> findByPedidos_IdPedido(Long idPedido);
 
 //METODO ABSTRACTO PARA OBTENER EL IMPORTE TOTAL DEL PEDIDO 
 

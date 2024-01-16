@@ -49,20 +49,8 @@ public class PedidosController {
     };
     
     
-    
-    // GUARDA LA LISTA DE STRINGS GENERADA A PARTIR DE PASAR UN ID A DETALLE PEDIDOS EN LA COLUMNA lista_platos_del_pedido DE LA TABLA PEDIDOS
-    // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO guardarPedido()
-    @PostMapping("/actualizarpedidosconlistastring/{idPedido}")
-    public ResponseEntity<String> actualizarListaPlatos(@PathVariable Long idPedido) {
-        try {
-            List<String> listaCadenas = detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-            pedidosServ.guardarListaPlatosEnPedido(idPedido, listaCadenas);
-            return new ResponseEntity<>("Lista de platos de detalle pedidos guardada correctamente.", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error al actualizar la lista de platos de detalle pedidos.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    };  
-    
+                         
+ 
     
    // GUARDAR UN PEDIDO
    // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
@@ -71,7 +59,7 @@ public class PedidosController {
         Pedidos pedidoGuardado = pedidosServ.guardarPedido(pedidos);
         pedidosServ.updateFechaHora(pedidos.getIdPedido());
  
-        if (pedidosServ.existsById(pedidos.getIdPedido())) {
+        if (pedidosServ.existsById(pedidos.getIdPedido())) {         
             return new ResponseEntity<>(pedidoGuardado, HttpStatus.CREATED);
         } else {
             return new ResponseEntity(new Mensaje("El id del pedido no se creo"), HttpStatus.OK);
@@ -117,17 +105,6 @@ public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVar
     return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
  };
 
-
-@PutMapping("/actualizartotalpedido/{idPedido}")
-public ResponseEntity<?> actualizarImporteTotalPedido(@PathVariable Long idPedido, @RequestBody Pedidos pedid) {
-    Pedidos pedidoActualizado = pedidosServ.actualizarImporteTotalPedido(idPedido);
-    
-    if (pedidoActualizado != null) {
-        return new ResponseEntity<>(new Mensaje("Importe total del pedido actualizado"), HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>(new Mensaje("Error al actualizar el importe total del pedido"), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-};
 
 
 
