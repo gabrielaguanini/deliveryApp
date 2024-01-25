@@ -5,85 +5,148 @@ import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
-import com.delivery.delivery.Mensaje.MensajeException;
+import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
+import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Repository.Pedidos.IDetallePedidosRepository;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
+import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-
-
-
 
 @Service
 @Transactional
 public class DetallePedidosService {
 
     @Autowired
-    IDetallePedidosRepository detPeRepo;
+    IDetallePedidosRepository iDetPeRepo;
 
     @Autowired
     IPedidosRepository iPedidosRepo;
-
+    
     @Autowired
-    PedidosService iPediServ;
+    IPlatosAMostrarRepository iPlaMosRepo;
 
     @Autowired
     private EntityManager entityManager; //LIBRERIA QUE SOLO SE UTILIZA PARA EL METODO public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido)
 
-    //para crear logs con errores y excepciones
-   
+    private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
     
-   //LISTA DE TIPO "DETALLE PEDIDOS" COMPLETA 
+    
+     /**
+     * Obtiene la lista completa de DetallePedidos.
+     * @return Lista de DetallePedidos.
+     * @throws MensajeResponseStatusException Si hay un error al obtener la lista.
+     */
+  
     public List<DetallePedidos> listaDetallePedidos() {
-        try {
-            return detPeRepo.findAll();
-        } catch (Exception e) {
-            // Aquí puedes manejar la excepción o relanzarla como una nueva excepción personalizada
-            throw new MensajeException(new Mensaje("Error al generar la lista de detalles del pedido: " + e.getMessage()), e);
-        }
+        try { 
+             List<DetallePedidos> listaDetPedCom = iDetPeRepo.findAll();
+            if(listaDetPedCom.isEmpty()){
+            throw new MensajeResponseStatusException(new Mensaje("No existen registros para generar una lista").getMensaje(), HttpStatus.OK, null);
+            };
+            return listaDetPedCom;
+        } catch (MensajeResponseStatusException e) {
+             logger.error("", e);
+            throw e;
+        } 
     }
-
+    
+    
+     /**
+     * Guarda un nuevo DetallePedido.
+     * @param detallePedidos DetallePedido a guardar.
+     * @throws MensajeResponseStatusException Si hay un error al guardar el DetallePedido.
+     */
     public void guardarDetallePedido(DetallePedidos detallePedidos) {
         try {
-            detPeRepo.save(detallePedidos);
-        } catch (Exception e) {
-            throw new MensajeException(new Mensaje("Error al guardar detalles del pedido: " + e.getMessage()), e);
+             if (!iPlaMosRepo.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())) {
+               throw new MensajeResponseStatusException(new Mensaje("El idPlatosAMostrar n°: " + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
+        }    if (!iPedidosRepo.existsById(detallePedidos.getPedidos().getIdPedido())) {
+              throw new MensajeResponseStatusException(new Mensaje("El idPedido n°: " + detallePedidos.getPedidos().getIdPedido() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
         }
+            
+        DetallePedidos detPedAGuardar = iDetPeRepo.save(detallePedidos);
+        guardarIdPlatoTotalPrecio(detallePedidos);
+        actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
+        generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
 
+        if (detPedAGuardar == null && detallePedidos.getPorcionPlato() == null ) {
+            throw new MensajeResponseStatusException(new Mensaje("Detalle del pedido nulo o ausente").getMensaje(), HttpStatus.BAD_REQUEST, null);
+        }  
+        
+       
+        } catch (MensajeResponseStatusException e) {
+            logger.error("", e);
+            throw new MensajeResponseStatusException("Error al guardar detalles del pedido", HttpStatus.BAD_REQUEST, e);
+        } 
     }
-
+    
+    
+     /**
+     * Guarda varios DetallePedidos y realiza otras operaciones relacionadas.
+     * @param detallesPedidos Lista de DetallePedidos a guardar.
+     * @return Mensaje indicando que se ha guardado IdPlato y Total Precio, y se ha guardado el Importe Total del Pedido.
+     * @throws MensajeResponseStatusException Si hay un error al procesar los detalles del pedido.
+     */
   
-    public String guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
-        try {
-            for (DetallePedidos detallitos : detallesPedidos) {
-                guardarIdPlatoTotalPrecio(detallitos);
-                actualizarImporteTotalPedido(detallitos.getPedidos().getIdPedido());
-                generarListaCadenasDesdeDetallesPorIdPedido(detallitos.getPedidos().getIdPedido());
+    
+public String guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
+    
+    try {
+       
+        for (DetallePedidos detallitos : detallesPedidos) {
+            Long idPedido = detallitos.getPedidos().getIdPedido();
+            Long idPlatosAMostrar = detallitos.getPlatosAMostrar().getIdPlatosAMostrar();
+
+            if (!iPlaMosRepo.existsById(idPlatosAMostrar)) {
+                throw new MensajeResponseStatusException(new Mensaje("No se encontró el IdPlatosAMostrar n°: " + detallitos.getPlatosAMostrar().getIdPlatosAMostrar()).getMensaje(), HttpStatus.NOT_FOUND, null);
+            }
+            if (!iPedidosRepo.existsById(idPedido)) {
+                throw new MensajeResponseStatusException(new Mensaje("No se encontró el IdPedido n°: " + detallitos.getPedidos().getIdPedido()).getMensaje(), HttpStatus.NOT_FOUND, null);
             }
 
-            detPeRepo.saveAll(detallesPedidos);
 
-            return "Guardado IdPlato y Total Precio. Guardado Importe TotalPedido";
-        } catch (MensajeException e) {
-            // Captura la excepción personalizada MensajeException
-            return "Error al procesar detalles del pedido: " + e.getMessage();
-        } catch (Exception e) {
-            // Captura otras excepciones no manejadas
-            return "Error inesperado al procesar detalles del pedido.";
+            guardarIdPlatoTotalPrecio(detallitos);
+            actualizarImporteTotalPedido(idPedido);
+            generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
         }
-    }
 
-   
+        iDetPeRepo.saveAll(detallesPedidos);
+        
+      
+
+        if (detallesPedidos.isEmpty()) {
+            throw new MensajeResponseStatusException(new Mensaje("Detalles del pedido nulos o ausentes").getMensaje(), HttpStatus.BAD_REQUEST, null);
+        }
+
+        return "Guardados los detalles del pedido, idPlato, ImporteTotalPedido y TotalPedido";
+
+    } catch (MensajeResponseStatusException e) {
+        logger.error("", e);
+        throw new MensajeResponseStatusException(new Mensaje("Error al procesar detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
+    }
+}
+
+    
+    
+    /**
+     * Genera una lista de cadenas a partir de DetallesPedidos filtrados por IdPedido.
+     * @param idPedido Id del pedido para filtrar los DetallesPedidos.
+     * @return Lista de cadenas generadas.
+     * @throws MensajeResponseStatusException Si hay un error al generar la lista de cadenas.
+     */
     public String generarListaCadenasDesdeDetallesPorIdPedido(Long idPedido) {
         try {
             List<DetallePedidos> listaObjetosDetallesPedidos = listaXIdPedido(idPedido);
-
+             
             // Transforma la lista de DetallePedidos a una cadena
             String listaCadenasTransformada = listaObjetosDetallesPedidos.stream()
                     .map(detalle -> "Plato: " + detalle.getPlatos().getNombrePlato()
@@ -99,76 +162,142 @@ public class DetallePedidosService {
             }
 
             return listaCadenasTransformada;
-        } catch (Exception e) {
-            // No se imprime la traza de la pila en la consola
-            throw new MensajeException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido: " + e.getMessage()), e);
-        }
+        } catch (MensajeResponseStatusException e) {
+            logger.error("Error al generar la lista de cadenas desde detalles del pedido" + e);
+            throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
+        } 
     }
-
-    //GENERA UNA LISTA DE TIPO DETALLE PEDIDOS FILTRADA POR IDPEDIDO, 
-    // LA LISTA SE TRANSFORMA A CADENA STRING CON generarListaCadenasDesdeDetallesPorIdPedido(Long idPedido)
+    
+    /**
+     * Genera una lista de DetallePedidos filtrados por IdPedido.
+     *  LA LISTA SE TRANSFORMA A CADENA STRING CON generarListaCadenasDesdeDetallesPorIdPedido(Long idPedido)
+     * @param idPedido Id del pedido para filtrar los DetallesPedidos.
+     * @return Lista de DetallePedidos filtrados por IdPedido.
+     * @throws MensajeResponseStatusException Si hay un error al generar la lista.
+     */
     public List<DetallePedidos> listaXIdPedido(Long idPedido) {
 
         try {
-
-            List<DetallePedidos> detallesPedidos = detPeRepo.findByPedidos_IdPedido(idPedido);
+            
+            if(!iDetPeRepo.existsById(idPedido)){
+             
+                throw new MensajeResponseStatusException("El idPedido n°: " + idPedido +" solicitado para generar una lista no existe", HttpStatus.NOT_FOUND, null);
+            };
+            
+            List<DetallePedidos> detallesPedidos = iDetPeRepo.findByPedidos_IdPedido(idPedido);
+            
+          
             return detallesPedidos;
-        } catch (Exception e) {
-            throw new MensajeException(new Mensaje("Error al generar la lista por idPedido: " + e.getMessage()), e);
+        } catch (MensajeResponseStatusException e) {
+            logger.error("", e);
+            throw e;
         }
     }
 
+    
+     /**
+     * Obtiene un DetallePedido por su Id.
+     * @param idDetallePedido Id del DetallePedido a obtener.
+     * @return DetallePedido obtenido.
+     * @throws MensajeResponseStatusException Si no se encuentra el DetallePedido con el Id proporcionado.
+     */
     public Optional<DetallePedidos> getOne(Long idDetallePedido) {
-        try {
-            return detPeRepo.findById(idDetallePedido);
-        } catch (Exception e) {
-           throw new MensajeException(new Mensaje("Error al obtener 1 detalle del pedido buscandolo con el idDetallePedido: " + e.getMessage()), e);
-        }
+        try {  
+            if(!iDetPeRepo.existsById(idDetallePedido)){
+            throw new MensajeResponseStatusException("El idDetallePedido N°: "+ idDetallePedido + " no existe", HttpStatus.NOT_FOUND, null);
+            } 
+            return iDetPeRepo.findById(idDetallePedido);
+        } catch (MensajeResponseStatusException e) {
+            logger.error("", e);
+            throw e;
+        } 
     }
 
+    
+     /**
+     * Borra un DetallePedido por su Id.
+     * @param idDetallePedido Id del DetallePedido a borrar.
+     * @throws MensajeResponseStatusException Si no se encuentra el DetallePedido con el Id proporcionado.
+     */
     public void borrarDetallePedido(Long idDetallePedido) {
         try {
-            detPeRepo.deleteById(idDetallePedido);
-        } catch (Exception e) {
-            throw new MensajeException(new Mensaje("Error al borrar el detalle del pedido: " + e.getMessage()), e);
-        }
-    }
-
-    public boolean existsById(Long idDetallePedido) {
-        try {
-            return detPeRepo.existsById(idDetallePedido);
-        } catch (Exception e) {
-            throw new MensajeException(new Mensaje("Error al comprobar si el detalle pedido existe por idDetallePedido: " + e.getMessage()), e);
-        }
-    }
-
-    //ACTUALIZA EL IMPORTE TOTAL PEDIDO
-    public Pedidos actualizarImporteTotalPedido(Long idPedido) {
-        try {
-            Pedidos pedido = iPedidosRepo.findById(idPedido).orElse(null);
-
-            if (pedido != null) {
-                Double totalImportePedido = detPeRepo.findTotalPlatoAndAdd(idPedido);
-
-                pedido.setImporteTotalPedido(totalImportePedido != null ? totalImportePedido : 0.0);
-                return iPedidosRepo.saveAndFlush(pedido);
-            } else {
-                // Puedes lanzar una excepción específica en lugar de devolver null
-                throw new MensajeException(new Mensaje("Pedido no encontrado con ID: " + idPedido));
+            if(!iDetPeRepo.existsById(idDetallePedido)){
+            throw new MensajeResponseStatusException("El idDetallePedido N°: "+ idDetallePedido + " solicitado para eliminar no existe", HttpStatus.NOT_FOUND, null);
             }
-        } catch (Exception e) {
-           
-            throw new MensajeException(new Mensaje("Error al actualizar el importe total del pedido"), e);
-        }
+            iDetPeRepo.deleteById(idDetallePedido);
+        } catch (MensajeResponseStatusException e) {
+            logger.error("", e);
+            throw e;
+        } 
     }
 
-    //INGRESA EL ID_PLATO, TOTAL_PLATO Y PRECIO_PLATOSAMOSTRAR EN DETALLE PEDIDOS
+    
+    /**
+     * Verifica si existe un DetallePedido por su Id.
+     * @param idDetallePedido Id del DetallePedido a verificar.
+     * @return `true` si existe, `false` si no.
+     * @throws MensajeResponseStatusException Si hay un error al comprobar la existencia del DetallePedido.
+     * Metodo de uso interno, SIN ENDPOINT
+     */
+   public boolean existsById(Long idDetallePedido) {
+    try {
+     
+        if (!iDetPeRepo.existsById(idDetallePedido)) {
+            throw new MensajeResponseStatusException("No se encontraron registros con idDetallePedido: " + idDetallePedido, HttpStatus.NOT_FOUND, null);
+        }
+        return true;
+        
+    } catch (MensajeResponseStatusException e) {
+       
+        throw new MensajeRunTimeException(new Mensaje("Error al comprobar si el detallePedido existe por idDetallePedido"), e);
+    } catch (Exception e) {
+        logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        throw new MensajeRunTimeException(new Mensaje("Error inesperado al comprobar si el detallePedido existe por idDetallePedido"), e);
+    }
+}
+
+
+  /**
+ * Actualiza el importe total de un pedido dado su ID.
+ *
+ * @param idPedido ID del pedido.
+ * @return Pedido actualizado con el nuevo importe total.
+ * @throws MensajeResponseStatusException Si hay un error al actualizar el importe total del pedido.
+ * Metodo de uso interno, SIN ENDPOINT
+ */
+  public Pedidos actualizarImporteTotalPedido(Long idPedido) {
+    try {
+        
+        Pedidos pedido = iPedidosRepo.findById(idPedido)
+                .orElseThrow(() -> new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con ID:" + idPedido).getMensaje(), HttpStatus.NOT_FOUND, null));
+
+        Double totalImportePedido = iDetPeRepo.findTotalPlatoAndAdd(idPedido);
+
+        pedido.setImporteTotalPedido(totalImportePedido != null ? totalImportePedido : 0.0);
+        
+        return iPedidosRepo.saveAndFlush(pedido);
+    } catch (MensajeResponseStatusException e) {
+        logger.error("", e);
+        throw e; 
+    } catch (Exception e) {
+        logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        throw new MensajeRunTimeException(new Mensaje("Error inesperado al actualizar el importe total del pedido"), e);
+    }
+}
+    
+      
+    /**
+    * Guarda el ID del plato, el total del plato y el precio del plato a mostrar en un DetallePedido.
+    * @param detallePedido DetallePedido a procesar.
+    * @throws MensajeResponseStatusException Si hay un error al procesar el detalle del pedido.
+    * Metodo de uso interno, SIN ENDPOINT
+    */
     public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido) {
         try {
-            if (detallePedido.getPlatosAMostrar() != null) {
+            if (detallePedido.getPlatosAMostrar() != null ) {
                 PlatosAMostrar platosAMostrarPersistido = entityManager.find(PlatosAMostrar.class, detallePedido.getPlatosAMostrar().getIdPlatosAMostrar());
 
-                if (platosAMostrarPersistido != null && platosAMostrarPersistido.getPlatos() != null) {
+                if (platosAMostrarPersistido != null && platosAMostrarPersistido.getPlatos() != null && !iPlaMosRepo.existsById(platosAMostrarPersistido.getPlatos().getIdPlato()) ) {
                     Platos platosAsociado = platosAMostrarPersistido.getPlatos();
                     detallePedido.setPlatos(platosAsociado);
 
@@ -179,15 +308,19 @@ public class DetallePedidosService {
                     // Multiplica porcionPlato por precioPlatoAMostrar y establece el resultado
                     if (detallePedido.getPorcionPlato() != null) {
                         detallePedido.setTotalPlato(detallePedido.getPorcionPlato() * precioPlato.doubleValue());
-                    }
+                    }                    
+                   
                 }
             }
-
+            logger.info("IdPlato: " + detallePedido.getPlatos().getIdPlato() + ", TotalPlatos: " + detallePedido.getTotalPlato() + " guardados correctamente ");
             entityManager.persist(detallePedido);
+        } catch (MensajeResponseStatusException e) {
+            logger.error("Error al actualizar idPlato o totalPrecio. ", e);
+            throw new MensajeResponseStatusException(new Mensaje("Error al procesar el/los detalle/s del pedido. Detalles: ").getMensaje(), HttpStatus.BAD_REQUEST, e);
         } catch (Exception e) {
-            throw new MensajeException(new Mensaje("Error al procesar el detalle del pedido. Detalles: " + e.getMessage()), e);
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado"), e);
         }
+
     }
-
-
 }

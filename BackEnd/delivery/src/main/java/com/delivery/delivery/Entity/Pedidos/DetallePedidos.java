@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -39,7 +40,7 @@ public class DetallePedidos {
     @JoinColumn(name = "idPlato")
     @JsonIgnore
     //@ElementCollection  
-    private Platos platos;       
+    private Platos platos;  
     private Integer porcionPlato;
     private Float precioPlatoAMostrar;
     private Double totalPlato;

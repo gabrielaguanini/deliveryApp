@@ -1,22 +1,24 @@
-
 package com.delivery.delivery.Mensaje;
 
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter 
+@Getter
 @Setter
 public class Mensaje {
-    
+
     private String mensaje;
-  
 
     public Mensaje() {
-    };
+    }
 
     public Mensaje(String mensaje) {
         this.mensaje = mensaje;
-    };  
-    
+    }
+
+    public Mensaje(String mensaje, String mensajeAdicional) {
+        this.mensaje = mensaje + " " + mensajeAdicional;
+    }
+
 }

@@ -74,11 +74,13 @@ public class PedidosController {
 
         if (pedidosServ.existsById(idPedido)) {
              pedidosServ.borrarPedido(idPedido);
-            return new ResponseEntity(new Mensaje("Id del pedido eliminado"), HttpStatus.OK);
+            return new ResponseEntity(new Mensaje("Pedido eliminado"), HttpStatus.OK);
+        } if(!pedidosServ.existsById(idPedido)){
+            return new ResponseEntity(new Mensaje("El id del pedido no existe"), HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity(new Mensaje("El id del pedido no existe"), HttpStatus.OK);
+            return new ResponseEntity(new Mensaje("El pedido no se pudo eliminar"), HttpStatus.BAD_REQUEST);
         }
-    };
+    }
     
      //OBTENER 1 PEDIDO POR ID
     
