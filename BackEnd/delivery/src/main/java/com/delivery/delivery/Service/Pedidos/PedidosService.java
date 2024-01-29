@@ -45,7 +45,15 @@ public class PedidosService {
         return pedidosDiaListOrdenada;
     };
     
- 
+    public List<Pedidos> listaPedidosXFecha(LocalDate fecha){
+        return iPedidosRepo.findByFecha(fecha);
+    };
+    
+    //LISTA QUE ENVIA LAS FECHAS DE LOS PEDIDOS PARA SELECCIONAR EN EL FRONT
+    //CUANDO SE QUIERE BUSCAR LOS PEDIDOS DE UNA FECHA ESPECIFICA
+    public List<LocalDate> listaFechasPedidos(){
+        return iPedidosRepo.findFechaPedidos();
+    }
 
     
     

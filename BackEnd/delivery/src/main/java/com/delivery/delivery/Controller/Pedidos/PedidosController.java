@@ -6,8 +6,10 @@ import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,7 +27,7 @@ public class PedidosController {
 
     @Autowired
     PedidosService pedidosServ;
-    
+
     @Autowired
     DetallePedidosService detpeServ;
 
@@ -38,7 +40,9 @@ public class PedidosController {
 
         List<Pedidos> listapedidos = pedidosServ.listapedidos();
         return new ResponseEntity(listapedidos, HttpStatus.OK);
-    };
+    }
+
+    ;
     
     //LISTA PEDIDOS DE LA FECHA SOLAMENTE
     @GetMapping("/listapedidosdehoy")
@@ -46,10 +50,27 @@ public class PedidosController {
 
         List<Pedidos> listapedidosdeldia = pedidosServ.obtenerPedidosDelDia();
         return new ResponseEntity(listapedidosdeldia, HttpStatus.OK);
-    };
+    }
+
+    ;
     
+    //LISTA DE PEDIDOS POR FECHA
+    @GetMapping("/listapedidosxfecha/{fecha}")
+    public ResponseEntity<List<Pedidos>> listaPedidosXFecha(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+
+        List<Pedidos> listapedidosxfecha = pedidosServ.listaPedidosXFecha(fecha);
+        return new ResponseEntity(listapedidosxfecha, HttpStatus.OK);
+    }
     
-                         
+    //LISTA QUE ENVIA LAS FECHAS DE LOS PEDIDOS PARA SELECCIONAR EN EL FRONT
+    //CUANDO SE QUIERE BUSCAR LOS PEDIDOS DE UNA FECHA ESPECIFICA
+    @GetMapping("/listafechasdelpedido")
+    public ResponseEntity<List<LocalDate>> listaPedidosXFecha() {
+
+        List<LocalDate> listafechasdelpedido = pedidosServ.listaFechasPedidos();
+        return new ResponseEntity(listafechasdelpedido, HttpStatus.OK);
+    }
+                   
  
     
    // GUARDAR UN PEDIDO
@@ -58,13 +79,15 @@ public class PedidosController {
     public ResponseEntity<Pedidos> guardarPedido(@RequestBody Pedidos pedidos) {
         Pedidos pedidoGuardado = pedidosServ.guardarPedido(pedidos);
         pedidosServ.updateFechaHora(pedidos.getIdPedido());
- 
-        if (pedidosServ.existsById(pedidos.getIdPedido())) {         
+
+        if (pedidosServ.existsById(pedidos.getIdPedido())) {
             return new ResponseEntity<>(pedidoGuardado, HttpStatus.CREATED);
         } else {
             return new ResponseEntity(new Mensaje("El id del pedido no se creo"), HttpStatus.OK);
-        }        
-    };
+        }
+    }
+
+    ;
     
      
     
@@ -73,42 +96,41 @@ public class PedidosController {
     public ResponseEntity<?> borrarPedido(@PathVariable("idPedido") Long idPedido) {
 
         if (pedidosServ.existsById(idPedido)) {
-             pedidosServ.borrarPedido(idPedido);
+            pedidosServ.borrarPedido(idPedido);
             return new ResponseEntity(new Mensaje("Pedido eliminado"), HttpStatus.OK);
-        } if(!pedidosServ.existsById(idPedido)){
+        }
+        if (!pedidosServ.existsById(idPedido)) {
             return new ResponseEntity(new Mensaje("El id del pedido no existe"), HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(new Mensaje("El pedido no se pudo eliminar"), HttpStatus.BAD_REQUEST);
         }
     }
-    
-     //OBTENER 1 PEDIDO POR ID
-    
+
+    //OBTENER 1 PEDIDO POR ID
     @GetMapping("/obtenerpedidoxid/{idPedido}")
     public ResponseEntity<Pedidos> obtPedidoXId(@PathVariable("idPedido") Long idPedido) {
         Pedidos pedido = pedidosServ.getOne(idPedido).get();
         return new ResponseEntity(pedido, HttpStatus.OK);
-    };
+    }
+
+    ;
 
 //ACTUALIZAR PEDIDOS (ESTA ENTIDAD SOLO GUARDA UN IDPEDIDO, NO SE NECESITA ACTUALIZAR) 
 @PutMapping("/actualizarpedido/{idPedido}")
-public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
-    Pedidos pedid = pedidosServ.getOne(idPedido).get();       
-    pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
-    pedid.setNombreCliente(pedidos.getNombreCliente());
-    pedid.setTelefonoCliente(pedidos.getTelefonoCliente());
-    pedid.setDireccionCliente(pedidos.getDireccionCliente());
-    pedid.setLocalidadCliente(pedidos.getLocalidadCliente());
-    pedid.setFecha(pedidos.getFecha());
-    pedid.setHora(pedidos.getHora());
-    pedid.setImporteTotalPedido(pedidos.getImporteTotalPedido());
-    pedid.setPedidoConfirmado(pedidos.getPedidoConfirmado());
-    pedidosServ.guardarPedido(pedid);      
-    return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
- };
+    public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
+        Pedidos pedid = pedidosServ.getOne(idPedido).get();
+        pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
+        pedid.setNombreCliente(pedidos.getNombreCliente());
+        pedid.setTelefonoCliente(pedidos.getTelefonoCliente());
+        pedid.setDireccionCliente(pedidos.getDireccionCliente());
+        pedid.setLocalidadCliente(pedidos.getLocalidadCliente());
+        pedid.setFecha(pedidos.getFecha());
+        pedid.setHora(pedidos.getHora());
+        pedid.setImporteTotalPedido(pedidos.getImporteTotalPedido());
+        pedid.setPedidoConfirmado(pedidos.getPedidoConfirmado());
+        pedidosServ.guardarPedido(pedid);
+        return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
+    }
+;
 
-
-
-
- 
 }

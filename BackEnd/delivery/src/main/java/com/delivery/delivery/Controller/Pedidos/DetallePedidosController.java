@@ -32,13 +32,21 @@ public class DetallePedidosController {
 
     @Autowired
     PedidosService pedidosService;
-    
+
     @Autowired
     PlatosAMostrarService plaMosSer;
 
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
 
-    //LISTA DETALLE PEDIDOS    
+    /**
+     * Obtiene la lista completa de DetallePedidos.
+     *
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
+     * @return ResponseEntity con la lista de DetallePedidos y el estado HTTP
+     * correspondiente.
+     */
     @GetMapping("/listadetallepedidos")
     public ResponseEntity<List<DetallePedidos>> listaDetallePedidos() {
 
@@ -53,10 +61,21 @@ public class DetallePedidosController {
         }
     }
 
-    //LISTA QUE OBTIENE DETALLES PEDIDOS POR ID_PEDIDO Y NO X IDDETALLEPEDIDO
+// ======================================================================================================= //
+    
+    /**
+     * Obtiene la lista de DetallesPedidos filtrados por ID_PEDIDO.
+     *
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
+     * @param idPedido ID del pedido para filtrar los DetallesPedidos.
+     * @return ResponseEntity con la lista de DetallePedidos y el estado HTTP
+     * correspondiente.
+     */
     @GetMapping("/listadetpedidosidpedido/{idPedido}")
     public ResponseEntity<List<DetallePedidos>> listaXIdPedido(@PathVariable Long idPedido) {
-        try { 
+        try {
             List<DetallePedidos> detallesPedidosEncontrados = detpeServ.listaXIdPedido(idPedido);
 
             logger.info("Lista de detalles del pedido filtrada enviada con el idPedido: " + idPedido);
@@ -71,36 +90,57 @@ public class DetallePedidosController {
         }
     }
 
-  // GUARDAR UN DETALLE PEDIDO
-
-@PostMapping("/guardardetallepedido")
-public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detallePedidos) {
-    try {
-             
-        detpeServ.guardarDetallePedido(detallePedidos);  
-        detpeServ.guardarIdPlatoTotalPrecio(detallePedidos);     
-        detpeServ.actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
-
-        logger.info("Detalle del pedido guardado correctamente");
-
-        return new ResponseEntity<Mensaje>(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
-
-    } catch (MensajeResponseStatusException e) {
-        throw e; 
-    } catch (Exception e) {
+// ======================================================================================================= //
     
-        logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-      throw new MensajeRunTimeException(new Mensaje("Error inesperado al guardar el detalle del pedido"), e);
-    }
-}
-
-
-    //BORRAR DETALLE PEDIDO    
-    @DeleteMapping("/borrardetallepedido/{idDetallePedido}")
-    public ResponseEntity<?> borrarDetallePedido(@PathVariable("idDetallePedido") Long idDetallePedido) {
+    /**
+     * Guarda un nuevo DetallePedido.
+     *
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
+     * @param detallePedidos DetallePedido a guardar.
+     * @return ResponseEntity con un mensaje indicando el resultado de la
+     * operación y el código de estado correspondiente.
+     */
+    @PostMapping("/guardardetallepedido")
+    public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detallePedidos) {
         try {
-          
-            detpeServ.borrarDetallePedido(idDetallePedido);
+
+            detpeServ.guardarDetallePedido(detallePedidos);
+            detpeServ.guardarIdPlatoTotalPrecio(detallePedidos);
+            detpeServ.actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
+
+            logger.info("Detalle del pedido guardado correctamente");
+
+            return new ResponseEntity<Mensaje>(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
+
+        } catch (MensajeResponseStatusException e) {
+            throw e;
+        } catch (Exception e) {
+
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al guardar el detalle del pedido"), e);
+        }
+    }
+
+// ======================================================================================================= //
+    
+    /**
+     * Borra un DetallePedido.
+     *
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
+     * @param idDetallePedido ID del DetallePedido a borrar.
+     * @param idPedido ID del pedido al que pertenece el detalle.
+     * @return ResponseEntity con un mensaje indicando el resultado de la
+     * operación y el código de estado correspondiente.
+     */
+    @DeleteMapping("/borrardetallepedido/{idDetallePedido}/{idPedido}")
+    public ResponseEntity<?> borrarDetallePedido(@PathVariable("idDetallePedido") Long idDetallePedido, @PathVariable("idPedido") Long idPedido) {
+        try {
+
+            detpeServ.borrarDetallePedido(idDetallePedido, idPedido);
             return new ResponseEntity(new Mensaje("Detalle del pedido eliminado"), HttpStatus.OK);
         } catch (MensajeResponseStatusException e) {
             throw e;
@@ -110,20 +150,21 @@ public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detall
         }
     }
 
+// ======================================================================================================= //
+    
     /**
-     * Obtiene un detalle de pedido por su ID.
+     * Obtiene un DetallePedido por su ID.
      *
-     * Este endpoint permite obtener un detalle de pedido específico
-     * proporcionando su identificador único.
-     *
-     * @param idDetallePedido El identificador único del detalle de pedido.
-     * @return ResponseEntity con el detalle de pedido y el estado HTTP
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
+     * @param idDetallePedido ID del DetallePedido a obtener.
+     * @return ResponseEntity con el DetallePedido y el estado HTTP
      * correspondiente.
      */
-    //OBTENER 1 DETALLE PEDIDO POR ID    
     @GetMapping("/obtenerdetallepedidoxid/{idDetallePedido}")
     public ResponseEntity<DetallePedidos> obtDetallePedidoXId(@PathVariable("idDetallePedido") Long idDetallePedido) {
-        try {    
+        try {
             DetallePedidos detallePedido = detpeServ.getOne(idDetallePedido).get();
             logger.info("IdDetallePedido obtenido.");
             return new ResponseEntity(detallePedido, HttpStatus.OK);
@@ -135,51 +176,86 @@ public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detall
         }
     }
 
-    //ACTUALIZAR 1 DETALLE PEDIDOS
-    @Transactional
-    @PutMapping("/actualizardetallepedido/{idDetallePedido}")
-    public ResponseEntity<?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido) {
-        try { 
-            if(!plaMosSer.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())){
-              throw new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con idPlatoAMostrar:" + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar()).getMensaje(), HttpStatus.NOT_FOUND, null);
-            }
-              if(!pedidosService.existsById(detallePedidos.getPedidos().getIdPedido())){
-              throw new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con idPedido:" + detallePedidos.getPedidos().getIdPedido()).getMensaje(), HttpStatus.NOT_FOUND, null);
-            
+// ======================================================================================================= //
+    
+ /**
+ * Actualiza un detalle de pedido existente.
+ *
+ * @param detallePedidos DetallePedido actualizado.
+ * @param idDetallePedido ID del DetallePedido a actualizar.
+ * @return ResponseEntity con un mensaje indicando el resultado de la operación y el código de estado correspondiente.
+ * @throws MensajeResponseStatusException Si no se encuentra el idPlatoAMostrar o el idPedido.
+ * @throws MensajeResponseStatusException Si no se realizan modificaciones al detalle del pedido.
+ * @throws MensajeRunTimeException Si hay un error interno del servidor.
+ */
+@Transactional
+@PutMapping("/actualizardetallepedido/{idDetallePedido}")
+public ResponseEntity<?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido) {
+    try {
+        // Verificar la existencia del idPlatoAMostrar
+        if (!plaMosSer.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())) {
+            throw new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con idPlatoAMostrar:" + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar()).getMensaje(), HttpStatus.NOT_FOUND, null);
         }
-            
-            
-            DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
 
-            detPedid.setPedidos(detallePedidos.getPedidos());
-            detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
-            detPedid.setPlatos(detallePedidos.getPlatos());
+        // Verificar la existencia del idPedido
+        if (!pedidosService.existsById(detallePedidos.getPedidos().getIdPedido())) {
+            throw new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con idPedido:" + detallePedidos.getPedidos().getIdPedido()).getMensaje(), HttpStatus.NOT_FOUND, null);
+        }
+
+        DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
+
+        // Verificar si se han realizado modificaciones al detalle del pedido
+        if (detPedid.getPlatosAMostrar().getIdPlatosAMostrar().equals(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())
+                && detPedid.getPorcionPlato().equals(detallePedidos.getPorcionPlato())) {
+            throw new MensajeResponseStatusException(new Mensaje("No se han realizado modificaciones al detalle del pedido").getMensaje(), HttpStatus.BAD_REQUEST, null);
+        }
+
+        // Verificar si el idPlatosAMostrar es igual, pero la porcionPlato ha cambiado
+        if (detPedid.getPlatosAMostrar().getIdPlatosAMostrar().equals(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())
+                && !detPedid.getPorcionPlato().equals(detallePedidos.getPorcionPlato())) {
+            // Realizar la actualización solo si hay cambios en la porcionPlato
             detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
-            detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
-            detPedid.setTotalPlato(detallePedidos.getTotalPlato());
-            
+
             detpeServ.guardarIdPlatoTotalPrecio(detPedid);
-            detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());          
+            detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
             detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
-           
-            
+
             return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
-        } catch (MensajeResponseStatusException e) {
-            throw e;
-
-        } catch (Exception e) {
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al actualizar el detalle del pedido"), e);
         }
-    }
 
+        // Realizar la actualización completa si hay cambios en otros campos
+        detPedid.setPedidos(detallePedidos.getPedidos());
+        detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
+        detPedid.setPlatos(detallePedidos.getPlatos());
+        detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
+        detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
+        detPedid.setTotalPlato(detallePedidos.getTotalPlato());
+
+        detpeServ.guardarIdPlatoTotalPrecio(detPedid);
+        detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
+        detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
+
+        return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
+    } catch (MensajeResponseStatusException e) {
+        throw e;
+    } catch (Exception e) {
+        logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        throw new MensajeRunTimeException(new Mensaje("Error inesperado al actualizar el detalle del pedido"), e);
+    }
+}
+
+
+// ======================================================================================================= //
+    
     /**
      * Guarda varios detalles de pedido en una sola operación POST.
      *
+     * @throw "e" toma del metodo del servicio que implementa el
+     * MensajeResponseStatusException que genere este
+     * @throw MensajeRunTimeException Si hay un error interno del servidor
      * @param detallesPedidos Lista de detalles de pedido a ser guardados.
      * @return ResponseEntity con un mensaje indicando el resultado de la
      * operación y el código de estado correspondiente.
-     *
      */
     @PostMapping("/guardarvariosdetallespedidos")
     public ResponseEntity<String> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
@@ -196,4 +272,8 @@ public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detall
         }
     }
 
+// ======================================================================================================= //
+    
+    
+    
 }

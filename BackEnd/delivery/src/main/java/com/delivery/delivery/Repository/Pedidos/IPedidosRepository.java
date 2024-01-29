@@ -19,6 +19,14 @@ public void actualizarFechaYHoraDelPedido(@Param("idPedido") Long idPedido);
 @Query("SELECT p FROM Pedidos p WHERE p.fecha = :fechaActual")
 public List<Pedidos> obtenerPedidosDelDia(@Param("fechaActual") LocalDate fechaActual);
 
+//METODO ABSTRACTO PARA OBTENER LISTA DE PEDIDOS ENVIANDO UNA FECHA 
+@Query
+public List<Pedidos> findByFecha(@Param("fecha") LocalDate fecha);
+
+//METODO ABSTRACTO PARA OBTENER LISTA CON FECHAS PRESENTES EN PEDIDOS
+@Query("SELECT DISTINCT fecha FROM Pedidos ORDER BY fecha ASC")
+public List<LocalDate> findFechaPedidos();
+
 
 };
 

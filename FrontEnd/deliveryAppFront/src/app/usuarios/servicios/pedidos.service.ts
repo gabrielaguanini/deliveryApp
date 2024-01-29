@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PlatosAMostrar } from '../modelos/platos-amostrar';
 import { PedidosModel } from '../modelos/pedidos-model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,8 @@ export class PedidosService {
 
   URL = 'http://localhost:8080/';
 
-  constructor(private httpClient:HttpClient) {}
+  constructor(private httpClient:HttpClient,
+                     ) {}
 
     public listaPedidos(): Observable<PedidosModel[]> {
       return this.httpClient.get<PedidosModel[]>(this.URL + 'listapedidos');  
@@ -41,9 +43,18 @@ export class PedidosService {
     public actualizarPedidosConListaPlatos(idPedido: number): Observable<string> {
       const headers = new HttpHeaders({'Content-Type': 'application/json'});
       return this.httpClient.post(this.URL + `actualizarpedidosconlistastring/${idPedido}`, null, { headers, responseType: 'text' });
-    }
+    };
     
-  
+    public listaPedidosXFecha(fecha: string): Observable<PedidosModel[]> {
+     return this.httpClient.get<PedidosModel[]>(this.URL + `listapedidosxfecha/${fecha}`);
+   }
+    
+   public listaFechasDelPedido(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.URL + 'listafechasdelpedido');
+  }
+   
+ 
+
   }
 
   //CONSOLA

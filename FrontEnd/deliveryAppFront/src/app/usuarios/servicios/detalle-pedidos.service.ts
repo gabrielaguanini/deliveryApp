@@ -28,7 +28,8 @@ export class DetallePedidosService {
     return this.httpClient.post<any>(this.URL + 'guardardetallepedido', detallePedidos);
   };
 
-  public actualizarDetallePedido(idDetallePedido: number, detallePedidos: DetallePedidos): Observable<any> {
+  public actualizarDetallePedido(idDetallePedido: number, detallePedidos: DetallePedidosAcotadaModel): Observable<any> {
+   
     return this.httpClient.put<any>(this.URL + `actualizardetallepedido/${idDetallePedido}`, detallePedidos);
   };
 
@@ -50,8 +51,8 @@ export class DetallePedidosService {
   };
 
 
-  public eliminarDetallePedido(idDetallePedido: number): Observable<any> {
-    return this.httpClient.delete<any>(this.URL + `borrardetallepedido/${idDetallePedido}`)
+  public eliminarDetallePedido(idDetallePedido: number, idPedido: number): Observable<any> {
+    return this.httpClient.delete<any>(this.URL + `borrardetallepedido/${idDetallePedido}/${idPedido}`)
   };
 
  

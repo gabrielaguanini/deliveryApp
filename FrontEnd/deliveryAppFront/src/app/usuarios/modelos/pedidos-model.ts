@@ -7,7 +7,7 @@ export class PedidosModel {
     direccionCliente!: string;
     localidadCliente!: string;
     listaPlatosDelPedido!: string;
-    fecha!: Date;
+    fecha!: string;
     hora!: string;
     importeTotalPedido!: number;
     pedidoConfirmado?: boolean = false;
@@ -18,7 +18,7 @@ export class PedidosModel {
                 direccionCliente: string,
                 localidadCliente: string,
                 listaPlatosDelPedido: string,
-                fecha: Date,
+                fecha: string,
                 hora: string,
                 importeTotalPedido: number,
                 pedidoConfirmado: boolean) {

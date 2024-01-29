@@ -15,12 +15,16 @@ import { CarteleraslidercelComponent } from './componentes_generales/cartelerasl
 import { PedidosplatosamostrarComponent } from './usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MenucomplComponent,
     CartelerasliderComponent,  
-    NavbarComponent, HomeComponent, CarteleraslidercelComponent, PedidosplatosamostrarComponent 
+    NavbarComponent, 
+    HomeComponent, 
+    CarteleraslidercelComponent, 
+    PedidosplatosamostrarComponent
     
   ],
   imports: [

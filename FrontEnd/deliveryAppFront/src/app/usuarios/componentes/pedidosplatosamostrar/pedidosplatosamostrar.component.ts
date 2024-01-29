@@ -10,7 +10,7 @@ import { PedidosService } from '../../servicios/pedidos.service';
 import { DetallePedidos } from '../../modelos/detalle-pedidos';
 import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 import { DetallePedidosAcotadaModel } from '../../modelos/detalle-pedidos-acotadaModel';
-import { forkJoin, switchMap } from 'rxjs';
+import { EMPTY, forkJoin, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pedidosplatosamostrar',
@@ -45,8 +45,15 @@ export class PedidosplatosamostrarComponent {
   modalitoEnviarPedido: boolean = false;
 
   //MODALITO NGIF (NO BSMODALREF) 
+  //PARA EDITAR PEDIDOS
+  modalitoEditPedid: boolean = false;
+
+  //MODALITO NGIF (NO BSMODALREF) 
   //PARA EDITAR DETALLE PEDIDOS
-  modalitoEditDetallePedid: boolean = false;
+  modalitoInputEditDetPedid: boolean = false;
+
+  modalitoTdEditDetPedid: boolean = true;
+
 
 
 
@@ -62,6 +69,8 @@ export class PedidosplatosamostrarComponent {
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPlatosDelPedido: string[] = [];
   detallesPedidosAcotada: DetallePedidosAcotadaModel[] = [];
+  listaPedidosXFecha: PedidosModel[] = [];
+  listaFechasDelPedido: string[] = [];
 
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
@@ -70,7 +79,7 @@ export class PedidosplatosamostrarComponent {
   idPlatosAMostrar!: number;
   descripcionPlatoAMostrar!: string;
   platosAMostrar!: PlatosAMostrar;
-  fecha!: Date;
+  fecha!: string;
   hora!: string;
 
 
@@ -78,7 +87,7 @@ export class PedidosplatosamostrarComponent {
   //EDITAR PEDIDO
   //////////////////
   idPedido!: number;
-  fechaPedido!: Date;
+  fechaPedido!: string;
   horaPedido!: string;
   nombreCliente!: string;
   telefonoCliente!: string;
@@ -98,7 +107,10 @@ export class PedidosplatosamostrarComponent {
   totalPlato!: number;
 
   //EDITAR DETALLE PEDIDO
-  
+  detallePedidos!: DetallePedidos;
+  nombrePlato!: string;
+ 
+
 
   //VARIOS
   botonDisabledCrPe: boolean = false;
@@ -133,7 +145,8 @@ export class PedidosplatosamostrarComponent {
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
     this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
-
+    
+    
   };
 
 
@@ -164,7 +177,10 @@ export class PedidosplatosamostrarComponent {
   //MODAL EDITAR PEDIDOS
   ////////////////////////////
   openModalEditarPedidos(templateEditarPedido: TemplateRef<any>) {
-    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static' })
+    const modalConfig = {
+      class: 'modal-dialog-centered modal-lg' // tamaño del modal
+    };
+    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig })
   };
 
   //MODALITO NGIF (NO BSMODALREF)
@@ -183,8 +199,16 @@ export class PedidosplatosamostrarComponent {
 
 
   mostrarOcultarModalitoEditDetallePedid(){
-    this.modalitoEditDetallePedid = !this.modalitoEditDetallePedid;
+    this.modalitoEditPedid = !this.modalitoEditPedid;
   };
+
+   mostrarOcultarModalitoEditDetPedid(){
+    this.modalitoInputEditDetPedid = !this.modalitoInputEditDetPedid;
+   };
+
+   mostrarOcultarModalitoTdEditDetPedid(){
+    this.modalitoTdEditDetPedid = !this.modalitoTdEditDetPedid;
+   };
 
 
 
@@ -209,6 +233,15 @@ export class PedidosplatosamostrarComponent {
 
   listaDetallePedidosXIdPedido(idPedido:number): void {
     this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
+  };
+
+  listaDePedidosXFecha(fecha: string): void{
+    this.fecha = fecha;
+    this.pedidosServ.listaPedidosXFecha(this.fecha).subscribe(data => this.listaPedidosXFecha = data);
+  };
+
+  listaFechasPedidos(): void{
+    this.pedidosServ.listaFechasDelPedido().subscribe(data => this.listaFechasDelPedido = data)
   };
 
 
@@ -466,7 +499,7 @@ export class PedidosplatosamostrarComponent {
 
   //EDITAR PEDIDO
   /////////////////////////
-  obtPedidoXId(idPedido: number, fechaPedido: Date, horaPedido: string, nombreCliente: string, telefonoCliente: string,
+  obtPedidoXId(idPedido: number, fechaPedido: string, horaPedido: string, nombreCliente: string, telefonoCliente: string,
     direccionCliente: string, localidadCliente: string, listaPlatosDelPedido: string, importeTotalPedido: number, pedidoConfirmado: boolean): void {
 
     this.idPedido = idPedido;
@@ -599,7 +632,7 @@ export class PedidosplatosamostrarComponent {
     }
     else {
       //console.log("nombreCliente: " + this.nombreCliente)
-      console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
+      //console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
       this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
         data => {
         
@@ -623,16 +656,68 @@ export class PedidosplatosamostrarComponent {
 
   //EDITAR DETALLE PEDIDO 
   /////////////////////////////
-  editarDetallePedidos():void{
 
+
+  obtenerDetPedXId(idDetallePedido:number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato:string){
+    this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
+      this.idDetallePedido = idDetallePedido;
+      this.idPedido = idPedido;
+      this.idPlatosAMostrar = idPlatosAMostrar;
+      this.porcionPlato = porcionPlato
+      this.nombrePlato = nombrePlato;
+      console.log("Detalles del pedido con idDetallePedido: " + idDetallePedido);
+    
+    }, err =>{
+      console.log(err);
+      alert("Error, no se trajeron los detalles del pedido")
+    })
+  };
+
+
+  editarDetallePedidos(): void {
+    
+    const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar,  this.porcionPlato ) 
+
+   
+    this.detallePedidServ
+      .actualizarDetallePedido(this.idDetallePedido, detPed)
+      .subscribe(
+        (data) => {
+          console.log("Detalles del pedido actualizados." + JSON.stringify(detPed)); 
+          alert("Detalles del pedido actualizados.");
+          this.listaDetallePedidosXIdPedido(this.idPedido);
+          this.listaPedidosDeHoy();
+        },
+        (err) => {
+         
+          console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
+         
+          //console.log("DetPEd: " + JSON.stringify(detPed));
+          alert("Error al actualizar el detalle del pedido. " +  err.error.message);
+        }
+      );
   };
 
   //BORRAR DETALLE PEDIDO 
   /////////////////////////////
   
-  eliminarDetallePedidos(): void {
-    
+  eliminarDetallePedidos(idDetallePedido: number, idPedido:number): void {
+  //Advertencia para eliminar el pedido
+  const confirmacion = window.confirm("El detalle del pedido se eliminará");
+
+  if (confirmacion) {
+    this.detallePedidServ.eliminarDetallePedido(idDetallePedido , idPedido).subscribe(data => {
+      alert("Detalle del pedido eliminado.");
+      this.listaDetallePedidosXIdPedido(idPedido);
+      this.listaPedidosDeHoy();
+    }, err => {
+      // Error al eliminar el pedido
+      console.log("No se pudo eliminar el detalle del pedido", err);
+      alert("Error al eliminar el detalle del pedido.");
+    }
+    );
   }
+};
 
   calcularTotalPedidoAlEditarDetPed(): void {
     
@@ -803,9 +888,11 @@ export class PedidosplatosamostrarComponent {
     this.telefonoCliente = "";
     this.direccionCliente = "";
     this.localidadCliente= "";
-    this.modalitoEditDetallePedid = false;
+    this.modalitoEditPedid = false;
     this.detallePedidosListxIdPedido = [];
     this.idPedido = NaN
+    this.modalitoInputEditDetPedid = false;
+    this.modalitoTdEditDetPedid = true;
   };
 
   // Evita que se ingresen numeros o porciones manualmente en el input
