@@ -1,13 +1,18 @@
 package com.delivery.delivery.Controller.Pedidos;
 
-import com.delivery.delivery.Entity.Pedidos.DetallePedidos;
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
+import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -34,6 +39,8 @@ public class PedidosController {
     @Autowired
     PlatosAMostrarService platosAMosServ;
 
+    private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
+
     //LISTA PEDIDOS
     @GetMapping("/listapedidos")
     public ResponseEntity<List<Pedidos>> listapedidos() {
@@ -58,24 +65,23 @@ public class PedidosController {
     @GetMapping("/listapedidosxfecha/{fecha}")
     public ResponseEntity<List<Pedidos>> listaPedidosXFecha(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
 
-        List<Pedidos> listapedidosxfecha = pedidosServ.listaPedidosXFecha(fecha);
-        return new ResponseEntity(listapedidosxfecha, HttpStatus.OK);
+        try {
+            List<Pedidos> listapedidosxfecha = pedidosServ.listaPedidosXFecha(fecha);
+            return new ResponseEntity(listapedidosxfecha, HttpStatus.OK);
+            
+        } catch (MensajeResponseStatusException e) {
+            throw e;
+            
+        } catch (Exception e) {
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de lista por fecha"), e);
+        } 
     }
     
-    //LISTA QUE ENVIA LAS FECHAS DE LOS PEDIDOS PARA SELECCIONAR EN EL FRONT
-    //CUANDO SE QUIERE BUSCAR LOS PEDIDOS DE UNA FECHA ESPECIFICA
-    @GetMapping("/listafechasdelpedido")
-    public ResponseEntity<List<LocalDate>> listaPedidosXFecha() {
 
-        List<LocalDate> listafechasdelpedido = pedidosServ.listaFechasPedidos();
-        return new ResponseEntity(listafechasdelpedido, HttpStatus.OK);
-    }
-                   
- 
-    
-   // GUARDAR UN PEDIDO
-   // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
-   @PostMapping("/guardarpedido")
+    // GUARDAR UN PEDIDO
+    // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
+    @PostMapping("/guardarpedido")
     public ResponseEntity<Pedidos> guardarPedido(@RequestBody Pedidos pedidos) {
         Pedidos pedidoGuardado = pedidosServ.guardarPedido(pedidos);
         pedidosServ.updateFechaHora(pedidos.getIdPedido());
@@ -118,6 +124,7 @@ public class PedidosController {
 //ACTUALIZAR PEDIDOS (ESTA ENTIDAD SOLO GUARDA UN IDPEDIDO, NO SE NECESITA ACTUALIZAR) 
 @PutMapping("/actualizarpedido/{idPedido}")
     public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
+        
         Pedidos pedid = pedidosServ.getOne(idPedido).get();
         pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
         pedid.setNombreCliente(pedidos.getNombreCliente());
@@ -129,8 +136,11 @@ public class PedidosController {
         pedid.setImporteTotalPedido(pedidos.getImporteTotalPedido());
         pedid.setPedidoConfirmado(pedidos.getPedidoConfirmado());
         pedidosServ.guardarPedido(pedid);
-        return new ResponseEntity(new Mensaje("Plato actualizado"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Pedido actualizado"), HttpStatus.OK);
     }
-;
+    
+    
+
+
 
 }

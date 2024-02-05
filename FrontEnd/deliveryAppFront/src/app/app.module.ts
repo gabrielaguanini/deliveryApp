@@ -13,6 +13,7 @@ import { HomeComponent } from './componentes_generales/home/home.component';
 import { CartelerasliderComponent } from './componentes_generales/carteleraslider/carteleraslider.component';
 import { CarteleraslidercelComponent } from './componentes_generales/carteleraslidercel/carteleraslidercel.component';
 import { PedidosplatosamostrarComponent } from './usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
+import { PedidosAnterYDescargasComponent } from './usuarios/componentes/pedidos-anter-ydescargas/pedidos-anter-ydescargas.component';
 
 
 
@@ -24,7 +25,7 @@ import { PedidosplatosamostrarComponent } from './usuarios/componentes/pedidospl
     NavbarComponent, 
     HomeComponent, 
     CarteleraslidercelComponent, 
-    PedidosplatosamostrarComponent
+    PedidosplatosamostrarComponent, PedidosAnterYDescargasComponent
     
   ],
   imports: [

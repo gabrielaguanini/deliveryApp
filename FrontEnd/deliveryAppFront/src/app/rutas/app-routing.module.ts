@@ -5,12 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { MenucomplComponent } from '../usuarios/componentes/menucompl/menucompl.component';
 import { HomeComponent } from '../componentes_generales/home/home.component';
 import { PedidosplatosamostrarComponent } from '../usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
+import { PedidosAnterYDescargasComponent } from '../usuarios/componentes/pedidos-anter-ydescargas/pedidos-anter-ydescargas.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomeComponent },
   { path: '', component: HomeComponent },
   { path: 'menucompleto', component: MenucomplComponent},
-  { path: 'pedidosplatosamos', component: PedidosplatosamostrarComponent}
+  { path: 'pedidosplatosamos', component: PedidosplatosamostrarComponent},
+  { path: 'pedidosantydescarg', component: PedidosAnterYDescargasComponent}
 
 ];
 

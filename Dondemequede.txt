@@ -1,1 +1,107 @@
-seguir por public List<DetallePedidos> listaXIdPedido(Long idPedido)
+                        <!-- PEDIDOS X FECHA -->
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4
+                                                 bordesYBackGrCardGdepPedAnteriores">
+                                        <div class="divPediAnter p-2">
+                        
+                            <h5 class="card-title pb-3 text-center">PEDIDOS ANTERIORES</h5>
+                            <form (ngSubmit)="listaDePedidosXFecha(fecha)" novalidate #f="ngForm" class="formPedidosXFecha">
+                        
+                                <div class="row d-flex justify-content-center">
+                                    <h5 class="card-title pb-3 text-center"><small>Ingrese una fecha</small></h5>
+                                    <br>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input [(ngModel)]="fecha" type="text" class="form-control mb-3" name="fechabuscar"
+                                                placeholder="aaaa-mm-dd" maxlength="10"
+                                                title="El formato es: aaaa-mm-dd, 4 cifras para año - 2 cifras para mes - 2 cifras para dia">
+                                            <div class="input-group-append">
+                                                <!-- boton editar -->
+                                                <button class="btn btn-light border border-secondary" title="Enviar actualizacion"
+                                                    type="submit">
+                                                    <i class="far fa-check-circle"></i>
+                                                </button>
+                                                <!-- boton borrar -->
+                                                <button class="btn btn-light border border-secondary" title="cerrar" type="button"
+                                                    (click)="listaPedHoyVacia()">
+                                                    <i class="far fa-times-circle"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </form>
+                        
+                            <div class="row mt-4">
+                                <div class="col-md-4" *ngFor="let pedidosXFe of listaPedidosXFecha">
+                                    <div class="card">
+                                        <div class="card-body">
+                        
+                        
+                                            <div class="card-body">
+                        
+                                                <h5 class="card-title text-center">PEDIDO N°: {{pedidosXFe.idPedido}}
+                                                </h5>
+                                                <br>
+                                                <h5 class="card-title  text-center">{{pedidosXFe.nombreCliente}}</h5>
+                                                <br>
+                                                <br>
+                                                <p class="card-text"><strong>ID del Pedido: </strong> <span
+                                                        class="text-white">{{pedidosXFe.idPedido}}</span></p>
+                                                <p class="card-text"><strong>Telefono: </strong> <span
+                                                        class="text-white">{{pedidosXFe.telefonoCliente}}</span></p>
+                                                <p class="card-text"><strong>Direccion: </strong> <span
+                                                        class="text-white">{{pedidosXFe.direccionCliente}}</span></p>
+                                                <p class="card-text"><strong>Localidad: </strong> <span
+                                                        class="text-white">{{pedidosXFe.localidadCliente}}</span></p>
+                                                <p class="card-text"><strong>Platos: </strong> <span
+                                                        class="text-white">{{pedidosXFe.listaPlatosDelPedido}}</span>
+                                                    <button class="btn btn-outline-light btn-sm col-12" title="Editar platos" type="button"
+                                                        (click)="listaDetallePedidosXIdPedido(pedidosXFe.idPedido);mostrarOcultarModalitoEditDetallePedid(); 
+                                                                                         modalitoEditPedid = true; scrollASeccion('anclaSeccion1');">
+                                                        <i class="far fa-edit"></i>
+                                                    </button>
+                                                </p>
+                                                <p class="card-text"><strong>Fecha: </strong> <span
+                                                        class="text-white">{{pedidosXFe.fecha}}</span></p>
+                                                <p class="card-text"><strong>Hora: </strong> <span class="text-white">{{pedidosXFe.hora}}</span>
+                                                </p>
+                                                <p class="card-text"><strong>Importe $: </strong> <span
+                                                        class="text-white">{{pedidosXFe.importeTotalPedido}}</span></p>
+                                                <p class="card-text"><strong>Confirmado: </strong> <span
+                                                        class="text-white">{{pedidosXFe.pedidoConfirmado}}</span></p>
+                        
+                                            </div>
+                        
+                        
+                                            <div class="d-flex justify-content-center">
+                                                <!-- boton editar -->
+                                                <button class="btn btn-sm border border-white rounded-5 text-white" type="button"
+                                                    (click)="openModalEditarPedidos(templateEditarPedido);
+                                                                                        obtPedidoXId(pedidosXFe.idPedido, pedidosXFe.fecha, pedidosXFe.hora, 
+                                                                                        pedidosXFe.nombreCliente, pedidosXFe.telefonoCliente, 
+                                                                                        pedidosXFe.direccionCliente, pedidosXFe.localidadCliente, 
+                                                                                        pedidosXFe.listaPlatosDelPedido, pedidosXFe.importeTotalPedido, pedidosXFe.pedidoConfirmado?? false)">
+                                                    <i class="far fa-edit small"></i>
+                                                </button>
+                        
+                                                <!-- boton borrar -->
+                                                <button class="btn btn-sm border border-white rounded-5 text-white" type="button"
+                                                    (click)="eliminarPedido(pedidosXFe.idPedido)">
+                                                    <i class="far fa-trash-alt small"></i>
+                                                </button>
+                                            </div>
+                        
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+
+

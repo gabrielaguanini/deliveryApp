@@ -23,10 +23,7 @@ public List<Pedidos> obtenerPedidosDelDia(@Param("fechaActual") LocalDate fechaA
 @Query
 public List<Pedidos> findByFecha(@Param("fecha") LocalDate fecha);
 
-//METODO ABSTRACTO PARA OBTENER LISTA CON FECHAS PRESENTES EN PEDIDOS
-@Query("SELECT DISTINCT fecha FROM Pedidos ORDER BY fecha ASC")
-public List<LocalDate> findFechaPedidos();
-
+public boolean existsByFecha(LocalDate fecha);
 
 };
 

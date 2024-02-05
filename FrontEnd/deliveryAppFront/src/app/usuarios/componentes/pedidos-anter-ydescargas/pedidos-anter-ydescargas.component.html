@@ -1,0 +1,334 @@
+  <!-- PEDIDOS X FECHA -->
+                        
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4
+                         bordesYBackGrCardGdepPedAnteriores">
+                <div class="divPediAnter p-2">
+
+    <h5 class="card-title pb-3 text-center">PEDIDOS ANTERIORES</h5>
+    <form (ngSubmit)="listaDePedidosXFecha(fecha)" novalidate #f="ngForm" class="formPedidosXFecha">
+
+        <div class="row d-flex justify-content-center">
+            <h5 class="card-title pb-3 text-center"><small>Ingrese una fecha</small></h5>
+            <br>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <input [(ngModel)]="fecha" type="text" class="form-control mb-3" name="fechabuscar"
+                        placeholder="aaaa-mm-dd" maxlength="10"
+                        title="El formato es: aaaa-mm-dd, 4 cifras para año - 2 cifras para mes - 2 cifras para dia">
+                    <div class="input-group-append">
+                        <!-- boton editar -->
+                        <button class="btn btn-light border border-secondary" title="Enviar actualizacion"
+                            type="submit">
+                            <i class="far fa-check-circle"></i>
+                        </button>
+                        <!-- boton borrar -->
+                        <button class="btn btn-light border border-secondary" title="cerrar" type="button"
+                            (click)="listaPedXFechaVacia()">
+                            <i class="far fa-times-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row mt-4">
+        <div class="col-md-4" *ngFor="let pedidosXFe of listaPedidosXFecha">
+            <div class="card">
+                <div class="card-body">
+
+
+                    <div class="card-body">
+
+                        <h5 class="card-title text-center">PEDIDO N°: {{pedidosXFe.idPedido}}
+                        </h5>
+                        <br>
+                        <h5 class="card-title  text-center">{{pedidosXFe.nombreCliente}}</h5>
+                        <br>
+                        <br>
+                        <p class="card-text"><strong>ID del Pedido: </strong> <span
+                                class="text-white">{{pedidosXFe.idPedido}}</span></p>
+                        <p class="card-text"><strong>Telefono: </strong> <span
+                                class="text-white">{{pedidosXFe.telefonoCliente}}</span></p>
+                        <p class="card-text"><strong>Direccion: </strong> <span
+                                class="text-white">{{pedidosXFe.direccionCliente}}</span></p>
+                        <p class="card-text"><strong>Localidad: </strong> <span
+                                class="text-white">{{pedidosXFe.localidadCliente}}</span></p>
+                        <p class="card-text"><strong>Platos: </strong> <span
+                                class="text-white">{{pedidosXFe.listaPlatosDelPedido}}</span>
+                            <button class="btn btn-outline-light btn-sm col-12" title="Editar platos" type="button"
+                                (click)="listaDetallePedidosXIdPedido(pedidosXFe.idPedido);mostrarOcultarModalitoEditDetallePedid(); 
+                                                                 modalitoEditPedid = true; scrollASeccion('otraAnclaSeccion1');">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        </p>
+                        <p class="card-text"><strong>Fecha: </strong> <span
+                                class="text-white">{{pedidosXFe.fecha}}</span></p>
+                        <p class="card-text"><strong>Hora: </strong> <span class="text-white">{{pedidosXFe.hora}}</span>
+                        </p>
+                        <p class="card-text"><strong>Importe $: </strong> <span
+                                class="text-white">{{pedidosXFe.importeTotalPedido}}</span></p>
+                        <p class="card-text"><strong>Confirmado: </strong> <span
+                                class="text-white">{{pedidosXFe.pedidoConfirmado}}</span></p>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-center">
+                        <!-- boton editar -->
+                        <button class="btn btn-sm border border-white rounded-5 text-white" type="button"
+                            (click)="openModalEditarPedidos(templateEditarPedido);
+                                                                obtPedidoXId(pedidosXFe.idPedido, pedidosXFe.fecha, pedidosXFe.hora, 
+                                                                pedidosXFe.nombreCliente, pedidosXFe.telefonoCliente, 
+                                                                pedidosXFe.direccionCliente, pedidosXFe.localidadCliente, 
+                                                                pedidosXFe.listaPlatosDelPedido, pedidosXFe.importeTotalPedido, pedidosXFe.pedidoConfirmado?? false)">
+                            <i class="far fa-edit small"></i>
+                        </button>
+
+                        <!-- boton borrar -->
+                        <button class="btn btn-sm border border-white rounded-5 text-white" type="button"
+                            (click)="eliminarPedido(pedidosXFe.idPedido)">
+                            <i class="far fa-trash-alt small"></i>
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+
+
+
+
+  <!-- MODAL EDITAR PEDIDO -->
+  <ng-template #templateEditarPedido>
+    <div class="container-fluid modal-menu">
+        <div class="row">
+            <div class="modal-header">
+                <h4 class="modal-title">EDITAR</h4>
+                <div class="card-icon card-icon-large">
+                    <i class=""></i>
+                </div>
+                <button type="button" class="btn btn-outline-light btn-sm"
+                    (click)="modalEditarPedido.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="row">
+                <form (ngSubmit)="editarPedido()" novalidate #f="ngForm">
+                    <div class="table-responsive">
+                        <div class="form-group col-12 pb-3">
+                            <label for="idPedido">ID PEDIDO</label>
+                            <input readonly type="number" class="form-control" id="idPedido" name="idPedido"
+                                [(ngModel)]="idPedido" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="pedidoConfirmado">PEDIDO CONFIRMADO</label>
+                            <select class="form-select" [(ngModel)]="pedidoConfirmado"
+                                name="pedidoConfirmado" required>
+                                <option *ngFor="let trueOFalse of listaPeConfTrueFalse"
+                                    [value]="trueOFalse">
+                                    {{ trueOFalse}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="fecha">FECHA </label>
+                            <input readonly type="text" class="form-control" id="fecha" name="fecha"
+                                [(ngModel)]="fecha" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="horaPedido">HORA</label>
+                            <input readonly type="text" class="form-control" id="horaPedido"
+                                name="horaPedido" [(ngModel)]="horaPedido" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="nombreCliente">NOMBRE CLIENTE</label>
+                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
+                                [(ngModel)]="nombreCliente" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="telefonoCliente">TELEFONO CLIENTE</label>
+                            <input type="text" class="form-control" id="telefonoCliente"
+                                name="telefonoCliente" [(ngModel)]="telefonoCliente" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="direccionCliente">DIRECCION</label>
+                            <input type="text" class="form-control" id="direccionCliente"
+                                name="direccionCliente" [(ngModel)]="direccionCliente" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="hora">LOCALIDAD</label>
+                            <input type="text" class="form-control" id="localidadCliente"
+                                name="localidadCliente" [(ngModel)]="localidadCliente" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 pb-3">
+                        <label for="importeTotalPedido">TOTAL</label>
+                        <input readonly type="number" class="form-control" id="importeTotalPedido"
+                            name="importeTotalPedido" [(ngModel)]="importeTotalPedido" required>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-outline-light">
+                                Enviar
+                            </button>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+</div>
+</div>
+
+
+ <!-- LISTA (PODRIA DECIRSE TB MODALITO) DE DETALLES DEL PEDIDO PARA EDITAR -->
+
+ <div class="container-fluid" *ngIf="modalitoEditPedid" id="otraAnclaSeccion1">
+    <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="bordesYBackGrLisPedEdit">
+        <div class="modalitoEditPedid">
+            <div class="containerModalEditPed">
+                <!-- Boton cerrar de la lista de pedidos anteriores -->
+                <button *ngIf="modalitoTdEditDetPedid" class="btn btn-outline-light btn-sm m-2" type="button"
+                    title="Cerrar" (click)="mostrarOcultarModalitoEditDetallePedid()">
+                    <i class="far fa-times-circle small text-white"></i>
+                </button>
+            </div>
+            <table class="table text-white">
+                <thead>
+                    <td *ngIf="modalitoInputEditDetPedid">
+                        <div class="pb-1">
+                            <!-- Boton cerrar del modalitoTdEditDetPedid -->
+                            <button class="btn btn-outline-light btn-sm" type="button" title="Cerrar" type="button"
+                                (click)="mostrarOcultarModalitoTdEditDetPedid(); mostrarOcultarModalitoEditDetPedid()">
+                                <i class="far fa-times-circle small text-white"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <tr *ngIf="modalitoTdEditDetPedid">
+                        <th class="text-center" scope="col">ID DET PED</th>
+                        <th class="text-center" scope="col">ID PLATMOS</th>
+                        <th class="text-center" scope="col">PORCION</th>
+                        <th class="text-center" scope="col">PLATO</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detallePedidosLi of detallePedidosListxIdPedido" class="table-bordered">
+
+                        <td *ngIf="modalitoTdEditDetPedid" class="text-center align-middle border-top">
+                            {{detallePedidosLi.idDetallePedido}}</td>
+                        <td *ngIf="modalitoTdEditDetPedid" class="text-center align-middle border-top">
+                            {{detallePedidosLi.platosAMostrar.idPlatosAMostrar}}</td>
+                        <td *ngIf="modalitoTdEditDetPedid" class="text-center align-middle border-top">
+                            {{detallePedidosLi.porcionPlato}}</td>
+                        <td *ngIf="modalitoTdEditDetPedid" class="text-center align-middle border-top">
+                            {{detallePedidosLi.platosAMostrar.platos.nombrePlato}}</td>
+
+
+
+                        <td *ngIf="modalitoTdEditDetPedid" class="text-center align-middle border-top">
+                            <!-- Boton editar -->
+                            <button class="btn btn-outline-light btn-sm" type="button" (click)="mostrarOcultarModalitoEditDetPedid();
+                             mostrarOcultarModalitoTdEditDetPedid();
+                             obtenerDetPedXId(detallePedidosLi.idDetallePedido, 
+                             detallePedidosLi.pedidos.idPedido, 
+                             detallePedidosLi.platosAMostrar.idPlatosAMostrar, 
+                             detallePedidosLi.porcionPlato, 
+                             detallePedidosLi.platosAMostrar.platos.nombrePlato )">
+                                <i class="far fa-edit small"></i>
+                            </button>
+                            <!-- Boton borrar -->
+                            <button class="btn btn-outline-light btn-sm" type="button" (click)="eliminarDetallePedidos(detallePedidosLi.idDetallePedido,
+                             detallePedidosLi.pedidos.idPedido);">
+                                <i class="far fa-trash-alt small"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Formulario editar detalle del pedido -->
+            <form
+                (ngSubmit)="editarDetallePedidos(); modalitoInputEditDetPedid = false; modalitoTdEditDetPedid = true"
+                novalidate #f="ngForm" class="text-center justify-content-center p-2">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr *ngIf="modalitoInputEditDetPedid">
+                                <th class="text-center" scope="col" [style.display]="'none'">ID DET PED</th>
+                                <th class="text-center" scope="col">NUEVO PLATO </th>
+                                <th class="text-center" scope="col">PORCION</th>
+                                <th class="text-center" scope="col">PLATO ACTUAL</th>
+                                <th class="text-center" scope="col">EDICION</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="col-2">
+
+                                <td *ngIf="modalitoInputEditDetPedid" [style.display]="'none'"
+                                    class="text-center align-middle border-top">
+                                    <input [(ngModel)]="idDetallePedido" type="number" class="form-control"
+                                        name="idDetPed">
+                                </td>
+                                <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
+                                    <select class="form-select"
+                                        [(ngModel)]="idPlatosAMostrar" name="idPlaMos" required>
+                                        <option disabled selected>{{idPlatosAMostrar}} - {{nombrePlato}}
+                                        </option>
+                                        <option *ngFor="let platoAMostrar of platosAMostrarList"
+                                         [value]="platoAMostrar.idPlatosAMostrar">
+                                            {{ platoAMostrar.idPlatosAMostrar }} - {{
+                                            platoAMostrar.platos.nombrePlato }}
+                                        </option>
+                                    </select>                                   
+                                </td>
+
+                                <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
+                                    <input [(ngModel)]="porcionPlato" type="number" min="1" max="10"
+                                        class="form-control" name="porcPla">
+                                </td>
+                                <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
+                                    <input [(ngModel)]="nombrePlato" type="text" readonly
+                                        title="Seleccionar el plato a editar en la columna 'NUEVO PLATO' "
+                                        class="form-control" name="nombrePla">
+                                </td>
+                                <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
+                                    <!-- Boton enviar edicion -->
+                                    <button class="btn btn-light rounded-circle border border-secondary"
+                                        title="Enviar actualizacion" type="submit">
+                                        <i class="far fa-check-circle small"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="containerLink" id="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+</div>

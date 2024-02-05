@@ -48,10 +48,7 @@ export class PedidosService {
     public listaPedidosXFecha(fecha: string): Observable<PedidosModel[]> {
      return this.httpClient.get<PedidosModel[]>(this.URL + `listapedidosxfecha/${fecha}`);
    }
-    
-   public listaFechasDelPedido(): Observable<string[]> {
-    return this.httpClient.get<string[]>(this.URL + 'listafechasdelpedido');
-  }
+
    
  
 

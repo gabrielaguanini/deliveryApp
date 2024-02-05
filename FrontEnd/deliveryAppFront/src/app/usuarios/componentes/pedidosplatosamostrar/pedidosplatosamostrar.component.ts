@@ -10,7 +10,7 @@ import { PedidosService } from '../../servicios/pedidos.service';
 import { DetallePedidos } from '../../modelos/detalle-pedidos';
 import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 import { DetallePedidosAcotadaModel } from '../../modelos/detalle-pedidos-acotadaModel';
-import { EMPTY, forkJoin, switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'app-pedidosplatosamostrar',
@@ -68,9 +68,9 @@ export class PedidosplatosamostrarComponent {
   totalesPlatosList: number[] = []; // Array para almacenar los totales de cada plato, esta lista se itera con el let i = index del componente
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPlatosDelPedido: string[] = [];
-  detallesPedidosAcotada: DetallePedidosAcotadaModel[] = [];
-  listaPedidosXFecha: PedidosModel[] = [];
-  listaFechasDelPedido: string[] = [];
+  detallesPedidosAcotada: DetallePedidosAcotadaModel[] = []; 
+  listaPeConfTrueFalse: Boolean[] = [true,false];
+
 
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
@@ -82,13 +82,15 @@ export class PedidosplatosamostrarComponent {
   fecha!: string;
   hora!: string;
 
+  //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
+  /////////////////////////////////// 
 
 
   //EDITAR PEDIDO
   //////////////////
   idPedido!: number;
-  fechaPedido!: string;
-  horaPedido!: string;
+ 
+ 
   nombreCliente!: string;
   telefonoCliente!: string;
   direccionCliente!: string;
@@ -109,7 +111,7 @@ export class PedidosplatosamostrarComponent {
   //EDITAR DETALLE PEDIDO
   detallePedidos!: DetallePedidos;
   nombrePlato!: string;
- 
+
 
 
   //VARIOS
@@ -119,7 +121,7 @@ export class PedidosplatosamostrarComponent {
   botonDisplayNonedEnvDetPe: string = "";
   botonDisabledSeleccPlato: boolean = false;
   botonDisplayNoneSeleccPlato: string = ""
-  inputReadOnlyDatEnvio: boolean = false;  
+  inputReadOnlyDatEnvio: boolean = false;
   inputReadOnlyPorcionPlato: boolean = false;
   inputDisabledPorcionPlato: boolean = false;
   chekBoxSelcPlat: boolean = false;
@@ -147,6 +149,7 @@ export class PedidosplatosamostrarComponent {
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
     
     
+
   };
 
 
@@ -181,6 +184,7 @@ export class PedidosplatosamostrarComponent {
       class: 'modal-dialog-centered modal-lg' // tamaño del modal
     };
     this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig })
+    
   };
 
   //MODALITO NGIF (NO BSMODALREF)
@@ -198,17 +202,17 @@ export class PedidosplatosamostrarComponent {
 
 
 
-  mostrarOcultarModalitoEditDetallePedid(){
+  mostrarOcultarModalitoEditDetallePedid() {
     this.modalitoEditPedid = !this.modalitoEditPedid;
   };
 
-   mostrarOcultarModalitoEditDetPedid(){
+  mostrarOcultarModalitoEditDetPedid() {
     this.modalitoInputEditDetPedid = !this.modalitoInputEditDetPedid;
-   };
+  };
 
-   mostrarOcultarModalitoTdEditDetPedid(){
+  mostrarOcultarModalitoTdEditDetPedid() {
     this.modalitoTdEditDetPedid = !this.modalitoTdEditDetPedid;
-   };
+  };
 
 
 
@@ -231,18 +235,11 @@ export class PedidosplatosamostrarComponent {
     this.detallePedidServ.listaDetallePedidos().subscribe(data => this.detallePedidosList = data);
   };
 
-  listaDetallePedidosXIdPedido(idPedido:number): void {
+  listaDetallePedidosXIdPedido(idPedido: number): void {
     this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
   };
 
-  listaDePedidosXFecha(fecha: string): void{
-    this.fecha = fecha;
-    this.pedidosServ.listaPedidosXFecha(this.fecha).subscribe(data => this.listaPedidosXFecha = data);
-  };
-
-  listaFechasPedidos(): void{
-    this.pedidosServ.listaFechasDelPedido().subscribe(data => this.listaFechasDelPedido = data)
-  };
+ 
 
 
 
@@ -381,8 +378,8 @@ export class PedidosplatosamostrarComponent {
       this.direccionCliente,
       this.localidadCliente,
       this.platosDelPedido,
-      this.fechaPedido,
-      this.horaPedido,
+      this.fecha,
+      this.hora,
       this.importeTotalPedido,
       this.pedidoConfirmado
     );
@@ -406,14 +403,14 @@ export class PedidosplatosamostrarComponent {
     );
 
   };
-  
+
   //selecciona el chekbox al utilizar la flecha aumento o decremento del input
   seleccionarChekBoxSiHayPorcionPla(index: number): void {
 
-    if (!this.porcionesPlatosList[index]) {      
+    if (!this.porcionesPlatosList[index]) {
       this.porcionesPlatosList[index] = 1; // Establece el valor inicial solo si no hay ninguna porción ingresada
       this.platosSeleccionadosSioNo[index] = false;
-     
+
     }
     this.platosSeleccionadosSioNo[index] = true;  // Establece el checkbox como seleccionado
     this.calcularTotalPlato(index);
@@ -430,10 +427,9 @@ export class PedidosplatosamostrarComponent {
       // si se selecciona el checkbox 
       this.porcionesPlatosList[index] = NaN;
       this.totalesPlatosList[index] = NaN;
-    
-    } 
-    else 
-    {
+
+    }
+    else {
       // si se deselecciona el chekbox que antes se selecciono
       this.porcionesPlatosList[index] = 1;
       this.calcularTotalPlato(index);
@@ -466,32 +462,32 @@ export class PedidosplatosamostrarComponent {
       this.botonDisplayNoneDatosEnvio = "";
       this.ocultarBotonGuardarDatosEditados();
       this.mostrarBtnAgregarPlatPedido();
-      
+
     }
   };
 
-   ocultarBtonAgregarPlatPedido(): void{
+  ocultarBtonAgregarPlatPedido(): void {
     this.botonDisplayNoneSeleccPlato = "none";
     this.inputReadOnlyDatEnvio = false;
     this.botonDisplayNoneGuardEdiDatEnv = "";
     this.botonDisplayNonedEnvDetPe = "none"
     //this.botonDisplayNoneDatosEnvio = "none";
     //this.mostrarModalitoAgregarPlatos = false;
-   
-   };
 
-   mostrarBtnAgregarPlatPedido(): void {
+  };
+
+  mostrarBtnAgregarPlatPedido(): void {
     this.botonDisplayNonedEnvDetPe = ""
-   };
+  };
 
-   ocultarBtonEditarDatEnv(): void{
+  ocultarBtonEditarDatEnv(): void {
     this.inputReadOnlyDatEnvio = true;
     this.botonDisplayNoneDatosEnvio = "";
     this.modalitoAgregarPlatos = true;
-   };
+  };
 
-   ocultarBotonGuardarDatosEditados(): void {
-    this. botonDisplayNoneGuardEdiDatEnv = "none" 
+  ocultarBotonGuardarDatosEditados(): void {
+    this.botonDisplayNoneGuardEdiDatEnv = "none"
   };
 
 
@@ -499,7 +495,7 @@ export class PedidosplatosamostrarComponent {
 
   //EDITAR PEDIDO
   /////////////////////////
-  obtPedidoXId(idPedido: number, fechaPedido: string, horaPedido: string, nombreCliente: string, telefonoCliente: string,
+  obtPedidoXId(idPedido: number, fecha: string, horaPedido: string, nombreCliente: string, telefonoCliente: string,
     direccionCliente: string, localidadCliente: string, listaPlatosDelPedido: string, importeTotalPedido: number, pedidoConfirmado: boolean): void {
 
     this.idPedido = idPedido;
@@ -508,33 +504,39 @@ export class PedidosplatosamostrarComponent {
     this.direccionCliente = direccionCliente;
     this.localidadCliente = localidadCliente;
     this.platosDelPedido = listaPlatosDelPedido;
-    this.fechaPedido = fechaPedido;
-    this.horaPedido = horaPedido;
+    this.fecha = fecha;
+    this.hora = horaPedido;
     this.importeTotalPedido = importeTotalPedido;
     this.pedidoConfirmado = pedidoConfirmado;
-    
+
   };
 
 
 
   editarPedido(): void {
-    const pedid = new PedidosModel(this.idPedido,
+    const pedid = new PedidosModel(
+      this.idPedido,
       this.nombreCliente,
       this.telefonoCliente,
       this.direccionCliente,
       this.localidadCliente,
       this.platosDelPedido,
-      this.fechaPedido,
-      this.horaPedido,
+      this.fecha,
+      this.hora,
       this.importeTotalPedido,
-      this.pedidoConfirmado);
+      this.pedidoConfirmado
+      );
 
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
-      this.listaPedidosDeHoy();
-      alert("Pedido editado");
+      this.listaPedidosDeHoy();  
+      console.log("Msj. Servidor: " + JSON.stringify(data));
+      alert("Pedido actualizado");
     },
-      err => { alert("No se editó el pedido");
-               console.log(err) })
+      err => {
+        console.log("Msj. Servidor: " + err.error.message);
+        alert("Error, no se pudo editar el pedido");
+        console.log(err)
+      })
   };
 
   //BORRAR PEDIDO
@@ -557,13 +559,13 @@ export class PedidosplatosamostrarComponent {
     }
   };
 
-  
+
   eliminarPedidoSinDetPed(): void {
     // Itera sobre cada elemento en pedidosDeHoyList
     for (const pedido of this.pedidosDeHoyList) {
       // Accede a la propiedad listaPlatosDelPedido de cada elemento
       const listaPlatos = pedido.listaPlatosDelPedido;
-  
+
       // Verifica si listaPlatos está vacía antes de intentar eliminar el pedido
       if (!listaPlatos || listaPlatos.trim() === '') {
         // Elimina el pedido solo si listaPlatos está vacía
@@ -578,7 +580,7 @@ export class PedidosplatosamostrarComponent {
         );
       }
     }
-  }; 
+  };
 
 
 
@@ -635,7 +637,7 @@ export class PedidosplatosamostrarComponent {
       //console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
       this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
         data => {
-        
+
           this.listaPedidosDeHoy();
           this.botonDisabledEnvDetPe = true;
           this.botonEditarPlatosSelecYDat = "none";
@@ -658,16 +660,16 @@ export class PedidosplatosamostrarComponent {
   /////////////////////////////
 
 
-  obtenerDetPedXId(idDetallePedido:number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato:string){
+  obtenerDetPedXId(idDetallePedido: number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato: string) {
     this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
       this.idDetallePedido = idDetallePedido;
       this.idPedido = idPedido;
       this.idPlatosAMostrar = idPlatosAMostrar;
       this.porcionPlato = porcionPlato
       this.nombrePlato = nombrePlato;
-      console.log("Detalles del pedido con idDetallePedido: " + idDetallePedido);
-    
-    }, err =>{
+      console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
+
+    }, err => {
       console.log(err);
       alert("Error, no se trajeron los detalles del pedido")
     })
@@ -675,56 +677,57 @@ export class PedidosplatosamostrarComponent {
 
 
   editarDetallePedidos(): void {
-    
-    const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar,  this.porcionPlato ) 
 
-   
+    const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato)
+
+
     this.detallePedidServ
       .actualizarDetallePedido(this.idDetallePedido, detPed)
       .subscribe(
         (data) => {
-          console.log("Detalles del pedido actualizados." + JSON.stringify(detPed)); 
-          alert("Detalles del pedido actualizados.");
+       
           this.listaDetallePedidosXIdPedido(this.idPedido);
-          this.listaPedidosDeHoy();
+          this.listaPedidosDeHoy();         
+          console.log("Msj servidor: " + JSON.stringify(data));
+          alert("Detalles del pedido actualizados.");
         },
         (err) => {
-         
+
           console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
-         
+
           //console.log("DetPEd: " + JSON.stringify(detPed));
-          alert("Error al actualizar el detalle del pedido. " +  err.error.message);
+          alert("Error al actualizar el detalle del pedido. " + err.error.message);
         }
       );
   };
 
   //BORRAR DETALLE PEDIDO 
   /////////////////////////////
-  
-  eliminarDetallePedidos(idDetallePedido: number, idPedido:number): void {
-  //Advertencia para eliminar el pedido
-  const confirmacion = window.confirm("El detalle del pedido se eliminará");
 
-  if (confirmacion) {
-    this.detallePedidServ.eliminarDetallePedido(idDetallePedido , idPedido).subscribe(data => {
-      alert("Detalle del pedido eliminado.");
-      this.listaDetallePedidosXIdPedido(idPedido);
-      this.listaPedidosDeHoy();
-    }, err => {
-      // Error al eliminar el pedido
-      console.log("No se pudo eliminar el detalle del pedido", err);
-      alert("Error al eliminar el detalle del pedido.");
+  eliminarDetallePedidos(idDetallePedido: number, idPedido: number): void {
+    //Advertencia para eliminar el pedido
+    const confirmacion = window.confirm("El detalle del pedido se eliminará");
+
+    if (confirmacion) {
+      this.detallePedidServ.eliminarDetallePedido(idDetallePedido, idPedido).subscribe(data => {
+        alert("Detalle del pedido eliminado.");
+        this.listaDetallePedidosXIdPedido(idPedido);
+        this.listaPedidosDeHoy();
+      }, err => {
+        // Error al eliminar el pedido
+        console.log("No se pudo eliminar el detalle del pedido", err);
+        alert("Error al eliminar el detalle del pedido.");
+      }
+      );
     }
-    );
-  }
-};
+  };
 
   calcularTotalPedidoAlEditarDetPed(): void {
-    
+
   };
 
 
-  
+
 
 
   //muestra una lista de los platos seleccionados para el pedido antes de enviarla a la DB
@@ -764,7 +767,7 @@ export class PedidosplatosamostrarComponent {
 
   //EDITAR PLATOS SELECCIONADOS
   /////////////////////////////
-  editarPlatSeleccAntesEnv(): void{
+  editarPlatSeleccAntesEnv(): void {
     //this.botonDisabledCrPe = false;
     this.chekBoxSelcPlat = false;
     this.inputReadOnlyPorcionPlato = false;
@@ -772,8 +775,8 @@ export class PedidosplatosamostrarComponent {
     this.botonDisplayNoneCrPe = "none";
     this.botonDisplayNonedEnvDetPe = "none";
     this.inputDisabledPorcionPlato = false;
-    this.botonEditarPlatosSelecYDat= "none";    
-  
+    this.botonEditarPlatosSelecYDat = "none";
+
   };
 
   //oculta botones agregar platos al pedido y crear pedido
@@ -782,37 +785,37 @@ export class PedidosplatosamostrarComponent {
     this.botonConfirEdicPlatosSelecYDat = "";
   };
 
-  confirmarPlatSelecc(): void { 
+  confirmarPlatSelecc(): void {
     const seleccionados = this.platosAMostrarList
-    .filter((_, index) => this.platosSeleccionadosSioNo[index]);
-     const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
-     const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);
-     const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);;
-  
-  //validador sin seleccion alguna de chekbox
-  if (seleccionados.length === 0) {
-    alert("Selecciona al menos un plato");
- 
+      .filter((_, index) => this.platosSeleccionadosSioNo[index]);
+    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
+    const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);
+    const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);;
 
-    return;
-  };
+    //validador sin seleccion alguna de chekbox
+    if (seleccionados.length === 0) {
+      alert("Selecciona al menos un plato");
 
-   //validador para seleccion de su chekbox y no ingreso de porciones
-   if (porcionesNoIngresadas) {
-    alert("Ingresa porcion/es");
-   
-    //console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
-    return;
-  };
 
-  //validador para seleccion de 2 o mas platos, uno o mas (menos q el total seleccionado) sin porciones 
-  if (totalesPlatosIncluyeCero && unPlatoSeleccionado === true) {
-    console.log("Ingresa porciones a todos los platos seleccionados: " + totalesPlatosIncluyeCero);
-    //console.log("Lista totalesPlatos: " + this.totalesPlatosList);
-    //console.log("un plato seleccionado minimo?: " + unPlatoSeleccionado);
-    alert("Ingresa porciones a todos los platos seleccionados");  
-    return;
-  };
+      return;
+    };
+
+    //validador para seleccion de su chekbox y no ingreso de porciones
+    if (porcionesNoIngresadas) {
+      alert("Ingresa porcion/es");
+
+      //console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
+      return;
+    };
+
+    //validador para seleccion de 2 o mas platos, uno o mas (menos q el total seleccionado) sin porciones 
+    if (totalesPlatosIncluyeCero && unPlatoSeleccionado === true) {
+      console.log("Ingresa porciones a todos los platos seleccionados: " + totalesPlatosIncluyeCero);
+      //console.log("Lista totalesPlatos: " + this.totalesPlatosList);
+      //console.log("un plato seleccionado minimo?: " + unPlatoSeleccionado);
+      alert("Ingresa porciones a todos los platos seleccionados");
+      return;
+    };
 
     this.botonConfirEdicPlatosSelecYDat = "none";
     this.botonEditarPlatosSelecYDat = ""
@@ -827,14 +830,14 @@ export class PedidosplatosamostrarComponent {
 
   mostrarONoBtnEditarPlaSelec(): void {
     const seleccionados = this.platosAMostrarList
-    .filter((_, index) => this.platosSeleccionadosSioNo[index]);
-  //validador sin seleccion alguna de chekbox
-  if (seleccionados.length === 0) {
-    console.log("Selecciona al menos un plato para el pedido");
-    this.modalitoEnviarPedido = false;
+      .filter((_, index) => this.platosSeleccionadosSioNo[index]);
+    //validador sin seleccion alguna de chekbox
+    if (seleccionados.length === 0) {
+      console.log("Selecciona al menos un plato para el pedido");
+      this.modalitoEnviarPedido = false;
 
-    return;
-  };
+      return;
+    };
     this.botonEditarPlatosSelecYDat = ""
   };
 
@@ -860,7 +863,7 @@ export class PedidosplatosamostrarComponent {
   };
 
   //cierra modalitos (no bsmodalref)
-  cerrarModalitos(): void {
+  cerrarModalitosLimpiarInput(): void {
     this.modalitoAgregarPlatos = false;
     this.modalitoEnviarPedido = false;
     //reinicia la lista de porciones para borrarla y que cuando
@@ -887,13 +890,33 @@ export class PedidosplatosamostrarComponent {
     this.nombreCliente = "";
     this.telefonoCliente = "";
     this.direccionCliente = "";
-    this.localidadCliente= "";
+    this.localidadCliente = "";
     this.modalitoEditPedid = false;
     this.detallePedidosListxIdPedido = [];
-    this.idPedido = NaN
+    this.idPedido = NaN;
     this.modalitoInputEditDetPedid = false;
     this.modalitoTdEditDetPedid = true;
+
+
+
+
+    this.idPlato = NaN;
+    this.idPlatosAMostrar = NaN;
+    this.descripcionPlatoAMostrar = "";
+    this.fecha = "";
+    this.hora = "";
+
+    this.platosDelPedido = "";
+    this.importeTotalPedido = NaN;
+
+    this.idDetallePedido = NaN;
+    this.porcionPlato = NaN;
+    this.precioPlatosAMostrar = NaN;
+    this.totalPlato = NaN;
+    this.nombrePlato = "";
+
   };
+
 
   // Evita que se ingresen numeros o porciones manualmente en el input
   handleKeydown(event: KeyboardEvent): void {
@@ -901,7 +924,30 @@ export class PedidosplatosamostrarComponent {
   };
 
 
+  // Ancla para ir a secciones mediante un button
+  scrollASeccion(sectionId: string): void {
+    try {
+      const tryScroll = () => {
+        const section = document.getElementById(sectionId);
+  
+        if (!section) {
+          console.error(`La sección con ID '${sectionId}' no fue encontrada.`);
+          return;
+        }
+  
+        //console.log('Sección encontrada:', section);
+        section.scrollIntoView({ behavior: 'smooth' });
+      };
+  
+      // scroll a ancla después de 500 milisegundos
+      setTimeout(tryScroll, 500);
+    } catch (error) {
+      console.error('Error al intentar hacer scroll:', error);
+    }
+  }
 
+
+  
 }
 
 
