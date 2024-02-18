@@ -63,27 +63,52 @@ ngOnInit(): void {
 
 
 
-  //FUNCIONES LISTAS
-  listaDePedidosXFecha(fecha: string): void {
+ 
+//FUNCIONES LISTAS
+listaDePedidosXFecha(fecha: string, alertConLog: boolean = true, isRequestByDate: boolean = true): void {
+  if (alertConLog) {
     if (fecha === undefined || fecha.trim() === '' || fecha === '') {
-      
-        this.fecha = "";
-        console.error('La fecha no puede estar vacía');
-        alert('La fecha no puede estar vacía');
-      
+      this.fecha = "";
+      console.error('La fecha no puede estar vacía');
+      alert('La fecha no puede estar vacía');
     } else {
       this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
-        
-        data => this.listaPedidosXFecha = data,
+        data => {
+          this.listaPedidosXFecha = data;
+          if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
+            this.fecha = "";
+            alert('No existen registros con la fecha ingresada');
+          }
+        },        
         err => {
           this.fecha = "";
           console.error(err.error.message);
-          // Puedes mostrar un mensaje de error al usuario si lo deseas
           alert(err.error.message);
         }
       );
     }
-  };
+  } else {
+    // Si alertConLog es false, solo actualiza la lista sin mostrar alertas ni logs
+    if (fecha === undefined || fecha.trim() === '' || fecha === '') {
+      this.fecha = "";
+    } else {
+      this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
+        data => {
+          this.listaPedidosXFecha = data;
+          if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
+            this.fecha = "";
+            alert('No existen registros con la fecha ingresada');
+          }
+        },
+        err => {
+          this.fecha = "";
+        }
+      );
+    }
+  }
+}
+
+
   
   listaDetallePedidosXIdPedido(idPedido: number): void {
     this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
@@ -151,16 +176,18 @@ mostrarOcultarModalitoEditDetallePedid() {
 
     if (confirmacion) {
       this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
-        this.listaDePedidosXFecha(this.fecha);
+        this.listaDePedidosXFecha(this.fecha, false, false);
         alert("Pedido eliminado.");
+      
        
       }, err => {
         // Error al eliminar el pedido
+        this.fecha="";
         console.log("No se pudo eliminar el pedido", err);
         alert("Error al eliminar el pedido.");
       }
       );
-    }
+    } 
   };
 
   //EDITAR PEDIDO
@@ -179,7 +206,7 @@ mostrarOcultarModalitoEditDetallePedid() {
       );
 
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
-      this.listaDePedidosXFecha(this.fecha);
+      this.listaDePedidosXFecha(this.fecha, false, false);
       console.log("Msj. Servidor: " + JSON.stringify(data));
       alert("Pedido actualizado");
     },
@@ -244,7 +271,7 @@ mostrarOcultarModalitoEditDetallePedid() {
         (data) => {
        
           this.listaDetallePedidosXIdPedido(this.idPedido);
-          this.listaDePedidosXFecha(this.fecha);
+          this.listaDePedidosXFecha(this.fecha, false, false);
           console.log("Msj servidor: " + JSON.stringify(data));
           alert("Detalles del pedido actualizados.");
         },
@@ -262,11 +289,37 @@ mostrarOcultarModalitoEditDetallePedid() {
 
 //FUNCIONES VARIAS
 
+ //cierra modalitos (no bsmodalref)
+ cerrarModalitosLimpiarInput(): void {
+  
+  this.nombreCliente = "";
+  this.telefonoCliente = "";
+  this.direccionCliente = "";
+  this.localidadCliente = "";
+  this.modalitoEditPedid = false;
+  this.detallePedidosListxIdPedido = [];
+  this.idPedido = NaN;
+  this.modalitoInputEditDetPedid = false;
+  this.modalitoTdEditDetPedid = true;
+
+
+  this.platosDelPedido = "";
+  this.importeTotalPedido = NaN;
+
+  this.idDetallePedido = NaN;
+  this.porcionPlato = NaN;
+
+  this.nombrePlato = "";
+
+};
+
+
 
 
  // Genera una lista de pedidos de hoy vacia para poder eliminar los registros
  // traidos de la pantalla. Algo asi como borrar.
  listaPedXFechaVacia(): void{
+  this.fecha= "";
   this.listaPedidosXFecha = [];
 };
 

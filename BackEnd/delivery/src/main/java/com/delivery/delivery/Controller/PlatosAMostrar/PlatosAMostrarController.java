@@ -2,10 +2,15 @@ package com.delivery.delivery.Controller.PlatosAMostrar;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
+import com.delivery.delivery.Mensaje.MensajeRunTimeException;
+import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Platos.PlatosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +32,8 @@ public class PlatosAMostrarController {
 
     @Autowired
     PlatosService platosServ;
+    
+     private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarController.class);
 
 //LISTA DE PLATOS A MOSTRAR 
     @GetMapping("/listaplatosamostrar")
@@ -48,17 +55,18 @@ public class PlatosAMostrarController {
 //GUARDAR PLATO A MOSTRAR    
     
     @PostMapping("/guardarplatoamostrar")
-    public ResponseEntity<?> guardarPlato(@RequestBody PlatosAMostrar platosAMostrar) {
-
-        //VERIFICA SI EL PLATO QUE SE VA A GUARDAR EXISTE EN LA TABLA PLATOS, GUARDA EL PLATO SI ÉSTE EXISTE
-        if (platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
-            plaMosServ.guardar(platosAMostrar);
-            //plaMosServ.updatePrecioPlato(platosAMostrar.getIdPlatosAMostrar());
-            return new ResponseEntity(new Mensaje("Plato añadido"), HttpStatus.OK);
-        } else {
-            return new ResponseEntity(new Mensaje("El Plato no se guardo"), HttpStatus.OK);
-        }
-
+    public ResponseEntity<?> guardarPlatoAMos(@RequestBody PlatosAMostrar platosAMostrar) {
+        
+       try {       
+            plaMosServ.guardar(platosAMostrar);           
+             return new ResponseEntity<>(new Mensaje("Plato a mostrar guardado"), HttpStatus.OK);
+       } catch (MensajeResponseStatusException e) {
+         logger.error(" El plato seleccionado ya existe en Platos a mostrar o el plato seleccionado no esta registrado en la tabla platos " + e.getMessage());
+         throw e;
+       } catch (Exception e){
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al guardar el plato a mostrar"), e);
+       }
     };   
     
     

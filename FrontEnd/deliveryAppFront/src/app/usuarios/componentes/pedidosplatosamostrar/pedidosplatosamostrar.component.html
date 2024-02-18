@@ -1,5 +1,6 @@
 <div class="container-fluid">
-
+<br>
+<br>
 
 
     <!-- MODAL AGREGAR PEDIDO -->
@@ -569,21 +570,158 @@
 
 
 
+<!-- LISTA DE PLATOS A MOSTRAR -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="bordesYBackGrCardGdePlaMos">
+                <div class="cardGrandepPlaMos p-4">
+                    <div class="card-icon card-icon-large">
+                        <i class=></i>
+                    </div>
+                    <div class="mb-1">
+                        <h5 class="card-title pb-3 text-center">PLATOS A MOSTRAR</h5>
+                        <div class="button-divisor pb-4 text-center">
+                            <!-- Boton agregar plato a mostrar -->
+                            <div class="col-1" id="">
+                                <button class="btn btn-outline-light btn-md" title="AGREGAR PLATO A MOSTRAR" (click)="openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar); 
+                                             cerrarModalitosLimpiarInput();
+                                             listaPlatosComp()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-white">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1 text-center">ID PLATO A MOSTRAR</th>
+                                        <th class="col-1 text-center">ID PLATO</th>
+                                        <th class="col-1 text-center">TIPO PLATO</th>
+                                        <th class="col-2 text-center">NOMBRE PLATO</th>
+                                        <th class="col-2 text-center">DESCRIPCION</th>
+                                        <th class="col-1 text-center">PRECIO PLATO</th>
+                                        <th class="col-2 text-center">IMAGEN</th>
+                                        <th class="col-1 text-center">EDICION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let plaMos of platosAMostrarList">
+                                        <td class="col-1 text-center">
+                                            <p class="text-justify">{{plaMos.idPlatosAMostrar}}</p>
+                                        </td>
+                                        <td class="col-1 text-center">
+                                            <p class="text-justify">{{plaMos.platos.idPlato}}</p>
+                                        </td>
+                                        <td class="col-1 text-center">
+                                            <p class="text-justify">{{plaMos.platos.tipoPlato.nombreTipoPlato}}</p>
+                                        </td>
+                                        <td class="col-2 text-center">
+                                            <p class="text-justify">{{plaMos.platos.nombrePlato}}</p>
+                                        </td>
+                                        <td class="col-2 text-center">
+                                            <p class="text-justify">{{plaMos.descripcionPlatoAMostrar}}</p>
+                                        </td>
+                                        <td class="col-1 text-center">
+                                            <p class="text-justify">$ {{plaMos.platos.precioPlato}}</p>
+                                        </td>
+                                        <td class="col-2 text-center">
+                                            <img class="text-justify img-fluid" src="{{plaMos.platos.imgPlato}}">
+                                        </td>
 
-   
+                                        <td class="col-1 text-center">
+                                            <!-- Boton borrar -->
+                                            <button class="btn btn-outline-light btn-md"
+                                                (click)="borrarPlatMosMensajeAdv(plaMos.idPlatosAMostrar)">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                            <br>
+                                            <br>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-                   
 
+    <!-- MODAL AGREGAR PLATOS A MOSTRAR -->
 
+    <ng-template #templateAgregarPlatoAMostrar>
+        <div class="container modal-menu">
+            <div class="row">
+                <div class="modal-header">
+                    <h4 class="modal-title">AGREGAR PLATOS A MOSTRAR</h4>
+                    <div class="card-icon card-icon-large">
+                        <i class=""></i>
+                    </div>
+                    <button type="button" class="btn btn-outline-light btn-sm"
+                        (click)="cerrarModalitosLimpiarInput(); resetFormCleanChekBox('formularioAgPlaMos'); modalAgregarPlatosAMos.hide()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <form novalidate #f="ngForm" (ngSubmit)="agregarPlatoAMos()" class="pedidosForm"
+                    id="formularioAgPlaMos">
+                    <div class="row text-center">
+                        <div class="form-group col-12 pb-3">
+                            <label for="idPlato">ID PLATO</label>
+                            <select class="form-select" [(ngModel)]="idPlato" (change)="agregarPlatosEnInputs(idPlato)"
+                                name="idPlato" required>
 
-
-
-
-
-
-
-
+                                <option *ngFor="let listaPlatos of listaPlatosCompleta" [value]="listaPlatos.idPlato">
+                                    {{ listaPlatos.idPlato}} - {{ listaPlatos.nombrePlato}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="idPlatosAMostrar">ID PLATOS A MOSTRAR</label>
+                            <input readonly type="number" class="form-control" id="idPlatosAMostrar"
+                                name="idPlatosAMostrar" [value]="idPlatosAMostrar" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="tipoPlato">TIPO PLATO</label>
+                            <input readonly type="text" class="form-control" id="tipoPlato" name="tipoPlato"
+                                [value]="tipoPlato" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="nombrePlato">NOMBRE PLATO</label>
+                            <input readonly type="text" class="form-control" id="nombrePlato" name="nombrePlato"
+                                [value]="nombrePlato" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="precioPlato">PRECIO PLATO $</label>
+                            <input readonly type="number" class="form-control" id="precioPlato" name="precioPlato"
+                                [value]="precioPlato" required>
+                        </div>
+                        <div class="form-group col-12 pb-3">
+                            <label for="descripcionPlatoAMostrar">DESCRIPCION</label>
+                            <input type="text" class="form-control" id="descripcionPlatoAMostrar"
+                                name="descripcionPlatoAMostrar" [(ngModel)]="descripcionPlatoAMostrar" required>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <button class="btn btn-outline-light btn-sm">
+                                    AGREGAR PLATOS A MOSTRAR
+                                </button>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ng-template>
+</div>
 
 
 
@@ -608,6 +746,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 

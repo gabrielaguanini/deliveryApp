@@ -36,7 +36,7 @@ public class DetallePedidosController {
     @Autowired
     PlatosAMostrarService plaMosSer;
 
-    private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
+    private static final Logger logger = LoggerFactory.getLogger(DetallePedidosController.class);
 
     /**
      * Obtiene la lista completa de DetallePedidos.

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IPlatosAMostrarRepository extends JpaRepository <PlatosAMostrar, Long>{
     
-   
+   public boolean existsByPlatos_IdPlato(Long idPlato);
 }

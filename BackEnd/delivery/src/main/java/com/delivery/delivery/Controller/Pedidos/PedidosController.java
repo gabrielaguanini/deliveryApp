@@ -2,14 +2,11 @@ package com.delivery.delivery.Controller.Pedidos;
 
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
-import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Collections;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,10 +65,7 @@ public class PedidosController {
         try {
             List<Pedidos> listapedidosxfecha = pedidosServ.listaPedidosXFecha(fecha);
             return new ResponseEntity(listapedidosxfecha, HttpStatus.OK);
-            
-        } catch (MensajeResponseStatusException e) {
-            throw e;
-            
+                 
         } catch (Exception e) {
             logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
             throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de lista por fecha"), e);

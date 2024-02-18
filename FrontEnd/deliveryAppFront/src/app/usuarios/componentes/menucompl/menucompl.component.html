@@ -290,13 +290,15 @@
                             <div class="button-divisor d-flex justify-content-center pb-2">
                                 <div class="row">
                                     <div class="col text-center">
+                                        <!-- muestra lista segun tipo plato -->
                                         <button type="button" class="btn btn-outline-light btn-sm"
                                             (click)="openModalMenuComp(templateMenuComp); mostrarListaTipoPlato(TipoPlato.idTipoPlato)"><small>LISTA</small>
                                         </button>
                                     </div>
                                     <div class="col text-center">
+                                          <!-- abre modal para agregar un plato -->
                                         <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato); borrarInputsCerrarModalito()"><small>AGREGAR</small></button>
+                                            (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato)"><small>AGREGAR</small></button>
                                     </div>
                                 </div>
                             </div>
@@ -318,7 +320,7 @@
                                             <i class="{{TipoPlato.iconoTipoPlato}}"></i>
                                         </div>
                                         <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="modalAgregarPla.hide()">
+                                            (click)="borrarInputsCerrarModalito(); modalAgregarPla.hide()">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -787,11 +789,12 @@
                                         </label>
                                         <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
                                             (click)="listaIconos()" [(ngModel)]="iconoTipoPlato" required>
-                                            <option disabled selected>Seleccionar</option>
+                                         
                                             <option *ngFor="let listaIconos of listaIconosTipoPlato"
                                                 [ngValue]="listaIconos">
                                                 {{listaIconos}}
                                             </option>
+                                            <option disabled selected>Seleccionar</option>
                                             <option value="">No seleccionar un icono</option>
                                         </select>
                                         <input placeHolder="Ingresar un icono de la url font awesome" type="text"

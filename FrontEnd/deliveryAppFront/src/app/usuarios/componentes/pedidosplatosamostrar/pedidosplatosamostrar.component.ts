@@ -70,6 +70,7 @@ export class PedidosplatosamostrarComponent {
   listaPlatosDelPedido: string[] = [];
   detallesPedidosAcotada: DetallePedidosAcotadaModel[] = []; 
   listaPeConfTrueFalse: Boolean[] = [true,false];
+  listaPlatosCompleta: MenuCompletoModel [] = [];
 
 
 
@@ -81,6 +82,8 @@ export class PedidosplatosamostrarComponent {
   platosAMostrar!: PlatosAMostrar;
   fecha!: string;
   hora!: string;
+  tipoPlato!: string;
+  precioPlato!: number;
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
   /////////////////////////////////// 
@@ -147,7 +150,7 @@ export class PedidosplatosamostrarComponent {
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
     this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
-    
+    //this.listaPlatosComp();
     
 
   };
@@ -155,6 +158,7 @@ export class PedidosplatosamostrarComponent {
 
   //MODAL PLATOS A MOSTRAR
   ////////////////////////////
+
   openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar: TemplateRef<any>) {
     this.modalAgregarPlatosAMos = this.modalService.show(templateAgregarPlatoAMostrar, { backdrop: 'static' })
   };
@@ -200,8 +204,6 @@ export class PedidosplatosamostrarComponent {
     this.modalitoEnviarPedido = !this.modalitoEnviarPedido;
   };
 
-
-
   mostrarOcultarModalitoEditDetallePedid() {
     this.modalitoEditPedid = !this.modalitoEditPedid;
   };
@@ -239,7 +241,11 @@ export class PedidosplatosamostrarComponent {
     this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
   };
 
- 
+  listaPlatosComp(): void{
+    this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);
+  };
+
+
 
 
 
@@ -251,10 +257,11 @@ export class PedidosplatosamostrarComponent {
     const plaMos = new PlatosAMostrar(0, this.descripcionPlatoAMostrar, plat)
     this.plaMosServ.guardarPlatoAMostrar(plaMos).subscribe(data => {
       this.listaPlatosAMostrar();
-      alert("Plato guardado");
+      alert("Plato a mostrar guardado");
     },
       err => {
-        alert("No se guardó el plato");
+        alert(err.error.message);
+        console.log(err.error.message);
       }
     );
   };
@@ -311,6 +318,23 @@ export class PedidosplatosamostrarComponent {
     } else {
       ""
     };
+  };
+
+   //CARGAR PLATOS EN INPUT
+  /////////////////////////
+  agregarPlatosEnInputs(idPlato: number): void {
+    this.platosServ.obtPlatoXID(idPlato).subscribe(
+      (plato) => {
+        // Asignar los valores del plato a las variables correspondientes
+        this.idPlatosAMostrar = plato.idPlato;
+        this.tipoPlato = plato.tipoPlato.nombreTipoPlato;
+        this.nombrePlato = plato.nombrePlato;
+        this.precioPlato = plato.precioPlato;
+      },
+      (error) => {
+        // Manejar el error, si es necesario
+      }
+    );
   };
 
 
@@ -914,6 +938,11 @@ export class PedidosplatosamostrarComponent {
     this.precioPlatosAMostrar = NaN;
     this.totalPlato = NaN;
     this.nombrePlato = "";
+
+    this.tipoPlato = "";
+    this.precioPlato = NaN;
+
+    this.listaPlatosCompleta =[];
 
   };
 

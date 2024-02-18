@@ -17,6 +17,7 @@ import org.hibernate.annotations.NotFoundAction;
 @Getter
 @Setter
 @Entity
+
 public class PlatosAMostrar {
     
     @Id

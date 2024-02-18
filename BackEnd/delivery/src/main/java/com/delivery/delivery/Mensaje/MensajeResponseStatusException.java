@@ -16,6 +16,7 @@ public class MensajeResponseStatusException extends ResponseStatusException {
         super(status, reason, cause);
         this.mensaje = new Mensaje(reason);
     }
+    
 
     public Mensaje getMensaje() {
         return mensaje;

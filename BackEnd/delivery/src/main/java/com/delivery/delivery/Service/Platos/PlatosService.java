@@ -34,10 +34,7 @@ public class PlatosService {
         iPlatosRepo.save(plato);     
     }
     
-   // public void executeQuery(){
-   //    iPlatosRepo.executeQuery();
-   // }
-       
+
 
 
     public void borrarPlato(Long idPlato){

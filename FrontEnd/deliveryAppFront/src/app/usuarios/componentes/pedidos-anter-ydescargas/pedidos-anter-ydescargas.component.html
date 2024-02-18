@@ -17,7 +17,8 @@
                 <div class="input-group">
                     <input [(ngModel)]="fecha" type="text" class="form-control mb-3" name="fechabuscar"
                         placeholder="aaaa-mm-dd" maxlength="10"
-                        title="El formato es: aaaa-mm-dd, 4 cifras para año - 2 cifras para mes - 2 cifras para dia">
+                        title="El formato es: aaaa-mm-dd, 4 cifras para año - 2 cifras para mes - 2 cifras para dia"
+                        (click)="cerrarModalitosLimpiarInput()">
                     <div class="input-group-append">
                         <!-- boton editar -->
                         <button class="btn btn-light border border-secondary" title="Enviar actualizacion"
@@ -91,7 +92,7 @@
 
                         <!-- boton borrar -->
                         <button class="btn btn-sm border border-white rounded-5 text-white" type="button"
-                            (click)="eliminarPedido(pedidosXFe.idPedido)">
+                            (click)="cerrarModalitosLimpiarInput(); eliminarPedido(pedidosXFe.idPedido)">
                             <i class="far fa-trash-alt small"></i>
                         </button>
                     </div>

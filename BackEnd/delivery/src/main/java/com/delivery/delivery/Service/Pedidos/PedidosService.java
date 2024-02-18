@@ -1,13 +1,12 @@
 package com.delivery.delivery.Service.Pedidos;
 
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
-import com.delivery.delivery.Mensaje.Mensaje;
+
 import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +15,6 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +25,8 @@ public class PedidosService {
     IPedidosRepository iPedidosRepo;
 
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
+    
+   
 
     public List<Pedidos> listapedidos() {
         List<Pedidos> pedidosList = iPedidosRepo.findAll();
@@ -56,13 +55,9 @@ public class PedidosService {
     ;
     
     public List<Pedidos> listaPedidosXFecha(LocalDate fecha) {
+      List<Pedidos> listaVacia = new ArrayList<>();
         try {
-            List<Pedidos> listaPedXFecha = iPedidosRepo.findByFecha(fecha);
-        
-            if(!existsByFecha(fecha)){
-                throw new MensajeResponseStatusException(new Mensaje("No existen pedidos con la fecha ingresada").getMensaje(), HttpStatus.NOT_FOUND, null);
-            };
-
+            List<Pedidos> listaPedXFecha = iPedidosRepo.findByFecha(fecha);        
             return listaPedXFecha;
 
         } catch (MensajeResponseStatusException e) {

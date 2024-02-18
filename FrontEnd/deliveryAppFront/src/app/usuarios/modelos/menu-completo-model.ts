@@ -2,7 +2,8 @@ import { TipoPlato } from "./tipo-plato";
 
 export class MenuCompletoModel {
 
-    idPlato!: number;    
+    idPlato!: number; 
+    //platos!: { idPlato: number };   
     tipoPlato!: TipoPlato;
     nombrePlato!: string;
     precioPlato!: number;
