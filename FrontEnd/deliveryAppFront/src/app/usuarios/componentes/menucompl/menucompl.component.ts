@@ -125,10 +125,9 @@ export class MenucomplComponent {
 
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
-    private tipoPlaServ: TiposPlatosService,
-    private router: Router,
-    private cartServ: CarteleraService,
-    private PlaMosServ: PlatosAMostrarService
+    private tipoPlaServ: TiposPlatosService,   
+    private cartServ: CarteleraService
+    
   ) { }
 
   ngOnInit(): void {
@@ -508,7 +507,7 @@ export class MenucomplComponent {
         imagen_plato: item.imgPlato,
         id_tipo_plato: item.tipoPlato.idTipoPlato,
         nombre_tipo_plato: item.tipoPlato.nombreTipoPlato,
-        // Otras propiedades que deseas mantener...
+       
       };
     });
   

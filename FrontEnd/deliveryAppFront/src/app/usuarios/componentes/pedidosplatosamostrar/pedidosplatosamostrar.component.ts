@@ -10,6 +10,8 @@ import { PedidosService } from '../../servicios/pedidos.service';
 import { DetallePedidos } from '../../modelos/detalle-pedidos';
 import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 import { DetallePedidosAcotadaModel } from '../../modelos/detalle-pedidos-acotadaModel';
+import * as XLSX from 'xlsx';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -54,6 +56,10 @@ export class PedidosplatosamostrarComponent {
 
   modalitoTdEditDetPedid: boolean = true;
 
+  //MODAL INFO
+  /////////////////////////////
+  modalInfo!: BsModalRef;
+
 
 
 
@@ -87,7 +93,7 @@ export class PedidosplatosamostrarComponent {
 
   //CREAR PLATO A MOSTRAR Y EDITAR PLATO A MOSTRAR
   /////////////////////////////////// 
-
+  imgPlato!: string;
 
   //EDITAR PEDIDO
   //////////////////
@@ -180,7 +186,6 @@ export class PedidosplatosamostrarComponent {
   };
 
 
-
   //MODAL EDITAR PEDIDOS
   ////////////////////////////
   openModalEditarPedidos(templateEditarPedido: TemplateRef<any>) {
@@ -214,6 +219,11 @@ export class PedidosplatosamostrarComponent {
 
   mostrarOcultarModalitoTdEditDetPedid() {
     this.modalitoTdEditDetPedid = !this.modalitoTdEditDetPedid;
+  };
+
+  mostrarOcultarModalInfo(templateModalInfo: TemplateRef<any>): void {
+    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' })
+    
   };
 
 
@@ -327,12 +337,14 @@ export class PedidosplatosamostrarComponent {
       (plato) => {
         // Asignar los valores del plato a las variables correspondientes
         this.idPlatosAMostrar = plato.idPlato;
+        this.imgPlato = plato.imgPlato
         this.tipoPlato = plato.tipoPlato.nombreTipoPlato;
         this.nombrePlato = plato.nombrePlato;
         this.precioPlato = plato.precioPlato;
+       
       },
       (error) => {
-        // Manejar el error, si es necesario
+        // Maneja el error, si es necesario
       }
     );
   };
@@ -864,6 +876,66 @@ export class PedidosplatosamostrarComponent {
     };
     this.botonEditarPlatosSelecYDat = ""
   };
+
+
+
+  //FUNCION PARA CREAR EXCEL CON LISTA COMPLETA
+  ///////////////////////////////////////////////////
+ 
+
+  //genera el excel
+  generateExcel(liPedidosHoy: any[], liPlaMos: any[], pedidosHoyPlaMostrar: string): void {
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+  
+    // Creamos la hoja de Excel para la primera lista o pedidos de hoy
+    const worksheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(liPedidosHoy);
+    XLSX.utils.book_append_sheet(workbook, worksheet1, 'Pedidos Hoy');
+  
+    // Creamos la hoja de Excel para la segunda lista o platos a mostrar
+    const platosAMostrarData = this.platosAMostrarList.map((plato) => {
+    return {
+      'ID Plato a Mostrar': plato.idPlatosAMostrar,
+      'Descripción': plato.descripcionPlatoAMostrar,
+      'ID Tipo Plato': plato.platos.tipoPlato.idTipoPlato,
+      'Tipo de Plato': plato.platos.tipoPlato.nombreTipoPlato,
+      'ID Plato': plato.platos.idPlato,
+      'Nombre del Plato': plato.platos.nombrePlato,
+      'Precio': plato.platos.precioPlato,
+      'Imagen': plato.platos.imgPlato
+    };
+  });
+  const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(platosAMostrarData);
+  XLSX.utils.book_append_sheet(workbook, worksheet2, 'Platos a Mostrar');
+  
+   // Convertimos el libro de Excel en un archivo binario y creamos un enlace de descarga
+  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const dataBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const url = window.URL.createObjectURL(dataBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = pedidosHoyPlaMostrar + '.xlsx'; // Nombre del archivo de Excel
+  link.click(); // Simulamos un clic en el enlace para iniciar la descarga
+  window.URL.revokeObjectURL(url); // Liberamos el recurso del enlace
+
+  
+};
+
+//descargar el excel generado
+exportToExcelOnClick(): void {
+
+  //msj advertencia descarga
+  const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
+  
+  if(msjAdvertenciaDescarga){
+
+  forkJoin([
+    this.pedidosServ.listaPedidosDeHoy(),
+    this.plaMosServ.listaPlatosAMostrar()
+  ]).subscribe(([pedidos, platos]) => {
+    this.generateExcel(pedidos, platos, 'pedidosHoyPlaMostrar');
+  });
+}
+};
 
 
   //FUNCIONES VARIAS

@@ -1,6 +1,52 @@
 <div class="container-fluid">
-<br>
-<br>
+<div class="border border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
+
+<!-- BOTONES DE DESCARGAS E INFO -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="btn-group border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
+                    style="margin: 0 auto;">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <button type="button" class="btn btn-primary btn-sm rounded-pill btn-block"
+                                (click)="mostrarOcultarModalInfo(templateModalInfo)">
+                                INFO
+                            </button>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <button type="button" (click)="exportToExcelOnClick()"
+                                class="btn btn-danger btn-success btn-sm rounded-pill btn-block">
+                                DESCARGAR LISTA COMPLETA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
+    <div class="container-fluid">
+        <ng-template #templateModalInfo>
+            <div class="container-fluid modal-menu">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">COMO USAR</h4>
+                    <div class="">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="modalInfo.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
 
 
     <!-- MODAL AGREGAR PEDIDO -->
@@ -15,7 +61,8 @@
                     <div class="card-icon card-icon-large">
                         <i class=""></i>
                     </div>
-                    <button type="button" class="btn btn-outline-light btn-sm" (click)=" cerrarModalitosLimpiarInput();  resetFormCleanChekBox('formularioPedidYDetPedid'); modalAgregarPedido.hide()">
+                    <button type="button" class="btn btn-outline-light btn-sm"
+                        (click)=" cerrarModalitosLimpiarInput();  resetFormCleanChekBox('formularioPedidYDetPedid'); modalAgregarPedido.hide()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -382,8 +429,8 @@
                                     </div>
                                     <div class="form-group col-12 pb-3">
                                         <label for="hora">HORA</label>
-                                        <input readonly type="text" class="form-control" id="hora"
-                                            name="hora" [(ngModel)]="hora" required>
+                                        <input readonly type="text" class="form-control" id="hora" name="hora"
+                                            [(ngModel)]="hora" required>
                                     </div>
                                     <div class="form-group col-12 pb-3">
                                         <label for="nombreCliente">NOMBRE CLIENTE</label>
@@ -520,8 +567,8 @@
                                             name="idDetPed">
                                     </td>
                                     <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
-                                        <select class="form-select"
-                                            [(ngModel)]="idPlatosAMostrar" name="idPlaMos" required>
+                                        <select class="form-select" [(ngModel)]="idPlatosAMostrar" name="idPlaMos"
+                                            required>
                                             <option disabled selected>{{idPlatosAMostrar}} - {{nombrePlato}}
                                             </option>
                                             <option *ngFor="let platoAMostrar of platosAMostrarList"
@@ -529,7 +576,7 @@
                                                 {{ platoAMostrar.idPlatosAMostrar }} - {{
                                                 platoAMostrar.platos.nombrePlato }}
                                             </option>
-                                        </select>                                   
+                                        </select>
                                     </td>
 
                                     <td *ngIf="modalitoInputEditDetPedid" class="text-center align-middle border-top">
@@ -547,11 +594,11 @@
                                             title="Enviar actualizacion" type="submit">
                                             <i class="far fa-check-circle small"></i>
                                         </button>
-                                             <!-- Boton enviar edicion -->
-                                             <button class="btn btn-light rounded-circle border border-secondary"
-                                             title="Enviar actualizacion" type="button">
-                                             <i class="far fa-check-circle small"></i>
-                                         </button>
+                                        <!-- Boton enviar edicion -->
+                                        <button class="btn btn-light rounded-circle border border-secondary"
+                                            title="Enviar actualizacion" type="button">
+                                            <i class="far fa-check-circle small"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -570,200 +617,168 @@
 
 
 
-<!-- LISTA DE PLATOS A MOSTRAR -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="bordesYBackGrCardGdePlaMos">
-                <div class="cardGrandepPlaMos p-4">
-                    <div class="card-icon card-icon-large">
-                        <i class=></i>
-                    </div>
-                    <div class="mb-1">
-                        <h5 class="card-title pb-3 text-center">PLATOS A MOSTRAR</h5>
-                        <div class="button-divisor pb-4 text-center">
-                            <!-- Boton agregar plato a mostrar -->
-                            <div class="col-1" id="">
-                                <button class="btn btn-outline-light btn-md" title="AGREGAR PLATO A MOSTRAR" (click)="openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar); 
+    <!-- LISTA DE PLATOS A MOSTRAR -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
+                    id="bordesYBackGrCardGdePlaMos">
+                    <div class="cardGrandepPlaMos p-4">
+                        <div class="card-icon card-icon-large">
+                            <i class=></i>
+                        </div>
+                        <div class="mb-1">
+                            <h5 class="card-title pb-3 text-center">PLATOS A MOSTRAR</h5>
+                            <div class="button-divisor pb-4 text-center">
+                                <!-- Boton agregar plato a mostrar -->
+                                <div class="col-1" id="">
+                                    <button class="btn btn-outline-light btn-md" title="AGREGAR PLATO A MOSTRAR"
+                                        (click)="openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar); 
                                              cerrarModalitosLimpiarInput();
                                              listaPlatosComp()">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                                <br>
-                                <br>
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <br>
+                                    <br>
+                                </div>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table text-white">
-                                <thead>
-                                    <tr>
-                                        <th class="col-1 text-center">ID PLATO A MOSTRAR</th>
-                                        <th class="col-1 text-center">ID PLATO</th>
-                                        <th class="col-1 text-center">TIPO PLATO</th>
-                                        <th class="col-2 text-center">NOMBRE PLATO</th>
-                                        <th class="col-2 text-center">DESCRIPCION</th>
-                                        <th class="col-1 text-center">PRECIO PLATO</th>
-                                        <th class="col-2 text-center">IMAGEN</th>
-                                        <th class="col-1 text-center">EDICION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let plaMos of platosAMostrarList">
-                                        <td class="col-1 text-center">
-                                            <p class="text-justify">{{plaMos.idPlatosAMostrar}}</p>
-                                        </td>
-                                        <td class="col-1 text-center">
-                                            <p class="text-justify">{{plaMos.platos.idPlato}}</p>
-                                        </td>
-                                        <td class="col-1 text-center">
-                                            <p class="text-justify">{{plaMos.platos.tipoPlato.nombreTipoPlato}}</p>
-                                        </td>
-                                        <td class="col-2 text-center">
-                                            <p class="text-justify">{{plaMos.platos.nombrePlato}}</p>
-                                        </td>
-                                        <td class="col-2 text-center">
-                                            <p class="text-justify">{{plaMos.descripcionPlatoAMostrar}}</p>
-                                        </td>
-                                        <td class="col-1 text-center">
-                                            <p class="text-justify">$ {{plaMos.platos.precioPlato}}</p>
-                                        </td>
-                                        <td class="col-2 text-center">
-                                            <img class="text-justify img-fluid" src="{{plaMos.platos.imgPlato}}">
-                                        </td>
+                            <div class="table-responsive">
+                                <table class="table text-white">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1 text-center">ID PLATO A MOSTRAR</th>
+                                            <th class="col-1 text-center">ID PLATO</th>
+                                            <th class="col-1 text-center">TIPO PLATO</th>
+                                            <th class="col-2 text-center">NOMBRE PLATO</th>
+                                            <th class="col-2 text-center">DESCRIPCION</th>
+                                            <th class="col-1 text-center">PRECIO PLATO</th>
+                                            <th class="col-2 text-center">IMAGEN</th>
+                                            <th class="col-1 text-center">EDICION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let plaMos of platosAMostrarList">
+                                            <td class="col-1 text-center">
+                                                <p class="text-justify">{{plaMos.idPlatosAMostrar}}</p>
+                                            </td>
+                                            <td class="col-1 text-center">
+                                                <p class="text-justify">{{plaMos.platos.idPlato}}</p>
+                                            </td>
+                                            <td class="col-1 text-center">
+                                                <p class="text-justify">{{plaMos.platos.tipoPlato.nombreTipoPlato}}</p>
+                                                <i class="{{plaMos.platos.tipoPlato.iconoTipoPlato}}"></i>
+                                            </td>                                         
+                                            <td class="col-2 text-center">
+                                                <p class="text-justify">{{plaMos.platos.nombrePlato}}</p>
+                                            </td>
+                                            <td class="col-2 text-center">
+                                                <p class="text-justify">{{plaMos.descripcionPlatoAMostrar}}</p>
+                                            </td>
+                                            <td class="col-1 text-center">
+                                                <p class="text-justify">$ {{plaMos.platos.precioPlato}}</p>
+                                            </td>
+                                            <td class="col-2 text-center">
+                                                <img class="text-justify img-fluid" src="{{plaMos.platos.imgPlato}}">
+                                            </td>
 
-                                        <td class="col-1 text-center">
-                                            <!-- Boton borrar -->
-                                            <button class="btn btn-outline-light btn-md"
-                                                (click)="borrarPlatMosMensajeAdv(plaMos.idPlatosAMostrar)">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                            <br>
-                                            <br>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <td class="col-1 text-center">
+                                                <!-- Boton borrar -->
+                                                <button class="btn btn-outline-light btn-md"
+                                                    (click)="borrarPlatMosMensajeAdv(plaMos.idPlatosAMostrar)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                                <br>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+        <!-- MODAL AGREGAR PLATOS A MOSTRAR -->
+
+        <ng-template #templateAgregarPlatoAMostrar>
+            <div class="container modal-menu">
+                <div class="row">
+                    <div class="modal-header">
+                        <h4 class="modal-title">AGREGAR PLATOS A MOSTRAR</h4>
+                        <div class="card-icon card-icon-large">
+                            <i class=""></i>
+                        </div>
+                        <button type="button" class="btn btn-outline-light btn-sm"
+                            (click)="cerrarModalitosLimpiarInput(); resetFormCleanChekBox('formularioAgPlaMos'); modalAgregarPlatosAMos.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <form novalidate #f="ngForm" (ngSubmit)="agregarPlatoAMos()" class="pedidosForm"
+                        id="formularioAgPlaMos">
+                        <div class="row text-center">
+                            <div class="form-group col-12 pb-3">
+                                <label for="idPlato">ID PLATO</label>
+                                <select class="form-select" [(ngModel)]="idPlato"
+                                    (change)="agregarPlatosEnInputs(idPlato)" name="idPlato" required>
+
+                                    <option *ngFor="let listaPlatos of listaPlatosCompleta"
+                                        [value]="listaPlatos.idPlato">
+                                        {{ listaPlatos.idPlato}} - {{ listaPlatos.nombrePlato}}
+                                    </option>
+                                
+                                </select>                             
+                            </div>
+                            <div class="form-group col-6 pb-3 mx-auto">
+                                <img id="imgPlato" name="imgPlato" 
+                                    class="img-fluid rounded-pill border border-white border-5 rounded-5 border-opacity-50"
+                                    [src]="imgPlato">
+                            </div>
+                            <div class="form-group col-12 pb-3">
+                                <label for="idPlatosAMostrar">ID PLATOS A MOSTRAR</label>
+                                <input readonly type="number" class="form-control text-center" id="idPlatosAMostrar"
+                                    name="idPlatosAMostrar" [value]="idPlatosAMostrar" required>
+                            </div>
+                            <div class="form-group col-12 pb-3">
+                                <label for="tipoPlato">TIPO PLATO</label>
+                                <input readonly type="text" class="form-control text-center" id="tipoPlato" name="tipoPlato"
+                                    [value]="tipoPlato" required>
+                            </div>
+                            <div class="form-group col-12 pb-3">
+                                <label for="nombrePlato">NOMBRE PLATO</label>
+                                <input readonly type="text" class="form-control text-center" id="nombrePlato" name="nombrePlato"
+                                    [value]="nombrePlato" required>
+                            </div>
+                            <div class="form-group col-12 pb-3">
+                                <label for="precioPlato">PRECIO PLATO $</label>
+                                <input readonly type="number" class="form-control text-center" id="precioPlato" name="precioPlato"
+                                    [value]="precioPlato" required>
+                            </div>
+                          
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <button class="btn btn-outline-light btn-sm">
+                                        AGREGAR PLATOS A MOSTRAR
+                                    </button>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
     </div>
-
-
-
-    <!-- MODAL AGREGAR PLATOS A MOSTRAR -->
-
-    <ng-template #templateAgregarPlatoAMostrar>
-        <div class="container modal-menu">
-            <div class="row">
-                <div class="modal-header">
-                    <h4 class="modal-title">AGREGAR PLATOS A MOSTRAR</h4>
-                    <div class="card-icon card-icon-large">
-                        <i class=""></i>
-                    </div>
-                    <button type="button" class="btn btn-outline-light btn-sm"
-                        (click)="cerrarModalitosLimpiarInput(); resetFormCleanChekBox('formularioAgPlaMos'); modalAgregarPlatosAMos.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            </div>
-            <div class="row align-items-center">
-                <form novalidate #f="ngForm" (ngSubmit)="agregarPlatoAMos()" class="pedidosForm"
-                    id="formularioAgPlaMos">
-                    <div class="row text-center">
-                        <div class="form-group col-12 pb-3">
-                            <label for="idPlato">ID PLATO</label>
-                            <select class="form-select" [(ngModel)]="idPlato" (change)="agregarPlatosEnInputs(idPlato)"
-                                name="idPlato" required>
-
-                                <option *ngFor="let listaPlatos of listaPlatosCompleta" [value]="listaPlatos.idPlato">
-                                    {{ listaPlatos.idPlato}} - {{ listaPlatos.nombrePlato}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group col-12 pb-3">
-                            <label for="idPlatosAMostrar">ID PLATOS A MOSTRAR</label>
-                            <input readonly type="number" class="form-control" id="idPlatosAMostrar"
-                                name="idPlatosAMostrar" [value]="idPlatosAMostrar" required>
-                        </div>
-                        <div class="form-group col-12 pb-3">
-                            <label for="tipoPlato">TIPO PLATO</label>
-                            <input readonly type="text" class="form-control" id="tipoPlato" name="tipoPlato"
-                                [value]="tipoPlato" required>
-                        </div>
-                        <div class="form-group col-12 pb-3">
-                            <label for="nombrePlato">NOMBRE PLATO</label>
-                            <input readonly type="text" class="form-control" id="nombrePlato" name="nombrePlato"
-                                [value]="nombrePlato" required>
-                        </div>
-                        <div class="form-group col-12 pb-3">
-                            <label for="precioPlato">PRECIO PLATO $</label>
-                            <input readonly type="number" class="form-control" id="precioPlato" name="precioPlato"
-                                [value]="precioPlato" required>
-                        </div>
-                        <div class="form-group col-12 pb-3">
-                            <label for="descripcionPlatoAMostrar">DESCRIPCION</label>
-                            <input type="text" class="form-control" id="descripcionPlatoAMostrar"
-                                name="descripcionPlatoAMostrar" [(ngModel)]="descripcionPlatoAMostrar" required>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <button class="btn btn-outline-light btn-sm">
-                                    AGREGAR PLATOS A MOSTRAR
-                                </button>
-                            </div>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </ng-template>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-</div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
+</div>
 
 
 

@@ -1,3 +1,7 @@
+#containerAll{
+    background-color: rgb(249, 232, 226);
+}
+
 /* formato de los modales */ 
 .modal-menu {
     background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
@@ -5,12 +9,16 @@
     border-radius: 10px;
 }
 
-
-
-
- .bordesYBackGrCardGdepPedAnteriores {
-    background: url("/assets/donasBackground.jpg");
+#btn-group {
+    background: url("/assets/donasBackground3.jpg");
     background-size:cover;
+    
+}
+
+
+ .bordesYBackGrCardGdepPedAnteriores, .bordesYBackGrCardGdepPedXId, #bordesYBackGrLisPedEdit {
+    background: url("/assets/donasBackgroundMulti.jpg");
+    background-size:contain;
     
 }
 
@@ -26,7 +34,7 @@
     border-radius: 10px; 
 }
 
- .divPediAnter {
+ .divPediAnter, .divPedixId {
     background-color: #fff;
     border-radius: 10px;
     border: none;

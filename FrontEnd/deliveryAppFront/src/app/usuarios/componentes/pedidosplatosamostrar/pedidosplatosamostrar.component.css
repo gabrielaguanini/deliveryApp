@@ -1,8 +1,8 @@
 /* ///////////// MODAL AGREGAR PEDIDO /////////////  */ 
 
 
-.container-fluid{
-    background-color: rgb(218, 230, 222);
+#containerAll{
+    background-color: rgb(231, 227, 199);
 }
 /* formato de los modales */ 
 .modal-menu {
@@ -18,13 +18,15 @@
 
 
 
-#bordesYBackGrCardGdepPedDia, .bordesYBackGrCardGdepPedAnteriores, #bordesYBackGrCardGdePlaMos {
+#bordesYBackGrCardGdepPedDia, #bordesYBackGrCardGdePlaMos {
     background: url("/assets/citricosBackGroundGde.jpg");
-    background-size:contain
-    
+    background-size:contain 
 }
 
-
+#btn-group{
+    background: url("/assets/citricosBackGround.jpg");
+    background-size:cover
+}
 
 .cardGrandepPedDia, .modalitoEditPedid, .cardGrandepPlaMos {
     background-color: #fff;
@@ -67,6 +69,7 @@
   
     background: linear-gradient(to right,  #a16b97, rgb(160, 208, 146)) !important;
 }
+
 
 
 

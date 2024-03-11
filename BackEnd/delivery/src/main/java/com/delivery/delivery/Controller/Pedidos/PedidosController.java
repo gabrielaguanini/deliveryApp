@@ -38,7 +38,7 @@ public class PedidosController {
 
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
 
-    //LISTA PEDIDOS
+    //LISTA PEDIDOS COMPLETA
     @GetMapping("/listapedidos")
     public ResponseEntity<List<Pedidos>> listapedidos() {
 
