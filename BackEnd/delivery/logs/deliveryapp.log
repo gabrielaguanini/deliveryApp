@@ -31056,3 +31056,761 @@ java.util.NoSuchElementException: No value present
 21:18:07.548 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 43
 21:18:31.702 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 43
 21:57:29.296 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+12:42:11.519 [restartedMain] INFO  c.d.delivery.DeliveryApplication - Starting DeliveryApplication using Java 19.0.1 on LAPTOP-19S0AOH2 with PID 2592 (C:\Users\jade_\Desktop\Delivery app\BackEnd\delivery\target\classes started by jade_ in C:\Users\jade_\Desktop\Delivery app\BackEnd\delivery)
+12:42:11.522 [restartedMain] INFO  c.d.delivery.DeliveryApplication - No active profile set, falling back to 1 default profile: "default"
+12:42:11.593 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+12:42:11.593 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+12:42:12.300 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+12:42:12.378 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 6 JPA repository interfaces.
+12:42:13.103 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+12:42:13.114 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+12:42:13.114 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.71]
+12:42:13.200 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+12:42:13.200 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1605 ms
+12:42:13.235 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+12:42:13.510 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+12:42:13.519 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/deliveryapp?useSSL=false&serverTimeZone=UTC'
+12:42:13.674 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+12:42:13.732 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.14.Final
+12:42:13.917 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+12:42:14.032 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+12:42:14.667 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+12:42:14.671 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+12:42:15.314 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+12:42:15.681 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+12:42:15.723 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+12:42:15.734 [restartedMain] INFO  c.d.delivery.DeliveryApplication - Started DeliveryApplication in 4.776 seconds (JVM running for 5.227)
+12:42:31.123 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+12:42:31.124 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+12:42:31.125 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+12:43:45.802 [http-nio-8080-exec-4] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 264, TotalPlatos: 600.0 guardados correctamente 
+12:43:45.836 [http-nio-8080-exec-4] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 262, TotalPlatos: 390.0 guardados correctamente 
+12:43:45.850 [http-nio-8080-exec-4] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 500.0 guardados correctamente 
+12:44:33.511 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+12:50:29.228 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+12:58:15.580 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m1s806ms33µs800ns).
+13:02:42.061 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+13:11:03.428 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:11:36.634 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:11:54.769 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:14:20.692 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:15:26.136 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:15:57.970 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 198
+13:17:15.547 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:19:00.540 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:19:19.998 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:20:10.800 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:20:28.217 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:21:03.546 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:21:24.641 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:21:46.209 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:22:54.794 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:23:09.893 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:24:35.942 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:24:53.841 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:25:30.319 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:25:44.294 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:26:07.527 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:26:22.389 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:26:48.266 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:27:12.466 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:27:36.602 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:27:51.435 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:28:03.020 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:28:28.252 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:29:03.669 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:29:39.109 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:29:59.342 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:30:20.310 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:30:33.551 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:30:53.536 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:31:20.497 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:31:55.082 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:33:16.932 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:33:40.755 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:34:55.615 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:35:54.600 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:38:06.965 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:38:51.569 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:39:17.501 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:40:02.718 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:40:16.990 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:40:51.439 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:42:07.909 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+13:44:14.894 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+13:44:50.185 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+14:21:59.587 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=33m13s259ms891µs300ns).
+14:23:29.626 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+14:40:58.187 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m58s449ms514µs600ns).
+14:40:58.580 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+14:43:29.774 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+14:46:29.115 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+14:52:02.613 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+14:59:19.711 [http-nio-8080-exec-7] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.util.NoSuchElementException: No value present] with root cause
+java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143)
+	at com.delivery.delivery.Controller.Pedidos.PedidosController.obtPedidoXId(PedidosController.java:112)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:670)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+14:59:20.988 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.util.NoSuchElementException: No value present] with root cause
+java.util.NoSuchElementException: No value present
+	at java.base/java.util.Optional.get(Optional.java:143)
+	at com.delivery.delivery.Controller.Pedidos.PedidosController.obtPedidoXId(PedidosController.java:112)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:670)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+14:59:41.152 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 45
+15:00:04.481 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+15:00:25.664 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 45
+15:38:13.621 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=35m45s141ms212µs).
+15:39:56.648 [restartedMain] INFO  c.d.delivery.DeliveryApplication - Starting DeliveryApplication using Java 19.0.1 on LAPTOP-19S0AOH2 with PID 8540 (C:\Users\jade_\Desktop\Delivery app\BackEnd\delivery\target\classes started by jade_ in C:\Users\jade_\Desktop\Delivery app\BackEnd\delivery)
+15:39:56.650 [restartedMain] INFO  c.d.delivery.DeliveryApplication - No active profile set, falling back to 1 default profile: "default"
+15:39:56.715 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:39:56.715 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:39:57.364 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+15:39:57.454 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 6 JPA repository interfaces.
+15:39:58.263 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+15:39:58.276 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+15:39:58.276 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.71]
+15:39:58.381 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+15:39:58.381 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1666 ms
+15:39:58.422 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+15:39:58.619 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+15:39:58.628 [restartedMain] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:mysql://localhost:3306/deliveryapp?useSSL=false&serverTimeZone=UTC'
+15:39:58.829 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+15:39:58.892 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.14.Final
+15:39:59.103 [restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+15:39:59.220 [restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+15:39:59.913 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+15:39:59.915 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+15:40:00.696 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+15:40:01.188 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+15:40:01.255 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+15:40:01.264 [restartedMain] INFO  c.d.delivery.DeliveryApplication - Started DeliveryApplication in 5.089 seconds (JVM running for 5.576)
+15:40:14.855 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:40:14.855 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+15:40:14.856 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+15:40:19.348 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+15:40:32.730 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+15:40:36.702 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+15:40:41.679 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+15:45:24.072 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+16:09:00.460 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 47
+16:09:06.157 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+16:09:22.113 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 47
+16:09:23.998 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+16:10:46.768 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+16:10:50.649 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+16:10:58.931 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+16:11:03.584 [http-nio-8080-exec-10] WARN  o.s.w.s.m.a.ResponseStatusExceptionResolver - Resolved [com.delivery.delivery.Mensaje.MensajeResponseStatusException: 400 BAD_REQUEST "No se han realizado modificaciones al detalle del pedido"]
+16:11:09.125 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+16:11:11.625 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+16:12:19.033 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+16:12:24.306 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+16:12:47.850 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+16:49:23.599 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=29m11s967ms753µs100ns).
+16:56:22.671 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s991ms97µs800ns).
+17:04:20.043 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:04:27.879 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+17:06:33.530 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:06:44.400 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+17:09:34.846 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:09:40.749 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+17:12:55.130 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:14:30.197 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:28:52.738 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=59s622ms582µs800ns).
+17:53:46.610 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=20m23s816ms956µs700ns).
+17:54:28.134 [http-nio-8080-exec-1] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 08S01
+17:54:28.134 [http-nio-8080-exec-1] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - HikariPool-1 - Connection is not available, request timed out after 30004ms.
+17:54:28.134 [http-nio-8080-exec-1] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+17:54:28.134 [http-nio-8080-exec-1] ERROR c.d.d.C.P.DetallePedidosController - 500 INTERNAL_SERVER_ERROR
+17:54:28.138 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is com.delivery.delivery.Mensaje.MensajeRunTimeException: Error inesperado al generar la lista por idPedido ] with root cause
+java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:535)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:666)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:944)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:814)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:444)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:726)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+17:55:13.039 [http-nio-8080-exec-2] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 08S01
+17:55:13.039 [http-nio-8080-exec-2] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - HikariPool-1 - Connection is not available, request timed out after 30011ms.
+17:55:13.039 [http-nio-8080-exec-2] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+17:55:13.039 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection] with root cause
+java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:535)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:585)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:666)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:153)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:944)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:814)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:444)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:237)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:726)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+17:55:13.044 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[Tomcat].[localhost] - Exception Processing ErrorPage[errorCode=0, location=/error]
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: Se ha anulado una conexión establecida por el software en su equipo host.
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:310)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:273)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:118)
+	at java.base/java.io.FilterOutputStream.flush(FilterOutputStream.java:153)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1187)
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1009)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456)
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor.handleReturnValue(HttpEntityMethodProcessor.java:219)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1071)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:670)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:779)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:102)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:102)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:711)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:461)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:385)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:313)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:388)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:244)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:329)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:169)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:891)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1784)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: java.io.IOException: Se ha anulado una conexión establecida por el software en su equipo host.
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:136)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:101)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:57)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:136)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1424)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:768)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:732)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:716)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:573)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:157)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:221)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1266)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:402)
+	at org.apache.coyote.Response.action(Response.java:209)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:306)
+	... 53 common frames omitted
+17:55:32.437 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+17:59:57.842 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:00:08.399 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:00:10.593 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:00:21.219 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:05:44.383 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:05:51.531 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:05:54.201 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:05:56.475 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m9s724ms825µs700ns).
+18:05:59.697 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:06:57.306 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:06:59.731 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:07:50.012 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:07:52.533 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:07:56.979 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:08:00.193 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:08:31.542 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:08:37.254 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:08:42.309 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:08:50.134 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:09:18.049 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:09:21.624 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:09:23.192 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:09:42.600 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:13:25.512 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:14:08.282 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:14:13.358 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:14:50.159 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:14:51.935 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:15:02.672 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:15:07.722 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:15:33.977 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:15:38.375 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:15:50.362 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:15:55.051 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:16:03.274 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:16:24.147 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:16:26.209 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:16:33.730 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:17:12.828 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:17:14.587 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:18:05.972 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:18:08.075 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:18:57.688 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:19:12.839 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:19:17.662 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:19:19.526 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:19:26.350 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:19:39.647 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:19:59.272 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+18:20:29.448 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:20:32.632 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:20:34.893 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:21:22.790 [http-nio-8080-exec-9] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 1500.0 guardados correctamente 
+18:21:22.838 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:21:45.334 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:23:24.357 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:23:26.468 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:24:54.112 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:24:59.192 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:25:03.919 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:25:12.982 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:27:07.508 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:27:09.506 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:27:12.475 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:27:16.811 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:28:22.029 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:28:24.027 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:28:29.308 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:28:30.546 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:29:02.830 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:29:17.574 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:29:20.134 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+18:29:24.479 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:29:26.406 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:30:36.744 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:30:43.920 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:30:45.047 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:31:26.136 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:31:28.145 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:33:02.980 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+18:33:05.251 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:31:03.611 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@26d7aaf5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.612 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5a77a810 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.613 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1e927df4 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.613 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@589ecd1 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.613 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5ed413a4 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.613 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@39041746 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.614 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3474b04f (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.614 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@7ed13d74 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.614 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@e64839 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:03.614 [http-nio-8080-exec-6] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1941d144 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+19:31:12.407 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m33s142ms33µs600ns).
+19:32:09.570 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:32:45.366 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:32:48.503 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:32:51.749 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:32:53.679 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:33:58.337 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:34:06.568 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:34:10.160 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:34:12.353 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:34:19.097 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:34:23.945 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:34:33.673 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:36:07.257 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:36:12.144 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:36:15.377 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:36:45.164 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:36:55.741 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:00.164 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:01.940 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:37:05.253 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:46.421 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:50.461 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:55.631 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:37:59.110 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:41:47.708 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:41:49.057 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:41:50.339 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:41:51.668 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:43:16.380 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:43:21.302 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:43:23.071 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:44:57.953 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:00.017 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:45:02.206 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:03.449 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:06.442 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:07.281 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:11.804 [http-nio-8080-exec-2] WARN  o.s.w.s.m.a.ResponseStatusExceptionResolver - Resolved [com.delivery.delivery.Mensaje.MensajeResponseStatusException: 400 BAD_REQUEST "No se han realizado modificaciones al detalle del pedido"]
+19:45:15.242 [http-nio-8080-exec-4] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 1000.0 guardados correctamente 
+19:45:15.256 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:46.946 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:45:48.697 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:45:51.739 [http-nio-8080-exec-2] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 1500.0 guardados correctamente 
+19:45:51.756 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:07.571 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:09.314 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:46:13.042 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+19:46:25.347 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:28.251 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:31.773 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:35.580 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:38.812 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:45.308 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:47.715 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:50.249 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:51.012 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:46:58.300 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:47:47.126 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+19:47:50.020 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:27:56.839 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=37m44s121ms693µs700ns).
+20:28:51.491 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:29:57.012 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:30:34.479 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:31:42.775 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:32:11.751 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:00.401 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:02.161 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:33:10.262 [http-nio-8080-exec-9] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 1000.0 guardados correctamente 
+20:33:10.275 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:14.151 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:16.072 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:33:22.321 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:23.586 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:34.872 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:36.082 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:38.337 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:33:39.930 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:34:21.428 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:34:23.722 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:34:27.490 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:34:28.611 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:36:42.805 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:36:44.239 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:36:48.702 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:37:26.335 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:37:28.343 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:38:11.480 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:38:13.423 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:38:15.145 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:38:16.993 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:38:52.882 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:38:54.920 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:38:56.929 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:38:58.032 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:30.178 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:32.538 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:39:34.946 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:37.963 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:42.401 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:43.090 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:49.382 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:50.762 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:39:52.890 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:40:01.426 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:06.115 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:17.266 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:19.020 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:40:21.323 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:26.931 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:42.365 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:44.701 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:40:46.477 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:40:48.420 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:16.741 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:18.964 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:41:22.869 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:25.645 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:37.454 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:40.381 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:41:46.662 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:48.334 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:51.390 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:53.591 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:41:55.719 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:42:02.199 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:26.761 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:29.695 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:43:38.545 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:39.265 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:42.146 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:42.704 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:43:45.465 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:00.712 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:01.287 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:01.833 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:02.374 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:02.929 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:05.466 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:06.232 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:08.329 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:13.065 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:32.323 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:34.194 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:44:40.650 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:42.170 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:44:44.164 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:45:34.075 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:45:37.611 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:46:11.957 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:46:13.645 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:46:30.237 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:46:32.125 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:46:42.372 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:46:44.822 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:46:45.374 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:46:58.038 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:47:00.525 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:47:08.918 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:47:10.942 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:48:00.472 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:48:02.159 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:48:03.952 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:48:04.951 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:48:07.255 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:48:07.968 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:48:09.543 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:54:12.449 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:54:24.449 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:54:26.547 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:54:28.377 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:54:29.153 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:54:31.464 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:54:32.329 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:08.735 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:43.883 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:46.729 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:47.755 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:49.859 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:50.594 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:57.301 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:55:58.955 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:56:02.610 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:02.779 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:05.333 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:06.107 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:07.915 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:56:10.795 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:35.405 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:37.124 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:56:38.563 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:39.764 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:42.245 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:43.165 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:44.596 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:56:45.661 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:46.389 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:47.853 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+20:56:49.052 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:49.796 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:56:51.892 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:57:07.876 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:58:17.777 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:58:57.072 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:59:03.327 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:59:42.386 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:59:49.633 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+20:59:57.994 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:06.673 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:08.947 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:00:10.665 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:12.058 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:14.280 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:15.090 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:22.547 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:24.378 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:00:51.174 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:00:58.867 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:00.987 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:01:23.868 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:33.548 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:37.739 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:45.644 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:48.701 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:01:50.428 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:01:57.229 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:02:02.213 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:02:09.573 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:02:12.644 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:02:16.748 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:02:18.445 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:02:31.007 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:02:40.957 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:02:49.462 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:02:51.878 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:02:56.182 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:03:02.575 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:03:04.238 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:03:12.478 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 197
+21:03:50.296 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:03:52.823 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:03:54.703 [http-nio-8080-exec-3] INFO  c.d.d.S.P.DetallePedidosService - IdPlato: 258, TotalPlatos: 1500.0 guardados correctamente 
+21:03:54.715 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:05:33.649 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:07:27.167 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:07:35.373 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:07:36.942 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:07:50.557 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:07:52.989 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:08:17.374 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:08:37.602 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:08:40.070 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:08:45.264 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:08:48.735 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:08:52.425 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:10:21.771 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:11:41.844 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:12:01.972 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:12:15.820 [http-nio-8080-exec-9] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:12:37.101 [http-nio-8080-exec-10] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:12:40.349 [http-nio-8080-exec-2] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.
+21:12:59.366 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:14:04.400 [http-nio-8080-exec-7] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:14:09.767 [http-nio-8080-exec-1] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:14:25.306 [http-nio-8080-exec-3] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:14:30.217 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:17:33.477 [http-nio-8080-exec-4] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:17:38.076 [http-nio-8080-exec-6] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:17:48.574 [http-nio-8080-exec-5] INFO  c.d.d.C.P.DetallePedidosController - Lista de detalles del pedido filtrada enviada con el idPedido: 87
+21:17:50.261 [http-nio-8080-exec-8] INFO  c.d.d.C.P.DetallePedidosController - IdDetallePedido obtenido.

@@ -54,6 +54,7 @@ export class PedidosAnterYDescargasComponent {
   modalInfo!: BsModalRef;
   modalitoPedidosXId: boolean = false;
   modalitoPedidosXFecha: boolean = false;
+  modalitoAgrDetPed: boolean = false;
 
 
   constructor(
@@ -137,7 +138,9 @@ export class PedidosAnterYDescargasComponent {
 
   //modal editar detalles del pedidos
   mostrarOcultarModalitoEditDetallePedid() {
+   
     this.modalitoEditPedid = !this.modalitoEditPedid;
+    !this.modalitoInputEditDetPedid == this.modalitoInputEditDetPedid;
   };
 
   //modal editar pedidos
@@ -167,6 +170,10 @@ export class PedidosAnterYDescargasComponent {
 
    mostrarOcultarModalitoPedidosXFecha(){ 
     this.modalitoPedidosXFecha = !this.modalitoPedidosXFecha;
+   };
+
+   mostrarOcultarModalitoAgrDetPed(){ 
+    this.modalitoAgrDetPed = !this.modalitoAgrDetPed;
    };
 
  
@@ -319,6 +326,10 @@ export class PedidosAnterYDescargasComponent {
         }
       );
   };
+
+  //AGREGAR DETALLE PEDIDO
+   
+  agregarDetallePedidos(){};
 
   //FUNCION PARA CREAR EXCEL CON LISTA PEDIDOS COMPLETA
   ///////////////////////////////////////////////////

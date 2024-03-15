@@ -11,18 +11,18 @@
 
 #btn-group {
     background: url("/assets/donasBackground3.jpg");
-    background-size:cover;
+    background-size:contain;
     
 }
 
 
- .bordesYBackGrCardGdepPedAnteriores, .bordesYBackGrCardGdepPedXId, #bordesYBackGrLisPedEdit {
+ .bordesYBackGrCardGdepPedAnteriores, .bordesYBackGrCardGdepPedXId, #bordesYBackGrLisPedEdit, .borderFormAgPed {
     background: url("/assets/donasBackgroundMulti.jpg");
     background-size:contain;
     
 }
 
-.cardGrandepPedDia, .modalitoEditPedid {
+.cardGrandepPedDia, .modalitoEditPedid, #backGrFormAgPed {
     background-color: #fff;
     border-radius: 10px;
     border: none;
