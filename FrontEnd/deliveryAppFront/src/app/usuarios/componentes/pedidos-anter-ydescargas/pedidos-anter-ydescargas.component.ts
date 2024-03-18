@@ -35,6 +35,8 @@ export class PedidosAnterYDescargasComponent {
   nombrePlato!: string;
   pedidos!: PedidosModel | null;
   listaPlatosDelPedido!: string;
+  detPedidAcotada!: DetallePedidosAcotadaModel;
+  idPedidoGuardDetPed!: number; //idPedido tomado de la lista {{pedidosXFe.idPedido}} del html. Para guardar un nuevo detalle pedido
   
  
 
@@ -77,9 +79,13 @@ export class PedidosAnterYDescargasComponent {
 
   //FUNCIONES LISTAS
   listaDePedidosXFecha(fecha: string, alertConLog: boolean = true, isRequestByDate: boolean = true): void {
+    if (fecha === '1900-01-01') {
+      // No se realiza ninguna acción
+      return;
+    }
     if (alertConLog) {
       if (fecha === undefined || fecha.trim() === '' || fecha === '') {
-        this.fecha = "";
+        this.fecha = ""; 
         console.error('La fecha no puede estar vacía');
         alert('La fecha no puede estar vacía');
       } else {
@@ -254,7 +260,18 @@ export class PedidosAnterYDescargasComponent {
 
    //OBTENER PEDIDO X ID (obtejo tipo pedido completo)
     obtenerPedidoXId(idPedido: number): void {
-      this.pedidosServ.obtenerPedidoXId(idPedido).subscribe(data => this.pedidos = data)
+
+      if(idPedido == null || isNaN(idPedido) || idPedido == 0){
+        alert("Ingrese un Id válida");
+        this.idPedido = NaN;
+      } else {
+      this.pedidosServ.obtenerPedidoXId(idPedido).subscribe( data => 
+        this.pedidos = data, 
+        err => {
+          console.log("Msj. Servidor: " + err.error.message);
+          alert(err.error.message);
+        })
+      }
     };
 
 
@@ -303,33 +320,89 @@ export class PedidosAnterYDescargasComponent {
 
   editarDetallePedidos(): void {
 
-    const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato)
+    if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
+      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0)|| isNaN(this.idPlatosAMostrar)||
+      (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
 
+      alert("Seleccione un plato o ingrese porcion/es");
+      return; // Agregado return para salir de la función si la validación falla
+      //this.modalitoInputEditDetPedid = true; 
+      //this.modalitoTdEditDetPedid = false;
 
-    this.detallePedidServ
-      .actualizarDetallePedido(this.idDetallePedido, detPed)
-      .subscribe(
-        (data) => {
+    }
+    if (this.porcionPlato > 10) {
+      alert("El maximo permitido de porciones es 10");
+      return; // Agregado return para salir de la función si la validación falla
 
-          this.listaDetallePedidosXIdPedido(this.idPedido); //actualiza la lista de detalles pedidos al editar
-          this.listaDePedidosXFecha(this.fecha, false, false); //actualiza la lista de pedidos por fecha al editar
-          this.obtenerPedidoXId(this.idPedido); //actualiza sobre la busqueda de pedido x id el pedido editado
-          console.log("Msj servidor: " + JSON.stringify(data));
-          alert("Detalles del pedido actualizados.");
-        },
-        (err) => {
+    } else {
+      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
+      this.detallePedidServ
+        .actualizarDetallePedido(this.idDetallePedido, detPed)
+        .subscribe(
+          (data) => {
+            this.modalitoTdEditDetPedid = true; // abre modalito con lista para editar detalles del pedido
+            this.modalitoInputEditDetPedid = false; //cierra modalito con formulario para editar detalles del pedido al editar
+            this.listaDetallePedidosXIdPedido(this.idPedido); //actualiza la lista de detalles pedidos al editar
+            this.listaDePedidosXFecha(this.fecha, false, false); //actualiza la lista de pedidos por fecha al editar
+            this.obtenerPedidoXId(this.idPedido); //actualiza sobre la busqueda de pedido x id el pedido editado
+            console.log("Msj servidor: " + JSON.stringify(data));
+            alert("Detalles del pedido actualizados.");
+          },
+          (err) => {
 
-          console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
+            console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
 
-          //console.log("DetPEd: " + JSON.stringify(detPed));
-          alert("Error al actualizar el detalle del pedido. " + err.error.message);
-        }
-      );
+            //console.log("DetPEd: " + JSON.stringify(detPed));
+            alert("Error al actualizar el detalle del pedido. " + err.error.message);
+          }
+        );
+    }
   };
 
   //AGREGAR DETALLE PEDIDO
-   
-  agregarDetallePedidos(){};
+
+  //toma el idPedido de la lista {{pedidosXFe.idPedido}} y se utiliza para guardar un nuevo detalle pedido
+  seleccionarIdPedido(idPedido: number) {
+    this.idPedidoGuardDetPed = idPedido;
+  };
+
+
+  agregarDetallePedidos() {
+      // Actualiza this.idPedido con this.idPedidoGuardDetPed
+      this.idPedido = this.idPedidoGuardDetPed;
+      console.log("Porciones: " + this.porcionPlato);
+
+    if ( this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido) ||
+      this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0 || isNaN(this.idPlatosAMostrar) ||
+      this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
+
+      alert("Seleccione un plato o ingrese porcion/es");
+      return; // Agregado return para salir de la función si la validación falla
+    }
+    if (this.porcionPlato > 10) {
+      alert("El maximo permitido de porciones es 10");
+      return; // Agregado return para salir de la función si la validación falla
+
+    } else {
+
+      // inicializa this.detPedidAcotada 
+      this.detPedidAcotada = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
+
+      // Llamar al servicio para guardar el detalle del pedido
+      this.detallePedidServ.guardarDetPediAcotada(this.detPedidAcotada).subscribe(data => {
+        this.listaDetallePedidosXIdPedido(this.idPedido); //actualiza la lista de detalles pedidos al editar
+        this.listaDePedidosXFecha(this.fecha, false, false); //actualiza la lista de pedidos por fecha al editar
+        this.obtenerPedidoXId(this.idPedido); //actualiza sobre la busqueda de pedido x id el pedido editado
+        console.log("Msj servidor: " + JSON.stringify(data));
+        alert("Detalles del pedido guardados.");
+      },
+        (err) => {
+          console.log("No se pudo guardar el detalle del pedido. ", err.error.message);
+          alert("Error al guardar el detalle del pedido. ");
+        });
+    }
+  };
+  
 
   //FUNCION PARA CREAR EXCEL CON LISTA PEDIDOS COMPLETA
   ///////////////////////////////////////////////////
@@ -374,19 +447,19 @@ export class PedidosAnterYDescargasComponent {
 
   //FUNCIONES VARIAS
 
-  //cierra modalitos (no bsmodalref)
-  cerrarModalitosLimpiarInput(): void {
+  //limpia inputa
+  limpiarInputs(): void {
 
     this.nombreCliente = "";
     this.telefonoCliente = "";
     this.direccionCliente = "";
     this.localidadCliente = "";
-    this.modalitoEditPedid = false;
+    //this.modalitoEditPedid = false;
     this.detallePedidosListxIdPedido = [];
     this.idPedido = NaN;
-    this.modalitoInputEditDetPedid = false;
-    this.modalitoTdEditDetPedid = true;
-
+    //this.modalitoInputEditDetPedid = false;
+    //this.modalitoTdEditDetPedid = true;
+    this.idPlatosAMostrar = NaN;
 
     this.platosDelPedido = "";
     this.importeTotalPedido = NaN;
@@ -396,9 +469,15 @@ export class PedidosAnterYDescargasComponent {
 
     this.nombrePlato = "";
 
+    this.idPedidoGuardDetPed = NaN;
+
   };
-
-
+  
+  // Envia esta fecha predeterminada al campo fecha del input "buscar por fecha" cuando se busca un pedido por idPedido, ya que
+  // se activan los validadores de la funcion listaDePedidosXFecha() al buscar por idPedido un pedido especifico
+   fechaPredeterminda(){
+    this.fecha = "1900-01-01";
+   };
 
 
   // Genera una lista de pedidos de hoy vacia para poder eliminar los registros

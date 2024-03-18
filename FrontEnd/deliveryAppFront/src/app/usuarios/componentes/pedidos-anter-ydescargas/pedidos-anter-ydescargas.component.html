@@ -62,7 +62,7 @@
                                     <button class="btn btn-outline-light btn-md" title="Buscar" (click)="mostrarOcultarModalitoPedidosXFecha(); 
                                      modalitoPedidosXId = false;
                                      modalitoEditPedid = false;
-                                     modalitoEditPedid = false;
+                                     modalitoAgrDetPed = false;
                                      listaPedXFechaVacia()" type="button">
                                         <i class="fas fa-search"></i>
                                     </button>
@@ -83,7 +83,7 @@
                                                 <input [(ngModel)]="fecha" type="text" class="form-control mb-3"
                                                     name="fechabuscar" placeholder="aaaa-mm-dd" maxlength="10"
                                                     title="El formato es: aaaa-mm-dd, 4 cifras para año - 2 cifras para mes - 2 cifras para dia"
-                                                    (click)="cerrarModalitosLimpiarInput()">
+                                                    (click)="limpiarInputs()">
                                                 <div class="input-group-append">
                                                     <!-- boton buscar -->
                                                     <button class="btn btn-light border border-secondary" title="Buscar"
@@ -92,7 +92,9 @@
                                                     </button>
                                                     <!-- boton borrar -->
                                                     <button class="btn btn-light border border-secondary" title="borrar"
-                                                        type="button" (click)="listaPedXFechaVacia()">
+                                                        type="button" (click)="listaPedXFechaVacia(); 
+                                                                               modalitoEditPedid = false;
+                                                                               modalitoAgrDetPed = false">
                                                         <i class="far fa-times-circle"></i>
                                                     </button>
                                                 </div>
@@ -103,7 +105,7 @@
                                 <!-- renderizacion de lista de pedidos por fecha -->
                                 <div class="row mt-4">
                                     <div class="col-md-4 mx-auto" *ngFor="let pedidosXFe of listaPedidosXFecha">
-                                        <div class="card">
+                                        <div class="card" (click)="seleccionarIdPedido(pedidosXFe.idPedido)">
                                             <div class="card-body">
 
 
@@ -136,21 +138,21 @@
                                                     <div class="row justify-content-center">
                                                         <!-- Boton editar platos -->
                                                         <button class="btn btn-outline-light btn-sm col-3"
-                                                            title="Editar platos" type="button"
-                                                            (click)="listaDetallePedidosXIdPedido(pedidosXFe.idPedido);
+                                                            title="Editar platos" type="button" (click)="limpiarInputs();
+                                                                      listaDetallePedidosXIdPedido(pedidosXFe.idPedido);
                                                                       mostrarOcultarModalitoEditDetallePedid();
                                                                       modalitoInputEditDetPedid = false; 
                                                                       modalitoTdEditDetPedid = true;
-                                                                      modalitoAgrDetPed = false;
+                                                                      modalitoAgrDetPed = false;                                                                     
                                                                       scrollASeccion('anclaDetPedEditYList');">
                                                             <i class="far fa-edit"></i>
                                                         </button>
                                                         <!-- Boton agregar platos -->
                                                         <button class="btn btn-outline-light btn-sm col-3"
-                                                            title="Agregar platos" type="button"
-                                                            (click) = "mostrarOcultarModalitoAgrDetPed();
+                                                            title="Agregar platos" type="button" (click)="limpiarInputs();
+                                                                       mostrarOcultarModalitoAgrDetPed();
                                                                        modalitoEditPedid = false;
-                                                                       scrollASeccion('anclaAgregDetPed');"> 
+                                                                       scrollASeccion('anclaAgregDetPed');">
                                                             <i class="fas fa-plus small"></i>
                                                         </button>
                                                     </div>
@@ -188,7 +190,7 @@
                                                     <!-- boton borrar -->
                                                     <button class="btn btn-sm border border-white rounded-5 text-white"
                                                         type="button" title="Eliminar pedido"
-                                                        (click)="cerrarModalitosLimpiarInput(); eliminarPedido(pedidosXFe.idPedido)">
+                                                        (click)="limpiarInputs(); eliminarPedido(pedidosXFe.idPedido)">
                                                         <i class="far fa-trash-alt small"></i>
                                                     </button>
                                                 </div>
@@ -375,7 +377,8 @@
                                 </table>
 
                                 <!-- Formulario editar detalle del pedido -->
-                                <form (ngSubmit)="editarDetallePedidos(); modalitoInputEditDetPedid = false; modalitoTdEditDetPedid = true"
+                                <form
+                                    (ngSubmit)="editarDetallePedidos();"
                                     novalidate #f="ngForm" class="text-center justify-content-center">
                                     <div class="table-responsive">
                                         <table class="table">
@@ -384,6 +387,7 @@
                                                     <th class="text-center" scope="col" [style.display]="'none'">ID DET
                                                         PED
                                                     </th>
+                                                    <th class="text-center" scope="col" [style.display]="'none'">ID DET PED </th>
                                                     <th class="text-center" scope="col">NUEVO PLATO </th>
                                                     <th class="text-center" scope="col">PORCION</th>
                                                     <th class="text-center" scope="col">PLATO ACTUAL</th>
@@ -395,7 +399,7 @@
                                                 <tr class="col-2">
 
                                                     <td *ngIf="modalitoInputEditDetPedid" [style.display]="'none'"
-                                                        class="text-center align-middle border-top">
+                                                         readonly class="text-center align-middle border-top">
                                                         <input [(ngModel)]="idDetallePedido" type="number"
                                                             class="form-control" name="idDetPed">
                                                     </td>
@@ -465,71 +469,71 @@
 
         <div class="container-fluid">
 
-<!-- Formulario agregar detalle del pedido -->
-            <div  *ngIf="modalitoAgrDetPed" id="anclaAgregDetPed">
-            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4 borderFormAgPed">
-            <form (ngSubmit)="agregarDetallePedidos()" novalidate #f="ngForm"
-                class="text-center justify-content-center p-2" id="backGrFormAgPed">
-                <div class="col-1" style="padding-right: 10%;">
-                    <!-- Boton cerrar del modalitoTdEditDetPedid -->
-                    <button class="btn btn-outline-light btn-sm" type="button" title="Cerrar" type="button"
-                        (click)="modalitoAgrDetPed = false">
-                        <i class="far fa-times-circle small text-white"></i>
-                    </button>
+            <!-- Formulario agregar detalle del pedido -->
+            <div *ngIf="modalitoAgrDetPed" id="anclaAgregDetPed">
+                <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4 borderFormAgPed">
+                    <form (ngSubmit)="agregarDetallePedidos()" novalidate #f="ngForm"
+                        class="text-center justify-content-center p-2" id="backGrFormAgPed">
+                        <div class="col-1" style="padding-right: 10%;">
+                            <!-- Boton cerrar del modalitoTdEditDetPedid -->
+                            <button class="btn btn-outline-light btn-sm" type="button" title="Cerrar" type="button"
+                                (click)="modalitoAgrDetPed = false">
+                                <i class="far fa-times-circle small text-white"></i>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-center" scope="col">ID PEDIDO</th>
+                                        <th class="text-center" scope="col">PLATO</th>
+                                        <th class="text-center" scope="col">PORCION</th>
+                                        <th class="text-center" scope="col">EDICION</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="col-2">
+
+                                        <td class="text-center align-middle border-top">
+                                            <input readonly [(ngModel)]="idPedidoGuardDetPed" type="number" min="1"
+                                                class="form-control" name="idPedido">
+                                        </td>
+                                        <td class="text-center align-middle border-top">
+                                            <select class="form-select" [(ngModel)]="idPlatosAMostrar" name="idPlaMos"
+                                                type="text" required>
+                                                <option disabled selected>Seleccionar</option>
+                                                <option *ngFor="let platoAMostrar of platosAMostrarList"
+                                                    [value]="platoAMostrar.idPlatosAMostrar">
+                                                    {{ platoAMostrar.idPlatosAMostrar }} - {{
+                                                    platoAMostrar.platos.nombrePlato }}
+                                                </option>
+                                            </select>
+                                        </td>
+
+                                        <td class="text-center align-middle border-top">
+                                            <input [(ngModel)]="porcionPlato" type="number" min="1" max="10"
+                                                class="form-control" name="porcPla">
+                                        </td>
+
+                                        <td class="text-center align-middle border-top">
+                                            <!-- Boton enviar nuevo detalle pedido -->
+                                            <button class="btn btn-light rounded-circle border border-secondary"
+                                                title="Enviar actualizacion" type="submit">
+                                                <i class="far fa-check-circle small"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-
-                                <th class="text-center" scope="col">ID PEDIDO</th>
-                                <th class="text-center" scope="col">PLATO</th>
-                                <th class="text-center" scope="col">PORCION</th>
-                                <th class="text-center" scope="col">EDICION</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="col-2">
-
-                                <td class="text-center align-middle border-top">
-                                    <input [(ngModel)]="idPedido" type="number" min="1" class="form-control"
-                                        name="idPedido">
-                                </td>
-                                <td class="text-center align-middle border-top">
-                                    <select class="form-select" [(ngModel)]="idPlatosAMostrar" name="idPlaMos" required>
-                                        <option disabled selected>{{idPlatosAMostrar}} - {{nombrePlato}}
-                                        </option>
-                                        <option *ngFor="let platoAMostrar of platosAMostrarList"
-                                            [value]="platoAMostrar.idPlatosAMostrar">
-                                            {{ platoAMostrar.idPlatosAMostrar }} - {{
-                                            platoAMostrar.platos.nombrePlato }}
-                                        </option>
-                                    </select>
-                                </td>
-
-                                <td class="text-center align-middle border-top">
-                                    <input [(ngModel)]="porcionPlato" type="number" min="1" max="10"
-                                        class="form-control" name="porcPla">
-                                </td>
-
-                                <td class="text-center align-middle border-top">
-                                    <!-- Boton enviar edicion -->
-                                    <button class="btn btn-light rounded-circle border border-secondary"
-                                        title="Enviar actualizacion" type="submit">
-                                        <i class="far fa-check-circle small"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
-            </div>
             </div>
 
 
-            <!-- buscar pedidos x id -->
+            <!-- pedidos x id -->
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4
@@ -540,11 +544,13 @@
                                 <div class="col-12 text-center">
                                     <h5 class="card-title pb-3 text-center">PEDIDOS POR ID</h5>
                                     <!-- boton abrir modalitoPedidosXId-->
-                                    <button class="btn btn-outline-light btn-md" title="AGREGAR PEDIDO" (click)="mostrarOcultarModalitoPedidosXId(); 
+                                    <button class="btn btn-outline-light btn-md" title="AGREGAR PEDIDO" (click)="mostrarOcultarModalitoPedidosXId();
+                                    fechaPredeterminda();
                                      pedidosXIdVacio(); 
                                      modalitoPedidosXFecha = false;
                                      modalitoEditPedid = false;
-                                     modalitoEditPedid = false" type="button">
+                                     modalitoAgrDetPed = false;"
+                                     type="button">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     <br>
@@ -561,7 +567,7 @@
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <input [(ngModel)]="idPedido" type="number" class="form-control mb-3"
-                                                    name="idPedidoXId" (click)="cerrarModalitosLimpiarInput()">
+                                                    name="idPedidoXId" (click)="limpiarInputs()">
                                                 <div class="input-group-append">
                                                     <!-- boton buscar -->
                                                     <button class="btn btn-light border border-secondary" title="Buscar"
@@ -570,7 +576,9 @@
                                                     </button>
                                                     <!-- boton borrar -->
                                                     <button class="btn btn-light border border-secondary" title="borrar"
-                                                        type="button" (click)="pedidosXIdVacio()">
+                                                        type="button" (click)="pedidosXIdVacio(); 
+                                                                               modalitoEditPedid = false; 
+                                                                               modalitoAgrDetPed = false">
                                                         <i class="far fa-times-circle"></i>
                                                     </button>
                                                 </div>
@@ -581,7 +589,7 @@
                                 <!-- renderizacion de lista de pedidos por id -->
                                 <div class="row mt-4">
                                     <div class="col-md-4 mx-auto" *ngIf="pedidos">
-                                        <div class="card">
+                                        <div class="card" (click)="seleccionarIdPedido(pedidos.idPedido)">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center">PEDIDO N°: {{pedidos.idPedido}}
                                                 </h5>
@@ -607,24 +615,30 @@
                                                         class="text-white"></span>
                                                 </p>
 
-                                                <!-- Botones para editar y agregar platos -->
+                                                <!-- botones edicion platos o detalle pedidosS -->
                                                 <div class="row justify-content-center">
                                                     <!-- Boton editar platos -->
                                                     <button class="btn btn-outline-light btn-sm col-3"
-                                                        title="Editar platos" type="button"
-                                                        (click)="listaDetallePedidosXIdPedido(pedidos.idPedido);
-                                                        mostrarOcultarModalitoEditDetallePedid(); 
-                                                        modalitoEditPedid = true; scrollASeccion('anclaDetPedEditYList');">
+                                                        title="Editar platos" type="button" (click)= "limpiarInputs();
+                                                              listaDetallePedidosXIdPedido(pedidos.idPedido);
+                                                              mostrarOcultarModalitoEditDetallePedid();
+                                                              modalitoInputEditDetPedid = false; 
+                                                              modalitoTdEditDetPedid = true;
+                                                              modalitoAgrDetPed = false;
+                                                              scrollASeccion('anclaDetPedEditYList');">
                                                         <i class="far fa-edit"></i>
                                                     </button>
                                                     <!-- Boton agregar platos -->
                                                     <button class="btn btn-outline-light btn-sm col-3"
-                                                        title="Agregar platos" type="button"
-                                                        (click)=" modalitoAgrDetPed = true">
+                                                        title="Agregar platos" type="button" (click)= "limpiarInputs();
+                                                               mostrarOcultarModalitoAgrDetPed();
+                                                               modalitoEditPedid = false;
+                                                               scrollASeccion('anclaAgregDetPed');">
                                                         <i class="fas fa-plus small"></i>
                                                     </button>
-                                                </div>
 
+                                                </div>
+                                                <br>
 
 
 
@@ -655,7 +669,7 @@
                                                     <!-- boton borrar -->
                                                     <button class="btn btn-sm border border-white rounded-5 text-white"
                                                         type="button" title="Eliminar pedido"
-                                                        (click)="cerrarModalitosLimpiarInput(); eliminarPedido(pedidos.idPedido)">
+                                                        (click)="limpiarInputs(); eliminarPedido(pedidos.idPedido)">
                                                         <i class="far fa-trash-alt small"></i>
                                                     </button>
                                                 </div>

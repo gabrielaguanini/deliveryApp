@@ -2,6 +2,7 @@ package com.delivery.delivery.Controller.Pedidos;
 
 import com.delivery.delivery.Entity.Pedidos.Pedidos;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
@@ -65,13 +66,12 @@ public class PedidosController {
         try {
             List<Pedidos> listapedidosxfecha = pedidosServ.listaPedidosXFecha(fecha);
             return new ResponseEntity(listapedidosxfecha, HttpStatus.OK);
-                 
+
         } catch (Exception e) {
             logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
             throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de lista por fecha"), e);
-        } 
+        }
     }
-    
 
     // GUARDAR UN PEDIDO
     // ESTE METODO SE USA EN CONJUNTO, DESDE EL FRONT, CON EL METODO actualizarListaPlatos()
@@ -109,16 +109,22 @@ public class PedidosController {
     //OBTENER 1 PEDIDO POR ID
     @GetMapping("/obtenerpedidoxid/{idPedido}")
     public ResponseEntity<Pedidos> obtPedidoXId(@PathVariable("idPedido") Long idPedido) {
-        Pedidos pedido = pedidosServ.getOne(idPedido).get();
-        return new ResponseEntity(pedido, HttpStatus.OK);
+        try {
+            Pedidos pedido = pedidosServ.getOne(idPedido).get();
+            logger.info("idPedido obtenido.");
+            return new ResponseEntity(pedido, HttpStatus.OK);
+        } catch (MensajeResponseStatusException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al obtener 1 pedido buscandolo por idPedido "), e);
+        }
     }
 
-    ;
-
 //ACTUALIZAR PEDIDOS (ESTA ENTIDAD SOLO GUARDA UN IDPEDIDO, NO SE NECESITA ACTUALIZAR) 
-@PutMapping("/actualizarpedido/{idPedido}")
+    @PutMapping("/actualizarpedido/{idPedido}")
     public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
-        
+
         Pedidos pedid = pedidosServ.getOne(idPedido).get();
         pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
         pedid.setNombreCliente(pedidos.getNombreCliente());
@@ -132,9 +138,5 @@ public class PedidosController {
         pedidosServ.guardarPedido(pedid);
         return new ResponseEntity(new Mensaje("Pedido actualizado"), HttpStatus.OK);
     }
-    
-    
-
-
 
 }

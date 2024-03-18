@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -67,10 +68,16 @@ public class PedidosService {
     }
 
     public Optional<Pedidos> getOne(Long idPedido) {
-        return iPedidosRepo.findById(idPedido);
+        try {
+            if (!iPedidosRepo.existsById(idPedido)) {
+                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe", HttpStatus.NOT_FOUND, null);
+            }
+            return iPedidosRepo.findById(idPedido);
+        } catch (MensajeResponseStatusException e) {
+            logger.error("", e);
+            throw e;
+        }
     }
-
-    ;    
     
     public Pedidos guardarPedido(Pedidos pedidos) {
         return iPedidosRepo.save(pedidos);

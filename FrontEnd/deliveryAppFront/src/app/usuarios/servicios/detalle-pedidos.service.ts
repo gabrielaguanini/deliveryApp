@@ -28,6 +28,11 @@ export class DetallePedidosService {
     return this.httpClient.post<any>(this.URL + 'guardardetallepedido', detallePedidos);
   };
 
+  public guardarDetPediAcotada(detallePedidosAc: DetallePedidosAcotadaModel): Observable<any> {
+    return this.httpClient.post<any>(this.URL + 'guardardetallepedido', detallePedidosAc);
+  };
+
+
   public actualizarDetallePedido(idDetallePedido: number, detallePedidos: DetallePedidosAcotadaModel): Observable<any> {
    
     return this.httpClient.put<any>(this.URL + `actualizardetallepedido/${idDetallePedido}`, detallePedidos);
