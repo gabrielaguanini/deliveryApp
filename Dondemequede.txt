@@ -1,3 +1,7 @@
-* Agregar un boton para agregar platos al detalle pedido desde el modal detalle pedido que se abre cuando se quiere editar un detallepedido, actualmente solo se puede editar o borrar un plato.
+
 
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
+
+
+** pensar que hacer en el caso de eliminar platos, que pasaria con platosamostrar, se elimina tambien el plato a mostrar?
+** ver en el back porque no funciona @notBlan

@@ -121,10 +121,14 @@ public class PedidosController {
         }
     }
 
-//ACTUALIZAR PEDIDOS (ESTA ENTIDAD SOLO GUARDA UN IDPEDIDO, NO SE NECESITA ACTUALIZAR) 
+//ACTUALIZAR PEDIDOS 
     @PutMapping("/actualizarpedido/{idPedido}")
     public ResponseEntity<?> actualizarPedido(@RequestBody Pedidos pedidos, @PathVariable Long idPedido) {
 
+        if(!pedidosServ.existsById(idPedido)){
+            throw new MensajeResponseStatusException(new Mensaje("El idPedido N°: " + idPedido + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
+        };
+        
         Pedidos pedid = pedidosServ.getOne(idPedido).get();
         pedid.setListaPlatosDelPedido(pedidos.getListaPlatosDelPedido());
         pedid.setNombreCliente(pedidos.getNombreCliente());

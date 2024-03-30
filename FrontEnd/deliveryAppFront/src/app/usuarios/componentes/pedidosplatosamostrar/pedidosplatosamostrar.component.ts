@@ -57,8 +57,12 @@ export class PedidosplatosamostrarComponent {
   modalitoTdEditDetPedid: boolean = true;
 
   //MODAL INFO
-  /////////////////////////////
+  ///////////////////////
   modalInfo!: BsModalRef;
+
+  //MODAL AGREGAR 1 PEDIDO
+  ///////////////////////
+  modalitoAgrDetPed: boolean = false;
 
 
 
@@ -110,12 +114,17 @@ export class PedidosplatosamostrarComponent {
 
 
 
-  //AGREGAR DETALLE PEDIDO (SOLO SE PUEDE AGREGAR SI SE GENERO EL ID PEDIDO O PEDIDO)
+  //AGREGAR VARIOS DETALLES PEDIDO (SOLO SE PUEDE AGREGAR SI SE GENERO EL ID PEDIDO O PEDIDO)
   //////////////////
   idDetallePedido!: number;
   porcionPlato!: number;
   precioPlatosAMostrar!: number;
   totalPlato!: number;
+
+  //EDITAR 1 DETALLE PEDIDO
+  idPedidoGuardDetPed!: number;
+  
+  
 
   //EDITAR DETALLE PEDIDO
   detallePedidos!: DetallePedidos;
@@ -154,7 +163,7 @@ export class PedidosplatosamostrarComponent {
   ngOnInit(): void {
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
     this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
-    this.listaPedidosDeHoy(); // muestra la lista de pedidos completa
+    this.listaPedidosDeHoy(); // muestra la lista de pedidos de la fecha actual
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
     //this.listaPlatosComp();
     
@@ -226,6 +235,10 @@ export class PedidosplatosamostrarComponent {
     
   };
 
+  mostrarOcultarModalitoAgrDetPed(){
+    this.modalitoAgrDetPed = !this.modalitoAgrDetPed;
+  };
+
 
 
   // FUNCIONES PARA LISTAS
@@ -248,7 +261,13 @@ export class PedidosplatosamostrarComponent {
   };
 
   listaDetallePedidosXIdPedido(idPedido: number): void {
-    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
+
+    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data =>
+      this.detallePedidosListxIdPedido = data,
+      err => {
+        console.log("Msj. Serv: " + err.error.message);
+        alert("Msj. Serv: " + err.error.message);
+      });
   };
 
   listaPlatosComp(): void{
@@ -267,11 +286,12 @@ export class PedidosplatosamostrarComponent {
     const plaMos = new PlatosAMostrar(0, this.descripcionPlatoAMostrar, plat)
     this.plaMosServ.guardarPlatoAMostrar(plaMos).subscribe(data => {
       this.listaPlatosAMostrar();
+      console.log("Msj. Servidor: " + data)
       alert("Plato a mostrar guardado");
     },
       err => {
         alert(err.error.message);
-        console.log(err.error.message);
+        console.log("Msj. Servidor: " + err.error.message);
       }
     );
   };
@@ -570,8 +590,7 @@ export class PedidosplatosamostrarComponent {
     },
       err => {
         console.log("Msj. Servidor: " + err.error.message);
-        alert("Error, no se pudo editar el pedido");
-        console.log(err)
+        alert("Msj. Servidor: " + err.error.message);
       })
   };
 
@@ -580,7 +599,7 @@ export class PedidosplatosamostrarComponent {
   eliminarPedido(idPedido: number): void {
 
     //Advertencia para eliminar el pedido
-    const confirmacion = window.confirm("El pedido se eliminará");
+    const confirmacion = window.confirm("El pedido se eliminará. ¿Desea continuar?");
 
     if (confirmacion) {
       this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
@@ -643,7 +662,7 @@ export class PedidosplatosamostrarComponent {
     this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
   };
 
-
+//envia lista de detalle pedidos
   enviarDetallePedidos(): void {
     // Filtra los elementos seleccionados
     const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
@@ -692,11 +711,56 @@ export class PedidosplatosamostrarComponent {
     };
   };
 
+
+  //AGREGAR 1 DETALLE PEDIDO SOLAMENTE
+
+  seleccionarIdPedido(idPedido: number) {
+    this.idPedidoGuardDetPed = idPedido;
+  };
+
+  agregarUnDetallePedido() {
+    
+    
+    if (this.porcionPlato > 10) {
+      alert("El maximo permitido de porciones es 10");
+      return; // Agregado return para salir de la función si la validación falla
+
+    }
+
+    if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
+      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0) || isNaN(this.idPlatosAMostrar) ||
+      (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
+
+      alert("Seleccione un plato o ingrese porcion/es");
+      this.modalitoAgrDetPed = true;
+      return; // Agregado return para salir de la función si la validación falla
+    } else {
+
+      this.idPedido = this.idPedidoGuardDetPed;
+      const DetPedAAgreg = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
+
+      this.detallePedidServ.guardarDetPediAcotada(DetPedAAgreg).subscribe(data => {
+        console.log("Msj servidor: " + JSON.stringify(data));
+        alert("Plato agregado.");
+      },
+        err => {
+          console.log("Msj servidor: " + err.error.message);
+          alert(err.error.message);
+
+        })
+    }
+  };
+
   //EDITAR DETALLE PEDIDO 
   /////////////////////////////
 
 
   obtenerDetPedXId(idDetallePedido: number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato: string) {
+    const msjAdvertencia = window.confirm('El/Los dato/s a editar se reemplazarán con los datos actuales de tabla PLATOS A MOSTRAR. ¿Desea continuar?');
+    if (!msjAdvertencia) {
+      this.cerrarModalitosLimpiarInput();
+    };
+    if (msjAdvertencia) {
     this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
       this.idDetallePedido = idDetallePedido;
       this.idPedido = idPedido;
@@ -709,32 +773,51 @@ export class PedidosplatosamostrarComponent {
       console.log(err);
       alert("Error, no se trajeron los detalles del pedido")
     })
+  }
   };
 
 
   editarDetallePedidos(): void {
 
-    const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato)
+    if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
+      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0) || isNaN(this.idPlatosAMostrar) ||
+      (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
 
+      alert("Seleccione un plato o ingrese porcion/es");
+      this.modalitoInputEditDetPedid = true;
+      return; // Agregado return para salir de la función si la validación falla
+      //this.modalitoInputEditDetPedid = true; 
+      //this.modalitoTdEditDetPedid = false;
 
-    this.detallePedidServ
-      .actualizarDetallePedido(this.idDetallePedido, detPed)
-      .subscribe(
-        (data) => {
-       
-          this.listaDetallePedidosXIdPedido(this.idPedido);
-          this.listaPedidosDeHoy();         
-          console.log("Msj servidor: " + JSON.stringify(data));
-          alert("Detalles del pedido actualizados.");
-        },
-        (err) => {
+    }
+    if (this.porcionPlato > 10) {
+      alert("El maximo permitido de porciones es 10");
+      return; // Agregado return para salir de la función si la validación falla
 
-          console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
+    } else {
 
-          //console.log("DetPEd: " + JSON.stringify(detPed));
-          alert("Error al actualizar el detalle del pedido. " + err.error.message);
-        }
-      );
+      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
+
+      this.detallePedidServ
+        .actualizarDetallePedido(this.idDetallePedido, detPed)
+        .subscribe(
+          (data) => {
+
+            this.listaDetallePedidosXIdPedido(this.idPedido);
+            this.listaPedidosDeHoy();
+            this.modalitoInputEditDetPedid = false;
+            this.modalitoTdEditDetPedid = true;
+            console.log("Msj servidor: " + JSON.stringify(data));
+            alert("Detalles del pedido actualizados.");
+          },
+          (err) => {
+
+            console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
+            //console.log("DetPEd: " + JSON.stringify(detPed));
+            alert("Error al actualizar el detalle del pedido. " + err.error.message);
+          }
+        );
+    }
   };
 
   //BORRAR DETALLE PEDIDO 
@@ -906,6 +989,7 @@ export class PedidosplatosamostrarComponent {
   });
   const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(platosAMostrarData);
   XLSX.utils.book_append_sheet(workbook, worksheet2, 'Platos a Mostrar');
+
   
    // Convertimos el libro de Excel en un archivo binario y creamos un enlace de descarga
   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
@@ -992,9 +1076,8 @@ exportToExcelOnClick(): void {
     this.idPedido = NaN;
     this.modalitoInputEditDetPedid = false;
     this.modalitoTdEditDetPedid = true;
-
-
-
+    
+    this.imgPlato = "";
 
     this.idPlato = NaN;
     this.idPlatosAMostrar = NaN;

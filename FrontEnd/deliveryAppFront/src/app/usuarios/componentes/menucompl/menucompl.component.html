@@ -167,7 +167,7 @@
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                                    [(ngModel)]="imgPlato" required>
+                                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
                                             </div>
                                             <br>
                                             <div class="row">
@@ -244,7 +244,7 @@
                             <div class="form-group, col-12 pb-3">
                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                    [(ngModel)]="imgPlato" required>
+                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
                             </div>
                             <br>
                             <div class="row">
@@ -345,7 +345,7 @@
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                                    [(ngModel)]="imgPlato" required>
+                                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
                                             </div>
                                             <br>
                                             <div class="row">
@@ -491,7 +491,7 @@
                                                         <div class="form-group, col-12 pb-3">
                                                             <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                             <input type="text" class="form-control" id="imgPlato"
-                                                                name="imgPlato" [(ngModel)]="imgPlato" required>
+                                                                name="imgPlato" [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
                                                         </div>
                                                         <br>
                                                         <div class="row">
@@ -674,15 +674,16 @@
                                                                 name="tituloPromo" [(ngModel)]="tituloPromo" required>
                                                         </div>
                                                         <div class="form-group, col-12 pb-3">
-                                                            <label for="textoPromo">TEXTO PROMO</label>
+                                                            <label for="textoPromo">DESCRIPCION PROMO</label>
                                                             <input type="text" class="form-control" id="textoPromo"
                                                                 name="textoPromo" [(ngModel)]="textoPromo" required>
                                                         </div>
                                                         <div class="form-group, col-12 pb-3">
                                                             <label for="urlImagenPromo">URL A IMAGEN</label>
                                                             <input type="text" class="form-control" id="urlImagenPromo"
-                                                                name="urlImagenPromo" [(ngModel)]="urlImagenPromo"
-                                                                required>
+                                                                name="urlImagenPromo" [(ngModel)]="urlImagenPromo" 
+                                                                title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
+                                                                
                                                         </div>
                                                         <div class="form-group, col-12 pb-3">
                                                             <label for="fechaPromo">FECHA DE CARGA</label>
@@ -795,7 +796,7 @@
                                                 {{listaIconos}}
                                             </option>
                                             <option disabled selected>Seleccionar</option>
-                                            <option value="">No seleccionar un icono</option>
+                                            <option value="">Seleccionar un icono</option>
                                         </select>
                                         <input placeHolder="Ingresar un icono de la url font awesome" type="text"
                                             class="form-control" id="iconoTipoPlatoParaInput"
@@ -815,7 +816,7 @@
                                                 [ngValue]="listaColores">
                                                 {{listaColores}}
                                             </option>
-                                            <option value="">No seleccionar un color</option>
+                                            <option value="">Seleccionar un color</option>
                                         </select>
                                         <input placeHolder="Ingrese un color en hexadecimal" type="text"
                                             class="form-control" id="colorCardTipoPlatoParaInput"

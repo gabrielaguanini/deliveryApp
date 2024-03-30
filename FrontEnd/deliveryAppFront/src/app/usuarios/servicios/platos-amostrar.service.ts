@@ -18,7 +18,6 @@ export class PlatosAMostrarService {
   };
 
   public guardarPlatoAMostrar(platosAMostrar:PlatosAMostrar): Observable<any>{
-    console.log('JSON enviado al servidor:', JSON.stringify(platosAMostrar));
     return this.httpClient.post<any>(this.URL + 'guardarplatoamostrar', platosAMostrar);
   };
 

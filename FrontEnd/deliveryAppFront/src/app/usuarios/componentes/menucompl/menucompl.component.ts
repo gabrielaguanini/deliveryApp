@@ -6,10 +6,8 @@ import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-comp
 import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
 import { Cartelera } from '../../modelos/cartelera';
 import { CarteleraService } from '../../servicios/cartelera.service';
-import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
-import { PlatosAMostrar } from '../../modelos/platos-amostrar';
-import { PlatosAMostrarService } from '../../servicios/platos-amostrar.service';
+
 
 
 
@@ -262,6 +260,25 @@ export class MenucomplComponent {
   //verifica antes de guardar que no exista el plato
   onCreate(): void {
 
+    if(this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)){
+      alert("Seleccione un tipo de plato");
+      return
+    };
+
+    if(this.nombrePlato === "" || this.nombrePlato === undefined){
+      alert("Ingrese el nombre del plato");
+      return
+    };
+
+    if(this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)){
+      alert("Ingrese un precio para el plato");
+      return
+    };
+    
+    if(this.imgPlato === "" || this.imgPlato === undefined){
+      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
+      return
+    };
 
     this.menucomServ.existeXNombre(this.nombrePlato).subscribe(
       (existePlato: boolean) => {
@@ -294,10 +311,14 @@ export class MenucomplComponent {
   borrarPlato(idPlato: number, idTipoPla: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
-        alert("Plato eliminado");      
-        this.mostrarListaTipoPlato(this.idTipoPla); //refresca la lista de platos con el registro eliminado  
+        alert("Plato eliminado");
+        this.mostrarListaTipoPlato(idTipoPla); //refresca la lista de platos con el registro eliminado  
         this.listaFiltradaTipPla();  //refresca la lista que genera las card pequeñas
-       }, err => console.log("No se pueden traer los registros de la db para borrar"))
+      }, err => {
+        console.log("Msj. Serv.:" + err.error.message);
+        alert("Msj. Serv.:" + err.error.message);
+      }
+      )
     }
   };
 
@@ -318,10 +339,13 @@ export class MenucomplComponent {
   borrarPlatoLisComp(idPlato: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlatoLisCompleta(idPlato).subscribe(data => {
-        alert("Plato eliminado");   
-        this.listaFiltradaTipPla();   
+        alert("Plato eliminado");
+        this.listaFiltradaTipPla();
         this.listaPlatosCompleta();
-       }, err => console.log("No se pueden traer los registros de la db para borrar"))
+      }, err => {
+        console.log("Msj. Serv.:" + err.error.message);
+        alert("Msj. Serv.:" + err.error.message);
+      })
     }
   };
 
@@ -348,15 +372,46 @@ export class MenucomplComponent {
   };
 
   editarPlato(): void {
-    const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
 
-    const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
-    this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
-      this.listaPlatosCompleta();
-      alert("Plato editado");
-    }, err => {
-      alert("No se editó el plato");
-    });
+    if (this.idPlato == 0 || this.idPlato === undefined || isNaN(this.idPlato)) {
+      alert("No se ha cargado un idPlato, informar al desarrollador");
+      console.log("No se ha cargado un idPlato, informar al desarrollador");
+      return
+    };
+
+    if (this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)) {
+      alert("Seleccione un tipo de plato");
+      return
+    };
+
+    if (this.nombrePlato === "" || this.nombrePlato === undefined) {
+      alert("Ingrese el nombre del plato");
+      return
+    };
+
+    if (this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)) {
+      alert("Ingrese un precio para el plato");
+      return
+    };
+
+    if (this.imgPlato === "" || this.imgPlato === undefined) {
+      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
+      return
+    };
+
+    const msjAdvertencia = window.confirm('Editar un plato modificará los registros asociados de la tabla PLATOS A MOSTRAR. ¿Desea continuar?');
+    if (msjAdvertencia) {
+
+      const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
+
+      const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
+      this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
+        this.listaPlatosCompleta();
+        alert("Plato editado");
+      }, err => {
+        alert("No se editó el plato");
+      });
+    }
   };
 
 
@@ -365,6 +420,24 @@ export class MenucomplComponent {
   ///////////////////////
      //antes de crear el tipo de plato, verifica que no exista en la tabla
   onCreateTipoPla(): void {
+
+   if(this.nombreTipoPlato === "" || this.nombreTipoPlato === undefined){
+       alert("Ingrese un nombre para el tipo de plato");
+       return
+   };
+   
+    if ((this.iconoTipoPlato === undefined || this.iconoTipoPlato === '') &&
+      (this.iconoTipoPlatoParaInput === undefined || this.iconoTipoPlatoParaInput === '')) {
+      alert("Debe ingresar un icono para el tipo de plato");
+      return;
+    };
+
+    if ((this.colorCardTipoPlato === undefined || this.colorCardTipoPlato === '') &&
+      (this.colorCardTipoPlatoParaInput === undefined || this.colorCardTipoPlatoParaInput === '')) {
+      alert("Debe ingresar un color para el tipo de plato");
+      return;
+    };
+
     this.tipoPlaServ.existeXNombre(this.nombreTipoPlato).subscribe(
       (existePlato: boolean) => {
         if (existePlato) {
@@ -405,7 +478,11 @@ export class MenucomplComponent {
         this.listTipPla();
         this.listaFiltradaTipPla();
         },
-        err => { alert("no se pudo eliminar el tipo de plato") })
+        err => { 
+          console.log("Msj. Serv.: " + err.error.message);
+          alert("Msj. Serv.: " + err.error.message);
+        }
+        )
     }
   };
 
@@ -436,14 +513,38 @@ export class MenucomplComponent {
 
   editarTipoPlato() {
 
-    const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato||this.iconoTipoPlatoParaInput, this.colorCardTipoPlato||this.colorCardTipoPlatoParaInput);
-    this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
-      alert("Tipo de plato editado");
-      this.listTipPla();
-      this.listaFiltradaTipPla();
-    }, err => {
-      alert("No se pudo editar el tipo de plato")
-    })
+    if (this.nombreTipoPlato === "" || this.nombreTipoPlato === undefined) {
+      alert("Ingrese un nombre para el tipo de plato");
+      return
+    };
+
+
+    if ((this.iconoTipoPlato === undefined || this.iconoTipoPlato === '') &&
+      (this.iconoTipoPlatoParaInput === undefined || this.iconoTipoPlatoParaInput === '')) {
+      alert("Debe ingresar un icono para el tipo de plato");
+      return;
+    };
+
+    if ((this.colorCardTipoPlato === undefined || this.colorCardTipoPlato === '') &&
+      (this.colorCardTipoPlatoParaInput === undefined || this.colorCardTipoPlatoParaInput === '')) {
+      alert("Debe ingresar un color para el tipo de plato");
+      return;
+    };
+
+    const msjAdvertencia = window.confirm('Editar un tipo de plato modificará los registros asociados de la tabla PLATOS y PLATOS A MOSTRAR. ¿Desea continuar?');
+    if (msjAdvertencia) {
+
+      const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
+      this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
+        console.log("Msj. Servidor: " + data.mensaje);
+        alert(data.mensaje);
+        this.listTipPla();
+        this.listaFiltradaTipPla();
+      }, err => {
+        console.log("Msj. Servidor: " + err.error.message);
+        alert("Msj. Servidor: " + err.error.message);
+      })
+    }
   };
 
   
@@ -451,6 +552,29 @@ export class MenucomplComponent {
   /////////////////////////
 
   generarCardPequena(): void {
+
+  
+    if(this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)){
+      alert("Seleccione un tipo de plato");
+      return
+    };
+
+    if(this.nombrePlato === "" || this.nombrePlato === undefined){
+      alert("Ingrese el nombre del plato");
+      return
+    };
+
+    if(this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)){
+      alert("Ingrese un precio para el plato");
+      return
+    };
+    
+    if(this.imgPlato === "" || this.imgPlato === undefined){
+      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
+      return
+    };
+     
+
     const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
@@ -459,6 +583,7 @@ export class MenucomplComponent {
     }, err => {
       alert("No se guardó el plato");
     });
+  
   };
   
 
@@ -476,6 +601,39 @@ export class MenucomplComponent {
   };
 
   editarCartelera(): void{
+
+    if(this.idPromo === 0 || this.idPromo === undefined || isNaN(this.idPromo)){
+      alert("No se ha cargado el idPromo, contactar al desarrollador");
+      return
+    };
+
+    if(this.imgParaCelOPc === "" || this.imgParaCelOPc === undefined){
+      alert("En imagen para PC o CELULARES Ingrese 'Celulares' para imagen a renderizar en celulares o ingrese 'Pc' para una imagen a renderizar en computadoras");
+      return
+    };
+
+    if(this.tituloPromo === "" || this.tituloPromo === undefined){
+      alert("Ingrese una titulo para la promo");
+      return
+    };
+
+    if(this.textoPromo === "" || this.textoPromo === undefined){
+      alert("Ingrese una descripcion para la promo");
+      return
+    };
+
+    if(this.urlImagenPromo === "" || this.urlImagenPromo === undefined){
+      alert("Ingrese una URL para la imagen de la promo con el siguiente formato: https://images.unsplash.com/photo");
+      return
+    };
+
+    if(this.fechaPromo === "" || this.fechaPromo === undefined){
+      alert("Ingrese una fecha para la imagen de la promo");
+      return
+    };
+
+
+
     const cartelera = new Cartelera (this.idPromo, this.imgParaCelOPc, this.tituloPromo, this.textoPromo, this.urlImagenPromo, this.fechaPromo)
     this.cartServ.actualizarPromosNov(this.idPromo, cartelera).subscribe(data => 
       {        
@@ -492,54 +650,47 @@ export class MenucomplComponent {
   ///////////////////////////////////////////////////
 
   generateExcel() {
+    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo. ¿Desea continuar?');
+    
+    if (msjAdvertenciaDescarga) {
+      // Suscribirse al servicio para obtener los datos necesarios
+      this.menucomServ.listaPlatos().subscribe(data => {
+        // Procesar los datos recibidos para formatearlos como lo necesitas para el Excel
+        const menuCompModelFormatted = data.map(item => {
+          // Crear un nuevo objeto solo con las propiedades que deseas mantener
+          return {
+            idPlato: item.idPlato,
+            nombre_plato: item.nombrePlato,
+            precio_plato: item.precioPlato,
+            imagen_plato: item.imgPlato,
+            id_tipo_plato: item.tipoPlato.idTipoPlato,
+            nombre_tipo_plato: item.tipoPlato.nombreTipoPlato,
+          };
+        });
+  
+        // Crear un nuevo libro de Excel
+        const archivoExcel = XLSX.utils.book_new();
+        const hojaArchivoExcel = XLSX.utils.json_to_sheet(menuCompModelFormatted);
+  
+        // Agregar la hoja al libro de Excel
+        XLSX.utils.book_append_sheet(archivoExcel, hojaArchivoExcel, 'ListaCompletaPlatos');
+  
+         // Agregar la hoja "ListaTiposPlatos"
+      const hojaTiposPlatosFiltrados = XLSX.utils.json_to_sheet(this.tiposPlatosModel);
+      XLSX.utils.book_append_sheet(archivoExcel, hojaTiposPlatosFiltrados, 'ListaTiposPlatos');
 
-    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
-    if(msjAdvertenciaDescarga){
-
-      
-    // Crear una nueva lista con los registros transformados del tipoPlato
-    const menuCompModelFormatted = this.menuCompModel.map(item => {
-      // Crear un nuevo objeto solo con las propiedades que deseas mantener
-      return {
-        idPlato: item.idPlato,
-        nombre_plato: item.nombrePlato,
-        precio_plato: item.precioPlato,
-        imagen_plato: item.imgPlato,
-        id_tipo_plato: item.tipoPlato.idTipoPlato,
-        nombre_tipo_plato: item.tipoPlato.nombreTipoPlato,
-       
-      };
+      // Guardar el archivo Excel
+      const buffer = XLSX.write(archivoExcel, { type: 'buffer' });
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lista_completa_platos.xlsx'; // Nombre del archivo Excel
+      a.click();
+      window.URL.revokeObjectURL(url);
     });
-  
-    // Crear un nuevo libro de Excel
-    const archivoExcel = XLSX.utils.book_new();
-    const hojaArchivoExcel = XLSX.utils.json_to_sheet(menuCompModelFormatted);
-  
-    // Agregar la hoja "ListaCompletaPlatos" al libro de Excel
-    XLSX.utils.book_append_sheet(archivoExcel, hojaArchivoExcel, 'ListaCompletaPlatos');
-  
-    // Agregar la hoja "TLiostaTiposPlatos"
-    const hojaTiposPlatosFiltrados = XLSX.utils.json_to_sheet(this.tiposPlatosModel);
-    XLSX.utils.book_append_sheet(archivoExcel, hojaTiposPlatosFiltrados, 'ListaTiposPlatos');
-  
-    // Agregar la hoja "promosyNovedadesModel"
-    const hojaPromosyNovedadesModel = XLSX.utils.json_to_sheet(this.promosyNovedadesModel);
-    XLSX.utils.book_append_sheet(archivoExcel, hojaPromosyNovedadesModel, "PromosyNovedadesModel");
-  
-    // Guardar el archivo Excel
-    const buffer = XLSX.write(archivoExcel, { type: 'buffer' });
-    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'lista_completa_platos.xlsx'; // Nombre del archivo Excel
-    a.click();
-    window.URL.revokeObjectURL(url);
-      
-    } else {
-      ""
-    };
-  };
+  }
+}
 
 
   // FUNCION PARA MODALITO NGIF (NO BSMODALREF) PARA MOSTRAR COLORES E ICONOS

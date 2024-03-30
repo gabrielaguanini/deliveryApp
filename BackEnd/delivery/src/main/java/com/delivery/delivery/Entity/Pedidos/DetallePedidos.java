@@ -60,6 +60,7 @@ public class DetallePedidos {
         this.totalPlato= totalPlato;
     };
 
+
   
     
 }

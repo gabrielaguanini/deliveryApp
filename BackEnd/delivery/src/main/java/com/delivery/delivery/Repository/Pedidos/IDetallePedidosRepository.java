@@ -11,8 +11,8 @@ public interface IDetallePedidosRepository extends JpaRepository <DetallePedidos
     
 
  //METODO ABSTRACTO PARA SELECIONAR EN DETALLE PEDIDOS LOS REGISTROS POR IDPEDIDO
-    @Query(value = "SELECT * FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
-     List<DetallePedidos> findByPedidos_IdPedido(Long idPedido);
+ @Query(value = "SELECT * FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
+ List<DetallePedidos> findByIdPedDetPed(Long idPedido);
 
 //METODO ABSTRACTO PARA OBTENER EL IMPORTE TOTAL DEL PEDIDO
 @Query ("SELECT COALESCE(SUM(totalPlato), 0) FROM DetallePedidos WHERE id_pedido = :idPedido")
@@ -22,6 +22,10 @@ public Double findTotalPlatoAndAdd(@Param("idPedido") Long idPedido);
 @Modifying
 @Query (value= "UPDATE pedidos SET lista_platos_del_pedido = '' WHERE id_pedido = :idPedido", nativeQuery = true)
 public void updateListaPlatosDelPedido(@Param("idPedido") Long idPedido);
+
+//METODO ABSTRACTO PARA FILTRAR LOS IDPLATOSAMOSTRAR CORRESPONDIENTES AL IDPEDIDO DEL PARAMETRO
+@Query (value= "SELECT id_platosamostrar FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
+List <Long> findIdPlaMosXIdPedido(@Param("idPedido") Long idPedido);
 
 
 

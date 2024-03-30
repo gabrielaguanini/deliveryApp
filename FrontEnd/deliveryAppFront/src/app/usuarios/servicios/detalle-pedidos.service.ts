@@ -24,10 +24,6 @@ export class DetallePedidosService {
     return this.httpClient.get<DetallePedidos[]>(this.URL + `listadetpedidosidpedido/${idPedido}`);
   };
 
-  public guardarDetallePedido(detallePedidos: DetallePedidos): Observable<any> {
-    return this.httpClient.post<any>(this.URL + 'guardardetallepedido', detallePedidos);
-  };
-
   public guardarDetPediAcotada(detallePedidosAc: DetallePedidosAcotadaModel): Observable<any> {
     return this.httpClient.post<any>(this.URL + 'guardardetallepedido', detallePedidosAc);
   };

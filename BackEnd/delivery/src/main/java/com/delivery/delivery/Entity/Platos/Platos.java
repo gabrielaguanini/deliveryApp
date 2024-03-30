@@ -33,7 +33,7 @@ public class Platos {
     //private String idSecundario;
     @Column(unique = true) // Restricción única a nivel de base de datos
     @NotBlank(message = "El nombre del tipo de plato no puede estar vacío")
-    @Valid    
+    @Valid
     private String nombrePlato;
     @NotBlank
     private float precioPlato;

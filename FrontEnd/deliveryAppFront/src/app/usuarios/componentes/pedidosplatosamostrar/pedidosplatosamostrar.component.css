@@ -23,12 +23,17 @@
     background-size:contain 
 }
 
+.borderFormAgPed, #bordesYBackGrLisPedEdit{
+    background: url("/assets/citricosBackGround.jpg");
+    background-size:contain
+}
+
 #btn-group{
     background: url("/assets/citricosBackGround.jpg");
     background-size:cover
 }
 
-.cardGrandepPedDia, .modalitoEditPedid, .cardGrandepPlaMos{
+.cardGrandepPedDia, .modalitoEditPedid, .cardGrandepPlaMos, #backGrFormAgPed{
     background-color: #fff;
     border-radius: 10px;
     border: none;

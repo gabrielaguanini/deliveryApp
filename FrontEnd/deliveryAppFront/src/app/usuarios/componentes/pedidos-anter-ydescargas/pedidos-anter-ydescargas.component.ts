@@ -128,8 +128,17 @@ export class PedidosAnterYDescargasComponent {
 
 
   listaDetallePedidosXIdPedido(idPedido: number): void {
-    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => this.detallePedidosListxIdPedido = data);
+
+      this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => {
+        
+        this.detallePedidosListxIdPedido = data;
+        //this.modalitoEditPedid = false;
+      }, err => {
+        alert("Msj. Serv: " + err.error.message);
+        console.log("Msj. Serv: " + err.error.message);
+      });    
   };
+
 
 
   listaPlatosAMostrar(): void {
@@ -145,8 +154,9 @@ export class PedidosAnterYDescargasComponent {
   //modal editar detalles del pedidos
   mostrarOcultarModalitoEditDetallePedid() {
    
-    this.modalitoEditPedid = !this.modalitoEditPedid;
-    !this.modalitoInputEditDetPedid == this.modalitoInputEditDetPedid;
+   this.modalitoEditPedid = !this.modalitoEditPedid;
+   !this.modalitoInputEditDetPedid == this.modalitoInputEditDetPedid;
+
   };
 
   //modal editar pedidos
@@ -210,7 +220,7 @@ export class PedidosAnterYDescargasComponent {
   eliminarPedido(idPedido: number): void {
     
     //Advertencia para eliminar el pedido
-    const confirmacion = window.confirm("El pedido se eliminará");
+    const confirmacion = window.confirm("El pedido se eliminará. ¿Desea continuar? ");
 
     if (confirmacion) {
       this.pedidosServ.borrarPedido(idPedido).subscribe(data => {        
@@ -279,18 +289,24 @@ export class PedidosAnterYDescargasComponent {
   /////////////////////////////
 
   obtenerDetPedXId(idDetallePedido: number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato: string) {
-    this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
-      this.idDetallePedido = idDetallePedido;
-      this.idPedido = idPedido;
-      this.idPlatosAMostrar = idPlatosAMostrar;
-      this.porcionPlato = porcionPlato
-      this.nombrePlato = nombrePlato;
-      console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
+    const msjAdvertencia = window.confirm('El/Los dato/s a editar se reemplazarán con los datos actuales de tabla PLATOS A MOSTRAR. ¿Desea continuar?');
+    if (!msjAdvertencia) {
+      this.modalitoEditPedid = false;
+    };
+    if (msjAdvertencia) {
+      this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
+        this.idDetallePedido = idDetallePedido;
+        this.idPedido = idPedido;
+        this.idPlatosAMostrar = idPlatosAMostrar;
+        this.porcionPlato = porcionPlato
+        this.nombrePlato = nombrePlato;
+        console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
 
-    }, err => {
-      console.log(err);
-      alert("Error, no se trajeron los detalles del pedido")
-    })
+      }, err => {
+        console.log(err);
+        alert("Error, no se trajeron los detalles del pedido")
+      })
+    }
   };
 
 

@@ -27,8 +27,7 @@ public interface ITipoPlatoRepository extends JpaRepository <TipoPlato, Long>{
     List<String> filterIconoTipoPlato();
     
     public Boolean existsByNombreTipoPlato(String nombreTipoPlato);
-    
-
+  
     
   };
 

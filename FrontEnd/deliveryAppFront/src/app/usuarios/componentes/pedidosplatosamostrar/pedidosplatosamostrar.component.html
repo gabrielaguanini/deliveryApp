@@ -285,6 +285,7 @@
 
 
     <!-- LISTA DE PEDIDOS DE LA FECHA ACTUAL -->
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -340,12 +341,26 @@
                                             </td>
                                             <td class="text-center" scope="col">
                                                 <p class="text-justify">{{DetallePedidosHoy.listaPlatosDelPedido}}</p>
-                                                <button class="btn btn-outline-light btn-sm col-12"
-                                                    title="Editar platos" type="button"
-                                                    (click)="listaDetallePedidosXIdPedido(DetallePedidosHoy.idPedido);mostrarOcultarModalitoEditDetallePedid(); 
-                                                             modalitoEditPedid = true; scrollASeccion('anclaSeccion1');">
+                                                <!-- Boton editar platos -->
+                                                <div class="row justify-content-center">
+                                                <button class="btn btn-outline-light btn-sm col-6" title="Editar platos" type="button"
+                                                    (click)="listaDetallePedidosXIdPedido(DetallePedidosHoy.idPedido);
+                                                             modalitoAgrDetPed = false;
+                                                             mostrarOcultarModalitoEditDetallePedid();
+                                                             scrollASeccion('anclaSeccion1');">
                                                     <i class="far fa-edit"></i>
                                                 </button>
+                                                <!-- Boton agregar platos -->
+                                                <button class="btn btn-outline-light btn-sm col-6" title="Agregar platos" type="button" 
+                                                    (click)="cerrarModalitosLimpiarInput();
+                                                             mostrarOcultarModalitoAgrDetPed();
+                                                             modalitoEditPedid = false;
+                                                             seleccionarIdPedido(DetallePedidosHoy.idPedido);
+                                                             scrollASeccion('anclaAgregDetPed');">
+                                                    <i class="fas fa-plus small"></i>
+                                                </button>
+                                                </div> 
+                                                <br>
                                             </td>
                                             <td class="text-center" scope="col">
                                                 <p class="text-justify">{{DetallePedidosHoy.nombreCliente}}</p>
@@ -387,6 +402,92 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+            <!-- FORMULARIO AGREGAR 1 DETALLE PEDIDO -->
+            <div *ngIf="modalitoAgrDetPed" id="anclaAgregDetPed">
+                <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4 borderFormAgPed">
+                    <form (ngSubmit)="agregarUnDetallePedido()" novalidate #f="ngForm"
+                        class="text-center justify-content-center p-2" id="backGrFormAgPed">
+                        <div class="col-1" style="padding-right: 10%;">
+                            <!-- Boton cerrar del modalitoTdEditDetPedid -->
+                            <button class="btn btn-outline-light btn-sm" type="button" title="Cerrar" type="button"
+                                (click)="modalitoAgrDetPed = false">
+                                <i class="far fa-times-circle small text-white"></i>
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th class="text-center" scope="col">ID PEDIDO</th>
+                                        <th class="text-center" scope="col">PLATO</th>
+                                        <th class="text-center" scope="col">PORCION</th>
+                                        <th class="text-center" scope="col">EDICION</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="col-2">
+
+                                        <td class="text-center align-middle border-top">
+                                            <input readonly [(ngModel)]="idPedidoGuardDetPed" type="number" min="1"
+                                                class="form-control" name="idPedido">
+                                        </td>
+                                        <td class="text-center align-middle border-top">
+                                            <select class="form-select" [(ngModel)]="idPlatosAMostrar" name="idPlaMos"
+                                                type="text" required>
+                                                <option disabled selected>Seleccionar</option>
+                                                <option *ngFor="let platoAMostrar of platosAMostrarList"
+                                                    [value]="platoAMostrar.idPlatosAMostrar">
+                                                    {{ platoAMostrar.idPlatosAMostrar }} - {{
+                                                    platoAMostrar.platos.nombrePlato }}
+                                                </option>
+                                            </select>
+                                        </td>
+
+                                        <td class="text-center align-middle border-top">
+                                            <input [(ngModel)]="porcionPlato" type="number" min="1" max="10"
+                                                class="form-control" name="porcPla">
+                                        </td>
+
+                                        <td class="text-center align-middle border-top">
+                                            <!-- Boton enviar nuevo detalle pedido -->
+                                            <button class="btn btn-light rounded-circle border border-secondary"
+                                                title="Enviar actualizacion" type="submit">
+                                                <i class="far fa-check-circle small"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
 
 
@@ -543,8 +644,7 @@
                 </table>
 
                 <!-- Formulario editar detalle del pedido -->
-                <form
-                    (ngSubmit)="editarDetallePedidos(); modalitoInputEditDetPedid = false; modalitoTdEditDetPedid = true"
+                <form (ngSubmit)="editarDetallePedidos()"
                     novalidate #f="ngForm" class="text-center justify-content-center p-2" id="formEditDetPed">
                     <div class="table-responsive">
                         <table class="table">
@@ -592,11 +692,6 @@
                                         <!-- Boton enviar edicion -->
                                         <button class="btn btn-light rounded-circle border border-secondary"
                                             title="Enviar actualizacion" type="submit">
-                                            <i class="far fa-check-circle small"></i>
-                                        </button>
-                                        <!-- Boton enviar edicion -->
-                                        <button class="btn btn-light rounded-circle border border-secondary"
-                                            title="Enviar actualizacion" type="button">
                                             <i class="far fa-check-circle small"></i>
                                         </button>
                                     </td>
@@ -678,7 +773,7 @@
                                                 <p class="text-justify">$ {{plaMos.platos.precioPlato}}</p>
                                             </td>
                                             <td class="col-2 text-center">
-                                                <img class="text-justify img-fluid" src="{{plaMos.platos.imgPlato}}">
+                                                <img class="img-fluid rounded-pill border border-white border-5 rounded-5 border-opacity-50" src="{{plaMos.platos.imgPlato}}">
                                             </td>
 
                                             <td class="col-1 text-center">
@@ -755,6 +850,11 @@
                                 <label for="nombrePlato">NOMBRE PLATO</label>
                                 <input readonly type="text" class="form-control text-center" id="nombrePlato" name="nombrePlato"
                                     [value]="nombrePlato" required>
+                            </div>
+                            <div class="form-group col-12 pb-3">
+                                <label for="descripcionPlatoAMostrar">DESCRIPCION</label>
+                                <input type="text" class="form-control text-center" id="descripcionPlatoAMostrar" name="descripcionPlatoAMostrar"
+                                    [(ngModel)]="descripcionPlatoAMostrar" required>
                             </div>
                             <div class="form-group col-12 pb-3">
                                 <label for="precioPlato">PRECIO PLATO $</label>
