@@ -293,13 +293,15 @@ export class MenucomplComponent {
               alert("Plato guardado");
             },
             err => {
-              alert("No se guardó el plato");
+              alert("Msj. Servidor: " + err.error.message);
+              console.log("Msj. Servidor: " + err.error.message);
             }
           );
         }
       },
       err => {
-        alert("Campo vacío o error al intentar guardar");
+        alert("Msj. Servidor: " + err.error.message);
+        console.log("Msj. Servidor: " + err.error.message);
       }
     );
   }
@@ -312,7 +314,14 @@ export class MenucomplComponent {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
         alert("Plato eliminado");
-        this.mostrarListaTipoPlato(idTipoPla); //refresca la lista de platos con el registro eliminado  
+      
+              // Refresca la lista de platos con el registro eliminado
+      if (this.menuCompModel.length > 1) {
+        this.mostrarListaTipoPlato(idTipoPla);
+      } else {
+        this.menuCompModel = []; // Lista vacía si no hay más registros
+      }
+        
         this.listaFiltradaTipPla();  //refresca la lista que genera las card pequeñas
       }, err => {
         console.log("Msj. Serv.:" + err.error.message);
@@ -577,11 +586,13 @@ export class MenucomplComponent {
 
     const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
-    this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
+    this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {      
+      console.log("Plato guardado.");
       alert("Plato guardado");
       this.listaFiltradaTipPla(); //refresca la lista de cards de tipos de platos cuando se agrega
     }, err => {
-      alert("No se guardó el plato");
+      console.log("Msj. Servidor: "  + err.error.message);
+      alert("Msj. Servidor: "  + err.error.message);
     });
   
   };

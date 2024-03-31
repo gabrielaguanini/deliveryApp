@@ -198,10 +198,11 @@ public class TipoPlatoService {
      * lo contrario.
      */
     public boolean existsById(Long idTipoPlato) {
-        if (!iTipoPlaRepo.existsById(idTipoPlato)) {
-            throw new MensajeResponseStatusException("El tipo de plato con el idTipoPlato N°: " + idTipoPlato + " no existe", HttpStatus.NOT_FOUND, null);
-        }
-        return true;
+        boolean tiPlExists = iTipoPlaRepo.existsById(idTipoPlato);
+    if (!tiPlExists) {
+        throw new MensajeResponseStatusException("El plato con el idTipoPlato N°: " + idTipoPlato + " no existe", HttpStatus.NOT_FOUND, null);
+    }
+    return tiPlExists;
     }
 
  /**

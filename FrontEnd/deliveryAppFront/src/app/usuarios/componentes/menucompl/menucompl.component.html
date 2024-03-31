@@ -59,7 +59,7 @@
                     </button>
                 </div>
                 <div class="row" id="tituloListaCompletaPlato">
-                    <div class="col-3 text-center pt-2">
+                    <div class="col-2 text-center pt-2">
                         <blockquote class="blockquote border-end border-top border-white">
                             <p class="small">Plato</p>
                         </blockquote>
@@ -79,7 +79,7 @@
                             <p class="small">Imagen</p>
                         </blockquote>
                     </div>
-                    <div class="col-2 text-center pt-2">
+                    <div class="col-3 text-center pt-2">
                         <blockquote class="blockquote border-end border-top border-white">
                             <p class="small">Edicion</p>
                         </blockquote>
@@ -88,7 +88,7 @@
                 </div>
                 <div *ngFor="let MenuCompletoModel of menuCompModel">
                     <div class="row">
-                        <div class="col-3 text-center">
+                        <div class="col-2 text-center">
                             <p>{{MenuCompletoModel.nombrePlato}}</p>
                         </div>
                         <div class="col-2 text-center">
@@ -105,22 +105,28 @@
                                 src="{{MenuCompletoModel.imgPlato}}">
                         </div>
 
-                        <div class="col-2 text-center">
+                        <div class="col-3 d-flex justify-content-center align-items-center mx-auto">
                             <!-- Boton editar-->
-                            <button class="btn btn-outline-light btn-lg" (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
-                        obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
-                                      MenuCompletoModel?.nombrePlato || '',
-                                      MenuCompletoModel?.precioPlato || 0,
-                                      MenuCompletoModel?.tipoPlato?.idTipoPlato || 0,
-                                      MenuCompletoModel?.imgPlato || '');">
-                                <i class="far fa-edit"></i></button>
-
+                            <button class="btn btn-outline-light btn-md" 
+                                (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
+                                obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
+                                              MenuCompletoModel?.nombrePlato || '',
+                                              MenuCompletoModel?.precioPlato || 0,
+                                              MenuCompletoModel?.tipoPlato?.idTipoPlato || 0,
+                                              MenuCompletoModel?.imgPlato || '');">
+                                <i class="far fa-edit"></i>
+                            </button>
+                        
                             <!-- Boton borrar-->
-                            <button class="btn btn-outline-light btn-lg"
+                            <button class="btn btn-outline-light btn-md" 
                                 (click)="borrarPlaLisComMsjEli(MenuCompletoModel.idPlato)">
-                                <i class="far fa-trash-alt"> </i></button>
+                                <i class="far fa-trash-alt"></i>
+                            </button>
                         </div>
+                        
                         <br>
+
+
                         <!-- MODAL EDITAR LA LISTA COMPLETA DE PLATOS-->
 
                         <ng-template #templateEditarListCompPlatos>
@@ -216,7 +222,7 @@
                             <i class=""></i>
                         </div>
                         <button type="button" class="btn btn-outline-light btn-sm"
-                            (click)="modalEditarPaAgregarCard.hide()">
+                            (click)="modalEditarPaAgregarCard.hide(); borrarInputsCerrarModalito()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -384,27 +390,27 @@
                                     </button>
                                 </div>
                                 <div class="row" id="titulosListaxTipoPla">
-                                    <div class="col-lg-4 d-none d-lg-block pt-2">
+                                    <div class="col-lg-4 col-md-12 d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
                                             <p class="small ps-5">Plato</p>
                                         </blockquote>
                                     </div>
-                                    <div class="col-lg-1 d-none d-lg-block pt-2">
+                                    <div class="col-lg-1 col-md-12 d-none d-lg-block pt-2">
                                         <blockquote class="blockquote text-center border-end border-top border-white">
                                             <p class="small text-center">$$$</p>
                                         </blockquote>
                                     </div>
-                                    <div class="col-lg-2 text-center d-none d-lg-block pt-2">
+                                    <div class="col-lg-2 col-md-12 text-center d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
                                             <p class="small">Tipo de Plato</p>
                                         </blockquote>
                                     </div>
-                                    <div class="col-lg-3 text-center d-none d-lg-block pt-2">
+                                    <div class="col-lg-3 col-md-12 text-center d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
                                             <p class="small">Imagen</p>
                                         </blockquote>
                                     </div>
-                                    <div class="col-lg-2 text-center d-none d-lg-block pt-2">
+                                    <div class="col-lg-2 col-md-12 text-center d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
                                             <p class="small">Edicion</p>
                                         </blockquote>
@@ -415,34 +421,43 @@
 
                                 <div *ngFor="let MenuCompletoModel of menuCompModel">
                                     <div class="row p-1">
-                                        <div class="col-lg-4 col-md-1 border-end d-flex align-items-center">
+                                        <div class="col-lg-4 col-md-12 border-end d-flex align-items-center">
                                             <p class="">{{MenuCompletoModel.nombrePlato}}</p>
                                         </div>
 
-                                        <div class="col-lg-1 col-md-2 border-end d-flex align-items-center ps-4">
+                                        <div class="col-lg-1 col-md-12 border-end d-flex align-items-center ps-4">
                                             <p class="text-center">${{MenuCompletoModel.precioPlato}}</p>
                                         </div>
-                                        <div class="col-lg-2 col-md-2 border-end d-flex align-items-center ps-5">
+                                        <div class="col-lg-2 col-md-12 border-end d-flex align-items-center ps-5">
                                             <p class="text-center">
                                                 <small>{{ MenuCompletoModel.tipoPlato ?
                                                     MenuCompletoModel.tipoPlato.nombreTipoPlato : '' }}</small>
                                             </p>
                                         </div>
 
-                                        <div class="col-lg-3 col-md-4 border-end d-flex align-items-center">
-                                            <img class="img-fluid rounded-pill w-100 h-100 border border-white border-5 rounded-5 border-opacity-50"
-                                                src="{{MenuCompletoModel.imgPlato}}">
+                                        <div class="col-lg-3 col-md-12 border-end mx-auto">
+                                            <div class="d-flex justify-content-center">
+                                                <img class="img-fluid rounded-pill w-50 h-50 border border-white border-5 rounded-5 border-opacity-50"
+                                                    src="{{MenuCompletoModel.imgPlato}}">
+                                            </div>
+                                            <br>
                                         </div>
-                                        <div class="col-lg-1 col-md-2 text-center  d-flex align-items-center ps-5">
+                                       
+                                        <div class="col-lg-2 col-md-12 d-flex justify-content-center align-items-center mx-auto">
                                             <!-- Boton editar-->
-                                            <button class="btn btn-outline-light btn-lg"
-                                                (click)="openModalEditarMenuComp(templateEditarMenuComp); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato, MenuCompletoModel.imgPlato); modalMenuComp.hide()">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <button class="btn btn-outline-light btn-md"
+                                                (click)="openModalEditarMenuComp(templateEditarMenuComp); borrarInputsCerrarModalito(); obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato, TipoPlato.idTipoPlato, MenuCompletoModel.imgPlato); modalMenuComp.hide()">
                                                 <i class="far fa-edit"></i> </button>
                                             <!-- Boton borrar-->
-                                            <button class="btn btn-outline-light btn-lg"
+                                            <button class="btn btn-outline-light btn-md"
                                                 (click)="borrarPlaMsjEli(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
                                                 <i class="far fa-trash-alt"></i></button>
                                         </div>
+                                        
                                         <br>
                                         <hr>
                                     </div>

@@ -36,9 +36,6 @@ public class DetallePedidosService {
     IPlatosAMostrarRepository iPlaMosRepo;
 
     @Autowired
-    PlatosAMostrarService plaMosServ;
-
-    @Autowired
     private EntityManager entityManager; //LIBRERIA QUE SOLO SE UTILIZA PARA EL METODO public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido)
 
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
@@ -323,20 +320,12 @@ public class DetallePedidosService {
      * existencia del DetallePedido. Método de uso interno, SIN ENDPOINT
      */
     public boolean existsById(Long idDetallePedido) {
-        try {
 
-            if (!iDetPeRepo.existsById(idDetallePedido)) {
-                throw new MensajeResponseStatusException("No se encontraron registros con idDetallePedido: " + idDetallePedido, HttpStatus.NOT_FOUND, null);
-            }
-            return true;
-
-        } catch (MensajeResponseStatusException e) {
-
-            throw new MensajeRunTimeException(new Mensaje("Error al comprobar si el detallePedido existe por idDetallePedido"), e);
-        } catch (Exception e) {
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al comprobar si el detallePedido existe por idDetallePedido"), e);
-        }
+        boolean dePeExists = iDetPeRepo.existsById(idDetallePedido);
+        if (!dePeExists) {
+            throw new MensajeResponseStatusException("El detalle del pedido con idDetallePedido N°: " + idDetallePedido + " no existe", HttpStatus.NOT_FOUND, null);
+        };
+        return dePeExists;
     }
 
     /**
