@@ -2,6 +2,7 @@ package com.delivery.delivery.Controller.PlatosAMostrar;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Mensaje.MensajeDataAccessException;
 import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Platos.PlatosService;
@@ -31,84 +32,240 @@ public class PlatosAMostrarController {
 
     @Autowired
     PlatosService platosServ;
-    
-     private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarController.class);
 
-//LISTA DE PLATOS A MOSTRAR 
+    private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarController.class);
+
+    /**
+     * Retorna una lista de platos a mostrar en la aplicación.
+     *
+     * @return Una respuesta HTTP con la lista de platos a mostrar.
+     */
     @GetMapping("/listaplatosamostrar")
     public ResponseEntity<List<PlatosAMostrar>> listaPlatosAMostrar() {
+        try {
+            // Obtiene la lista de platos a mostrar desde el servicio
+            List<PlatosAMostrar> listaPlatos = plaMosServ.listaPlatosAMostrar();
 
-        List<PlatosAMostrar> listaPlatos = plaMosServ.listaPlatosAMostrar();
-        return new ResponseEntity(listaPlatos, HttpStatus.OK);
-    };
+            // Verifica si la lista está vacía y lanza una excepción si es así
+            if (listaPlatos.isEmpty()) {
+                throw new MensajeResponseStatusException("La lista de platos a mostrar está vacía", HttpStatus.EXPECTATION_FAILED);
+            }
+
+            // Retorna una respuesta HTTP con la lista de platos a mostrar
+            return new ResponseEntity(listaPlatos, HttpStatus.OK);
+
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error("Error al acceder a la base de datos. " + HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error("Error inesperado al procesar la solicitud de una lista de platos a mostrar. " + HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de una lista de platos a mostrar. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
+//=======================================================================================================================  
     
-    
-//OBTENER UN PLATO A MOSTRAR POR ID 
+    /**
+     * Retorna un plato a mostrar en la aplicación dado su ID.
+     *
+     * @param idPlatosAMostrar El ID del plato a mostrar.
+     * @return Un objeto Optional que contiene el plato a mostrar si existe.
+     */
     @GetMapping("/platosamostrarxid/{idPlatosAMostrar}")
-    public Optional getOne(@PathVariable Long idPlatosAMostrar) {
+    public Optional<PlatosAMostrar> getOne(@PathVariable Long idPlatosAMostrar) {
+        try {
+            // Verifica si el plato a mostrar existe
+            if (!plaMosServ.existsById(idPlatosAMostrar)) {
+                throw new MensajeResponseStatusException("El idPlatosAMostrar N°: " + idPlatosAMostrar + " no existe. ", HttpStatus.NOT_FOUND);
+            }
+            // Retorna el plato a mostrar si existe
+            return plaMosServ.getOne(idPlatosAMostrar);
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeDataAccessException("Error al acceder a la base de datos", HttpStatus.INTERNAL_SERVER_ERROR, e);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de una lista de platos a mostrar"), HttpStatus.INTERNAL_SERVER_ERROR, e);
+        }
+    }
 
-        return plaMosServ.getOne(idPlatosAMostrar);
-
-    };
+//=======================================================================================================================  
     
-//GUARDAR PLATO A MOSTRAR    
-    
+    /**
+     * Guarda un nuevo plato a mostrar en la base de datos.
+     *
+     * @param platosAMostrar El plato a mostrar a guardar.
+     * @return Un ResponseEntity con un mensaje indicando si el plato se guardó
+     * correctamente.
+     */
     @PostMapping("/guardarplatoamostrar")
     public ResponseEntity<?> guardarPlatoAMos(@RequestBody PlatosAMostrar platosAMostrar) {
-        
-       try {       
-            plaMosServ.guardar(platosAMostrar);           
-             return new ResponseEntity<>(new Mensaje("Plato a mostrar guardado"), HttpStatus.OK);
-       } catch (MensajeResponseStatusException e) {
-         logger.error(" El plato seleccionado ya existe en Platos a mostrar o el plato seleccionado no esta registrado en la tabla platos " + e.getMessage());
-         throw e;
-       } catch (Exception e){
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al guardar el plato a mostrar"), e);
-       }
-    };   
+        try {
+            // Verifica si el plato a mostrar ya existe en la tabla de platos a mostrar
+            if (plaMosServ.existsByIdPlato(platosAMostrar.getPlatos().getIdPlato())) {
+                throw new MensajeResponseStatusException(new Mensaje("El plato seleccionado ya se encuentra en Platos a Mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
+            // Verifica si el plato a mostrar existe en la tabla de platos
+            if (!platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
+                throw new MensajeResponseStatusException(new Mensaje("El plato no existe en la base de datos").getMensaje(), HttpStatus.NOT_FOUND, null);
+            };
+            // Verifica si la descripción del plato a mostrar está vacía o es nula
+            if (platosAMostrar.getDescripcionPlatoAMostrar() == "" || platosAMostrar.getDescripcionPlatoAMostrar() == null) {
+                throw new MensajeResponseStatusException(new Mensaje("Ingrese descripción del plato a mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
+
+            // Guarda el plato a mostrar
+            plaMosServ.guardar(platosAMostrar);
+
+            return new ResponseEntity<>(new Mensaje("Plato a mostrar guardado"), HttpStatus.OK);
+
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado del servidor al procesar la solicitud para guardar un plato a mostrar"), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
+//=======================================================================================================================  
     
-    
-//EDITAR PLATO A MOSTRAR    
-    
+    /**
+     * Este endpoint se dejó aquí por si en el futuro se necesita actualizar la
+     * información de un plato a mostrar en la base de datos. Los platos a
+     * mostrar no pueden editarse desde el cliente, solo eliminarse y agregarse.
+     *
+     * @param platosAMostrar El objeto PlatosAMostrar con la información
+     * actualizada del plato a mostrar.
+     * @param idPlatoAMostrar El ID del plato a mostrar que se desea actualizar.
+     * @return ResponseEntity con un mensaje indicando que el plato a mostrar ha
+     * sido actualizado correctamente.
+     * @throws MensajeResponseStatusException Si el plato a mostrar no existe en
+     * la base de datos o si ocurre un error al procesar la solicitud.
+     */
     @PutMapping("/editarplatoamostrar/{idPlatoAMostrar}")
     public ResponseEntity<?> editarPlato(@RequestBody PlatosAMostrar platosAMostrar, @PathVariable Long idPlatoAMostrar) {
-        PlatosAMostrar plaMostrar = plaMosServ.getOne(idPlatoAMostrar).get();
+        try {
 
-        plaMostrar.setPlatos(platosAMostrar.getPlatos());
-        plaMostrar.setDescripcionPlatoAMostrar(platosAMostrar.getDescripcionPlatoAMostrar());
+            // Verifica si el plato ya existe en la tabla de platos a mostrar
+            if (plaMosServ.existsByIdPlato(platosAMostrar.getPlatos().getIdPlato())) {
+                throw new MensajeResponseStatusException("El plato seleccionado ya se encuentra en Platos a Mostrar", HttpStatus.BAD_REQUEST);
+            }
 
-        plaMosServ.guardar(plaMostrar);
-        return new ResponseEntity(new Mensaje("Plato a mostrar actualizado"), HttpStatus.OK);
+            // Verifica si el plato a mostrar existe en la tabla de platos
+            if (!platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
+                throw new MensajeResponseStatusException("El plato no existe en la base de datos", HttpStatus.NOT_FOUND);
+            }
 
-    };
-        
+            // Verifica si la descripción del plato a mostrar está vacía o es nula
+            if (platosAMostrar.getDescripcionPlatoAMostrar() == null || platosAMostrar.getDescripcionPlatoAMostrar().isEmpty()) {
+                throw new MensajeResponseStatusException("Ingrese descripción del plato a mostrar", HttpStatus.BAD_REQUEST);
+            }
+
+            // Obtiene el plato a mostrar que se desea editar
+            PlatosAMostrar plaMostrar = plaMosServ.getOne(idPlatoAMostrar).orElseThrow(() -> new MensajeResponseStatusException("El plato a mostrar no existe", HttpStatus.NOT_FOUND));
+
+            // Actualiza la información del plato a mostrar
+            plaMostrar.setPlatos(platosAMostrar.getPlatos());
+            plaMostrar.setDescripcionPlatoAMostrar(platosAMostrar.getDescripcionPlatoAMostrar());
+
+            // Guarda la actualización en la base de datos
+            plaMosServ.guardar(plaMostrar);
+
+            // Retorna una respuesta indicando que el plato a mostrar ha sido actualizado correctamente
+            return new ResponseEntity(new Mensaje("Plato a mostrar actualizado"), HttpStatus.OK);
+
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error("Error al acceder a la base de datos", e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos", HttpStatus.INTERNAL_SERVER_ERROR, e);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error("Error inesperado del servidor al procesar la solicitud de una lista de platos a mostrar", e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado del servidor al procesar la solicitud de edicion de un plato a mostrar"), HttpStatus.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+//=======================================================================================================================  
     
-//BORRAR PLATO A MOSTRAR  
-    
+    /**
+     * Elimina un plato a mostrar de la base de datos según su ID.
+     *
+     * @param idPlatoAMostrar El ID del plato a mostrar que se desea eliminar.
+     * @return ResponseEntity con un mensaje indicando que el plato ha sido
+     * eliminado correctamente.
+     * @throws MensajeResponseStatusException Si el plato a mostrar no existe en
+     * la base de datos.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
+     * base de datos.
+     * @throws MensajeRunTimeException Si se produce un error inesperado al
+     * procesar la solicitud.
+     */
     @DeleteMapping("/borrarplatoamostrar/{idPlatoAMostrar}")
     public ResponseEntity borrarPlato(@PathVariable Long idPlatoAMostrar) {
-        if (!plaMosServ.existsById(idPlatoAMostrar)) {
-            return new ResponseEntity(new Mensaje("el id no existe"), HttpStatus.BAD_REQUEST);
-        }
+        try {
+            // Verifica si el plato a mostrar existe en la tabla de platos
+            if (!plaMosServ.existsById(idPlatoAMostrar)) {
+                throw new MensajeResponseStatusException("El idPlatoAMostrar N°: " + idPlatoAMostrar + " no existe en la base de datos", HttpStatus.NOT_FOUND);
+            }
 
-        plaMosServ.borrar(idPlatoAMostrar);
-        return new ResponseEntity(new Mensaje("Plato eliminado"), HttpStatus.OK);
-    };  
+            // Elimina el plato a mostrar de la base de datos
+            plaMosServ.borrar(idPlatoAMostrar);
+
+            // Retorna una respuesta HTTP con un mensaje indicando que el plato ha sido eliminado correctamente
+            return new ResponseEntity(new Mensaje("Plato eliminado"), HttpStatus.OK);
+
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error("Error al acceder a la base de datos", e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos", HttpStatus.INTERNAL_SERVER_ERROR, e);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error("Error inesperado del servidor al procesar la solicitud de una lista de platos a mostrar", e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado del servidor al procesar la solicitud para borrar un plato a mostrar"), HttpStatus.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
+//=======================================================================================================================  
     
-    
-        
-//EXISTE PLATO A MOSTRAR POR ID
-    
+    /**
+     * Verifica la existencia de un plato a mostrar en la base de datos según su
+     * ID.
+     *
+     * @param idPlatoAMostrar El ID del plato a mostrar que se desea verificar.
+     * @return ResponseEntity con un mensaje indicando si el plato existe o no.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
+     * base de datos.
+     * @throws MensajeRunTimeException Si ocurre un error inesperado al procesar
+     * la solicitud.
+     */
     @GetMapping("/existeporid/{idPlatoAMostrar}")
     public ResponseEntity existeXId(@PathVariable Long idPlatoAMostrar) {
-        if (plaMosServ.existsById(idPlatoAMostrar) == true) {
-            return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
-        } else {
-            return new ResponseEntity(new Mensaje("El plato no existe"), HttpStatus.BAD_REQUEST);
+        try {
+            if (plaMosServ.existsById(idPlatoAMostrar)) {
+                return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
+            } else {
+                return new ResponseEntity(new Mensaje("El plato no existe"), HttpStatus.BAD_REQUEST);
+            }
+        } catch (MensajeDataAccessException e) {
+            // Maneja el error al acceder a la base de datos
+            logger.error("Error al acceder a la base de datos", e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos", HttpStatus.INTERNAL_SERVER_ERROR, e);
+        } catch (MensajeRunTimeException e) {
+            // Maneja el error inesperado al procesar la solicitud
+            logger.error("Error inesperado del servidor al procesar la solicitud de una lista de platos a mostrar", e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado del servidor al procesar la solicitud para concer si un plato existe por idPlatoAMostrar"), HttpStatus.INTERNAL_SERVER_ERROR, e);
         }
-    };
+    }
+
+//=======================================================================================================================  
     
-
-
+    
+    
 }

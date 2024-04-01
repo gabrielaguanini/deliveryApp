@@ -1,8 +1,6 @@
 package com.delivery.delivery.Service.PlatosAMostrar;
 
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
-import com.delivery.delivery.Mensaje.Mensaje;
-import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
 import java.util.Comparator;
@@ -13,7 +11,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,10 +26,19 @@ public class PlatosAMostrarService {
 
     private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarService.class);
 
-    public List<PlatosAMostrar> listaPlatosAMostrar() {
+    /**
+     * Recupera una lista de todos los platos a mostrar almacenados en la base
+     * de datos.
+     *
+     * @return Una lista ordenada de platos a mostrar.
+     * @throws DataAccessException Si se produce algún error al acceder a la
+     * base de datos.
+     */
+    public List<PlatosAMostrar> listaPlatosAMostrar() throws DataAccessException {
+        // Recupera la lista de platos desde el repositorio
         List<PlatosAMostrar> platosAMostrarList = iPlatosAMostrarRepo.findAll();
 
-        // Ordenar la lista por idPlatosAMostrar
+        // Ordena la lista por ID de plato
         List<PlatosAMostrar> platosAMostrarOrdenados = platosAMostrarList.stream()
                 .sorted(Comparator.comparing(PlatosAMostrar::getIdPlatosAMostrar))
                 .collect(Collectors.toList());
@@ -39,55 +46,75 @@ public class PlatosAMostrarService {
         return platosAMostrarOrdenados;
     }
 
-    ; 
- 
-
+//=======================================================================================================
+    /**
+     * Devuelve un plato a mostrar con el ID especificado.
+     *
+     * @param idPlatosAMostrar el ID del plato a buscar
+     * @return un Optional que contiene el plato a mostrar si se encuentra, o
+     * vacío si no se encuentra
+     */
     public Optional<PlatosAMostrar> getOne(Long idPlatosAMostrar) {
+
         return iPlatosAMostrarRepo.findById(idPlatosAMostrar);
     }
 
-    ;
+//=======================================================================================================
     
-    public Optional getOneByIdPlato(Long idPlato){
+    public Optional getOneByIdPlato(Long idPlato) {
         return iPlatosAMostrarRepo.findByPlatos_IdPlato(idPlato);
     }
 
-    
-      
-  public void guardar(PlatosAMostrar platosAMostrar) {
-        try {
-            if (iPlatosAMostrarRepo.existsByPlatos_IdPlato(platosAMostrar.getPlatos().getIdPlato())) {
-                throw new MensajeResponseStatusException(new Mensaje("El plato seleccionado ya se encuentra en Platos a Mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            };
-            if (!iPlaRep.existsById(platosAMostrar.getPlatos().getIdPlato())) {
-                throw new MensajeResponseStatusException(new Mensaje("El plato no existe").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            };
-            if (platosAMostrar.getDescripcionPlatoAMostrar() == "" || platosAMostrar.getDescripcionPlatoAMostrar() == null) {
-                throw new MensajeResponseStatusException(new Mensaje("Ingrese descripcion del plato a mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            };
-            iPlatosAMostrarRepo.save(platosAMostrar);
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw e;
-        }
+//=======================================================================================================
+    /**
+     * Guarda un objeto PlatosAMostrar en la base de datos.
+     *
+     * @param platosAMostrar El objeto PlatosAMostrar a guardar.
+     */
+    public void guardar(PlatosAMostrar platosAMostrar) {
+        iPlatosAMostrarRepo.save(platosAMostrar);
     }
 
+//=======================================================================================================
+    
+    /**
+     * Elimina un plato a mostrar de la base de datos mediante su ID.
+     *
+     * @param idPlatosAMostrar El ID del plato a mostrar que se desea eliminar.
+     */
     public void borrar(Long idPlatosAMostrar) {
         iPlatosAMostrarRepo.deleteById(idPlatosAMostrar);
     }
 
-    ;   
-
+//======================================================================================================= 
     
+    /**
+     * Verifica si existe un plato a mostrar en la base de datos según su ID.
+     *
+     * @param idPlatosAMostrar El ID del plato a mostrar que se desea verificar.
+     * @return true si el plato a mostrar existe en la base de datos, false en
+     * caso contrario.
+     */
     public boolean existsById(Long idPlatosAMostrar) {
         return iPlatosAMostrarRepo.existsById(idPlatosAMostrar);
     }
 
-    ;
+//======================================================================================================= 
     
-      public boolean existsByIdPlato(Long idPlato) {
+    /**
+     * Verifica si existe un plato a mostrar en la base de datos según el ID de
+     * su plato asociado.
+     *
+     * @param idPlato El ID del plato asociado al plato a mostrar que se desea
+     * verificar.
+     * @return true si el plato a mostrar asociado al ID del plato existe en la
+     * base de datos, false en caso contrario.
+     */
+    public boolean existsByIdPlato(Long idPlato) {
         return iPlatosAMostrarRepo.existsByPlatos_IdPlato(idPlato);
     }
-;
 
+//======================================================================================================= 
+    
+    
 }

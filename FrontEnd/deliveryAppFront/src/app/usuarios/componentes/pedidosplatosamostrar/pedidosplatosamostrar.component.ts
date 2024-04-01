@@ -78,9 +78,9 @@ export class PedidosplatosamostrarComponent {
   totalesPlatosList: number[] = []; // Array para almacenar los totales de cada plato, esta lista se itera con el let i = index del componente
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPlatosDelPedido: string[] = [];
-  detallesPedidosAcotada: DetallePedidosAcotadaModel[] = []; 
-  listaPeConfTrueFalse: Boolean[] = [true,false];
-  listaPlatosCompleta: MenuCompletoModel [] = [];
+  detallesPedidosAcotada: DetallePedidosAcotadaModel[] = [];
+  listaPeConfTrueFalse: Boolean[] = [true, false];
+  listaPlatosCompleta: MenuCompletoModel[] = [];
 
 
 
@@ -102,8 +102,8 @@ export class PedidosplatosamostrarComponent {
   //EDITAR PEDIDO
   //////////////////
   idPedido!: number;
- 
- 
+
+
   nombreCliente!: string;
   telefonoCliente!: string;
   direccionCliente!: string;
@@ -123,8 +123,8 @@ export class PedidosplatosamostrarComponent {
 
   //EDITAR 1 DETALLE PEDIDO
   idPedidoGuardDetPed!: number;
-  
-  
+
+
 
   //EDITAR DETALLE PEDIDO
   detallePedidos!: DetallePedidos;
@@ -166,7 +166,7 @@ export class PedidosplatosamostrarComponent {
     this.listaPedidosDeHoy(); // muestra la lista de pedidos de la fecha actual
     this.listaDetallePedidos(); // muestra la lista de pedidos completa
     //this.listaPlatosComp();
-    
+
 
   };
 
@@ -202,7 +202,7 @@ export class PedidosplatosamostrarComponent {
       class: 'modal-dialog-centered modal-lg' // tamaño del modal
     };
     this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig })
-    
+
   };
 
   //MODALITO NGIF (NO BSMODALREF)
@@ -232,10 +232,10 @@ export class PedidosplatosamostrarComponent {
 
   mostrarOcultarModalInfo(templateModalInfo: TemplateRef<any>): void {
     this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' })
-    
+
   };
 
-  mostrarOcultarModalitoAgrDetPed(){
+  mostrarOcultarModalitoAgrDetPed() {
     this.modalitoAgrDetPed = !this.modalitoAgrDetPed;
   };
 
@@ -244,8 +244,17 @@ export class PedidosplatosamostrarComponent {
   // FUNCIONES PARA LISTAS
   ///////////////////////////////////
   listaPlatosAMostrar(): void {
-    this.plaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data)
-
+    this.plaMosServ.listaPlatosAMostrar().subscribe(
+      data => {
+        if (data.length > 0) {
+          this.platosAMostrarList = data;
+          console.log("Lista de platos a mostrar recibida. ");
+        }
+      },
+      err => {
+        console.log("Msj. Serv.: " + err.error.message);
+        alert("Msj. Serv.: " + err.error.message);
+      })
   };
 
   listaPlatosForSelect(): void {
@@ -270,7 +279,7 @@ export class PedidosplatosamostrarComponent {
       });
   };
 
-  listaPlatosComp(): void{
+  listaPlatosComp(): void {
     this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);
   };
 
@@ -286,7 +295,7 @@ export class PedidosplatosamostrarComponent {
     const plaMos = new PlatosAMostrar(0, this.descripcionPlatoAMostrar, plat)
     this.plaMosServ.guardarPlatoAMostrar(plaMos).subscribe(data => {
       this.listaPlatosAMostrar();
-      console.log("Msj. Servidor: " + data)
+      console.log("Plato a mostrar guardado")
       alert("Plato a mostrar guardado");
     },
       err => {
@@ -335,9 +344,13 @@ export class PedidosplatosamostrarComponent {
   borrarPlatoAMostrar(idPlatosAMostrar: number): void {
     if (idPlatosAMostrar != undefined) {
       this.plaMosServ.borrarPlatoAMostrar(idPlatosAMostrar).subscribe(data => {
-        alert("Plato a mostrar eliminado");
+        alert("Plato a mostrar eliminado.");
+        console.log("Plato eliminado.")
         this.listaPlatosAMostrar(); //refresca la lista de platos a mostrar cuando se elimina un registro
-      }, err => "No se eliminó el plato a mostrar")
+      }, err => {
+        alert("Msj. Servidor: " + err.error.message);
+        console.log("Msj. Servidor: " + err.error.message);
+    })
     };
   };
 
@@ -350,7 +363,7 @@ export class PedidosplatosamostrarComponent {
     };
   };
 
-   //CARGAR PLATOS EN INPUT
+  //CARGAR PLATOS EN INPUT
   /////////////////////////
   agregarPlatosEnInputs(idPlato: number): void {
     this.platosServ.obtPlatoXID(idPlato).subscribe(
@@ -361,7 +374,7 @@ export class PedidosplatosamostrarComponent {
         this.tipoPlato = plato.tipoPlato.nombreTipoPlato;
         this.nombrePlato = plato.nombrePlato;
         this.precioPlato = plato.precioPlato;
-       
+
       },
       (error) => {
         // Maneja el error, si es necesario
@@ -581,10 +594,10 @@ export class PedidosplatosamostrarComponent {
       this.hora,
       this.importeTotalPedido,
       this.pedidoConfirmado
-      );
+    );
 
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
-      this.listaPedidosDeHoy();  
+      this.listaPedidosDeHoy();
       console.log("Msj. Servidor: " + JSON.stringify(data));
       alert("Pedido actualizado");
     },
@@ -662,7 +675,7 @@ export class PedidosplatosamostrarComponent {
     this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
   };
 
-//envia lista de detalle pedidos
+  //envia lista de detalle pedidos
   enviarDetallePedidos(): void {
     // Filtra los elementos seleccionados
     const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
@@ -719,8 +732,8 @@ export class PedidosplatosamostrarComponent {
   };
 
   agregarUnDetallePedido() {
-    
-    
+
+
     if (this.porcionPlato > 10) {
       alert("El maximo permitido de porciones es 10");
       return; // Agregado return para salir de la función si la validación falla
@@ -761,19 +774,19 @@ export class PedidosplatosamostrarComponent {
       this.cerrarModalitosLimpiarInput();
     };
     if (msjAdvertencia) {
-    this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
-      this.idDetallePedido = idDetallePedido;
-      this.idPedido = idPedido;
-      this.idPlatosAMostrar = idPlatosAMostrar;
-      this.porcionPlato = porcionPlato
-      this.nombrePlato = nombrePlato;
-      console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
+      this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
+        this.idDetallePedido = idDetallePedido;
+        this.idPedido = idPedido;
+        this.idPlatosAMostrar = idPlatosAMostrar;
+        this.porcionPlato = porcionPlato
+        this.nombrePlato = nombrePlato;
+        console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
 
-    }, err => {
-      console.log(err);
-      alert("Error, no se trajeron los detalles del pedido")
-    })
-  }
+      }, err => {
+        console.log(err);
+        alert("Error, no se trajeron los detalles del pedido")
+      })
+    }
   };
 
 
@@ -964,62 +977,62 @@ export class PedidosplatosamostrarComponent {
 
   //FUNCION PARA CREAR EXCEL CON LISTA COMPLETA
   ///////////////////////////////////////////////////
- 
+
 
   //genera el excel
   generateExcel(liPedidosHoy: any[], liPlaMos: any[], pedidosHoyPlaMostrar: string): void {
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-  
+
     // Creamos la hoja de Excel para la primera lista o pedidos de hoy
     const worksheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(liPedidosHoy);
     XLSX.utils.book_append_sheet(workbook, worksheet1, 'Pedidos Hoy');
-  
+
     // Creamos la hoja de Excel para la segunda lista o platos a mostrar
     const platosAMostrarData = this.platosAMostrarList.map((plato) => {
-    return {
-      'ID Plato a Mostrar': plato.idPlatosAMostrar,
-      'Descripción': plato.descripcionPlatoAMostrar,
-      'ID Tipo Plato': plato.platos.tipoPlato.idTipoPlato,
-      'Tipo de Plato': plato.platos.tipoPlato.nombreTipoPlato,
-      'ID Plato': plato.platos.idPlato,
-      'Nombre del Plato': plato.platos.nombrePlato,
-      'Precio': plato.platos.precioPlato,
-      'Imagen': plato.platos.imgPlato
-    };
-  });
-  const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(platosAMostrarData);
-  XLSX.utils.book_append_sheet(workbook, worksheet2, 'Platos a Mostrar');
+      return {
+        'ID Plato a Mostrar': plato.idPlatosAMostrar,
+        'Descripción': plato.descripcionPlatoAMostrar,
+        'ID Tipo Plato': plato.platos.tipoPlato.idTipoPlato,
+        'Tipo de Plato': plato.platos.tipoPlato.nombreTipoPlato,
+        'ID Plato': plato.platos.idPlato,
+        'Nombre del Plato': plato.platos.nombrePlato,
+        'Precio': plato.platos.precioPlato,
+        'Imagen': plato.platos.imgPlato
+      };
+    });
+    const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(platosAMostrarData);
+    XLSX.utils.book_append_sheet(workbook, worksheet2, 'Platos a Mostrar');
 
-  
-   // Convertimos el libro de Excel en un archivo binario y creamos un enlace de descarga
-  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  const dataBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  const url = window.URL.createObjectURL(dataBlob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = pedidosHoyPlaMostrar + '.xlsx'; // Nombre del archivo de Excel
-  link.click(); // Simulamos un clic en el enlace para iniciar la descarga
-  window.URL.revokeObjectURL(url); // Liberamos el recurso del enlace
 
-  
-};
+    // Convertimos el libro de Excel en un archivo binario y creamos un enlace de descarga
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const dataBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url = window.URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = pedidosHoyPlaMostrar + '.xlsx'; // Nombre del archivo de Excel
+    link.click(); // Simulamos un clic en el enlace para iniciar la descarga
+    window.URL.revokeObjectURL(url); // Liberamos el recurso del enlace
 
-//descargar el excel generado
-exportToExcelOnClick(): void {
 
-  //msj advertencia descarga
-  const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
-  
-  if(msjAdvertenciaDescarga){
+  };
 
-  forkJoin([
-    this.pedidosServ.listaPedidosDeHoy(),
-    this.plaMosServ.listaPlatosAMostrar()
-  ]).subscribe(([pedidos, platos]) => {
-    this.generateExcel(pedidos, platos, 'pedidosHoyPlaMostrar');
-  });
-}
-};
+  //descargar el excel generado
+  exportToExcelOnClick(): void {
+
+    //msj advertencia descarga
+    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
+
+    if (msjAdvertenciaDescarga) {
+
+      forkJoin([
+        this.pedidosServ.listaPedidosDeHoy(),
+        this.plaMosServ.listaPlatosAMostrar()
+      ]).subscribe(([pedidos, platos]) => {
+        this.generateExcel(pedidos, platos, 'pedidosHoyPlaMostrar');
+      });
+    }
+  };
 
 
   //FUNCIONES VARIAS
@@ -1076,7 +1089,7 @@ exportToExcelOnClick(): void {
     this.idPedido = NaN;
     this.modalitoInputEditDetPedid = false;
     this.modalitoTdEditDetPedid = true;
-    
+
     this.imgPlato = "";
 
     this.idPlato = NaN;
@@ -1097,7 +1110,7 @@ exportToExcelOnClick(): void {
     this.tipoPlato = "";
     this.precioPlato = NaN;
 
-    this.listaPlatosCompleta =[];
+    this.listaPlatosCompleta = [];
 
   };
 
@@ -1113,16 +1126,16 @@ exportToExcelOnClick(): void {
     try {
       const tryScroll = () => {
         const section = document.getElementById(sectionId);
-  
+
         if (!section) {
           console.error(`La sección con ID '${sectionId}' no fue encontrada.`);
           return;
         }
-  
+
         //console.log('Sección encontrada:', section);
         section.scrollIntoView({ behavior: 'smooth' });
       };
-  
+
       // scroll a ancla después de 500 milisegundos
       setTimeout(tryScroll, 500);
     } catch (error) {
@@ -1131,7 +1144,7 @@ exportToExcelOnClick(): void {
   }
 
 
-  
+
 }
 
 
