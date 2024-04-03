@@ -446,20 +446,27 @@ export class PedidosAnterYDescargasComponent {
 
   //descargar el excel generado
   exportToExcelOnClick(): void {
-
-    //msj advertencia descarga
-    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
-
-    //suscribir al servicio para ingresar los registros de la lista completa de pedidos
+    // Mostrar mensaje de advertencia para la descarga
+    const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo. ¿Desea continuar?');
+  
+    // Suscribirse al servicio para obtener la lista completa de pedidos y generar el archivo Excel
     if (msjAdvertenciaDescarga) {
-
-      this.pedidosServ.listaPedidos().subscribe((pedidos) => {
-        const liPedComp: string = "listaPedidoHistorica";
-        this.generateExcel(pedidos, liPedComp);
-      })
+      this.pedidosServ.listaPedidos().subscribe(
+        (pedidos) => {
+          const liPedComp: string = "listaPedidoHistorica";
+          this.generateExcel(pedidos, liPedComp);
+          console.log("Lista de pedidos completa recibida")
+        },
+        (err) => {
+          // Manejar el error de la suscripción al servicio
+          console.error('Msj. Servidor: :' + err.error.message);
+          alert('Msj. Servidor: ' + err.error.message);
+          // Puedes mostrar un mensaje de error al usuario si lo deseas
+        }
+      );
     }
-  };
-
+  }
+  
 
   //FUNCIONES VARIAS
 

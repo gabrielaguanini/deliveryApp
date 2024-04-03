@@ -41,14 +41,9 @@ export class DetallePedidosService {
 
 
   public guardarVariosDetallesPedido(detallesPedidosAcotada: DetallePedidosAcotadaModel[]): Observable<string> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post(this.URL + 'guardarvariosdetallespedidos', detallesPedidosAcotada, {
-      headers: headers,
-      responseType: 'text', // Indica que la respuesta es texto
-    })
-      .pipe(
-        catchError(this.handleError) // Manejo errores
-      );
+    
+    return this.httpClient.post<any>(this.URL + 'guardarvariosdetallespedidos', detallesPedidosAcotada)
+    
   };
 
 
@@ -58,10 +53,10 @@ export class DetallePedidosService {
 
  
   //METODO PARA MANEJO DE ERRORES
-  private handleError(error: any): Observable<any> {
-    console.error('Error en la solicitud:', error);
-    throw error;
-  };
+  //private handleError(error: any): Observable<any> {
+   // console.error('Error en la solicitud:', error);
+    // throw error;
+ // };
 
 
 }

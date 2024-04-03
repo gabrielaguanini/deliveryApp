@@ -313,7 +313,8 @@ export class MenucomplComponent {
   borrarPlato(idPlato: number, idTipoPla: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
-        alert("Plato eliminado");
+        console.log("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado. " + "Msj. Servidor: " + JSON.stringify(data));
+        alert("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado. ");
       
               // Refresca la lista de platos con el registro eliminado
       if (this.menuCompModel.length > 1) {
@@ -348,7 +349,8 @@ export class MenucomplComponent {
   borrarPlatoLisComp(idPlato: number): void {
     if (idPlato != undefined) {
       this.menucomServ.borrarPlatoLisCompleta(idPlato).subscribe(data => {
-        alert("Plato eliminado");
+        console.log("El plato con idPlato N°: " + "** " + idPlato + " **" + " ha sido eliminado. Msj. Serv: " + JSON.stringify(data));
+        alert("El plato con idPlato N°: " + "** " + idPlato + " **" + " ha sido eliminado. ");
         this.listaFiltradaTipPla();
         this.listaPlatosCompleta();
       }, err => {
@@ -450,7 +452,8 @@ export class MenucomplComponent {
     this.tipoPlaServ.existeXNombre(this.nombreTipoPlato).subscribe(
       (existePlato: boolean) => {
         if (existePlato) {
-          alert("El tipo de plato ya existe");
+          alert("El nombre del tipo plato: " + "**" + this.nombreTipoPlato + "**" + " ya existe en la base de datos. No se aceptan registros duplicados.");
+          console.log("El nombre del tipo plato: " + "**" + this.nombreTipoPlato + "**" + " ya existe en la base de datos. No se aceptan registros duplicados. ");
         } else {
           const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
           this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(
@@ -460,7 +463,8 @@ export class MenucomplComponent {
               this.listTipPla();
             },
             err => {
-              alert("No se pudo guardar el tipo de plato");
+              console.log("Msj. Servidor: " + err.error.message);
+              alert("Msj. Servidor: " + err.error.message);
             }
           );
         }
@@ -546,7 +550,7 @@ export class MenucomplComponent {
       const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
       this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
         console.log("Msj. Servidor: " + data.mensaje);
-        alert(data.mensaje);
+        alert("Tipo de plato: " + "** " + this.idTipoPlato +" - " + this.nombreTipoPlato + " **" + " actualizado. ");
         this.listTipPla();
         this.listaFiltradaTipPla();
       }, err => {

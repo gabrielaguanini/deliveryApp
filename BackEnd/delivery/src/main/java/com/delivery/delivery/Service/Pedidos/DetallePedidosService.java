@@ -10,7 +10,6 @@ import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Repository.Pedidos.IDetallePedidosRepository;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
-import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,119 +40,51 @@ public class DetallePedidosService {
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
 
     /**
-     * Obtiene la lista completa de DetallePedidos.
+     * Retorna una lista de todos los detalles de pedidos.
      *
-     * @return Lista de DetallePedidos.
-     * @throws MensajeResponseStatusException Si hay un error al obtener la
-     * lista.
+     * @return List<DetallePedidos> - Lista de todos los detalles de pedidos.
      */
     public List<DetallePedidos> listaDetallePedidos() {
-        try {
-            List<DetallePedidos> listaDetPedCom = iDetPeRepo.findAll();
-            if (listaDetPedCom.isEmpty()) {
-                throw new MensajeResponseStatusException(new Mensaje("No existen registros para generar una lista").getMensaje(), HttpStatus.OK, null);
-            };
-            return listaDetPedCom;
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw e;
-        }
+        List<DetallePedidos> listaDetallePedidos = iDetPeRepo.findAll();
+        return listaDetallePedidos;
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
-     */
-    /**
-     * Guarda un nuevo DetallePedido.
+     * Guarda un detalle de pedido en la base de datos y realiza operaciones
+     * adicionales.
      *
-     * @param detallePedidos DetallePedido a guardar.
-     * @throws MensajeResponseStatusException Si hay un error al guardar el
-     * DetallePedido. Para actualizar en la tabla detallePedidos datos
-     * necesarios sin intervencion del front
-     * guardarIdPlatoTotalPrecio(detallePedidos); Para actualizar en la tabla
-     * pedidos datos necesarios sin intervencion del front
-     * actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
-     * generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
+     * @param detallePedidos El detalle de pedido que se va a guardar.
      */
     public void guardarDetallePedido(DetallePedidos detallePedidos) {
-        try {
-            if (!iPlaMosRepo.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())) {
-                throw new MensajeResponseStatusException(new Mensaje("El idPlatosAMostrar n°: " + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
-            }
-            if (!iPedidosRepo.existsById(detallePedidos.getPedidos().getIdPedido())) {
-                throw new MensajeResponseStatusException(new Mensaje("El idPedido n°: " + detallePedidos.getPedidos().getIdPedido() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
-            }
 
-            DetallePedidos detPedAGuardar = iDetPeRepo.save(detallePedidos);
-            guardarIdPlatoTotalPrecio(detallePedidos);
-            actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
-            generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
+        // Guarda el detalle de pedido en la base de datos
+        iDetPeRepo.save(detallePedidos);
 
-            if (detPedAGuardar == null && detallePedidos.getPorcionPlato() == null) {
-                throw new MensajeResponseStatusException(new Mensaje("Detalle del pedido nulo o ausente").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            }
+        // Realiza operaciones adicionales después de guardar el detalle de pedido
+        // Guarda el ID del plato y calcula el total del precio del plato
+        guardarIdPlatoTotalPrecio(detallePedidos);
 
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw new MensajeResponseStatusException("Error al guardar detalles del pedido", HttpStatus.BAD_REQUEST, e);
-        }
+        // Actualiza el importe total del pedido al que pertenece este detalle de pedido
+        actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
+
+        // Genera una lista de cadenas a partir de los detalles de pedido para el pedido al que pertenece este detalle
+        generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
-     */
-    /**
-     * Guarda varios DetallePedidos y realiza otras operaciones relacionadas.
+     * Guarda varios detalles de pedido en la base de datos.
      *
-     * @param detallesPedidos Lista de DetallePedidos a guardar.
-     * @return Mensaje indicando que se ha guardado IdPlato y Total Precio, y se
-     * ha guardado el Importe Total del Pedido. Para actualizar en la tabla
-     * detallePedidos datos necesarios sin intervencion del front
-     * guardarIdPlatoTotalPrecio(detallePedidos); Para actualizar en la tabla
-     * pedidos datos necesarios sin intervencion del front
-     * actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
-     * generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
-     * @throws MensajeResponseStatusException Si hay un error al procesar los
-     * detalles del pedido, si algún IdPlatosAMostrar o IdPedido no existen, o
-     * si hay problemas al actualizar el importe total del pedido.
+     * @param detallesPedidos La lista de detalles de pedido a guardar.
      */
-    public String guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
+    public void guardarVariosDetallesPedido(List<DetallePedidos> detallesPedidos) {
+        // Guarda todos los detalles de pedido en la base de datos
+        iDetPeRepo.saveAll(detallesPedidos);
 
-        try {
-
-            for (DetallePedidos detallitos : detallesPedidos) {
-                Long idPedido = detallitos.getPedidos().getIdPedido();
-                Long idPlatosAMostrar = detallitos.getPlatosAMostrar().getIdPlatosAMostrar();
-
-                if (!iPlaMosRepo.existsById(idPlatosAMostrar)) {
-                    throw new MensajeResponseStatusException(new Mensaje("No se encontró el IdPlatosAMostrar n°: " + detallitos.getPlatosAMostrar().getIdPlatosAMostrar()).getMensaje(), HttpStatus.NOT_FOUND, null);
-                }
-                if (!iPedidosRepo.existsById(idPedido)) {
-                    throw new MensajeResponseStatusException(new Mensaje("No se encontró el IdPedido n°: " + detallitos.getPedidos().getIdPedido()).getMensaje(), HttpStatus.NOT_FOUND, null);
-                }
-
-                guardarIdPlatoTotalPrecio(detallitos);
-                actualizarImporteTotalPedido(idPedido);
-                generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-            }
-
-            iDetPeRepo.saveAll(detallesPedidos);
-
-            if (detallesPedidos.isEmpty()) {
-                throw new MensajeResponseStatusException(new Mensaje("Detalles del pedido nulos o ausentes").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            }
-
-            return "Guardados los detalles del pedido, idPlato, ImporteTotalPedido y TotalPedido";
-
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw new MensajeResponseStatusException(new Mensaje("Error al procesar detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
-        }
     }
 
-    /**
-     * =======================================================================================================
-     */
+//======================================================================================================================
     /**
      * Genera una lista de cadenas a partir de DetallesPedidos filtrados por
      * IdPedido.
@@ -196,121 +127,58 @@ public class DetallePedidosService {
         }
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
-     */
-    /**
-     * Genera una lista de detalles de pedidos filtrados por un ID de pedido
-     * específico.
+     * Obtiene una lista de detalles de pedidos asociados a un pedido específico
+     * en la base de datos.
      *
-     * @param idPedido El ID del pedido utilizado para filtrar los detalles de
-     * pedidos.
-     * @return Una lista de detalles de pedidos que corresponden al ID de pedido
-     * proporcionado.
-     * @throws MensajeResponseStatusException Si ocurre un error durante la
-     * generación de la lista o si el ID de pedido no existe en la base de
-     * datos.
+     * @param idPedido El ID del pedido para el que se van a buscar los detalles
+     * de pedidos.
+     * @return Una lista de detalles de pedidos asociados al pedido
+     * especificado.
      */
     public List<DetallePedidos> listaXIdPedido(Long idPedido) {
-        try {
-            // Verifica si el IdPedido existe en la base de datos
-            if (!iPedidosRepo.existsById(idPedido)) {
-                // Si el IdPedido no existe, lanzar una excepción con un mensaje personalizado
-                throw new MensajeResponseStatusException("El idPedido n°: " + idPedido + " solicitado para generar una lista no existe", HttpStatus.NOT_FOUND, null);
-            }
+        // Busca los detalles de pedidos asociados al pedido especificado en la base de datos
+        List<DetallePedidos> detallesPedidos = iDetPeRepo.findByIdPedDetPed(idPedido);
 
-            // Obtiene una lista de IDs de platos relacionados con el IdPedido dado
-            List<Long> idPlaAMosFromList = iDetPeRepo.findIdPlaMosXIdPedido(idPedido);
-
-            // Supone que todos los platos existen inicialmente
-            boolean todosPlatosExisten = true;
-
-            // Verifica la existencia de cada plato en la base de datos
-            for (Long idPlaAMos : idPlaAMosFromList) {
-                Boolean plaMosExiste = iPlaMosRepo.existsById(idPlaAMos);
-                // Si algún plato no existe, cambia la variable todosPlatosExisten a false
-                if (!plaMosExiste) {
-                    todosPlatosExisten = false;
-                    // Sale del bucle tan pronto como se encuentre un plato que no existe
-                    break;
-                }
-            }
-
-            // Si algunos platos no existen, lanza una excepción
-            if (!todosPlatosExisten) {
-                throw new MensajeResponseStatusException("Uno o más platos ya no existen en Platos a mostrar, no se puede editar", HttpStatus.BAD_REQUEST, null);
-            }
-
-            // Si todos los platos existen, obtiene y devuelve la lista de detalles de los pedidos
-            List<DetallePedidos> detallesPedidos = iDetPeRepo.findByIdPedDetPed(idPedido);
-            return detallesPedidos;
-        } catch (MensajeResponseStatusException e) {
-            // Captura y registra cualquier excepción con el logger
-            logger.error("", e);
-            throw e;
-        }
+        // Retorna la lista de detalles de pedidos
+        return detallesPedidos;
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
-     */
-    /**
-     * Obtiene un DetallePedido por su Id.
+     * Obtiene un detalle de pedido por su ID.
      *
-     * @param idDetallePedido Id del DetallePedido a obtener.
-     * @return DetallePedido obtenido.
-     * @throws MensajeResponseStatusException Si no se encuentra el
-     * DetallePedido con el Id proporcionado.
+     * @param idDetallePedido El ID del detalle de pedido que se desea obtener.
+     * @return Un objeto Optional que contiene el detalle de pedido
+     * correspondiente al ID especificado, o un Optional vacío si no se
+     * encuentra ningún detalle de pedido con ese ID.
      */
     public Optional<DetallePedidos> getOne(Long idDetallePedido) {
-        try {
-            if (!iDetPeRepo.existsById(idDetallePedido)) {
-                throw new MensajeResponseStatusException("El idDetallePedido N°: " + idDetallePedido + " no existe", HttpStatus.NOT_FOUND, null);
-            }
-            return iDetPeRepo.findById(idDetallePedido);
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw e;
-        }
+        // Busca un detalle de pedido por su ID en el repositorio
+        return iDetPeRepo.findById(idDetallePedido);
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
-     */
-    /**
-     * Borra un DetallePedido por su Id.
+     * Borra un detalle de pedido por su ID.
      *
-     * @param idDetallePedido Id del DetallePedido a borrar.
-     * @param idPedido El identificador del pedido para actualizar la lista de
-     * platos del pedido. Para actualizar en la tabla pedidos datos necesarios
-     * sin intervencion del front
-     * actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
-     * generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
-     * @throws MensajeResponseStatusException Si no se encuentra el
-     * DetallePedido con el Id proporcionado o si no se encuentra el Pedido
-     * asociado.
+     * @param idDetallePedido El ID del detalle de pedido que se desea borrar.
+     * @param idPedido El ID del pedido al que pertenece el detalle de pedido
+     * que se va a borrar.
      */
     public void borrarDetallePedido(Long idDetallePedido, Long idPedido) {
-        try {
-            if (!iDetPeRepo.existsById(idDetallePedido)) {
-                throw new MensajeResponseStatusException("El idDetallePedido N°: " + idDetallePedido + " solicitado para eliminar no existe", HttpStatus.NOT_FOUND, null);
-            }
-            if (!iPedidosRepo.existsById(idPedido)) {
-                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe. Es necesario para eliminar el detalle del pedido", HttpStatus.NOT_FOUND, null);
-            }
+        // Borra el detalle de pedido por su ID
+        iDetPeRepo.deleteById(idDetallePedido);
 
-            iDetPeRepo.deleteById(idDetallePedido);
-            generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-            actualizarImporteTotalPedido(idPedido);
-        } catch (MensajeResponseStatusException e) {
-            logger.error("", e);
-            throw e;
-        }
+        // Genera la lista de cadenas actualizada a partir de los detalles de pedido del pedido modificado
+        generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
+
+        // Actualiza el importe total del pedido después de borrar el detalle de pedido
+        actualizarImporteTotalPedido(idPedido);
     }
 
-    /**
-     * =======================================================================================================
-     */
+//======================================================================================================================
     /**
      * Verifica si existe un DetallePedido por su Id.
      *
@@ -323,14 +191,12 @@ public class DetallePedidosService {
 
         boolean dePeExists = iDetPeRepo.existsById(idDetallePedido);
         if (!dePeExists) {
-            throw new MensajeResponseStatusException("El detalle del pedido con idDetallePedido N°: " + idDetallePedido + " no existe", HttpStatus.NOT_FOUND, null);
+            return dePeExists;
         };
         return dePeExists;
     }
 
-    /**
-     * =======================================================================================================
-     */
+//======================================================================================================================
     /**
      * Actualiza el importe total de un pedido dado su ID.
      *
@@ -362,9 +228,7 @@ public class DetallePedidosService {
         }
     }
 
-    /**
-     * =======================================================================================================
-     */
+//======================================================================================================================
     /**
      * Guarda el ID del plato, el total del plato y el precio del plato a
      * mostrar en un DetallePedido.
@@ -406,7 +270,23 @@ public class DetallePedidosService {
 
     }
 
+//======================================================================================================================
     /**
-     * =======================================================================================================
+     * Busca los IDs de los platos mostrados asociados a un pedido específico en
+     * la base de datos.
+     *
+     * @param idPedido El ID del pedido para el que se van a buscar los IDs de
+     * los platos mostrados.
+     * @return Una lista de IDs de los platos mostrados asociados al pedido
+     * especificado.
      */
+    public List<Long> findIdPlaMosXIdPedido(Long idPedido) {
+        // Llama al repositorio para buscar los IDs de los platos mostrados asociados al pedido
+        List<Long> lisPlaMosXIdPed = iDetPeRepo.findIdPlaMosXIdPedido(idPedido);
+
+        // Retorna la lista de IDs de los platos mostrados
+        return lisPlaMosXIdPed;
+    }
+
+//======================================================================================================================
 }

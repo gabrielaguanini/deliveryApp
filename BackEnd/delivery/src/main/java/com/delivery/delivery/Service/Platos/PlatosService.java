@@ -32,77 +32,29 @@ public class PlatosService {
 
 // =======================================================================================================
     /**
-     * Retorna una lista de todos los platos disponibles.
+     * Retorna una lista de todos los platos en la base de datos.
      *
-     * @return Lista de objetos Platos que representan los platos disponibles.
-     * @throws MensajeResponseStatusException si no se encuentran platos en la
-     * base de datos.
+     * @return List<Platos> - Lista de todos los platos en la base de datos.
      */
-    public List<Platos> listaDePlatos() throws MensajeResponseStatusException {
-        try {
-            // Recupera todos los platos de la base de datos utilizando el repositorio de Platos (iPlatosRepo).
-            List<Platos> platoEncontrado = iPlatosRepo.findAll();
-
-            // Verifica si la lista de platos está vacía.
-            if (platoEncontrado.isEmpty()) {
-                // Lanza una excepción si no se encuentra ningún plato en la base de datos.
-                throw new MensajeResponseStatusException(
-                        new Mensaje("No existe ningún registro para generar una lista de platos").getMensaje(),
-                        HttpStatus.OK,
-                        null
-                );
-            }
-
-            // Devuelve la lista de platos recuperados de la base de datos.
-            return platoEncontrado;
-        } catch (MensajeResponseStatusException e) {
-            // Captura y maneja la excepción específica de MensajeResponseStatusException.
-            // Registra el error utilizando el logger.
-            logger.error("", e);
-            // Relanza la excepción para que pueda ser manejada por código externo.
-            throw e;
-        }
+    public List<Platos> listaDePlatos() {
+        // Recupera todos los platos de la base de datos utilizando el repositorio de Platos (iPlatosRepo).
+        List<Platos> platosEncontrados = iPlatosRepo.findAll();
+        // Devuelve la lista de platos recuperados de la base de datos.
+        return platosEncontrados;
     }
 
 // =======================================================================================================
     /**
-     * Retorna una lista de platos de un tipo específico. Este método busca y
-     * devuelve todos los platos que pertenecen al tipo de plato especificado
-     * por su ID.
+     * Retorna una lista de platos del tipo especificado por su ID.
      *
-     * @param idTipoPlato El ID del tipo de plato del cual se desea obtener la
-     * lista de platos.
-     * @return Lista de objetos Platos que pertenecen al tipo de plato
-     * especificado.
-     * @throws MensajeResponseStatusException si no se encuentran platos del
-     * tipo especificado en la base de datos. Esta excepción se lanza si la
-     * lista de platos devuelta por el repositorio está vacía, indicando que no
-     * hay registros de platos para el tipo especificado.
+     * @param idTipoPlato Long - El ID del tipo de plato.
+     * @return List<Platos> - Lista de platos del tipo especificado.
      */
     public List<Platos> listaTipoPlato(Long idTipoPlato) {
-        try {
-            // Busca todos los platos del tipo especificado por su ID
-            List<Platos> liDTiPl = iPlatosRepo.findAllBytipoPlato_IdTipoPlato(idTipoPlato);
-
-            // Verifica si la lista de platos está vacía
-            if (liDTiPl.isEmpty()) {
-                // Lanzar una excepción si no se encuentran platos del tipo especificado
-                throw new MensajeResponseStatusException(
-                        new Mensaje("No existen registros para generar una lista de tipos de platos").getMensaje(),
-                        HttpStatus.OK,
-                        null
-                );
-            }
-
-            // Devuelve la lista de platos del tipo especificado
-            return liDTiPl;
-        } catch (MensajeResponseStatusException e) {
-            // Captura y maneja excepciones específicas de MensajeResponseStatusException
-            // Registra el error utilizando el logger
-            logger.error("", e);
-            // Relanza la excepción para que pueda ser manejada por código externo
-            throw e;
-        }
+        // Busca todos los platos del tipo especificado por su ID
+        List<Platos> platosTipoPlato = iPlatosRepo.findAllBytipoPlato_IdTipoPlato(idTipoPlato);
+        // Devuelve la lista de platos del tipo especificado
+        return platosTipoPlato;
     }
 
 // =======================================================================================================
@@ -141,33 +93,22 @@ public class PlatosService {
     /**
      * Guarda un plato en la base de datos.
      *
-     * @param plato El plato que se desea guardar.
-     * @throws MensajeResponseStatusException si una o varias propiedades del
-     * plato están vacías o son iguales a cero. Esta excepción se lanza si
-     * alguna de las propiedades del plato es nula, vacía o igual a cero, lo que
-     * indica que los datos del plato no son válidos para ser almacenados en la
-     * base de datos. Se envía una respuesta de error con un mensaje
-     * descriptivo.
+     * @param plato El plato que se va a guardar.
+     * @throws MensajeResponseStatusException Si alguna de las propiedades del
+     * plato es nula, vacía o igual a cero.
      */
     public void guardarPlato(Platos plato) {
-        try {
-            // Verifica si alguna de las propiedades del plato es nula, vacía o igual a cero
-            if (plato == null
-                    || plato.getTipoPlato().getIdTipoPlato() == null || plato.getTipoPlato().getIdTipoPlato() < 1
-                    || plato.getNombrePlato() == null || plato.getNombrePlato().isEmpty() || plato.getNombrePlato().equals("")
-                    || plato.getPrecioPlato() <= 0
-                    || plato.getImgPlato() == null || plato.getImgPlato().isEmpty() || plato.getImgPlato().equals("")) {
-                // Si alguna propiedad es inválida, se lanza una excepción
-                throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.OK, null);
-            }
-            // Guarda el plato en la base de datos
-            iPlatosRepo.save(plato);
-        } catch (MensajeResponseStatusException e) {
-            // Registra el error utilizando el logger
-            logger.error("", e);
-            // Relanza la excepción para que pueda ser manejada por código externo
-            throw e;
+        // Verifica si alguna de las propiedades del plato es nula, vacía o igual a cero
+        if (plato == null
+                || plato.getTipoPlato().getIdTipoPlato() == null || plato.getTipoPlato().getIdTipoPlato() < 1
+                || plato.getNombrePlato() == null || plato.getNombrePlato().isEmpty() || plato.getNombrePlato().equals("")
+                || plato.getPrecioPlato() <= 0
+                || plato.getImgPlato() == null || plato.getImgPlato().isEmpty() || plato.getImgPlato().equals("")) {
+            // Si alguna propiedad es inválida, se lanza una excepción
+            throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.OK, null);
         }
+        // Guarda el plato en la base de datos
+        iPlatosRepo.save(plato);
     }
 
 // =======================================================================================================
@@ -222,77 +163,46 @@ public class PlatosService {
 
 // =======================================================================================================
     /**
-     * Verifica si un plato con el ID especificado existe en la base de datos.
-     * Este método no tiene un endpoint directo y se utiliza internamente en
-     * otros métodos y endpoints.
+     * Verifica si existe un plato en la base de datos con el ID especificado.
      *
      * @param idPlato El ID del plato que se desea verificar.
-     * @return true si el plato con el ID especificado existe, false en caso
-     * contrario.
-     * @throws MensajeResponseStatusException si el plato con el ID especificado
-     * no existe en la base de datos. Esta excepción se lanza si el plato no se
-     * encuentra en la base de datos, proporcionando un mensaje descriptivo.
+     * @return boolean true si el plato existe, false en caso contrario.
      */
     public boolean existsById(Long idPlato) {
+        // Verifica si existe un plato con el ID especificado en el repositorio
         boolean platoExists = iPlatosRepo.existsById(idPlato);
-        if (!platoExists) {
-            throw new MensajeResponseStatusException("El plato con el idPlato N°: " + idPlato + " no existe", HttpStatus.NOT_FOUND, null);
-        }
         return platoExists;
     }
 
 // =======================================================================================================
     /**
-     * Verifica si existe al menos un plato asociado al tipo de plato con el ID
-     * especificado en la base de datos. Este método no tiene un endpoint
-     * directo y se utiliza internamente en otros métodos y endpoints.
+     * Verifica si existen platos asociados a un tipo de plato específico en la
+     * base de datos.
      *
-     * @param idTipoPlato El ID del tipo de plato que se desea verificar.
-     * @return true si existe al menos un plato asociado al tipo de plato con el
-     * ID especificado, false en caso contrario.
-     * @throws MensajeResponseStatusException si no existe ningún plato asociado
-     * al tipo de plato con el ID especificado en la base de datos. Esta
-     * excepción se lanza si no se encuentra ningún plato asociado al tipo de
-     * plato en la base de datos, proporcionando un mensaje descriptivo.
+     * @param idTipoPlato El ID del tipo de plato para el cual se desea
+     * verificar la existencia de platos asociados.
+     * @return boolean true si existen platos asociados al tipo de plato, false
+     * en caso contrario.
      */
     public boolean existsByIdTipoPlato(Long idTipoPlato) {
+        // Verifica si existen platos asociados al tipo de plato especificado en el repositorio
         boolean tiPlExists = iPlatosRepo.existsByTipoPlato_IdTipoPlato(idTipoPlato);
-        if (!tiPlExists) {
-            throw new MensajeResponseStatusException("El plato con el idTipoPlato N°: " + idTipoPlato + " no existe", HttpStatus.NOT_FOUND, null);
-        }
         return tiPlExists;
     }
 
 // =======================================================================================================
-    
     /**
-     * Verifica si ya existe un plato con el mismo nombre en la tabla de platos.
+     * Verifica si existe un plato con el nombre especificado en la base de
+     * datos.
      *
      * @param nombrePlato El nombre del plato que se desea verificar.
-     * @return true si ya existe un plato con el mismo nombre, false si no.
-     * @throws MensajeResponseStatusException si ya existe un plato con el mismo
-     * nombre en la tabla. Esta excepción se lanza para indicar que la operación
-     * no puede ser completada debido a la duplicidad del nombre del plato.
+     * @return boolean true si existe un plato con el nombre especificado, false
+     * en caso contrario.
      */
     public boolean existeNombrePlato(String nombrePlato) {
-        try {
-            // Verifica si ya existe un plato con el mismo nombre en la tabla
-            boolean PlaExNom = iPlatosRepo.existsByNombrePlato(nombrePlato);
-
-            // Si ya existe un plato con el mismo nombre, lanza una excepción
-            if (PlaExNom) {
-                throw new MensajeResponseStatusException("El plato con nombre: " + nombrePlato + " ya existe en la tabla", HttpStatus.FORBIDDEN, null);
-            }
-
-            // Retorna el resultado de la verificación
-            return PlaExNom;
-        } catch (MensajeResponseStatusException e) {
-            // Registra cualquier excepción en el registro de errores
-            logger.error("", e);
-
-            // Relanza la excepción para que sea manejada en un nivel superior si es necesario
-            throw e;
-        }
+        // Verifica si existe un plato con el nombre especificado en el repositorio
+        boolean PlaExNom = iPlatosRepo.existsByNombrePlato(nombrePlato);
+        return PlaExNom;
     }
 
 // =======================================================================================================

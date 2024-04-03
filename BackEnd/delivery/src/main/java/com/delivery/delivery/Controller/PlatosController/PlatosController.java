@@ -2,9 +2,11 @@ package com.delivery.delivery.Controller.PlatosController;
 
 import com.delivery.delivery.Entity.Platos.Platos;
 import com.delivery.delivery.Mensaje.Mensaje;
+import com.delivery.delivery.Mensaje.MensajeDataAccessException;
 import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Platos.PlatosService;
+import com.delivery.delivery.Service.Platos.TipoPlatoService;
 import java.util.Comparator;
 import java.util.List;
 import org.slf4j.Logger;
@@ -28,20 +30,24 @@ public class PlatosController {
     @Autowired
     PlatosService plaServ;
 
+    @Autowired
+    TipoPlatoService tiPlaSe;
+
     /**
      * Logger para realizar registros de eventos
      */
     private static final Logger logger = LoggerFactory.getLogger(PlatosController.class);
 
 // =======================================================================================================
-    
     /**
-     * Retorna una lista de todos los platos disponibles.
+     * Retorna una lista de todos los platos en la base de datos.
      *
-     * @return Lista de platos disponibles.
-     * @throws MensajeResponseStatusException si no se encuentran platos en la
+     * @return ResponseEntity<List<Platos>> - ResponseEntity que contiene la
+     * lista de todos los platos en la base de datos.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
      * base de datos.
-     * @throws MensajeRunTimeException si ocurre un error inesperado.
+     * @throws MensajeRunTimeException Si ocurre un error inesperado durante la
+     * ejecución.
      */
     @GetMapping("/listadeplatos")
     public ResponseEntity<List<Platos>> listaDePlatos() {
@@ -54,17 +60,18 @@ public class PlatosController {
 
             // Devuelve una respuesta ResponseEntity con la lista de platos y el código de estado OK
             return new ResponseEntity<>(listaDePlatos, HttpStatus.OK);
-        } catch (MensajeResponseStatusException e) {
-            // Si se produce una excepción específica de MensajeResponseStatusException, se relanza para ser manejada globalmente
-            throw e;
-        } catch (Exception e) {
-            // Si se produce un error inesperado, se lanza una excepción MensajeRunTimeException con un mensaje descriptivo y el error original
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de lista de platos"), e);
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud de una lista completa platos. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de una lista completa de platos. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 
 // =======================================================================================================
-    
     /**
      * Retorna una lista de platos de un tipo específico.
      *
@@ -83,33 +90,39 @@ public class PlatosController {
 
             // Devuelve una respuesta con la lista de platos del tipo especificado y el código de estado OK
             return new ResponseEntity<>(listaTipoPlato, HttpStatus.OK);
-        } catch (MensajeResponseStatusException e) {
-            // Si se produce una excepción específica de MensajeResponseStatusException, se relanza
-            throw e;
-        } catch (Exception e) {
-            // Si se produce un error inesperado, se registra y lanza una excepción MensajeRunTimeException
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de lista de tipos de platos"), e);
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud de una lista de tipos de platos. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de una lista de tipos de platos. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 
 // ======================================================================================================= 
-    
     /**
      * Guarda un plato en la base de datos.
      *
-     * @param platos El objeto Platos que contiene la información del plato que
-     * se desea guardar.
-     * @return ResponseEntity que contiene un mensaje indicando el resultado de
-     * la operación y el código de estado correspondiente.
+     * @param platos El plato que se va a guardar.
+     * @return ResponseEntity con un mensaje indicando el resultado de la
+     * operación.
+     * @throws MensajeResponseStatusException Si el tipo de plato especificado
+     * no existe en la base de datos, o si el plato ya existe y no se pueden
+     * guardar platos duplicados.
      */
     @PostMapping("/guardarplato")
     public ResponseEntity<?> guardarPlato(@RequestBody Platos platos) {
         try {
+            // Verifica si el tipo plato existe
+            if (!tiPlaSe.existsById(platos.getTipoPlato().getIdTipoPlato())) {
+                throw new MensajeResponseStatusException("El idTipoPlato N°: " + platos.getTipoPlato().getIdTipoPlato() + " - " + platos.getTipoPlato().getNombreTipoPlato() + " no existe en la base de datos. ", HttpStatus.NOT_FOUND, null);
+            }
             // Verifica si el plato ya existe
             if (plaServ.existeNombrePlato(platos.getNombrePlato())) {
                 // Retorna una respuesta de error si el plato ya existe
-                return new ResponseEntity(new Mensaje("No se pueden guardar platos duplicados"), HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("El plato: " + platos.getNombrePlato() + " Ya existe en la base de datos. No se pueden guardar platos duplicados", HttpStatus.BAD_REQUEST);
             } else {
                 // Crea un nuevo objeto Platos con la información proporcionada
                 Platos plat = new Platos(
@@ -125,18 +138,18 @@ public class PlatosController {
                 // Retorna una respuesta exitosa si el plato se guarda correctamente
                 return new ResponseEntity(new Mensaje("Plato guardado"), HttpStatus.OK);
             }
-        } catch (MensajeResponseStatusException e) {
-            // Lanza la excepción si se encuentra un error específico de MensajeResponseStatusException
-            throw e;
-        } catch (Exception e) {
-            // Registra un error y lanza una excepción si se produce un error inesperado
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para guardar un plato"), e);
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud de una lista de tipos de platos. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud de una lista de tipos de platos. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 
 // =======================================================================================================
-    
     /**
      * Actualiza la información de un plato existente en la base de datos.
      *
@@ -179,7 +192,6 @@ public class PlatosController {
     }
 
 // =======================================================================================================
-    
     /**
      * Elimina un plato de la base de datos dado su ID.
      *
@@ -205,7 +217,6 @@ public class PlatosController {
     }
 
 // =======================================================================================================
-    
     /**
      * Obtiene un plato por su ID.
      *
@@ -236,7 +247,6 @@ public class PlatosController {
     }
 
 // =======================================================================================================
-    
     /**
      * Endpoint para verificar si existe al menos un plato con el nombre
      * especificado en la base de datos.
@@ -254,17 +264,19 @@ public class PlatosController {
      */
     @GetMapping("/platoexistenombre/{nombrePlato}")
     public Boolean existePorNombre(@PathVariable String nombrePlato) {
-        try{
-        return plaServ.existeNombrePlato(nombrePlato);
-        }catch (MensajeResponseStatusException e) {
-            throw e;
-        } catch (Exception e) {
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para saber si un plato existe por nombre"), e);
+        try {
+            return plaServ.existeNombrePlato(nombrePlato);
+            
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud para conocer si un plato existe por nombrePlato. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para conocer si un plato existe por nombrePlato. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
-        }
+    }
 
 // =======================================================================================================
-    
-    
 }

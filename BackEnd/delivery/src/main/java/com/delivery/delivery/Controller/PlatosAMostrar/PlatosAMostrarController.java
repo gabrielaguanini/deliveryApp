@@ -36,9 +36,14 @@ public class PlatosAMostrarController {
     private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarController.class);
 
     /**
-     * Retorna una lista de platos a mostrar en la aplicación.
+     * Retorna una lista de platos a mostrar.
      *
-     * @return Una respuesta HTTP con la lista de platos a mostrar.
+     * @return ResponseEntity<List<PlatosAMostrar>> - ResponseEntity que
+     * contiene la lista de platos a mostrar.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
+     * base de datos.
+     * @throws MensajeRunTimeException Si ocurre un error inesperado durante la
+     * ejecución.
      */
     @GetMapping("/listaplatosamostrar")
     public ResponseEntity<List<PlatosAMostrar>> listaPlatosAMostrar() {
@@ -46,13 +51,8 @@ public class PlatosAMostrarController {
             // Obtiene la lista de platos a mostrar desde el servicio
             List<PlatosAMostrar> listaPlatos = plaMosServ.listaPlatosAMostrar();
 
-            // Verifica si la lista está vacía y lanza una excepción si es así
-            if (listaPlatos.isEmpty()) {
-                throw new MensajeResponseStatusException("La lista de platos a mostrar está vacía", HttpStatus.EXPECTATION_FAILED);
-            }
-
             // Retorna una respuesta HTTP con la lista de platos a mostrar
-            return new ResponseEntity(listaPlatos, HttpStatus.OK);
+            return new ResponseEntity<>(listaPlatos, HttpStatus.OK);
 
         } catch (MensajeDataAccessException e) {
             // Maneja el error al acceder a la base de datos
@@ -66,7 +66,6 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
     /**
      * Retorna un plato a mostrar en la aplicación dado su ID.
      *
@@ -78,6 +77,8 @@ public class PlatosAMostrarController {
         try {
             // Verifica si el plato a mostrar existe
             if (!plaMosServ.existsById(idPlatosAMostrar)) {
+
+                logger.error(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException("El idPlatosAMostrar N°: " + idPlatosAMostrar + " no existe. ", HttpStatus.NOT_FOUND);
             }
             // Retorna el plato a mostrar si existe
@@ -94,7 +95,6 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
     /**
      * Guarda un nuevo plato a mostrar en la base de datos.
      *
@@ -107,14 +107,17 @@ public class PlatosAMostrarController {
         try {
             // Verifica si el plato a mostrar ya existe en la tabla de platos a mostrar
             if (plaMosServ.existsByIdPlato(platosAMostrar.getPlatos().getIdPlato())) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El plato seleccionado ya se encuentra en Platos a Mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
             // Verifica si el plato a mostrar existe en la tabla de platos
             if (!platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
+                logger.error(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El plato no existe en la base de datos").getMensaje(), HttpStatus.NOT_FOUND, null);
             };
             // Verifica si la descripción del plato a mostrar está vacía o es nula
             if (platosAMostrar.getDescripcionPlatoAMostrar() == "" || platosAMostrar.getDescripcionPlatoAMostrar() == null) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Ingrese descripción del plato a mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
 
@@ -135,7 +138,6 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
     /**
      * Este endpoint se dejó aquí por si en el futuro se necesita actualizar la
      * información de un plato a mostrar en la base de datos. Los platos a
@@ -155,16 +157,19 @@ public class PlatosAMostrarController {
 
             // Verifica si el plato ya existe en la tabla de platos a mostrar
             if (plaMosServ.existsByIdPlato(platosAMostrar.getPlatos().getIdPlato())) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException("El plato seleccionado ya se encuentra en Platos a Mostrar", HttpStatus.BAD_REQUEST);
             }
 
             // Verifica si el plato a mostrar existe en la tabla de platos
             if (!platosServ.existsById(platosAMostrar.getPlatos().getIdPlato())) {
+                logger.error(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException("El plato no existe en la base de datos", HttpStatus.NOT_FOUND);
             }
 
             // Verifica si la descripción del plato a mostrar está vacía o es nula
             if (platosAMostrar.getDescripcionPlatoAMostrar() == null || platosAMostrar.getDescripcionPlatoAMostrar().isEmpty()) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException("Ingrese descripción del plato a mostrar", HttpStatus.BAD_REQUEST);
             }
 
@@ -193,7 +198,6 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
     /**
      * Elimina un plato a mostrar de la base de datos según su ID.
      *
@@ -212,6 +216,7 @@ public class PlatosAMostrarController {
         try {
             // Verifica si el plato a mostrar existe en la tabla de platos
             if (!plaMosServ.existsById(idPlatoAMostrar)) {
+                     logger.error(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException("El idPlatoAMostrar N°: " + idPlatoAMostrar + " no existe en la base de datos", HttpStatus.NOT_FOUND);
             }
 
@@ -233,7 +238,6 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
     /**
      * Verifica la existencia de un plato a mostrar en la base de datos según su
      * ID.
@@ -248,11 +252,11 @@ public class PlatosAMostrarController {
     @GetMapping("/existeporid/{idPlatoAMostrar}")
     public ResponseEntity existeXId(@PathVariable Long idPlatoAMostrar) {
         try {
-            if (plaMosServ.existsById(idPlatoAMostrar)) {
+          plaMosServ.existsById(idPlatoAMostrar);
+          
                 return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
-            } else {
-                return new ResponseEntity(new Mensaje("El plato no existe"), HttpStatus.BAD_REQUEST);
-            }
+           
+            
         } catch (MensajeDataAccessException e) {
             // Maneja el error al acceder a la base de datos
             logger.error("Error al acceder a la base de datos", e);
@@ -265,7 +269,4 @@ public class PlatosAMostrarController {
     }
 
 //=======================================================================================================================  
-    
-    
-    
 }

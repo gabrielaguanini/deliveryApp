@@ -11,7 +11,7 @@ import { DetallePedidos } from '../../modelos/detalle-pedidos';
 import { DetallePedidosService } from '../../servicios/detalle-pedidos.service';
 import { DetallePedidosAcotadaModel } from '../../modelos/detalle-pedidos-acotadaModel';
 import * as XLSX from 'xlsx';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, of } from 'rxjs';
 
 
 @Component({
@@ -262,7 +262,21 @@ export class PedidosplatosamostrarComponent {
   };
 
   listaPedidosDeHoy(): void {
-    this.pedidosServ.listaPedidosDeHoy().subscribe(data => this.pedidosDeHoyList = data)
+    this.pedidosServ.listaPedidosDeHoy().subscribe(
+      data => {
+        this.pedidosDeHoyList = data;
+        if( this.pedidosDeHoyList.length < 1){
+          console.log("La lista de pedidos de hoy no contiene registros. ")
+        };
+        if(this.pedidosDeHoyList.length > 0 ){
+          console.log("Lista de platos del día o fecha actual recibida");
+        };  
+      
+      },
+      err => {     
+        console.log("Msj. Servidor: " + err.error.message)
+      }
+    )
   };
 
   listaDetallePedidos(): void {
@@ -350,7 +364,7 @@ export class PedidosplatosamostrarComponent {
       }, err => {
         alert("Msj. Servidor: " + err.error.message);
         console.log("Msj. Servidor: " + err.error.message);
-    })
+      })
     };
   };
 
@@ -466,8 +480,8 @@ export class PedidosplatosamostrarComponent {
         this.inputDisabledPorcionPlato = true;
       },
       err => {
-        alert("No se guardó el pedido");
-        console.log("No se guardó el pedido: " + err);
+        alert("Msj. Servidor: " + err.error.message);
+        console.log("Msj. Servidor: " + err.error.message);
       }
     );
 
@@ -599,7 +613,7 @@ export class PedidosplatosamostrarComponent {
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
       this.listaPedidosDeHoy();
       console.log("Msj. Servidor: " + JSON.stringify(data));
-      alert("Pedido actualizado");
+      alert("Pedido N°: " + this.idPedido + " actualizado");
     },
       err => {
         console.log("Msj. Servidor: " + err.error.message);
@@ -612,22 +626,23 @@ export class PedidosplatosamostrarComponent {
   eliminarPedido(idPedido: number): void {
 
     //Advertencia para eliminar el pedido
-    const confirmacion = window.confirm("El pedido se eliminará. ¿Desea continuar?");
+    const confirmacion = window.confirm("El pedido N°: " + idPedido + " se eliminará. ¿Desea continuar?");
 
     if (confirmacion) {
       this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
-        alert("Pedido eliminado.");
+        console.log("Pedido N°: " + idPedido + " eliminado.");
+        alert("Pedido N°: " + idPedido + " eliminado.");
         this.listaPedidosDeHoy();
       }, err => {
         // Error al eliminar el pedido
-        console.log("No se pudo eliminar el pedido", err);
-        alert("Error al eliminar el pedido.");
+        console.log("Msj. Servidor: " + err.error.message);
+        alert("Msj. Servidor: " + err.error.message);
       }
       );
     }
   };
 
-
+// elimina un pedido generado en el modal para crear un pedido al que no se le han seleccionado detalles pedido o platosamostrar
   eliminarPedidoSinDetPed(): void {
     // Itera sobre cada elemento en pedidosDeHoyList
     for (const pedido of this.pedidosDeHoyList) {
@@ -715,10 +730,10 @@ export class PedidosplatosamostrarComponent {
           console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
           alert("Pedido N°: " + this.idPedido + " enviado");
         },
-        error => {
+        err => {
           // Manejar errores si es necesario
-          console.error('Error, no se generó el pedido. Respuesta del servidor:', error);
-          alert('Error al procesar detalles del pedido: ' + error.statusText);
+          console.log("Msj. Servidor: " + JSON.stringify(err.error.message));
+          alert("Msj. Servidor: " + err.error.message);
         }
       );
     };
@@ -739,22 +754,26 @@ export class PedidosplatosamostrarComponent {
       return; // Agregado return para salir de la función si la validación falla
 
     }
+    
+    if (this.idPedidoGuardDetPed == null || this.idPedidoGuardDetPed == 0 || isNaN(this.idPedidoGuardDetPed) ||
+       this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0 || isNaN(this.idPlatosAMostrar) ||
+       this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
 
-    if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
-      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0) || isNaN(this.idPlatosAMostrar) ||
-      (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
+       
 
       alert("Seleccione un plato o ingrese porcion/es");
       this.modalitoAgrDetPed = true;
       return; // Agregado return para salir de la función si la validación falla
+      
     } else {
 
-      this.idPedido = this.idPedidoGuardDetPed;
-      const DetPedAAgreg = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
+     
+      const DetPedAAgreg = new DetallePedidosAcotadaModel(this.idPedidoGuardDetPed, this.idPlatosAMostrar, this.porcionPlato);
 
       this.detallePedidServ.guardarDetPediAcotada(DetPedAAgreg).subscribe(data => {
+        this.listaPedidosDeHoy();
         console.log("Msj servidor: " + JSON.stringify(data));
-        alert("Plato agregado.");
+        alert("Plato agregado al pedido N°: " + this.idPedidoGuardDetPed);
       },
         err => {
           console.log("Msj servidor: " + err.error.message);
@@ -821,7 +840,7 @@ export class PedidosplatosamostrarComponent {
             this.modalitoInputEditDetPedid = false;
             this.modalitoTdEditDetPedid = true;
             console.log("Msj servidor: " + JSON.stringify(data));
-            alert("Detalles del pedido actualizados.");
+            alert("Detalles del pedido N°: " + this.idPedido + " actualizados.");
           },
           (err) => {
 
@@ -1019,16 +1038,16 @@ export class PedidosplatosamostrarComponent {
 
   //descargar el excel generado
   exportToExcelOnClick(): void {
-
-    //msj advertencia descarga
+    // Mostrar mensaje de advertencia para la descarga del archivo
     const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
 
     if (msjAdvertenciaDescarga) {
-
+      // Obtener las listas de pedidos y platos a mostrar en paralelo
       forkJoin([
-        this.pedidosServ.listaPedidosDeHoy(),
-        this.plaMosServ.listaPlatosAMostrar()
+        this.pedidosServ.listaPedidosDeHoy().pipe(catchError(error => of([]))), // Si ocurre un error al obtener la lista de pedidos, devuelve una lista vacía
+        this.plaMosServ.listaPlatosAMostrar().pipe(catchError(error => of([])))  // Si ocurre un error al obtener la lista de platos, devuelve una lista vacía
       ]).subscribe(([pedidos, platos]) => {
+        // Generar el archivo Excel con las listas obtenidas
         this.generateExcel(pedidos, platos, 'pedidosHoyPlaMostrar');
       });
     }
