@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -27,7 +28,8 @@ public class PlatosAMostrar {
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idPlato")
     //@ElementCollection  
-    private Platos platos;   
+    private Platos platos;
+    @Size(max = 110)
     private String descripcionPlatoAMostrar; 
   
 

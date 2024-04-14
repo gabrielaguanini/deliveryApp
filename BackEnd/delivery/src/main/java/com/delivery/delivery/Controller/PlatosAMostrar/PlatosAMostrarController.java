@@ -120,6 +120,12 @@ public class PlatosAMostrarController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Ingrese descripción del plato a mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
+            // Verifica que los caracteres ingresados no sean mayores a 260
+            if (platosAMostrar.getDescripcionPlatoAMostrar().length() > 260) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 260.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
+
 
             // Guarda el plato a mostrar
             plaMosServ.guardar(platosAMostrar);
@@ -172,6 +178,12 @@ public class PlatosAMostrarController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException("Ingrese descripción del plato a mostrar", HttpStatus.BAD_REQUEST);
             }
+            
+                        // Verifica que los caracteres ingresados no sean mayores a 260
+            if (platosAMostrar.getDescripcionPlatoAMostrar().length() > 260) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 260.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
 
             // Obtiene el plato a mostrar que se desea editar
             PlatosAMostrar plaMostrar = plaMosServ.getOne(idPlatoAMostrar).orElseThrow(() -> new MensajeResponseStatusException("El plato a mostrar no existe", HttpStatus.NOT_FOUND));

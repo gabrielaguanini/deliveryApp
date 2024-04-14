@@ -1,0 +1,260 @@
+<!-- REALIZAR PEDIDOS -->
+
+
+
+<div class="container-fluid pedidosClientes">
+    <div class="row">
+        <div class="modal-header">
+            <h4 class="modal-title">AGREGAR PEDIDO</h4>
+            <div class="card-icon card-icon-large">
+                <i class=""></i>
+            </div>
+        </div>
+        <p>=======================================================================================================</p>
+
+    </div>
+
+
+    <!--  agregar platos al pedido-->
+    <div class="container-fluid pedidosClientes">
+        <div class="container d-flex justify-content-center">
+            <div class="table">
+                <table class="table tableAgregarPlato table-bordered border">
+                    <tbody class="align-content-stretch">
+                        <tr *ngFor="let PlatosAMostrar of platosAMostrarList; let i = index"
+                            (click)="calcularTotalPlato(i)">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-12">
+                                    <!-- IMAGEN PLATO -->
+                                    <td class="align-middle text-center d-flex flex-column justify-content-center align-items-center pt-5">
+                                        <img class="img-fluid rounded" src="{{PlatosAMostrar.platos.imgPlato}}">
+                                    </td>
+                                </div>
+                                <div class="col-lg-8 col-md-12">
+                                    <!-- ID PLATOAMOS -->
+                                    <td class="align-middle text-center d-flex flex-column" [style.display]="'none'">
+                                        <strong [style.display]="'none'">ID PLATOAMOS: {{PlatosAMostrar.idPlatosAMostrar}}</strong> 
+                                    </td>
+                                    <!-- ID PEDIDO -->
+                                    <td class="align-middle text-center d-flex flex-column align-items-center" [style.display]="'none'">
+                                        <strong [style.display]="'none'">ID PEDIDO:</strong>
+                                        <input [style.display]="'none'" readonly name="idPedido_{{i}}" inputmode="numeric"
+                                            class="form-control text-center bg-transparent w-25" [(ngModel)]="idPedido">
+                                    </td>
+                                    <!-- NOMBRE PLATO -->
+                                    <td class="text-left d-flex flex-column pb-3">
+                                        <strong>{{PlatosAMostrar.platos.nombrePlato}}</strong>
+                                    </td>
+                                    <!-- DESCRIPCION -->
+                                    <td class="text-left d-flex flex-column">
+                                      {{PlatosAMostrar.descripcionPlatoAMostrar}}
+                                    </td>
+                                    <!-- modalitoNgIfPedCli -->
+
+                                    <div class="modalitoNgIfPedCli pt-5" *ngIf="modalitosPlaPed['modalitoNgIfPedCli_' + i]">
+                                        <!-- PRECIO UNITARIO -->
+                                        <td class="d-flex flex-column">
+                                            <strong>PRECIO UNITARIO:</strong> ${{PlatosAMostrar.platos.precioPlato}}
+                                        </td>
+                                        <!-- PORCION -->
+                                        <td class="d-flex flex-column col-sm-3 col-md-3 col-lg-2">
+                                            <strong>PORCION:</strong>
+                                            <input type="number" [value]="porcionesPlatosList[i]" (keydown)="handleKeydown($event)" type="number"
+                                                   class="form-control text-center bg-transparent"
+                                                   (click)="seleccionarChekBoxSiHayPorcionPla(i); calcularTotalPlato(i)"
+                                                   [(ngModel)]="porcionesPlatosList[i]" min="1" max="10" name="porcionPlato_{{i}}">
+                                        </td>
+                                        <!-- TOTAL PLATO -->
+                                        <td class="d-flex flex-column col-sm-3 col-md-3 col-lg-2">
+                                            <strong>TOTAL PLATO:</strong>
+                                            <input readonly type="number" name="totalPlato_{{i}}" class="form-control text-center bg-transparent"
+                                                   [(ngModel)]="totalesPlatosList[i]">
+                                        </td>
+                                        <div class="row">
+                                            <!-- SELECCIONADO -->
+                                            <td class="d-flex flex-column col-sm-3 col-md-3 col-lg-2">
+                                                <strong title="Click para seleccionar">SELECCIONADO:</strong>
+                                                    <input type="checkbox" [checked]="platosSeleccionadosSioNo[i]" class="form-check-input text-center border border-1 rounded-2 bg-transparent p-3" 
+                                                      id="chekSelPed" (change)="agregarPorcionesPlaSeleccionandoChekBox(i); chekBoxSeleccion(i); getListaDatosClienteAntesEnvio();" title="Click para seleccionar">
+
+                                            </td>
+                                        
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                               
+                               
+                            </div>
+
+
+                            <div class="containerBut">
+                                <button class="btn btn-secondary btn-md" (click)="opCloMod('modalitoNgIfPedCli_' + i, i)">
+                                    holaaaaaaaaaaaaaaaaa
+                                </button>
+                            </div>    
+                              
+                            
+                            
+                            
+                           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <br>
+                <br>
+                <button class="btn btn-outline-light" type="button" (click)="agregarPedido()">
+                    CREAR PEDIDO
+                </button>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <button class="btn btn-outline-light" type="button">
+                    EDITAR PLATOS SELECCIONADOS
+                </button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6 text-center">
+                <button class="btn btn-outline-light" type="button">
+                    GUARDAR CAMBIOS
+                </button>
+            </div>
+            <p>=======================================================================================================
+            </p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="row align-items-center">
+        <form novalidate #f="ngForm" class="pedidosForm" id="formularioPedidYDetPedid">
+            <div class="row text-center">
+                <div class="form-group col-6 pb-3">
+                    <label for="nombreCliente">NOMBRE CLIENTE</label>
+                    <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
+                        [(ngModel)]="nombreCliente" required>
+                </div>
+                <div class="form-group col-6 pb-3">
+                    <label for="telefonoCliente">TELEFONO CLIENTE</label>
+                    <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente"
+                        [(ngModel)]="telefonoCliente" required>
+                </div>
+                <div class="form-group col-6 pb-3">
+                    <label for="direccionCliente">DIRECCION</label>
+                    <input type="text" class="form-control" id="direccionCliente" name="direccionCliente"
+                        [(ngModel)]="direccionCliente" required>
+                </div>
+                <div class="form-group col-6 pb-3">
+                    <label for="hora">LOCALIDAD</label>
+                    <input type="text" class="form-control" id="localidadCliente" name="localidadCliente"
+                        [(ngModel)]="localidadCliente" required>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <button class="btn btn-outline-light btn-sm">
+                            AGREGAR PLATOS AL PEDIDO
+                        </button>
+                        <div class="col-12">
+                            <button class="btn btn-outline-light btn-sm">
+                                EDITAR DATOS DE ENVIO
+                            </button>
+                        </div>
+                        <button class="btn btn-outline-light btn-sm">
+                            GUARDAR DATOS EDITADOS
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+                    <p>=======================================================================================================
+                    </p>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="iDmodalitoEnviarPedido">
+        <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}:
+            {{mensajePedEnviadoDB}}</p>
+
+
+        <div class="row text-center">
+            <p>{{ 'Nombre Cliente: ' + nombreCliente }}</p>
+            <p>{{ 'Teléfono Cliente: ' + telefonoCliente }}</p>
+            <p>{{ 'Dirección: ' + direccionCliente }}</p>
+            <p>{{ 'Localidad: ' + localidadCliente }}</p>
+        </div>
+        <div *ngFor="let platoSeleccionado of getPlatosSeleccionados(); let i = index">
+            <ng-container *ngIf="platoSeleccionado && platoSeleccionado?.platos">
+
+                <!-- div class="d-flex flex-row" hace que la lista sea horizontal>-->
+                <div class="d-flex flex-row justify-content-center">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-primary">Plato {{ i + 1 }}: {{
+                            platoSeleccionado.platos.nombrePlato }}</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-secondary">Total: $ {{
+                            platoSeleccionado.totalPlato }}</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-secondary">Precio unitario: $ {{
+                            platoSeleccionado.platos.precioPlato }}</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success">Porciones: {{
+                            platoSeleccionado.porcionPlato }}</li>
+                    </ul>
+                </div>
+
+            </ng-container>
+        </div>
+        <div class="col-12 text-center">
+            <br>
+            <br>
+            <button class="btn btn-outline-light" type="button" (click)="enviarDetallePedidos()">
+                ENVIAR PEDIDO
+            </button>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+
+
+</div>

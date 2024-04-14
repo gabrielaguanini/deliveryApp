@@ -180,19 +180,16 @@ public class DetallePedidosService {
 
 //======================================================================================================================
     /**
-     * Verifica si existe un DetallePedido por su Id.
+     * Verifica si existe un detalle de pedido con el ID especificado.
      *
-     * @param idDetallePedido Id del DetallePedido a verificar.
-     * @return `true` si existe, `false` si no.
-     * @throws MensajeResponseStatusException Si hay un error al comprobar la
-     * existencia del DetallePedido. Método de uso interno, SIN ENDPOINT
+     * @param idDetallePedido El ID del detalle de pedido a verificar.
+     * @return {@code true} si existe un detalle de pedido con el ID
+     * especificado, {@code false} en caso contrario.
      */
     public boolean existsById(Long idDetallePedido) {
-
+        // Verifica si existe un detalle de pedido en el repositorio con el ID especificado
         boolean dePeExists = iDetPeRepo.existsById(idDetallePedido);
-        if (!dePeExists) {
-            return dePeExists;
-        };
+        // Devuelve el resultado de la verificación
         return dePeExists;
     }
 

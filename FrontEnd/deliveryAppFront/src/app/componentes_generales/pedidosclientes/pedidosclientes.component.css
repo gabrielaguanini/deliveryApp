@@ -1,0 +1,44 @@
+/* ///////////// MODAL AGREGAR PEDIDO /////////////  */ 
+
+
+#containerAll{
+    background-color: rgb(231, 227, 199);
+}
+/* formato de la tabla de pedidos */ 
+.pedidosClientes{
+    background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
+    color: #fff;
+    border-radius: 10px;
+}
+
+/* formato de los modales */ 
+.tableAgregarPlato{
+    color:white;   
+}
+
+/* formato del input chekbox para seleccionar un plato a mostrar */ 
+#chekSelPed{
+    width: 117%;
+}
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

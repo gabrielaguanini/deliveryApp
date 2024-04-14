@@ -162,9 +162,9 @@ export class PedidosplatosamostrarComponent {
 
   ngOnInit(): void {
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
-    this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
+    //this.listaPlatosForSelect() // muestra la lista de platos para etiqueta select de editar plato a mostrar
     this.listaPedidosDeHoy(); // muestra la lista de pedidos de la fecha actual
-    this.listaDetallePedidos(); // muestra la lista de pedidos completa
+    //this.listaDetallePedidos(); // muestra la lista de pedidos completa
     //this.listaPlatosComp();
 
 
@@ -257,9 +257,10 @@ export class PedidosplatosamostrarComponent {
       })
   };
 
-  listaPlatosForSelect(): void {
-    this.platosServ.listaPlatos().subscribe(data => this.platosListForSelect = data);
-  };
+  //listaPlatosForSelect(): void {
+    //this.platosServ.listaPlatos().subscribe(data => this.platosListForSelect = data);
+   // this.platosListForSelect = []
+  //};
 
   listaPedidosDeHoy(): void {
     this.pedidosServ.listaPedidosDeHoy().subscribe(
@@ -279,9 +280,9 @@ export class PedidosplatosamostrarComponent {
     )
   };
 
-  listaDetallePedidos(): void {
-    this.detallePedidServ.listaDetallePedidos().subscribe(data => this.detallePedidosList = data);
-  };
+  //listaDetallePedidos(): void {
+    //this.detallePedidServ.listaDetallePedidos().subscribe(data => this.detallePedidosList = data);
+ // };
 
   listaDetallePedidosXIdPedido(idPedido: number): void {
 

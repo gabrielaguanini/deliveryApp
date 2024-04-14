@@ -3,5 +3,4 @@
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
 
 
-** pensar que hacer en el caso de eliminar platos, que pasaria con platosamostrar, se elimina tambien el plato a mostrar?
-** ver en el back porque no funciona @notBlan
+* Ver como dejar siempre igual el tamaño de las imagenes, ya probe y aunque img-fluid funciona, si la imagen a subir tiene mas resolucion que las que estoy usando, cambia el tamaño

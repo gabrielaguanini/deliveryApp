@@ -10,8 +10,9 @@
   text-align: center;
   display: flex;
   justify-content:center;
-  position: absolute;   
+ /*  position: absolute;*/
   overflow-x: hidden;
+  margin-bottom: 5%;
 }
 
 .labelCel{cursor: pointer;}

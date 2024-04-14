@@ -260,22 +260,22 @@ export class MenucomplComponent {
   //verifica antes de guardar que no exista el plato
   onCreate(): void {
 
-    if(this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)){
+    if(this.idTipoPla == 0 || this.idTipoPla == undefined || isNaN(this.idTipoPla)){
       alert("Seleccione un tipo de plato");
       return
     };
 
-    if(this.nombrePlato === "" || this.nombrePlato === undefined){
+    if(this.nombrePlato == "" || this.nombrePlato == undefined){
       alert("Ingrese el nombre del plato");
       return
     };
 
-    if(this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)){
+    if(this.precioPlato == 0 || this.precioPlato == undefined || isNaN(this.precioPlato)){
       alert("Ingrese un precio para el plato");
       return
     };
     
-    if(this.imgPlato === "" || this.imgPlato === undefined){
+    if(this.imgPlato == "" || this.imgPlato == undefined){
       alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       return
     };
@@ -283,7 +283,8 @@ export class MenucomplComponent {
     this.menucomServ.existeXNombre(this.nombrePlato).subscribe(
       (existePlato: boolean) => {
         if (existePlato) {
-          alert("el plato ya existe");
+          console.log("el plato con nombre: " +  this.nombrePlato + " ya existe en la base de datos");
+          alert("el plato con nombre: **" +  this.nombrePlato + "** ya existe en la base de datos");
         } else {
           const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
   
@@ -311,6 +312,7 @@ export class MenucomplComponent {
   //BORRAR PLATO CON IDTIPOPLATO E IDPLATO
   ///////////////////////////////////
   borrarPlato(idPlato: number, idTipoPla: number): void {
+    console.log("idPlato: " + idPlato  + "idTipoPlato: " + idTipoPla)
     if (idPlato != undefined) {
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
         console.log("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado. " + "Msj. Servidor: " + JSON.stringify(data));
@@ -319,7 +321,8 @@ export class MenucomplComponent {
               // Refresca la lista de platos con el registro eliminado
       if (this.menuCompModel.length > 1) {
         this.mostrarListaTipoPlato(idTipoPla);
-      } else {
+      } 
+      else {
         this.menuCompModel = []; // Lista vacía si no hay más registros
       }
         
@@ -331,6 +334,8 @@ export class MenucomplComponent {
       )
     }
   };
+
+
 
     //funcion que muestra un cartel de warning antes de borrar
     borrarPlaMsjEli(idPlato:number, idTipoPla: number): void{

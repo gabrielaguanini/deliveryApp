@@ -14,6 +14,7 @@ import { CartelerasliderComponent } from './componentes_generales/carteleraslide
 import { CarteleraslidercelComponent } from './componentes_generales/carteleraslidercel/carteleraslidercel.component';
 import { PedidosplatosamostrarComponent } from './usuarios/componentes/pedidosplatosamostrar/pedidosplatosamostrar.component';
 import { PedidosAnterYDescargasComponent } from './usuarios/componentes/pedidos-anter-ydescargas/pedidos-anter-ydescargas.component';
+import { PedidosclientesComponent } from './componentes_generales/pedidosclientes/pedidosclientes.component';
 
 
 
@@ -25,7 +26,7 @@ import { PedidosAnterYDescargasComponent } from './usuarios/componentes/pedidos-
     NavbarComponent, 
     HomeComponent, 
     CarteleraslidercelComponent, 
-    PedidosplatosamostrarComponent, PedidosAnterYDescargasComponent
+    PedidosplatosamostrarComponent, PedidosAnterYDescargasComponent, PedidosclientesComponent
     
   ],
   imports: [
