@@ -1,44 +1,21 @@
-/* ///////////// MODAL AGREGAR PEDIDO /////////////  */ 
 
-
-#containerAll{
-    background-color: rgb(231, 227, 199);
-}
-/* formato de la tabla de pedidos */ 
-.pedidosClientes{
-    background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
+/* formato de la lista para seleccion de platos */
+.pedidosClientes {
+    background-image: URL('https://images.unsplash.com/photo-1551218372-a8789b81b253?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: contain ;
+    background-repeat:repeat;
     color: #fff;
-    border-radius: 10px;
 }
 
-/* formato de los modales */ 
-.tableAgregarPlato{
-    color:white;   
+/* formato de la lista para seleccionar platos */
+.containerPedidosClientes, .modalitoNgIfPedCli {
+    color: white; /* Color del texto */
+    background-color: rgba(0, 0, 0, 0.7); /* Negro con 80% de opacidad */  
 }
 
-/* formato del input chekbox para seleccionar un plato a mostrar */ 
-#chekSelPed{
-    width: 117%;
+/* mantiene el tamaño de las imagenes del menu cuadrados */
+.img-fluid {
+    aspect-ratio: 1 / 1; /* Relación de aspecto cuadrada */
 }
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
