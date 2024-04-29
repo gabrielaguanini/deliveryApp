@@ -1,5 +1,6 @@
 package com.delivery.delivery.Controller.PlatosAMostrar;
 
+import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Mensaje.MensajeDataAccessException;
@@ -126,7 +127,6 @@ public class PlatosAMostrarController {
                 throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 385.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
 
-
             // Guarda el plato a mostrar
             plaMosServ.guardar(platosAMostrar);
 
@@ -178,8 +178,8 @@ public class PlatosAMostrarController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException("Ingrese descripción del plato a mostrar", HttpStatus.BAD_REQUEST);
             }
-            
-                        // Verifica que los caracteres ingresados no sean mayores a 260
+
+            // Verifica que los caracteres ingresados no sean mayores a 260
             if (platosAMostrar.getDescripcionPlatoAMostrar().length() > 385) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 385.").getMensaje(), HttpStatus.BAD_REQUEST, null);
@@ -228,7 +228,7 @@ public class PlatosAMostrarController {
         try {
             // Verifica si el plato a mostrar existe en la tabla de platos
             if (!plaMosServ.existsById(idPlatoAMostrar)) {
-                     logger.error(HttpStatus.NOT_FOUND.toString());
+                logger.error(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException("El idPlatoAMostrar N°: " + idPlatoAMostrar + " no existe en la base de datos", HttpStatus.NOT_FOUND);
             }
 
@@ -264,11 +264,10 @@ public class PlatosAMostrarController {
     @GetMapping("/existeporid/{idPlatoAMostrar}")
     public ResponseEntity existeXId(@PathVariable Long idPlatoAMostrar) {
         try {
-          plaMosServ.existsById(idPlatoAMostrar);
-          
-                return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
-           
-            
+            plaMosServ.existsById(idPlatoAMostrar);
+
+            return new ResponseEntity(new Mensaje("El plato existe"), HttpStatus.OK);
+
         } catch (MensajeDataAccessException e) {
             // Maneja el error al acceder a la base de datos
             logger.error("Error al acceder a la base de datos", e);
@@ -280,5 +279,5 @@ public class PlatosAMostrarController {
         }
     }
 
-//=======================================================================================================================  
+//=======================================================================================================================     
 }

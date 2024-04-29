@@ -3,6 +3,7 @@ import { DetallePedidos } from 'src/app/usuarios/modelos/detalle-pedidos';
 import { DetallePedidosAcotadaModel } from 'src/app/usuarios/modelos/detalle-pedidos-acotadaModel';
 import { PedidosModel } from 'src/app/usuarios/modelos/pedidos-model';
 import { PlatosAMostrar } from 'src/app/usuarios/modelos/platos-amostrar';
+import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { DetallePedidosService } from 'src/app/usuarios/servicios/detalle-pedidos.service';
 import { PedidosService } from 'src/app/usuarios/servicios/pedidos.service';
 import { PlatosAMostrarService } from 'src/app/usuarios/servicios/platos-amostrar.service';
@@ -40,29 +41,33 @@ export class PedidosclientesComponent {
 
   chekBoxSelcPlat: boolean = false;
 
-//MODALITOS NGIF
-   
+  //MODALITOS NGIF
+
   //objeto para que los modales de seleccion de plato se abran uno a la vez
   modalitosPlaPed: { [key: string]: boolean } = {};
   modalitoNgIfPedCli: boolean = false;
-  
-
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //botones para seleccion y edicion de platos 
+  modNgIfCrearPedido: boolean = true;
 
 
-constructor(private pedidosServ: PedidosService,
-            private detallePedidServ: DetallePedidosService,
-            private plaMosServ: PlatosAMostrarService
-) { };
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
-ngOnInit(): void {
-  this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
-};
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+
+  constructor(private pedidosServ: PedidosService,
+    private detallePedidServ: DetallePedidosService,
+    private plaMosServ: PlatosAMostrarService
+  ) { };
+
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+
+  ngOnInit(): void {
+    this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
+  };
+
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
 
   // FUNCIONES PARA LISTAS
@@ -83,27 +88,28 @@ ngOnInit(): void {
       })
   };
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+
 
 
   // FUNCIONES PARA MODALES
   ///////////////////////// 
 
- opCloMod(modalName: string, index: number): void {
-  if(this.platosSeleccionadosSioNo[index] == true){
-    this.modalitosPlaPed[modalName] = false;
-  }
+  opCloMod(modalName: string, index: number): void {
+    if (this.platosSeleccionadosSioNo[index] == true) {
+      this.modalitosPlaPed[modalName] = false;
+    }
 
-  this.modalitosPlaPed[modalName] = !this.modalitosPlaPed[modalName];
- };
-
-
+    this.modalitosPlaPed[modalName] = !this.modalitosPlaPed[modalName];
+  };
 
 
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
-//SELECCION DE PLATOS A MOSTRAR PARA EL PEDIDO
+
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+
+  //SELECCION DE PLATOS A MOSTRAR PARA EL PEDIDO
 
   //selecciona el chekbox al utilizar la flecha aumento o decremento del input
   seleccionarChekBoxSiHayPorcionPla(index: number): void {
@@ -120,15 +126,15 @@ ngOnInit(): void {
     //console.log("inputReadOnlyPorcionPlato: " + this.inputReadOnlyPorcionPlato);
   };
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 
-    //calcula el total del plato respecto a las porciones ingresadas
-    calcularTotalPlato(index: number): void {
-      this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
-    };
-  
-//✮------------------------------------------------------------------------------------------------------------✮
+  //calcula el total del plato respecto a las porciones ingresadas
+  calcularTotalPlato(index: number): void {
+    this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
+  };
+
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //agrega 1 porcionPlato si se selecciona el chekbox
   agregarPorcionesPlaSeleccionandoChekBox(index: number): void {
@@ -146,10 +152,10 @@ ngOnInit(): void {
   };
   //✮------------------------------------------------------------------------------------------------------------✮
 
-    //cambia el chekbox del modal agregar detalle pedido a true o false
-    chekBoxSeleccion(index: number): void {
-      this.platosSeleccionadosSioNo[index] = !this.platosSeleccionadosSioNo[index];
-    };
+  //cambia el chekbox del modal agregar detalle pedido a true o false
+  chekBoxSeleccion(index: number): void {
+    this.platosSeleccionadosSioNo[index] = !this.platosSeleccionadosSioNo[index];
+  };
 
   //✮------------------------------------------------------------------------------------------------------------✮
 
@@ -223,43 +229,43 @@ ngOnInit(): void {
     );
   };
 
- //✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-//muestra una lista de los platos seleccionados para el pedido antes de enviarla a la DB
-getPlatosSeleccionados(): DetallePedidos[] {
-  // Filtra los elementos seleccionados
-  const seleccionados = this.platosAMostrarList
-    .filter((_, index) => this.platosSeleccionadosSioNo[index])
-    .map((platoAMostrar, index) => {
-      return {
-        idDetallePedido: 0, // Asigna el valor adecuado si es necesario
+  //muestra una lista de los platos seleccionados para el pedido antes de enviarla a la DB
+  getPlatosSeleccionados(): DetallePedidos[] {
+    // Filtra los elementos seleccionados
+    const seleccionados = this.platosAMostrarList
+      .filter((_, index) => this.platosSeleccionadosSioNo[index])
+      .map((platoAMostrar, index) => {
+        return {
+          idDetallePedido: 0, // Asigna el valor adecuado si es necesario
 
-        pedidos: {
-          idPedido: this.idPedido,
-          nombreCliente: this.nombreCliente,
-          telefonoCliente: this.telefonoCliente,
-          direccionCliente: this.direccionCliente,
-          localidadCliente: this.localidadCliente,
-          listaPlatosDelPedido: this.platosDelPedido,
-          fecha: this.fecha,
-          hora: this.hora,
-          importeTotalPedido: this.importeTotalPedido,
-        },
-        platosAMostrar: platoAMostrar,
-        platos: platoAMostrar.platos,
-        porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
-        precioPlatosAMostrar: this.precioPlatosAMostrar,
-        totalPlato: this.totalesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0 // Asigna el valor adecuado si es necesario
-      };
-    });
+          pedidos: {
+            idPedido: this.idPedido,
+            nombreCliente: this.nombreCliente,
+            telefonoCliente: this.telefonoCliente,
+            direccionCliente: this.direccionCliente,
+            localidadCliente: this.localidadCliente,
+            listaPlatosDelPedido: this.platosDelPedido,
+            fecha: this.fecha,
+            hora: this.hora,
+            importeTotalPedido: this.importeTotalPedido,
+          },
+          platosAMostrar: platoAMostrar,
+          platos: platoAMostrar.platos,
+          porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
+          precioPlatosAMostrar: this.precioPlatosAMostrar,
+          totalPlato: this.totalesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0 // Asigna el valor adecuado si es necesario
+        };
+      });
 
-  // Log para verificar los elementos seleccionados
-  //console.log('Platos seleccionados:', seleccionados);
+    // Log para verificar los elementos seleccionados
+    //console.log('Platos seleccionados:', seleccionados);
 
-  return seleccionados;
-};
+    return seleccionados;
+  };
 
- //✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //envia lista de detalle pedidos
   enviarDetallePedidos(): void {
@@ -292,7 +298,7 @@ getPlatosSeleccionados(): DetallePedidos[] {
       this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
         data => {
 
-       
+
           this.mensajePedEnviadoDB = " registrado"; // agrega enviado a la etiqueta <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}: {{mensajePedEnviadoDB}}</p>
           console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
           alert("Pedido N°: " + this.idPedido + " enviado");
@@ -306,16 +312,16 @@ getPlatosSeleccionados(): DetallePedidos[] {
     };
   };
 
- //✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
-//FUNCIONES VARIAS
+  //FUNCIONES VARIAS
 
-    // Evita que se ingresen numeros o porciones manualmente en el input
-    handleKeydown(event: KeyboardEvent): void {
-      event.preventDefault();
-    };
+  // Evita que se ingresen numeros o porciones manualmente en el input
+  handleKeydown(event: KeyboardEvent): void {
+    event.preventDefault();
+  };
 }

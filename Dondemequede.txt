@@ -14,76 +14,61 @@
 
 
 
-<!-- DATOS CLIENTES -->   
+<!-- DATOS CLIENTES -->
 
-<div class="row align-items-center">
-    <form novalidate #f="ngForm" class="pedidosForm" id="formularioPedidYDetPedid">
-        <div class="row text-center">
-            <div class="form-group">
-                <label for="nombreCliente">NOMBRE CLIENTE</label>
-                <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
-                    [(ngModel)]="nombreCliente" required>
-            </div>
-            <div class="form-group">
-                <label for="telefonoCliente">TELEFONO CLIENTE</label>
-                <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente"
-                    [(ngModel)]="telefonoCliente" required>
-            </div>
-            <div class="form-group">
-                <label for="direccionCliente">DIRECCION</label>
-                <input type="text" class="form-control" id="direccionCliente" name="direccionCliente"
-                    [(ngModel)]="direccionCliente" required>
-            </div>
-            <div class="form-group">
-                <label for="hora">LOCALIDAD</label>
-                <input type="text" class="form-control" id="localidadCliente" name="localidadCliente"
-                    [(ngModel)]="localidadCliente" required>
-            </div>
-            <div class="row justify-content-center">
-                <div class="">
-                    <button class="btn btn-outline-light btn-sm">
-                        AGREGAR PLATOS AL PEDIDO
-                    </button>
+    <div class="container-fluid border rounded p-3 divDatosClientes ">
+        <form novalidate #f="ngForm" class="pedidosForm" id="formularioPedidYDetPedid">
+            <div class="row">
+                <div class="col-4 mx-auto text-center form-group">
+                    <label for="nombreCliente">NOMBRE CLIENTE</label>
+                    <input type="text" class="form-control" id="nombreCliente" name="nombreCliente"
+                        [(ngModel)]="nombreCliente" required>
+                </div>
+                <div class="col-4 mx-auto text-center form-group">
+                    <label for="telefonoCliente">TELEFONO CLIENTE</label>
+                    <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente"
+                        [(ngModel)]="telefonoCliente" required>
+                </div>
+            </div>  
+            <div class="row">  
+                <div class="col-4 mx-auto text-center form-group">
+                    <label for="direccionCliente">DIRECCION</label>
+                    <input type="text" class="form-control" id="direccionCliente" name="direccionCliente"
+                        [(ngModel)]="direccionCliente" required>
+                </div>
+                <div class="col-4 mx-auto text-center form-group">
+                    <label for="hora">LOCALIDAD</label>
+                    <input type="text" class="form-control" id="localidadCliente" name="localidadCliente"
+                        [(ngModel)]="localidadCliente" required>
+                </div>
+            </div> 
+            <br> 
+            <br>   
+                <div class="row text-center justify-content-center">
                     <div class="">
                         <button class="btn btn-outline-light btn-sm">
-                            EDITAR DATOS DE ENVIO
+                            AGREGAR PLATOS AL PEDIDO
+                        </button>
+                        <div class="">
+                            <button class="btn btn-outline-light btn-sm">
+                                EDITAR DATOS DE ENVIO
+                            </button>
+                        </div>
+                        <button class="btn btn-outline-light btn-sm">
+                            GUARDAR DATOS EDITADOS
                         </button>
                     </div>
-                    <button class="btn btn-outline-light btn-sm">
-                        GUARDAR DATOS EDITADOS
-                    </button>
+                    <br>
+                    <br>
+                    <p>=======================================================================================================
+                    </p>
+
                 </div>
-                <br>
-                <br>
-                <p>=======================================================================================================
-                </p>
+          
+        </form>
+    </div>
 
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- CONFIRMACION DE PLATOS DEL PEDIDO Y DATOS PARA ENVIAR EL PEDIDO A LA DB -->
 <div id="iDmodalitoEnviarPedido">
     <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}:
         {{mensajePedEnviadoDB}}</p>

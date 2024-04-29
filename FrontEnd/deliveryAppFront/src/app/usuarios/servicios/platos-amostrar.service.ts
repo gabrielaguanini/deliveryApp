@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlatosAMostrar } from '../modelos/platos-amostrar';
+import { TipoPlato } from '../modelos/tipo-plato';
 
 @Injectable({
   providedIn: 'root'

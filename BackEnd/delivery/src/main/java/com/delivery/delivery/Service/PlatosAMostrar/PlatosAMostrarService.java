@@ -1,8 +1,10 @@
 package com.delivery.delivery.Service.PlatosAMostrar;
 
+import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -28,20 +30,48 @@ public class PlatosAMostrarService {
 
     /**
      * Recupera una lista de todos los platos a mostrar almacenados en la base
-     * de datos.
+     * de datos, ordenados de la siguiente manera:
+     *
+     * 1. Resto de platos: Todos los platos de la base de datos que no son ni
+     * POSTRES ni BEBIDAS, ordenados por ID de plato. 2. POSTRES: Todos los
+     * platos con tipo de plato "POSTRES" ordenados por ID de plato. 3. BEBIDAS:
+     * Todos los platos con tipo de plato "BEBIDAS" ordenados por ID de plato.
      *
      * @return Una lista ordenada de platos a mostrar.
      * @throws DataAccessException Si se produce algún error al acceder a la
      * base de datos.
      */
     public List<PlatosAMostrar> listaPlatosAMostrar() throws DataAccessException {
-        // Recupera la lista de platos desde el repositorio
-        List<PlatosAMostrar> platosAMostrarList = iPlatosAMostrarRepo.findAll();
 
-        // Ordena la lista por ID de plato
-        List<PlatosAMostrar> platosAMostrarOrdenados = platosAMostrarList.stream()
-                .sorted(Comparator.comparing(PlatosAMostrar::getIdPlatosAMostrar))
+        //Filtra y ordena en la lista platosBebidas las BEBIDAS a los efectos de ubicar sus elementos al final de la lista platosAMostrarOrdenados
+        List<PlatosAMostrar> platosBebidas = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar
+                        -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("BEBIDAS")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("BEBIDA")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Bebidas"))
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
                 .collect(Collectors.toList());
+
+        //Filtra y ordena en la lista platosPostres los POSTRES a los efectos de ubicar sus elementos al final de la lista platosAMostrarOrdenados
+        List<PlatosAMostrar> platosPostres = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar
+                        -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("POSTRES")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("POSTRE")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Postres"))
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
+                .collect(Collectors.toList());
+
+        //Filtra y ordena los elementos restantos de la lista de platos a mostrar
+        List<PlatosAMostrar> platosResto = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar -> !platosBebidas.contains(platoAMostrar) && !platosPostres.contains(platoAMostrar))
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
+                .collect(Collectors.toList());
+
+        // Combina las listas en el orden deseado, es decir BEBIDAS y POSTRES al final
+        List<PlatosAMostrar> platosAMostrarOrdenados = new ArrayList<>();
+        platosAMostrarOrdenados.addAll(platosResto);
+        platosAMostrarOrdenados.addAll(platosPostres);
+        platosAMostrarOrdenados.addAll(platosBebidas);
 
         return platosAMostrarOrdenados;
     }
@@ -60,7 +90,6 @@ public class PlatosAMostrarService {
     }
 
 //=======================================================================================================
-    
     public Optional getOneByIdPlato(Long idPlato) {
         return iPlatosAMostrarRepo.findByPlatos_IdPlato(idPlato);
     }
@@ -76,7 +105,6 @@ public class PlatosAMostrarService {
     }
 
 //=======================================================================================================
-    
     /**
      * Elimina un plato a mostrar de la base de datos mediante su ID.
      *
@@ -87,7 +115,6 @@ public class PlatosAMostrarService {
     }
 
 //======================================================================================================= 
-    
     /**
      * Verifica si existe un plato a mostrar en la base de datos según su ID.
      *
@@ -96,12 +123,11 @@ public class PlatosAMostrarService {
      * caso contrario.
      */
     public boolean existsById(Long idPlatosAMostrar) {
-        
+
         return iPlatosAMostrarRepo.existsById(idPlatosAMostrar);
     }
 
 //======================================================================================================= 
-    
     /**
      * Verifica si existe un plato a mostrar en la base de datos según el ID de
      * su plato asociado.
@@ -116,6 +142,4 @@ public class PlatosAMostrarService {
     }
 
 //======================================================================================================= 
-    
-    
 }

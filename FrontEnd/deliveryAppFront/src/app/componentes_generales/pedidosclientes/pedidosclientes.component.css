@@ -8,7 +8,7 @@
 }
 
 /* formato de la lista para seleccionar platos */
-.containerPedidosClientes, .modalitoNgIfPedCli {
+.containerPedidosClientes, .modalitoNgIfPedCli, .divDatosClientes, .containerConfPlaDelPed {
     color: white; /* Color del texto */
     background-color: rgba(0, 0, 0, 0.7); /* Negro con 80% de opacidad */  
 }
@@ -17,5 +17,7 @@
 .img-fluid {
     aspect-ratio: 1 / 1; /* Relación de aspecto cuadrada */
 }
+
+
 
 

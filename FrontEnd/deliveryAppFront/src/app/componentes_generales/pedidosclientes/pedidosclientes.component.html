@@ -1,8 +1,11 @@
 <div class="container-fluid pedidosClientes">
+
     <!-- Título -->
+    <br>
     <div class="row">
-        <div class="col text-center">
-            <h4>AGREGAR PLATOS AL PEDIDO</h4>
+        <div class="col-3 text-center mx-auto containerTitMenu">
+            <strong><h1 class="border border-warning">MENU</h1></strong>
+            <br>
         </div>
     </div>
 
@@ -11,12 +14,15 @@
         <ng-container *ngFor="let PlatosAMostrar of platosAMostrarList; let i = index">
             <div class="col-md-6 mb-4">
                 <div class="border rounded p-3 containerPedidosClientes">
-                    <!-- Agregamos padding y margen a cada tarjeta -->
+                    <!-- padding y margen a cada tarjeta -->
                     <div class="row">
                         <!-- Nombre del plato -->
                         <strong class="row text-center justify-content-center">
-                            <p class="col-6 border border-danger rounded-pill p-2 mb-4">{{PlatosAMostrar.platos.nombrePlato}}
-                            </p>
+                            <div class="col-6 ">
+                                <i class="{{PlatosAMostrar.platos.tipoPlato.iconoTipoPlato}} opacity-50 border rounded-circle p-2"></i>
+                                <h6 class="opacity-50">{{PlatosAMostrar.platos.tipoPlato.nombreTipoPlato}}</h6>
+                            </div>
+                            <p class="col-6 border border-danger rounded-pill p-2 mb-4">{{PlatosAMostrar.platos.nombrePlato}}</p>
                         </strong>
                         <!-- Imagen del plato -->
                         <div class="col-lg-6 col-md-12 imgPlato">
@@ -35,8 +41,7 @@
                                     <!-- Importe unitario -->
                                     <div class="row align-items-center justify-content-center">
                                         <div class="col-lg-6 col-md-12 d-flex flex-column align-items-center border border-warning border-1 rounded-pill p-1 mb-3">
-                                            Precio
-                                            unitario
+                                            Precio unitario
                                             <strong>$ {{PlatosAMostrar.platos.precioPlato}}</strong>
                                         </div>
                                     </div>
@@ -82,32 +87,151 @@
                     <!-- Botón para seleccionar plato -->
                     <div class="col-lg-4  containerBut text-center pt-3 justify-content-center">
                         <button class="btn btn-secondary btn-md" (click)="opCloMod('modalitoNgIfPedCli_' + i, i)">
-                            holaaaaaaaaaaaaaaaaa
+                            Seleccionar
                         </button>
                     </div>
                 </div>
             </div>
         </ng-container>
+
     </div>
 
     <!-- Botones -->
+   
     <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
-            <button class="btn btn-outline-light border border-warning" type="button" (click)="agregarPedido()">
-                <strong>CREAR PEDIDO</strong>
+        <div class="col-md-12 text-center">
+            <button class="btn btn-dark border border-warning" type="button" (click)="agregarPedido()">
+                <strong>INGRESAR DATOS DE ENVIO</strong>
             </button>
         </div>
-        <div class="col-md-6 text-center">
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
             <button class="btn btn-outline-light" type="button">
                 Editar platos
             </button>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
+        <div class="col-md-12 text-center">
             <button class="btn btn-outline-light" type="button">
                 Guardar cambios
             </button>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+
+
+    <!-- DATOS CLIENTES -->
+
+    <div class="container-fluid border rounded divDatosClientes">
+        <br>
+        <form novalidate #f="ngForm" class="pedidosForm" id="formularioPedidYDetPedid">
+            <div class="row pt-4">
+                <div class="col-lg-4 col-md-12 mx-auto text-left form-group">
+                    <label for="nombreCliente">
+                        <h5 class="border border-danger rounded-pill p-2">NOMBRE</h5>
+                    </label>
+                    <input type="text" class="form-control border border-warning border-3" id="nombreCliente"
+                        name="nombreCliente" placeholder="Nombre" [(ngModel)]="nombreCliente" required>
+                    <br>
+                </div>
+                <div class="col-lg-4 col-md-12 mx-auto text-left form-group">
+                    <label for="telefonoCliente">
+                        <h5 class="border border-danger rounded-pill p-2">TELEFONO</h5>
+                    </label>
+                    <input type="text" class="form-control border border-warning border-3" id="telefonoCliente"
+                        name="telefonoCliente" placeholder="1561111111" [(ngModel)]="telefonoCliente" required>
+                    <br>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-lg-4 col-md-12 mx-auto text-left form-group">
+                    <label for="direccionCliente">
+                        <h5 class="border border-danger rounded-pill p-2">DIRECCION</h5>
+                    </label>
+                    <input type="text" class="form-control border border-warning border-3" id="direccionCliente"
+                        name="direccionCliente" placeholder="Avenida Santa Fe 4444 Depto b"
+                        [(ngModel)]="direccionCliente" required>
+                </div>
+                <div class="col-lg-4 col-md-12 mx-auto text-left form-group">
+                    <label for="hora">
+                        <h5 class="border border-danger rounded-pill p-2">LOCALIDAD</h5>
+                    </label>
+                    <input type="text" class="form-control border border-warning border-3" id="localidadCliente"
+                        name="localidadCliente" placeholder="Villa Urquiza" [(ngModel)]="localidadCliente" required>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row text-center justify-content-center">
+                <div class="col-12">
+                    <button class="btn btn-dark border border-warning">
+                        <strong>GUARDAR DATOS DE ENVIO</strong>
+                    </button>
+                </div>
+                <div class="col-12">    
+                    <button class="btn btn-outline-light btn-sm">
+                        EDITAR DATOS DE ENVIO
+                    </button>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-outline-light btn-sm">
+                        GUARDAR DATOS EDITADOS
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <!-- CONFIRMACION DE PLATOS DEL PEDIDO Y DATOS PARA ENVIAR EL PEDIDO A LA DB -->
+
+    <br>
+    <br>
+    <div class="container-fluid border rounded containerConfPlaDelPed">
+        <br>
+        <br>
+        <div id="iDmodalitoEnviarPedido">
+            <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}: {{mensajePedEnviadoDB}}</p>
+            <div class="row text-center">
+                <p>{{ 'Nombre Cliente: ' + nombreCliente }}</p>
+                <p>{{ 'Teléfono Cliente: ' + telefonoCliente }}</p>
+                <p>{{ 'Dirección: ' + direccionCliente }}</p>
+                <p>{{ 'Localidad: ' + localidadCliente }}</p>
+            </div>
+            <div *ngFor="let platoSeleccionado of getPlatosSeleccionados(); let i = index">
+                <ng-container *ngIf="platoSeleccionado && platoSeleccionado?.platos">
+                    <div class="d-flex flex-row justify-content-center">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-primary">Plato {{ i + 1 }}: {{ platoSeleccionado.platos.nombrePlato }}</li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-secondary">Total: $ {{ platoSeleccionado.totalPlato }}</li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-secondary">Precio unitario: $ {{ platoSeleccionado.platos.precioPlato }}</li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-success">Porciones: {{ platoSeleccionado.porcionPlato }}</li>
+                        </ul>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-outline-light" type="button" (click)="enviarDetallePedidos()">
+                    ENVIAR PEDIDO
+                </button>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
 </div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
