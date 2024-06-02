@@ -51,6 +51,10 @@ export class DetallePedidosService {
     return this.httpClient.delete<any>(this.URL + `borrardetallepedido/${idDetallePedido}/${idPedido}`)
   };
 
+  public eliminarVariosDetPedXIdPedido(idPedido: number): Observable<any> {
+    return this.httpClient.delete(this.URL + `eliminardetpedporidped/${idPedido}`, { responseType: 'text' }); //responseType: parsea la response a texto
+  };
+
  
   //METODO PARA MANEJO DE ERRORES
   //private handleError(error: any): Observable<any> {

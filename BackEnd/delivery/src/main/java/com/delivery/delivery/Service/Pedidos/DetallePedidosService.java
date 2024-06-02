@@ -285,5 +285,17 @@ public class DetallePedidosService {
         return lisPlaMosXIdPed;
     }
 
-//======================================================================================================================
+//======================================================================================================================.
+    /**
+     * Elimina varios detalles de pedido asociados a un idPedido específico.
+     *
+     * @param idPedidos El identificador del pedido del cual se eliminarán los
+     * detalles.
+     */
+    public void eliminarVariosDetallesPorIdPedido(Long idPedidos) {
+        iDetPeRepo.elimVariosDetPedXIdPedido(idPedidos);
+    }
+    
+//======================================================================================================================.
+
 }

@@ -413,4 +413,45 @@ public class DetallePedidosController {
     }
 
 // ======================================================================================================= //
+    /**
+     * Elimina los detalles de un pedido específico por su ID.
+     *
+     * @param idPedido El identificador único del pedido del cual se eliminarán
+     * los detalles.
+     * @return ResponseEntity con un mensaje de éxito si la eliminación se
+     * realiza correctamente.
+     * @throws MensajeResponseStatusException Si el pedido no existe, se lanza
+     * una excepción con un mensaje personalizado.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
+     * base de datos durante el proceso de eliminación.
+     * @throws MensajeRunTimeException Si ocurre un error inesperado durante el
+     * procesamiento de la solicitud.
+     */
+    @DeleteMapping("/eliminardetpedporidped/{idPedido}")
+    public ResponseEntity<?> eliminarDetallesPorIdsPedido(@PathVariable Long idPedido) {
+        try {
+            // Verifica si el pedido existe
+            if (!pedidosService.existsById(idPedido)) {
+                // Si no existe, lanza una excepción con un mensaje personalizado y lo registra en el log
+                logger.error(HttpStatus.NOT_FOUND.toString());
+                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe. Es necesario para eliminar los detalles del pedido", HttpStatus.NOT_FOUND, null);
+            }
+            // Elimina los detalles del pedido
+            detpeServ.eliminarVariosDetallesPorIdPedido(idPedido);
+            // Retorna una respuesta exitosa con un mensaje indicando el éxito de la eliminación
+            return new ResponseEntity(new Mensaje("Detalle/s del pedido eliminados exitosamente. El parametro de eliminacion fue el idPedido: " + idPedido), HttpStatus.OK);
+
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud para eliminar el/los detalle/s del pedido con el parametro idPedido: " + idPedido, HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para eliminar el/los detalle/s del pedido con el parametro idPedido: " + idPedido), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
+// ======================================================================================================= //
+
 }

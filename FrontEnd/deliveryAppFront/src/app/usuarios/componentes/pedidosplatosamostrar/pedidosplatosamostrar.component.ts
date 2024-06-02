@@ -1161,7 +1161,7 @@ export class PedidosplatosamostrarComponent {
     } catch (error) {
       console.error('Error al intentar hacer scroll:', error);
     }
-  }
+  };
 
 
 

@@ -164,7 +164,7 @@ public class PedidosController {
                 // Registra la excepcion en el looger
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
-                throw new MensajeResponseStatusException("El nombre, teléfono, dirección o localidad del cliente están vacíos. ", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("No se han ingresado el nombre del cliente, teléfono, dirección o localidad. Por favor ingrese el/los dato/s faltante/s para continuar con el pedido. ", HttpStatus.BAD_REQUEST);
             }
 
             // Guarda el pedido en la base de datos
