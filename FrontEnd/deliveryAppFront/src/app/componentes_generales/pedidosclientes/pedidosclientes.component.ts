@@ -22,6 +22,8 @@ export class PedidosclientesComponent {
   telefonoCliente: string = "";
   direccionCliente: string = "";
   localidadCliente: string = "";
+  listaPlatosDelPedido: string = "";
+  listaPlatosDelPedidoCli: string = "";
   fecha!: string;
   hora!: string;
   importeTotalPedido!: number;
@@ -362,20 +364,21 @@ export class PedidosclientesComponent {
       this.telefonoCliente,
       this.direccionCliente,
       this.localidadCliente,
-      this.platosDelPedido,
+      this.listaPlatosDelPedido,
+      this.listaPlatosDelPedidoCli,
       this.fecha,
       this.hora,
       this.importeTotalPedido,
       this.pedidoConfirmado
     );
 
-   //validador para datos del cliente
-    if (this.nombreCliente == "" || 
-      this.telefonoCliente == "" || 
-      this.direccionCliente == "" || 
-      this.localidadCliente == ""  ){
-      
-      this.mostrarModalitoNgIfAlert();  
+    //validador para datos del cliente
+    if (this.nombreCliente == "" ||
+      this.telefonoCliente == "" ||
+      this.direccionCliente == "" ||
+      this.localidadCliente == "") {
+
+      this.mostrarModalitoNgIfAlert();
       this.mostrarMensaje("El nombre del cliente, direccion, localidad ó teléfono no se han completado. Por favor completelos para continuar el pedido. ");
       //alert("El nombre del cliente, direccion, localidad ó teléfono no se han completado. Por favor completelos para continuar el pedido. ");
       return;
@@ -435,7 +438,6 @@ export class PedidosclientesComponent {
 
         //deja offline o solo lectura los input para datos del cliente
         this.disabledInputDatEnv();
-
       },
       err => {
         //alert("Msj. Servidor: " + err.error.message);
@@ -445,6 +447,34 @@ export class PedidosclientesComponent {
       }
     );
   };
+
+
+  //obtiene un pedido x idPedido y lo envia por whatsapp. Se ejecuta una vez guardado el pedido y el detallePedido en la DB.
+  obtenerPedidoYEnviarWhatsApp(idPedido:number): void {
+    this.pedidosServ.obtenerPedidoXId(idPedido).subscribe(
+      data => {
+
+        console.log("Pedido con idPedido N°: " + idPedido + " obtenido");
+        // Construye el enlace de WhatsApp después de que los datos estén disponibles
+        const mensaje =
+          `Hola, mi nombre es: ${data.nombreCliente} y este es mi pedido: \n` +
+          ` ${data.listaPlatosDelPedidoCli}.\n` +
+          `Total del pedido: $${data.importeTotalPedido}.\n` +
+          `Los datos de envío del pedido son:\n` +
+          `Dirección: ${data.direccionCliente};\n` +
+          `Localidad: ${data.localidadCliente};\n` +
+          `Teléfono: ${data.telefonoCliente}.\n` +
+          `Muchas gracias.`;
+
+        const url = `https://web.whatsapp.com/send?phone=541169996458&text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+      },
+      err => {
+        console.log("Msj. Servidor: " + err.error.message);
+      }
+    );
+  }
+
 
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -483,6 +513,7 @@ export class PedidosclientesComponent {
 
           //this.mensajePedEnviadoDB = " creado"; // agrega enviado a la etiqueta <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}: {{mensajePedEnviadoDB}}</p>
           this.obtenerPedidoXIdYEliminar(); //elimina el pedido y sus detalles pedidos asociados por idPedido de sus respectivas tablas al calcular diferencias entre el total del pedido calculado por el front y por el back
+          this.obtenerPedidoYEnviarWhatsApp(this.idPedido); // envia por whatsapp el pedido completo (con detalles pedidos) una vez se registra en la base de datos.
           console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
           //alert("Pedido N°: " + this.idPedido + " enviado");
         },
@@ -516,6 +547,7 @@ export class PedidosclientesComponent {
             direccionCliente: this.direccionCliente,
             localidadCliente: this.localidadCliente,
             listaPlatosDelPedido: this.platosDelPedido,
+            listaPlatosDelPedidoCli: this.listaPlatosDelPedidoCli,
             fecha: this.fecha,
             hora: this.hora,
             importeTotalPedido: this.importeTotalPedido,

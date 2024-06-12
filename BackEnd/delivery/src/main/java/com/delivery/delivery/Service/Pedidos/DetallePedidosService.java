@@ -126,6 +126,39 @@ public class DetallePedidosService {
             throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
         }
     }
+    
+    //======================================================================================================================
+    /**
+  
+     */
+    public String generarListaCadenasDesdeDetallesPorIdPedidoCli(Long idPedido) {
+        try {
+
+            List<DetallePedidos> listaObjetosDetallesPedidos = listaXIdPedido(idPedido);
+
+            // Transforma la lista de DetallePedidos a una cadena
+            String listaCadenasTransformada = listaObjetosDetallesPedidos.stream()
+                    .map(detalle -> " --||| "
+                    + "Plato: " + detalle.getPlatos().getNombrePlato()
+                    + ", Porcion: " + detalle.getPorcionPlato()
+                    + ", $ unitario: " + detalle.getPlatos().getPrecioPlato()) 
+                    .collect(Collectors.joining(", ") ) +  " |||-- ";
+
+            // Actualiza la columna listaPlatosDelPedido en la entidad Pedido
+            Pedidos pedido = iPedidosRepo.findById(idPedido).orElse(null);
+            if (pedido != null) {
+                iDetPeRepo.updateListaPlatosDelPedidoCli(idPedido);
+                pedido.setListaPlatosDelPedidoCli(listaCadenasTransformada);
+                iPedidosRepo.save(pedido);
+            }
+
+            return listaCadenasTransformada;
+        } catch (MensajeResponseStatusException e) {
+            logger.error("Error al generar la lista de cadenas desde detalles del pedido" + e);
+            throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
+        }
+    }
+
 
 //======================================================================================================================
     /**
@@ -173,6 +206,9 @@ public class DetallePedidosService {
 
         // Genera la lista de cadenas actualizada a partir de los detalles de pedido del pedido modificado
         generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
+        
+        // Genera la lista de cadenas para el cliente actualizada a partir de los detalles de pedido del pedido modificado
+        generarListaCadenasDesdeDetallesPorIdPedidoCli(idPedido);
 
         // Actualiza el importe total del pedido después de borrar el detalle de pedido
         actualizarImporteTotalPedido(idPedido);

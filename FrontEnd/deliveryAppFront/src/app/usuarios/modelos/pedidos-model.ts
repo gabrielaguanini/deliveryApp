@@ -7,6 +7,7 @@ export class PedidosModel {
     direccionCliente!: string;
     localidadCliente!: string;
     listaPlatosDelPedido!: string;
+    listaPlatosDelPedidoCli!: string;
     fecha!: string;
     hora!: string;
     importeTotalPedido!: number;
@@ -18,6 +19,7 @@ export class PedidosModel {
                 direccionCliente: string,
                 localidadCliente: string,
                 listaPlatosDelPedido: string,
+                listaPlatosDelPedidoCli: string,
                 fecha: string,
                 hora: string,
                 importeTotalPedido: number,
@@ -29,6 +31,7 @@ export class PedidosModel {
         this.direccionCliente = direccionCliente;
         this.localidadCliente = localidadCliente;
         this.listaPlatosDelPedido = listaPlatosDelPedido;
+        this.listaPlatosDelPedidoCli = listaPlatosDelPedidoCli;
         this.fecha = fecha;
         this.hora = hora;
         this.importeTotalPedido = importeTotalPedido;

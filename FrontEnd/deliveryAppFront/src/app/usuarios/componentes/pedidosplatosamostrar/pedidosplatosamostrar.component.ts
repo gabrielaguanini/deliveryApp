@@ -109,6 +109,7 @@ export class PedidosplatosamostrarComponent {
   direccionCliente!: string;
   localidadCliente!: string;
   platosDelPedido!: string;
+  listaPlatosDelPedidoCli!: string;
   importeTotalPedido!: number;
   pedidoConfirmado: boolean = false;
 
@@ -462,6 +463,7 @@ export class PedidosplatosamostrarComponent {
       this.direccionCliente,
       this.localidadCliente,
       this.platosDelPedido,
+      this.listaPlatosDelPedidoCli,
       this.fecha,
       this.hora,
       this.importeTotalPedido,
@@ -605,6 +607,7 @@ export class PedidosplatosamostrarComponent {
       this.direccionCliente,
       this.localidadCliente,
       this.platosDelPedido,
+      this.listaPlatosDelPedidoCli,
       this.fecha,
       this.hora,
       this.importeTotalPedido,
@@ -898,6 +901,7 @@ export class PedidosplatosamostrarComponent {
             direccionCliente: this.direccionCliente,
             localidadCliente: this.localidadCliente,
             listaPlatosDelPedido: this.platosDelPedido,
+            listaPlatosDelPedidoCli: this.listaPlatosDelPedidoCli,
             fecha: this.fecha,
             hora: this.hora,
             importeTotalPedido: this.importeTotalPedido,

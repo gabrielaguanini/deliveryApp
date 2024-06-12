@@ -1,6 +1,7 @@
 
 
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
+*crear tabla con datos del dueño, en principio para que el que compre pueda ingresar su whatsapp, luego quizá para agregar datos del local a la pagina principal
 
 
 

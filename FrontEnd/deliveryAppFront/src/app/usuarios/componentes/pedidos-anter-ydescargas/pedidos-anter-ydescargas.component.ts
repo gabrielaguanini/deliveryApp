@@ -35,6 +35,7 @@ export class PedidosAnterYDescargasComponent {
   nombrePlato!: string;
   pedidos!: PedidosModel | null;
   listaPlatosDelPedido!: string;
+  listaPlatosDelPedidoCli!: string;
   detPedidAcotada!: DetallePedidosAcotadaModel;
   idPedidoGuardDetPed!: number; //idPedido tomado de la lista {{pedidosXFe.idPedido}} del html. Para guardar un nuevo detalle pedido
   
@@ -249,6 +250,7 @@ export class PedidosAnterYDescargasComponent {
       this.direccionCliente,
       this.localidadCliente,
       this.platosDelPedido,
+      this.listaPlatosDelPedidoCli,
       this.fecha,
       this.horaPedido,
       this.importeTotalPedido,

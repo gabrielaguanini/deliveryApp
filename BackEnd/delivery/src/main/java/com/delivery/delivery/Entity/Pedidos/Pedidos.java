@@ -35,14 +35,13 @@ public class Pedidos {
     private LocalDate fecha;
     private LocalTime hora;
     private Double importeTotalPedido;
+    private String listaPlatosDelPedidoCli;
     private Boolean pedidoConfirmado ;
    
 
     public Pedidos() {};
 
-    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, 
-                   String localidadCliente, LocalDate fecha, LocalTime hora, Double importeTotalPedido, 
-                   Boolean pedidoConfirmado) {
+    public Pedidos(String listaPlatosDelPedido, String nombreCliente, String telefonoCliente, String direccionCliente, String localidadCliente, LocalDate fecha, LocalTime hora, Double importeTotalPedido, String listaPlatosDelPedidoCli, Boolean pedidoConfirmado) {
         this.listaPlatosDelPedido = listaPlatosDelPedido;
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
@@ -51,9 +50,11 @@ public class Pedidos {
         this.fecha = fecha;
         this.hora = hora;
         this.importeTotalPedido = importeTotalPedido;
+        this.listaPlatosDelPedidoCli = listaPlatosDelPedidoCli;
         this.pedidoConfirmado = pedidoConfirmado;
-    };
-    
+    }
+
+
     
 
     

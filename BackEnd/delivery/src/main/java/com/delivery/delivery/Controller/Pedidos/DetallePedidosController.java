@@ -317,7 +317,10 @@ public class DetallePedidosController {
 
                 detpeServ.guardarIdPlatoTotalPrecio(detPedid);
                 detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
+                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
+                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+                detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detPedid.getPedidos().getIdPedido());
 
                 return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
             }
@@ -332,7 +335,10 @@ public class DetallePedidosController {
 
             detpeServ.guardarIdPlatoTotalPrecio(detPedid);
             detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
+                   //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
             detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
+                   //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+            detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detPedid.getPedidos().getIdPedido());
 
             return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
         } catch (MensajeDataAccessException e) {
@@ -392,7 +398,10 @@ public class DetallePedidosController {
             for (DetallePedidos detallitos : detallesPedidos) {
                 detpeServ.guardarIdPlatoTotalPrecio(detallitos);
                 detpeServ.actualizarImporteTotalPedido(detallitos.getPedidos().getIdPedido());
+                                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detallitos.getPedidos().getIdPedido());
+                                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+                detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detallitos.getPedidos().getIdPedido());
             }
 
             // Llama al servicio para guardar varios detalles de pedidos

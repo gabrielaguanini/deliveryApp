@@ -248,7 +248,7 @@
                 <div class="col-4 alert alert-warning mx-auto" role="alert">
                     <h3 class="text-center"><strong>Total pedido $: {{ calcularTotalPedido() }}</strong></h3>
                 </div>
-                <hr>
+               
 
                 <!-- MODALITONGIFALERT -->
                 <div class="row" *ngIf="modalitoNgIfAlert">
@@ -274,29 +274,32 @@
                             </strong>
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
-                <div class="text-center" *ngIf="botonEnvPedido">
-                    <button class="btn btn-dark border border-warning" type="button" (click)="agregarPedidoYDetPed();">
+                </div>              
+                <div class="text-center" *ngIf="botonEnvPedido" title="Enviá tu pedido por Whatsapp">
+                    <button class="btn btn-dark border border-warning" type="button" (click)="agregarPedidoYDetPed()">
+                        <div class="row">
+                        <i class="fab fa-whatsapp fa-2x pe-2"></i>
+                        </div> 
+                        <div class="row">
                         <strong>ENVIAR PEDIDO</strong>
+                        </div>
                     </button>
                 </div>
                 <br>
+                <hr>
+                <hr>
                 <div class="text-center" *ngIf="botonEnvPedido">
-                    <button class="btn btn-outline-light" type="button" (click)="scrollASeccion('anclaEditarPlaMos')">
+                    <button class="btn btn-sm btn-outline-light" type="button" (click)="scrollASeccion('anclaEditarPlaMos')">
                         Editar platos seleccionados
                     </button>
-                </div>
-                <br>
+                </div>               
                 <div class="text-center" *ngIf="botonEnvPedido">
-                    <button class="btn btn-outline-light text-white" type="button"
+                    <button class="btn btn-sm btn-outline-light text-white" type="button"
                         (click)="scrollASeccion('anclaDatEnv')">
                         Editar datos de envio
                     </button>
                 </div>
-                <br>
-                <br>
+                <br>             
             </div>
         </div>
     </div>

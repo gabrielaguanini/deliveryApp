@@ -22,10 +22,14 @@ public interface IDetallePedidosRepository extends JpaRepository<DetallePedidos,
     @Query(value = "UPDATE pedidos SET lista_platos_del_pedido = '' WHERE id_pedido = :idPedido", nativeQuery = true)
     public void updateListaPlatosDelPedido(@Param("idPedido") Long idPedido);
 
+    //METODO ABSTRACTO PARA ELIMINAR O MODIFICAR A ´´ LOS REGISTROS DE LA COLUMNA LISTA PLATOS DEL PEDIDO
+    @Modifying
+    @Query(value = "UPDATE pedidos SET lista_platos_del_pedido_cli = '' WHERE id_pedido = :idPedido", nativeQuery = true)
+    public void updateListaPlatosDelPedidoCli(@Param("idPedido") Long idPedido);
+
 //METODO ABSTRACTO PARA FILTRAR LOS IDPLATOSAMOSTRAR CORRESPONDIENTES AL IDPEDIDO DEL PARAMETRO
     @Query(value = "SELECT id_platosamostrar FROM detalle_pedidos WHERE id_pedido = :idPedido", nativeQuery = true)
     List<Long> findIdPlaMosXIdPedido(@Param("idPedido") Long idPedido);
-    
 
 //METODO ABSTRACTO PARA ELIMINAR LOS DETALLES DEL PEDIDO POR ID PEDIDO    
     @Modifying
