@@ -38,7 +38,7 @@ public class PedidosController {
     @Autowired
     PlatosAMostrarService platosAMosServ;
 
-    private static final Logger logger = LoggerFactory.getLogger(DetallePedidosService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PedidosController.class);
 
 //============================================================================================================
     /**
@@ -154,13 +154,12 @@ public class PedidosController {
     public ResponseEntity<Pedidos> guardarPedido(@RequestBody Pedidos pedidos) {
         try {
             // Verifica si alguno de los campos obligatorios del pedido está vacío o si el pedido es nulo
-            if (       pedidos == null
+            if (pedidos == null
                     || pedidos.getNombreCliente() == null || pedidos.getNombreCliente().isEmpty()
                     || pedidos.getTelefonoCliente() == null || pedidos.getTelefonoCliente().isEmpty()
                     || pedidos.getDireccionCliente() == null || pedidos.getDireccionCliente().isEmpty()
-                    || pedidos.getLocalidadCliente() == null || pedidos.getLocalidadCliente().isEmpty() 
-                    || pedidos.getPedidoConfirmado() == null
-                   ) {
+                    || pedidos.getLocalidadCliente() == null || pedidos.getLocalidadCliente().isEmpty()
+                    || pedidos.getPedidoConfirmado() == null) {
                 // Registra la excepcion en el looger
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
@@ -252,7 +251,7 @@ public class PedidosController {
     @GetMapping("/obtenerpedidoxid/{idPedido}")
     public ResponseEntity<Pedidos> obtPedidoXId(@PathVariable("idPedido") Long idPedido) {
         try {
-            
+
             // Intenta obtener el pedido con el ID proporcionado
             Pedidos pedido = pedidosServ.getOne(idPedido).get();
 
@@ -354,4 +353,31 @@ public class PedidosController {
     }
 
 //============================================================================================================
+    /**
+     *
+     * Método HTTP GET para verificar si existe un pedido en el sistema con el
+     * ID proporcionado.
+     *
+     * @param idPedido El ID del pedido que se desea verificar.
+     * @return ResponseEntity<Boolean> ResponseEntity con un booleano que indica
+     * si el pedido existe y un estado HTTP OK si la operación se realiza con
+     * éxito.
+     * @throws MensajeDataAccessException Si ocurre un error al acceder a la
+     * base de datos durante la verificación de existencia del pedido. Devuelve
+     * un estado HTTP INTERNAL SERVER ERROR con un mensaje descriptivo.
+     * @throws MensajeRunTimeException Si se produce un error inesperado durante
+     * la ejecución del método. Devuelve un estado HTTP INTERNAL SERVER ERROR
+     * con un mensaje descriptivo.
+     */
+    @GetMapping("/existexidpedido/{idPedido}")
+    public ResponseEntity<Boolean> existeXIdPedido(@PathVariable Long idPedido) {
+      
+            // Verifica si existe un pedido con el ID proporcionado en la base de datos
+            boolean existePedido = pedidosServ.existsById(idPedido);
+            // Devuelve la respuesta con un booleano que indica si el pedido existe y el estado HTTP OK
+            return new ResponseEntity(existePedido, HttpStatus.OK);
+       
+    }
+
+//============================================================================================================    
 }

@@ -1,6 +1,5 @@
 package com.delivery.delivery.Entity.Pedidos;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -35,6 +34,8 @@ public class Pedidos {
     private LocalDate fecha;
     private LocalTime hora;
     private Double importeTotalPedido;
+    @Lob //especifica que la columna debe ser tratada como un objeto BLOB (Binary Large Object), lo que permite manejar grandes cantidades de datos
+    @Column(columnDefinition = "LONGTEXT") // DECLARA EL TIPO DE DATO COMO LONGTEXT EL CUAL TRABAJA JUNTO CON EL OBJETO BLOB DECLARADO ARRIBA
     private String listaPlatosDelPedidoCli;
     private Boolean pedidoConfirmado ;
    

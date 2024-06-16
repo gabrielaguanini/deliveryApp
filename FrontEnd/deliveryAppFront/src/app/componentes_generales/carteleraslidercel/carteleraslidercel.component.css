@@ -52,12 +52,41 @@
 /* tamaño de la letra para texto promo */
 #idTextoPromoCel{
   font-size: 15px;
+  margin-top: -20px;
 }
 
 /* tamaño del titulo para promo */
 #idTituloPromoCel{
-  font-size: 30px;
+  font-size: 22px;
 }
+
+
+/* Estilos para pantallas medianas */
+@media (min-width: 768px) and (max-width: 1023px) {
+  
+  #idTextoPromoCel {
+    font-size: 15px;
+    margin-top: -20px;
+  }
+  
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 767px) {
+  header nav ul li {
+      display: block;
+      margin: 10px 0;
+  }
+
+  main {
+      flex-direction: column;
+  }
+}
+
+
+
+
+
 
 
 /* CONFIGURACION DE ELEMENTOS INDIVIDUALES */

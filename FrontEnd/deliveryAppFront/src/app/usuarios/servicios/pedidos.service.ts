@@ -39,6 +39,9 @@ export class PedidosService {
       return this.httpClient.get<PedidosModel>(this.URL + `obtenerpedidoxid/${idPedido}`)
     };
 
+    public existeXIdPedido(idPedido: number): Observable<boolean> {
+      return this.httpClient.get<boolean>(this.URL + `existexidpedido/${idPedido}`);
+    }
    
     public actualizarPedidosConListaPlatos(idPedido: number): Observable<string> {
       const headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -47,7 +50,7 @@ export class PedidosService {
     
     public listaPedidosXFecha(fecha: string): Observable<PedidosModel[]> {
      return this.httpClient.get<PedidosModel[]>(this.URL + `listapedidosxfecha/${fecha}`);
-   }
+   };
 
    
  

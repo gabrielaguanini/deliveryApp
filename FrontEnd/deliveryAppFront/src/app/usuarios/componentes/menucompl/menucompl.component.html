@@ -160,7 +160,7 @@
                                                 <input readonly type="number" class="form-control" id="idPlato"
                                                     name="idPlato" [(ngModel)]="idPlato" required>
                                             </div>
-                                            <div class="form-group, col-12 pb-3">
+                                            <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                 <input type="text" class="form-control" id="nombrePlato"
                                                     name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -237,7 +237,7 @@
                                         {{TipoPlato.idTipoPlato}} - {{TipoPlato.nombreTipoPlato}}</option>
                                 </select>
                             </div>
-                            <div class="form-group, col-12 pb-3">
+                            <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                 <input type="text" class="form-control" id="nombrePlato" name="nombrePlato"
                                     [(ngModel)]="nombrePlato" required>
@@ -338,7 +338,7 @@
                                                 <input readonly type="number" class="form-control" id="idTipoPlato"
                                                     name="idTipoPlato" [(ngModel)]="idTipoPla" required>
                                             </div>
-                                            <div class="form-group, col-12 pb-3">
+                                            <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                 <input type="text" class="form-control" id="nombrePlato"
                                                     name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -493,7 +493,7 @@
                                                                 id="idPlato" name="idPlato" [(ngModel)]="idPlato"
                                                                 required>
                                                         </div>
-                                                        <div class="form-group, col-12 pb-3">
+                                                        <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
                                                             <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                             <input type="text" class="form-control" id="nombrePlato"
                                                                 name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -683,12 +683,12 @@
                                                                 [(ngModel)]="imgParaCelOPc" required>
 
                                                         </div>
-                                                        <div class="form-group, col-12 pb-3">
+                                                        <div class="form-group, col-12 pb-3" title="El titulo de la promo acepta 21 caracteres como maximo">
                                                             <label for="tituloPromo">TITULO PROMO</label>
                                                             <input type="text" class="form-control" id="tituloPromo"
                                                                 name="tituloPromo" [(ngModel)]="tituloPromo" required>
                                                         </div>
-                                                        <div class="form-group, col-12 pb-3">
+                                                        <div class="form-group, col-12 pb-3" title="La descripcion de la promo acepta 70 caracteres como maximo">
                                                             <label for="textoPromo">DESCRIPCION PROMO</label>
                                                             <input type="text" class="form-control" id="textoPromo"
                                                                 name="textoPromo" [(ngModel)]="textoPromo" required>
@@ -792,7 +792,7 @@
 
                             <div class="row">
                                 <form (ngSubmit)="onCreateTipoPla()" novalidate #f="ngForm">
-                                    <div class="form-group, col-12 pb-3 pt-3">
+                                    <div class="form-group, col-12 pb-3 pt-3" title="El nombre del tipo de plato acepta un maximo de 27 caracteres">
                                         <label for="nombreTipoPlato">NOMBRE DEL TIPO DE PLATO</label>
                                         <input type="text" class="form-control" id="nombreTipoPlato"
                                             name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
@@ -875,9 +875,9 @@
                                         <input readonly type="number" class="form-control" id="idTipoPlato"
                                             name="idTipoPlato" [(ngModel)]="idTipoPlato" required>
                                     </div>
-                                    <div class="form-group, col-12 pb-3">
+                                    <div class="form-group, col-12 pb-3" title="El nombre del tipo de plato acepta un maximo de 27 caracteres y no se puede editar">
                                         <label for="nombreTipoPlato">NOMBRE TIPO PLATO</label>
-                                        <input readonly type="text" class="form-control" id="nombreTipoPlato"
+                                        <input  type="text" class="form-control" id="nombreTipoPlato"
                                             name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
 
                                     </div>

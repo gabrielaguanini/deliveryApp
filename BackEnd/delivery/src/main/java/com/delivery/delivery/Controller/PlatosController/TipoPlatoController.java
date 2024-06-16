@@ -192,6 +192,13 @@ public class TipoPlatoController {
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
+            
+            // Verifica que los caracteres ingresados para el nombreTipoPlato no sean mayores a 27
+            if (tipoPlato.getNombreTipoPlato().length() > 27) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para el nombre del tipo de plato es 27.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
+           
             // Verifica si ya existe un tipo de plato con el mismo nombre.
             if (tipoPlaServ.existeNombreTipoPlato(tipoPlato.getNombreTipoPlato())) {
                 // Si existe un tipo de plato con el mismo nombre, devuelve una respuesta de error.
@@ -306,7 +313,13 @@ public class TipoPlatoController {
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a editar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
-
+            
+            // Verifica que los caracteres ingresados para el nombreTipoPlato no sean mayores a 27
+            if (tipoPlato.getNombreTipoPlato().length() > 27) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para el nombre del tipo de plato es 27.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            }
+           
 
             // Verifica si el tipo de plato con el ID especificado existe en la base de datos
             if (!tipoPlaServ.existsById(idTipoPlato)) {

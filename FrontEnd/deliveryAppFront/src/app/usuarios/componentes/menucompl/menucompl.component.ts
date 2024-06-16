@@ -657,10 +657,12 @@ export class MenucomplComponent {
     const cartelera = new Cartelera (this.idPromo, this.imgParaCelOPc, this.tituloPromo, this.textoPromo, this.urlImagenPromo, this.fechaPromo)
     this.cartServ.actualizarPromosNov(this.idPromo, cartelera).subscribe(data => 
       {        
-        alert("Cartelera editada");    
+        alert("Cartelera editada");   
+        console.log("Msj. Servidor: " + JSON.stringify(data)); 
         this.listaPromoNovedad();   
       }, err => {
-        alert("No se editó la cartelera");
+        console.log("Msj. Serv: " + err.error.message);
+        alert("Msj. Serv: " + err.error.message);
       });
   };
 

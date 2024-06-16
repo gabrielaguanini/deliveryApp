@@ -142,6 +142,12 @@ public class PlatosController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
+            
+                // Verifica que los caracteres ingresados no sean mayores a 40
+            if (platos.getNombrePlato().length() >40) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para el nombre del plato son 40.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
 
             // Verifica si el plato ya existe
             if (plaServ.existeNombrePlato(platos.getNombrePlato())) {
@@ -209,6 +215,13 @@ public class PlatosController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s y/o es/son igual/es a 0.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
+            
+                // Verifica que los caracteres ingresados no sean mayores a 40
+            if (platos.getNombrePlato().length() >40) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para el nombre del plato son 40.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+            };
+
 
             // Obtiene el plato existente por su ID
             Platos pla = plaServ.getOne(idPlato).get();

@@ -121,10 +121,10 @@ public class PlatosAMostrarController {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Ingrese descripción del plato a mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
-            // Verifica que los caracteres ingresados no sean mayores a 260
+            // Verifica que los caracteres ingresados no sean mayores a 385
             if (platosAMostrar.getDescripcionPlatoAMostrar().length() > 385) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 385.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+                throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato son 385.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             };
 
             // Guarda el plato a mostrar
@@ -179,7 +179,7 @@ public class PlatosAMostrarController {
                 throw new MensajeResponseStatusException("Ingrese descripción del plato a mostrar", HttpStatus.BAD_REQUEST);
             }
 
-            // Verifica que los caracteres ingresados no sean mayores a 260
+            // Verifica que los caracteres ingresados no sean mayores a 385
             if (platosAMostrar.getDescripcionPlatoAMostrar().length() > 385) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El maximo de caracteres permitidos para descripcion del plato es 385.").getMensaje(), HttpStatus.BAD_REQUEST, null);

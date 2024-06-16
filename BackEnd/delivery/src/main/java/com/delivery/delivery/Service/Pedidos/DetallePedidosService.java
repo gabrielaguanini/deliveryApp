@@ -129,7 +129,17 @@ public class DetallePedidosService {
     
     //======================================================================================================================
     /**
-  
+     * Genera una lista de cadenas para visualizacion del cliente a partir de 
+     * DetallesPedidos filtrados por IdPedido.
+     *
+     * @param idPedido Id del pedido para filtrar los DetallesPedidos.
+     * iDetPeRepo.updateListaPlatosDelPedidoCli(idPedido) para eliminar la lista
+     * anterior si la hubiese (podria no haberla) y proceder a ingresar la nueva
+     * lista actualizada o la lista nueva
+     * @return Lista de cadenas generadas.
+     * @throws MensajeResponseStatusException Si hay un error al generar la
+     * lista de cadenas o si el IdPedido no existe. Método de uso interno, SIN
+     * ENDPOINT
      */
     public String generarListaCadenasDesdeDetallesPorIdPedidoCli(Long idPedido) {
         try {
@@ -154,8 +164,8 @@ public class DetallePedidosService {
 
             return listaCadenasTransformada;
         } catch (MensajeResponseStatusException e) {
-            logger.error("Error al generar la lista de cadenas desde detalles del pedido" + e);
-            throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
+            logger.error("Error al generar la lista de cadenas para visualizacion del cliente, desde detalles del pedido" + e);
+            throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas para visualizacion del cliente, desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
         }
     }
 

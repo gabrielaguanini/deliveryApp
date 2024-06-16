@@ -397,6 +397,7 @@ public class DetallePedidosController {
             // Realiza operaciones adicionales sobre los detalles de pedido
             for (DetallePedidos detallitos : detallesPedidos) {
                 detpeServ.guardarIdPlatoTotalPrecio(detallitos);
+                
                 detpeServ.actualizarImporteTotalPedido(detallitos.getPedidos().getIdPedido());
                                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detallitos.getPedidos().getIdPedido());
