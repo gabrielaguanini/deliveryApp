@@ -1,0 +1,166 @@
+#container-slider-sec {
+  height: 80vh;
+  background-color: #101010;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: White;
+  font-size: min(30px, max(3.75vw, 25px));
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+  margin-top: 5%;
+
+}
+
+label {
+  cursor: pointer;
+}
+
+/* CONTENEDOR PARA CENTRAR */
+.ContainerCenterSec {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 3%;
+}
+
+/* INPUT */
+input {
+  display: none;
+}
+
+/* tamaño de la letra para texto promo */
+#idTextoPromoSecPc {
+  font-size: 23px;
+}
+
+/* tamaño del titulo para promo */
+#idTituloPromoPcSec {
+  font-size: 32px;
+}
+
+/* SLIDER */
+.CarruselsSec {
+  height: 395px;
+  width: 600px;
+  position: relative;
+  overflow-x: hidden;
+  
+}
+
+.CarruselSec {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  transition: all .5s ease;
+}
+
+/* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
+/* Estado 1 */
+#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
+  transform: translate(0%, 0);
+}
+
+#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
+  transform: translate(100%, 0);
+}
+
+#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
+  transform: translate(200%, 0);
+}
+
+/* Estado 2 */
+#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
+  transform: translate(-100%, 0);
+}
+
+#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
+  transform: translate(0%, 0);
+}
+
+#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
+  transform: translate(100%, 0);
+}
+
+/* Estado 3 */
+#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
+  transform: translate(-200%, 0);
+}
+
+#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
+  transform: translate(-100%, 0);
+}
+
+#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
+  transform: translate(0%, 0);
+}
+
+/* FLECHAS */
+.CarruselsSec .ArrowLeft,
+.CarruselsSec .ArrowRight {
+  position: absolute;
+  height: 100%;
+  width: 2em;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  user-select: none;
+  color: transparent;
+}
+
+.CarruselsSec .ArrowLeft {
+  left: 0px;
+}
+
+.CarruselsSec .ArrowRight {
+  right: 0px;
+}
+
+/* CONFIGURACION DE FLECHAS INDIVIDUALES */
+#SliderSec1:checked~.CarruselsSec .ArrowSec1 {
+  display: flex;
+}
+
+#SliderSec2:checked~.CarruselsSec .ArrowSec2 {
+  display: flex;
+}
+
+#SliderSec3:checked~.CarruselsSec .ArrowSec3 {
+  display: flex;
+}
+
+/* SELECTORES */
+.SelectorsSec {
+  width: 60px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.SelectorsSec .SelectorSec {
+  background-color: #FFF;
+  height: 10px;
+  width: 10px;
+  display: block;
+  border-radius: 5px;
+}
+
+/* CONDICIONALES PARA BOTÓN INFERIOR */
+#SliderSec1:checked~.SelectorsSec .SelectorSec:nth-of-type(1) {
+  background-color: #999999;
+}
+
+#SliderSec2:checked~.SelectorsSec .SelectorSec:nth-of-type(2) {
+  background-color: #999999;
+}
+
+#SliderSec3:checked~.SelectorsSec .SelectorSec:nth-of-type(3) {
+  background-color: #999999;
+}

@@ -1,19 +1,19 @@
 
   /* Estilos generales para ambos elementos */
-  #cartelerapc, #carteleraslidercel {
+  #cartelerapc, #carteleraslidercel, #carteleraseccel, #cartelerasecpc {
     display: none; /* Ocultar ambos elementos por defecto */
   }
 
   /* Media query para pantallas grandes y medianas */
   @media (min-width: 768px) {
-    #cartelerapc {
+    #cartelerapc, #cartelerasecpc {
       display: block; /* Mostrar el elemento con id "cartelerapc" en pantallas grandes y medianas */
     }
   }
 
   /* Media query para celulares o pantallas pequeñas */
   @media (max-width: 767px) {
-    #carteleraslidercel {
+    #carteleraslidercel, #carteleraseccel {
       display: block; /* Mostrar el elemento con id "carteleraslidercel" en celulares o pantallas pequeñas */
     }
   }

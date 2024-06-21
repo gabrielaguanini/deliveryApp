@@ -1,0 +1,40 @@
+<div class="container-fluid pt-2" id="container-slider-sec-cel-unique">
+  <div class="container-center-sec-cel-unique">
+    <!-- Radio Seleccionar -->
+    <input class="input-sec-cel-unique" type="radio" name="carrusel-sec-cel-unique" id="slider-sec-cel-unique-1" [checked]="currentIndexSecCel === 0">
+    <input class="input-sec-cel-unique" type="radio" name="carrusel-sec-cel-unique" id="slider-sec-cel-unique-2" [checked]="currentIndexSecCel === 1">
+    <input class="input-sec-cel-unique" type="radio" name="carrusel-sec-cel-unique" id="slider-sec-cel-unique-3" [checked]="currentIndexSecCel === 2">
+
+    <div class="carrusels-sec-cel-unique">
+      <!-- Imagen contenido -->
+      <div class="lista-carrousel-sec-cel-unique">
+        <div class="carrusel-sec-cel-unique" *ngFor="let carteleramodel of carteleraSecCel.slice(3, 6); let i = index"
+          [style.background-image]="'url(' + carteleramodel.urlImagenPromo + ')'" style="background-size: cover; background-position: center;">
+          <p id="titulo-promo-sec-cel-unique" class="display-5">{{ carteleramodel.tituloPromo }}</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <p id="texto-promo-sec-cel-unique">{{ carteleramodel.textoPromo }}</p>
+        </div>
+      </div>
+      <!-- Flechas a la izquierda por cada imagen: NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE RENDERIZAN -->
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-3" class="arrow-left-sec-cel-unique arrow-sec-cel-unique-1">❮</label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-1" class="arrow-left-sec-cel-unique arrow-sec-cel-unique-2">❮</label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-2" class="arrow-left-sec-cel-unique arrow-sec-cel-unique-3">❮</label>
+      <!-- Flechas a la derecha por cada imagen NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE RENDERIZAN -->
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-2" class="arrow-right-sec-cel-unique arrow-sec-cel-unique-1">❯</label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-3" class="arrow-right-sec-cel-unique arrow-sec-cel-unique-2">❯</label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-1" class="arrow-right-sec-cel-unique arrow-sec-cel-unique-3">❯</label>
+    </div>
+    <!-- Selector circulos inferiores colgantes -->
+    <div class="selectors-sec-cel-unique">
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-1" class="selector-sec-cel-unique"></label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-2" class="selector-sec-cel-unique"></label>
+      <label class="label-sec-cel-unique" for="slider-sec-cel-unique-3" class="selector-sec-cel-unique"></label>
+    </div>
+  </div>
+</div>

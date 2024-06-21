@@ -1,112 +1,127 @@
-#container-sliderCel{
-
+#container-slider-cel-unique {
   background-color: #101010;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color:White;
-  font-size:min(30px, max(3.75vw, 25px));
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+  font-size: min(30px, max(3.75vw, 25px));
   text-align: center;
   display: flex;
-  justify-content:center;
- /*  position: absolute;*/
+  justify-content: center;
   overflow-x: hidden;
   margin-bottom: 5%;
 }
 
-.labelCel{cursor: pointer;}
+.label-cel-unique {
+  cursor: pointer;
+}
 
 /* CONTENEDOR PARA CENTRAR */
-.ContainerCenterCel{
+.container-center-cel-unique {
   display: flex;
   align-items: center;
   flex-direction: column;
-  
 }
+
 /* INPUT */
-.inputCel{display: none}
-
-
+.input-cel-unique {
+  display: none;
+}
 
 /* SLIDER */
-.CarruselsCel{
+.carrusels-cel-unique {
   height: 70vh;
   width: 50vh;
   position: relative;
   overflow-x: hidden;
-  
- 
 }
-.CarruselCel{
+
+.carrusel-cel-unique {
   height: 100%;
   width: 100%;
   position: absolute;
-  background-size:contain;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   overflow: hidden;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 /* tamaño de la letra para texto promo */
-#idTextoPromoCel{
+#texto-promo-cel-unique {
   font-size: 15px;
   margin-top: -20px;
 }
 
 /* tamaño del titulo para promo */
-#idTituloPromoCel{
+#titulo-promo-cel-unique {
   font-size: 22px;
 }
 
-
 /* Estilos para pantallas medianas */
 @media (min-width: 768px) and (max-width: 1023px) {
-  
-  #idTextoPromoCel {
+  #texto-promo-cel-unique {
     font-size: 15px;
     margin-top: -20px;
   }
-  
 }
 
 /* Estilos para pantallas pequeñas */
 @media (max-width: 767px) {
   header nav ul li {
-      display: block;
-      margin: 10px 0;
+    display: block;
+    margin: 10px 0;
   }
 
   main {
-      flex-direction: column;
+    flex-direction: column;
   }
 }
 
-
-
-
-
-
-
 /* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
-
 /* Estado 1 */
-#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(0%, 0);}
-#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(100%, 0);}
-#SliderCel1:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(200%, 0);}
-/* Estado 2 */
-#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(-100%, 0);}
-#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(0%, 0);}
-#SliderCel2:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(100%, 0);}
-/* Estado 3 */
-#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(1) {transform: translate(-200%, 0);}
-#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(2) {transform: translate(-100%, 0);}
-#SliderCel3:checked ~ .CarruselsCel .CarruselCel:nth-of-type(3) {transform: translate(0%, 0);}
+#slider-cel-unique-1:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(1) {
+  transform: translate(0%, 0);
+}
 
+#slider-cel-unique-1:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(2) {
+  transform: translate(100%, 0);
+}
+
+#slider-cel-unique-1:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(3) {
+  transform: translate(200%, 0);
+}
+
+/* Estado 2 */
+#slider-cel-unique-2:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(1) {
+  transform: translate(-100%, 0);
+}
+
+#slider-cel-unique-2:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(2) {
+  transform: translate(0%, 0);
+}
+
+#slider-cel-unique-2:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(3) {
+  transform: translate(100%, 0);
+}
+
+/* Estado 3 */
+#slider-cel-unique-3:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(1) {
+  transform: translate(-200%, 0);
+}
+
+#slider-cel-unique-3:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(2) {
+  transform: translate(-100%, 0);
+}
+
+#slider-cel-unique-3:checked ~ .carrusels-cel-unique .carrusel-cel-unique:nth-of-type(3) {
+  transform: translate(0%, 0);
+}
 
 /* FLECHAS */
-.CarruselsCel .ArrowLeftCel, .CarruselsCel .ArrowRightCel{
+.carrusels-cel-unique .arrow-left-cel-unique,
+.carrusels-cel-unique .arrow-right-cel-unique {
   position: absolute;
   height: 100%;
   width: 2em;
@@ -114,34 +129,55 @@
   justify-content: center;
   display: none;
   user-select: none;
-  color:transparent;
+  color: transparent;
 }
-.CarruselsCel .ArrowLeftCel{left: 0px;}
-.CarruselsCel .ArrowRightCel{right: 0px;}
+
+.carrusels-cel-unique .arrow-left-cel-unique {
+  left: 0px;
+}
+
+.carrusels-cel-unique .arrow-right-cel-unique {
+  right: 0px;
+}
 
 /* CONFIGURACION DE FLECHAS INDIVIDUALES */
-#SliderCel1:checked ~ .CarruselsCel .ArrowCel1{display: flex;}
-#SliderCel2:checked ~ .CarruselsCel .ArrowCel2{display: flex;}
-#SliderCel3:checked ~ .CarruselsCel .ArrowCel3{display: flex;}
+#slider-cel-unique-1:checked ~ .carrusels-cel-unique .arrow-cel-unique-1 {
+  display: flex;
+}
 
+#slider-cel-unique-2:checked ~ .carrusels-cel-unique .arrow-cel-unique-2 {
+  display: flex;
+}
+
+#slider-cel-unique-3:checked ~ .carrusels-cel-unique .arrow-cel-unique-3 {
+  display: flex;
+}
 
 /* SELECTORES */
-.SelectorsCel {
+.selectors-cel-unique {
   width: 60px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
 }
-.SelectorsCel .SelectorCel {
-  background-color: #FFF;
+
+.selectors-cel-unique .selector-cel-unique {
+  background-color: #fff;
   height: 10px;
   width: 10px;
   display: block;
   border-radius: 5px;
 }
+
 /* CONDICIONALES PARA BOTÓN INFERIOR */
-#SliderCel1:checked ~ .SelectorsCel .SelectorCel:nth-of-type(1) {background-color: #999999;}
-#SliderCel2:checked ~ .SelectorsCel .SelectorCel:nth-of-type(2) {background-color: #999999;}
-#SliderCel3:checked ~ .SelectorsCel .SelectorCel:nth-of-type(3) {background-color: #999999;}
+#slider-cel-unique-1:checked ~ .selectors-cel-unique .selector-cel-unique:nth-of-type(1) {
+  background-color: #999999;
+}
 
+#slider-cel-unique-2:checked ~ .selectors-cel-unique .selector-cel-unique:nth-of-type(2) {
+  background-color: #999999;
+}
 
+#slider-cel-unique-3:checked ~ .selectors-cel-unique .selector-cel-unique:nth-of-type(3) {
+  background-color: #999999;
+}

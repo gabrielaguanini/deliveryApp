@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Carteleramodel } from '../modelos/carteleramodel';
 import { CartelerasliderService } from '../servicios/carteleraslider.service';
+import { SliderIntervalService } from '../servicios/Slider-interval.service';
 
 @Component({
   selector: 'app-carteleraslider',
@@ -9,39 +10,41 @@ import { CartelerasliderService } from '../servicios/carteleraslider.service';
 })
 export class CartelerasliderComponent {
 
-cartelera: Carteleramodel[] = [];
+ 
+  cartelera: Carteleramodel[] = [];
 
-idPromo!: number;
-imgParaCelOPc!: string;
-tituloPromo!: string;
-textoPromo!: string;
-urlImagenPromo!: string;
-fechaPromo!: string;
+  idPromo!: number;
+  imgParaCelOPc!: string;
+  tituloPromo!: string;
+  textoPromo!: string;
+  urlImagenPromo!: string;
+  fechaPromo!: string;
 
   // Variables para controlar el carrusel
+  private intervalId!: number;
   currentIndex = 0;
   interval: any;
 
+  constructor(private cartServ: CartelerasliderService, private slidIntServ: SliderIntervalService) { };
 
-constructor(private cartServ: CartelerasliderService) { };
+  ngOnInit(): void {
+    this.listaPromoNovedad();
+    this.startAutoPlay(); // Iniciar el autoplay al cargar el componente
+  };
 
-ngOnInit(): void {
-  this.listaPromoNovedad();
-  this.autoPlay(); // Iniciar el autoplay al cargar el componente
- };
- 
- ngOnDestroy() {
-  clearInterval(this.interval); // Limpiar el intervalo cuando el componente se destruye
-};
+  listaPromoNovedad(): void {
+    this.cartServ.listPromosNov().subscribe(data => this.cartelera = data);
+  };
 
-listaPromoNovedad():void {
-  this.cartServ.listPromosNov().subscribe(data => this.cartelera = data);
-};
+  startAutoPlay() {
+    this.intervalId = this.slidIntServ.startInterval(5000, () => {
+      this.currentIndex = (this.currentIndex + 1) % 3; // o 4, si es necesario
+    }, 'carteleraslider');
+  };
 
-autoPlay() {
-  this.interval = setInterval(() => {
-    this.currentIndex = (this.currentIndex + 1) % 3; // Cambiar a 4 si hay 4 radio buttons
-  }, 5000); // Cambiar el valor para ajustar el intervalo en milisegundos
-};
-
+  stopAutoPlay() {
+    if (this.intervalId !== undefined) {
+      this.slidIntServ.stopInterval('carteleraslider');
+    };
+  };
 }
