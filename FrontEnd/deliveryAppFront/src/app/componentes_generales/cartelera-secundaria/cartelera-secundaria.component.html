@@ -12,14 +12,14 @@
               [style.background-image]="'url(' + Carteleramodel.urlImagenPromo + ')'" style="background-size: cover; 
               background-position: center;">
               <div class="CarruselSecTexto">
-                  <p id="idTituloPromoPcSec" class="display-5">{{ Carteleramodel.tituloPromo }}</p>
+                  <p id="idTituloPromoPcSec" class="display-5" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.tituloPromo }}</p>
                   <br>
                   <br>
                   <br>     
                   <br>
                   <br>
                   <br>        
-                  <p id="idTextoPromoSecPc">{{ Carteleramodel.textoPromo }}</p>
+                  <p id="idTextoPromoSecPc" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.textoPromo }}</p>
               </div>
               </div>
           </div>

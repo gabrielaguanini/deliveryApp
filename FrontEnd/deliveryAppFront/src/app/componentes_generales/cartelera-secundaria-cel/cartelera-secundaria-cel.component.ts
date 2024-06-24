@@ -17,6 +17,7 @@ export class CarteleraSecundariaCelComponent {
   imgParaCelOPc!: string;
   tituloPromo!: string;
   textoPromo!: string;
+  colorTexto!: string;
   urlImagenPromo!: string;
   fechaPromo!: string;
   

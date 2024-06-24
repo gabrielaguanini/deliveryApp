@@ -2,10 +2,18 @@
 
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
 *crear tabla con datos del dueño, en principio para que el que compre pueda ingresar su whatsapp, luego quizá para agregar datos del local a la pagina principal
+*agregar @param a los repo en donde falten, ver otras medidas de seguridad a tomar, sobre todo por las consultas sql nativas
+* ver poder modificar para confirmación del pedido, en lugar de true o false, que muestre si o no
+* SI O SI EJECUTAR npm audit fix Y CORREGIR LAS VULNERABILIDADES QUE MARCA
 
-+++ continuar con el slider secundario, pareciese que el problema es limpiar el intervalo en ngDestroy, probe creando una función para limpiar el intervalo en cada componente y parece que va x ahi
++++ VER SI ESAN BIEN LAS VALIDACIONES DEL FRONT PARA CARTELERA SECUNDARIA PARA LA CANTIDAD DE CARACTERES QUE ACEPTA TEXTO PROMO SEC O TITULO PROMO SEC
 
+=========================
 
-
+/* SEPARA EN SILABAS LAS PALABRAS DEMASIADO GRANDES */ 
+p {    
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
 =========================
 

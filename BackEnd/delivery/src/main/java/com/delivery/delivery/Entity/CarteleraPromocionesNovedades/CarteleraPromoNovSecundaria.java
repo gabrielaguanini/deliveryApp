@@ -2,15 +2,12 @@
 package com.delivery.delivery.Entity.CarteleraPromocionesNovedades;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,19 +22,22 @@ public class CarteleraPromoNovSecundaria {
     private String imgParaCelOPc;
     private String tituloPromo;
     private String textoPromo;
+    private String colorTexto;
     private String urlImagenPromo;
     private LocalDate fechaPromo;
 
     public CarteleraPromoNovSecundaria() {
     }
 
-    public CarteleraPromoNovSecundaria(String imgParaCelOPc, String tituloPromo, String textoPromo, String urlImagenPromo, LocalDate fechaPromo) {
+    public CarteleraPromoNovSecundaria(String imgParaCelOPc, String tituloPromo, String textoPromo, String colorTexto, String urlImagenPromo, LocalDate fechaPromo) {
         this.imgParaCelOPc = imgParaCelOPc;
         this.tituloPromo = tituloPromo;
         this.textoPromo = textoPromo;
+        this.colorTexto = colorTexto;
         this.urlImagenPromo = urlImagenPromo;
         this.fechaPromo = fechaPromo;
     }
+
 
 
 

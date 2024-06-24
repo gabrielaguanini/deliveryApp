@@ -1,7 +1,15 @@
 <!-- TARJETA GRANDE QUE MUESTRA LISTA DE PLATOS A MOSTRAR -->
 
 <div class="container-fluid">
+
+    <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
+
+    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
+        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    </div>
+
     <!-- TARJETAS  -->
+
     <div class="border border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
         <!-- BOTON QUE INSERTA TARJETAS PEQUEÑAS (SE UBICA ACA PORQUE ABAJO DE LA LISTA Q GENERA LAS TARJETAS PEQUEÑAS)-->
         <!-- INTERFIERE Y SE MULTIPLICA CON LA LISTA QUE ESTA EN ESE TRAMO DE CODIGO)-->
@@ -107,8 +115,7 @@
 
                         <div class="col-3 d-flex justify-content-center align-items-center mx-auto">
                             <!-- Boton editar-->
-                            <button class="btn btn-outline-light btn-md" 
-                                (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
+                            <button class="btn btn-outline-light btn-md" (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
                                 obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
                                               MenuCompletoModel?.nombrePlato || '',
                                               MenuCompletoModel?.precioPlato || 0,
@@ -116,14 +123,14 @@
                                               MenuCompletoModel?.imgPlato || '');">
                                 <i class="far fa-edit"></i>
                             </button>
-                        
+
                             <!-- Boton borrar-->
-                            <button class="btn btn-outline-light btn-md" 
+                            <button class="btn btn-outline-light btn-md"
                                 (click)="borrarPlaLisComMsjEli(MenuCompletoModel.idPlato)">
                                 <i class="far fa-trash-alt"></i>
                             </button>
                         </div>
-                        
+
                         <br>
 
 
@@ -160,7 +167,8 @@
                                                 <input readonly type="number" class="form-control" id="idPlato"
                                                     name="idPlato" [(ngModel)]="idPlato" required>
                                             </div>
-                                            <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
+                                            <div class="form-group, col-12 pb-3"
+                                                title="El nombre del plato acepta hasta 40 caracteres">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                 <input type="text" class="form-control" id="nombrePlato"
                                                     name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -173,7 +181,9 @@
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
+                                                    [(ngModel)]="imgPlato"
+                                                    title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                                    required>
                                             </div>
                                             <br>
                                             <div class="row">
@@ -250,7 +260,9 @@
                             <div class="form-group, col-12 pb-3">
                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
+                                    [(ngModel)]="imgPlato"
+                                    title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                    required>
                             </div>
                             <br>
                             <div class="row">
@@ -268,6 +280,14 @@
         </ng-template>
 
 
+
+
+
+
+
+
+
+        <!--  //✮------------------------------------------------------------------------------------------------------------✮ -->
         <!-- TARJETAS GENERADAS POR LA ENTIDAD TIPOPLATO -->
 
         <div class="container-fluid">
@@ -276,7 +296,7 @@
                     <div class="col-md-12 mb-2 text-center">
                         <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputsCerrarModalito()"
                             type="button" class="btn btn-secondary btn-sm rounded-pill btn-block">
-                            AGREGAR PLATO
+                            AGREGAR PLATOOOOO
                         </button>
                         <br>
                     </div>
@@ -302,7 +322,7 @@
                                         </button>
                                     </div>
                                     <div class="col text-center">
-                                          <!-- abre modal para agregar un plato -->
+                                        <!-- abre modal para agregar un plato -->
                                         <button type="button" class="btn btn-outline-light btn-sm"
                                             (click)="openModalAgregarPl(templateAgregarPlato, TipoPlato.idTipoPlato)"><small>AGREGAR</small></button>
                                     </div>
@@ -338,7 +358,8 @@
                                                 <input readonly type="number" class="form-control" id="idTipoPlato"
                                                     name="idTipoPlato" [(ngModel)]="idTipoPla" required>
                                             </div>
-                                            <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
+                                            <div class="form-group, col-12 pb-3"
+                                                title="El nombre del plato acepta hasta 40 caracteres">
                                                 <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                 <input type="text" class="form-control" id="nombrePlato"
                                                     name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -351,7 +372,9 @@
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
-                                                    [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
+                                                    [(ngModel)]="imgPlato"
+                                                    title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                                    required>
                                             </div>
                                             <br>
                                             <div class="row">
@@ -442,8 +465,9 @@
                                             </div>
                                             <br>
                                         </div>
-                                       
-                                        <div class="col-lg-2 col-md-12 d-flex justify-content-center align-items-center mx-auto">
+
+                                        <div
+                                            class="col-lg-2 col-md-12 d-flex justify-content-center align-items-center mx-auto">
                                             <!-- Boton editar-->
                                             <br>
                                             <br>
@@ -457,7 +481,7 @@
                                                 (click)="borrarPlaMsjEli(MenuCompletoModel.idPlato, TipoPlato.idTipoPlato)">
                                                 <i class="far fa-trash-alt"></i></button>
                                         </div>
-                                        
+
                                         <br>
                                         <hr>
                                     </div>
@@ -493,7 +517,8 @@
                                                                 id="idPlato" name="idPlato" [(ngModel)]="idPlato"
                                                                 required>
                                                         </div>
-                                                        <div class="form-group, col-12 pb-3" title="El nombre del plato acepta hasta 40 caracteres">
+                                                        <div class="form-group, col-12 pb-3"
+                                                            title="El nombre del plato acepta hasta 40 caracteres">
                                                             <label for="nombrePlato">NOMBRE DEL PLATO</label>
                                                             <input type="text" class="form-control" id="nombrePlato"
                                                                 name="nombrePlato" [(ngModel)]="nombrePlato" required>
@@ -506,7 +531,9 @@
                                                         <div class="form-group, col-12 pb-3">
                                                             <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                                             <input type="text" class="form-control" id="imgPlato"
-                                                                name="imgPlato" [(ngModel)]="imgPlato" title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
+                                                                name="imgPlato" [(ngModel)]="imgPlato"
+                                                                title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                                                required>
                                                         </div>
                                                         <br>
                                                         <div class="row">
@@ -540,7 +567,7 @@
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-12 col-md-12">
                         <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
                             id="bordesYBackGrCardGde">
                             <div class="cardGrandeTipoPla p-4">
@@ -556,7 +583,7 @@
                                         </button>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-3 d-none d-lg-block">
+                                        <div class="col-lg-3 col-md-3 d-none d-lg-block">
                                             <blockquote class="blockquote border-end border-top border-white">
                                                 <p class="small">Nombre</p>
                                             </blockquote>
@@ -566,7 +593,12 @@
                                                 <p class="small">Icono</p>
                                             </blockquote>
                                         </div>
-                                        <div class="col-lg-4 col-md-3 text-center d-none d-lg-block">
+                                        <div class="col-lg-3 col-md-3 text-center d-none d-lg-block">
+                                            <blockquote class="blockquote border-end border-top border-white">
+                                                <p class="small">Color</p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="col-lg-2 col-md-3 text-center d-none d-lg-block">
                                             <blockquote class="blockquote border-end border-top border-white">
                                                 <p class="small">Edición</p>
                                             </blockquote>
@@ -574,19 +606,31 @@
                                     </div>
                                     <div class="row" *ngFor="let TipoPlato of tiposPlatosModel">
                                         <hr>
-                                        <div class="col-lg-4 col-md-3 text-justify">
+                                        <div class="col-lg-3 col-md-3 text-justify">
                                             <p class="text-justify">{{TipoPlato.nombreTipoPlato}}</p>
                                         </div>
                                         <div class="col-lg-4 col-md-3 text-center">
-                                            <i
-                                                class="{{TipoPlato.iconoTipoPlato}} display-4 border border-white p-3"></i>
-                                            <p>{{TipoPlato.iconoTipoPlato}}</p>
+                                            <div class="d-inline-flex align-items-center">
+                                                <i class="{{TipoPlato.iconoTipoPlato}} display-4 p-3"></i>
+                                                <p class="mb-0">{{TipoPlato.iconoTipoPlato}}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-3 text-center">
+
+                                        <div class="col-lg-3 col-md-3 text-center">
+                                            <div class="d-inline-flex align-items-center">
+                                                <p>{{TipoPlato.colorCardTipoPlato}}</p>
+                                                <span [style.background-color]="TipoPlato.colorCardTipoPlato" style="display: inline-block; width: 16px; height: 16px; 
+                                                border: 1px solid #000; margin-left: 8px; margin-bottom: 14px;">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-3 text-center">
+                                            <!-- Boton editar -->
                                             <button class="btn btn-outline-light btn-md"
                                                 (click)="openModalEditarTipoPlato(templateEditarTipoPlato); obtenerTipoPlaXId(TipoPlato.idTipoPlato, TipoPlato.nombreTipoPlato, TipoPlato.iconoTipoPlato, TipoPlato.colorCardTipoPlato)">
                                                 <i class="far fa-edit"></i>
                                             </button>
+                                            <!-- Boton borrar -->
                                             <button class="btn btn-outline-light btn-md"
                                                 (click)="borrarTiPladvEli(TipoPlato.idTipoPlato)">
                                                 <i class="far fa-trash-alt"></i>
@@ -598,355 +642,228 @@
                         </div>
                     </div>
 
+                    <!-- MODAL AGREGAR TIPOS DE PLATOS-->
 
-                    <!-- TARJETA GRANDE QUE MUESTRA LISTA DE LAS PROMOCIONES Y NOVEDADES -->
-
-                    <div class="col-lg-6">
-                        <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
-                            id="bordesYBackGrCardCartelera">
-                            <div class="cardGrandeCartelera p-4">
-                                <div class="card-icon card-icon-large">
-                                    <i class=></i>
-                                </div>
-                                <div class="mb-1">
-                                    <h5 class="card-title pb-3 text-center">LISTA PROMOS Y NOVEDADES PARA CARTELERA
-                                    </h5>
-                                    <div class="button-divisor pb-4">
-
+                    <ng-template #templateAgregarTipoPlato>
+                        <div class="container-fluid modal-menu">
+                            <div class="row">
+                                <div class="modal-header">
+                                    <h4 class="modal-title pb-4">AGREGAR TIPOS DE PLATOS</h4>
+                                    <div class="card-icon card-icon-large">
+                                        <i class=""></i>
                                     </div>
-                                    <div class="row text-center" *ngFor="let Cartelera of promosyNovedadesModel">
-                                        <div class="col-12">
-                                            <p class="border-1 border-end border-top border-white"><small> PANTALLA
-                                                    A
-                                                    MOSTRARSE:
-                                                    {{Cartelera.imgParaCelOPc}}</small></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="border-end border-top border-white"><small>TITULO DE
-                                                    PROMO/NOVEDAD:
-                                                    {{Cartelera.tituloPromo}}</small></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="border-end border-top border-white"><small>TEXTO A MOSTRAR:
-                                                    {{Cartelera.textoPromo}}</small></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <p class="border-end border-top border-white"><small>FECHA DE
-                                                    CARGA/EDICION e
-                                                    ID:
-                                                    {{Cartelera.fechaPromo}} //
-                                                    {{Cartelera.idPromo}}</small></p>
-                                        </div>
-                                        <div class="col-12">
-                                            <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50"
-                                                src="{{Cartelera.urlImagenPromo}}">
-                                        </div>
-                                        <div class="col-12">
-                                            <br>
-                                            <button class="btn btn-outline-light btn-lg border border-white border-3"
-                                                (click)="openModalEditarPromoNovedad(templateEditarPromoNovedad);  obtenerPromoXId(Cartelera.idPromo, Cartelera.imgParaCelOPc, Cartelera.tituloPromo, Cartelera.textoPromo, Cartelera.urlImagenPromo, Cartelera.fechaPromo)">
-                                                <i class="far fa-edit"></i>
-                                            </button>
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-
-                                    <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
-
-                                    <ng-template #templateEditarPromoNovedad>
-                                        <div class="container-fluid modal-menu">
-                                            <div class="row">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">EDITAR PROMOS/NOVEDADES</h4>
-                                                    <div class="card-icon card-icon-large">
-                                                        <i class=""></i>
-                                                    </div>
-                                                    <button type="button" class="btn btn-outline-light btn-sm"
-                                                        (click)="modalEditarPromoNovedad.hide();">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="row">
-                                                    <form (ngSubmit)="editarCartelera()" novalidate #f="ngForm">
-                                                        <div class="form-group, col-12 pt-3 pb-3">
-                                                            <label for="idPromo">ID PROMO </label>
-                                                            <input readonly type="number" class="form-control"
-                                                                id="idPromo" name="idPromo" [(ngModel)]="idPromo"
-                                                                required>
-                                                        </div>
-                                                        <div class="form-group, col-12 pb-3">
-                                                            <label for="imgParaCelOPc">IMAGEN PARA PC O
-                                                                CELULARES</label>
-                                                            <input readonly type="text" class="form-control"
-                                                                id="imgParaCelOPc" name="imgParaCelOPc"
-                                                                [(ngModel)]="imgParaCelOPc" required>
-
-                                                        </div>
-                                                        <div class="form-group, col-12 pb-3" title="El titulo de la promo acepta 21 caracteres como maximo">
-                                                            <label for="tituloPromo">TITULO PROMO</label>
-                                                            <input type="text" class="form-control" id="tituloPromo"
-                                                                name="tituloPromo" [(ngModel)]="tituloPromo" required>
-                                                        </div>
-                                                        <div class="form-group, col-12 pb-3" title="La descripcion de la promo acepta 70 caracteres como maximo">
-                                                            <label for="textoPromo">DESCRIPCION PROMO</label>
-                                                            <input type="text" class="form-control" id="textoPromo"
-                                                                name="textoPromo" [(ngModel)]="textoPromo" required>
-                                                        </div>
-                                                        <div class="form-group, col-12 pb-3">
-                                                            <label for="urlImagenPromo">URL A IMAGEN</label>
-                                                            <input type="text" class="form-control" id="urlImagenPromo"
-                                                                name="urlImagenPromo" [(ngModel)]="urlImagenPromo" 
-                                                                title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo" required>
-                                                                
-                                                        </div>
-                                                        <div class="form-group, col-12 pb-3">
-                                                            <label for="fechaPromo">FECHA DE CARGA</label>
-                                                            <input readonly type="text" class="form-control"
-                                                                id="fechaPromo" name="fechaPromo"
-                                                                [(ngModel)]="fechaPromo" required>
-                                                        </div>
-                                                        <br>
-                                                        <div class="row">
-                                                            <div class="col-4">
-                                                                <button class="btn btn-outline-light"
-                                                                    (click)="listaPromoNovedad()">
-                                                                    Enviar
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </div>
-                                    </ng-template>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODAL AGREGAR TIPOS DE PLATOS-->
-
-                <ng-template #templateAgregarTipoPlato>
-                    <div class="container-fluid modal-menu">
-                        <div class="row">
-                            <div class="modal-header">
-                                <h4 class="modal-title pb-4">AGREGAR TIPOS DE PLATOS</h4>
-                                <div class="card-icon card-icon-large">
-                                    <i class=""></i>
-                                </div>
-                                <button type="button" class="btn btn-outline-light btn-sm"
-                                    (click)="modalAgregarTipoPlato.hide()">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                            <div class="muestraColoresIconos p-3 text-center">
-                                <button class="btn btn-outline-light btn-sm text-center"
-                                    (click)="mostrarOcultarModalitoColores(); listaColores()">
-                                    VER COLORES
-                                </button>
-                                <div class="Modalito p-5" *ngIf="mostrarModalitoColores">
-                                    <a class="custom-link text-white"
-                                        href="https://html-color-codes.info/codigos-de-colores-hexadecimales/index.html"
-                                        target="_blank"><i class="fa fa-link px-1"></i>
-                                        <p><small>MAS COLORES</small></p>
-                                    </a>
-                                    <div class="row justify-content-center align-items-center"
-                                        *ngFor="let listaColoresModalito of listaColorTipoPlato">
-
-                                        <div class="col-lg-4" [style.background-color]="listaColoresModalito"
-                                            style="width: 100px; height: 50px;">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <p class="listaColores">{{listaColoresModalito}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button class="btn btn-outline-light btn-sm"
-                                        (click)="mostrarOcultarModalitoIconos(); listaIconos()">
-                                        VER ICONOS
+                                    <button type="button" class="btn btn-outline-light btn-sm"
+                                        (click)="modalAgregarTipoPlato.hide()">
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="Modalito p-5" *ngIf="mostrarModalitoIconos">
-                                    <a class="custom-link text-white"
-                                        href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank"><i
-                                            class="fa fa-link px-1"></i>
-                                        <p><small>MAS ICONOS</small></p>
-                                    </a>
-                                    <div class="row justify-content-center align-items-center"
-                                        *ngFor="let listaIconosModalito of listaIconosTipoPlato">
 
-                                        <div class="col-lg-6">
-                                            <i class="{{listaIconosModalito}} fa-2x"></i>
+                                <div class="muestraColoresIconos p-3 text-center">
+                                    <button class="btn btn-outline-light btn-sm text-center"
+                                        (click)="mostrarOcultarModalitoColores(); listaColores()">
+                                        VER COLORES
+                                    </button>
+                                    <div class="Modalito p-5" *ngIf="mostrarModalitoColores">
+                                        <a class="custom-link text-white"
+                                            href="https://html-color-codes.info/codigos-de-colores-hexadecimales/index.html"
+                                            target="_blank"><i class="fa fa-link px-1"></i>
+                                            <p><small>MAS COLORES</small></p>
+                                        </a>
+                                        <div class="row justify-content-center align-items-center"
+                                            *ngFor="let listaColoresModalito of listaColorTipoPlato">
+
+                                            <div class="col-lg-4" [style.background-color]="listaColoresModalito"
+                                                style="width: 100px; height: 50px;">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <p class="listaColores">{{listaColoresModalito}}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <p class="">{{listaIconosModalito}}</p>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            (click)="mostrarOcultarModalitoIconos(); listaIconos()">
+                                            VER ICONOS
+                                        </button>
+                                    </div>
+                                    <div class="Modalito p-5" *ngIf="mostrarModalitoIconos">
+                                        <a class="custom-link text-white"
+                                            href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank"><i
+                                                class="fa fa-link px-1"></i>
+                                            <p><small>MAS ICONOS</small></p>
+                                        </a>
+                                        <div class="row justify-content-center align-items-center"
+                                            *ngFor="let listaIconosModalito of listaIconosTipoPlato">
+
+                                            <div class="col-lg-6">
+                                                <i class="{{listaIconosModalito}} fa-2x"></i>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <p class="">{{listaIconosModalito}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <form (ngSubmit)="onCreateTipoPla()" novalidate #f="ngForm">
-                                    <div class="form-group, col-12 pb-3 pt-3" title="El nombre del tipo de plato acepta un maximo de 27 caracteres">
-                                        <label for="nombreTipoPlato">NOMBRE DEL TIPO DE PLATO</label>
-                                        <input type="text" class="form-control" id="nombreTipoPlato"
-                                            name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
-                                    </div>
-                                    <div class="form-group col-12 pt-3 pb-3">
-                                        <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
-                                            <a class="custom-link text-white"
-                                                href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank"><i
-                                                    class="fa fa-link px-1"></i></a>
-                                        </label>
-                                        <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
-                                            (click)="listaIconos()" [(ngModel)]="iconoTipoPlato" required>
-                                         
-                                            <option *ngFor="let listaIconos of listaIconosTipoPlato"
-                                                [ngValue]="listaIconos">
-                                                {{listaIconos}}
-                                            </option>
-                                            <option disabled selected>Seleccionar</option>
-                                            <option value="">Seleccionar un icono</option>
-                                        </select>
-                                        <input placeHolder="Ingresar un icono de la url font awesome" type="text"
-                                            class="form-control" id="iconoTipoPlatoParaInput"
-                                            name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
-                                            required>
-                                    </div>
-                                    <div class="form-group col-12 pt-3 pb-3">
-                                        <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
-                                            <a class="custom-link text-white"
-                                                href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
-                                                target="_blank"><i class="fa fa-link px-1"></i></a>
-                                        </label>
-                                        <select class="form-select" id="colorCardTipoPlato" name="colorCardTipoPlato"
-                                            [(ngModel)]="colorCardTipoPlato" required (click)="listaColores()">
-                                            <option disabled selected>Seleccionar un color</option>
-                                            <option *ngFor="let listaColores of listaColorTipoPlato"
-                                                [ngValue]="listaColores">
-                                                {{listaColores}}
-                                            </option>
-                                            <option value="">Seleccionar un color</option>
-                                        </select>
-                                        <input placeHolder="Ingrese un color en hexadecimal" type="text"
-                                            class="form-control" id="colorCardTipoPlatoParaInput"
-                                            name="colorCardTipoPlatoParaInput" [(ngModel)]="colorCardTipoPlatoParaInput"
-                                            required>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <button class="btn btn-outline-light">
-                                                Enviar
-                                            </button>
+                                <div class="row">
+                                    <form (ngSubmit)="onCreateTipoPla()" novalidate #f="ngForm">
+                                        <div class="form-group, col-12 pb-3 pt-3"
+                                            title="El nombre del tipo de plato acepta un maximo de 27 caracteres">
+                                            <label for="nombreTipoPlato">NOMBRE DEL TIPO DE PLATO</label>
+                                            <input type="text" class="form-control" id="nombreTipoPlato"
+                                                name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </ng-template>
+                                        <div class="form-group col-12 pt-3 pb-3">
+                                            <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
+                                                <a class="custom-link text-white"
+                                                    href="https://fontawesome.com/v5/search?o=r&m=free"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                            </label>
+                                            <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
+                                                (click)="listaIconos()" [(ngModel)]="iconoTipoPlato" required>
 
-                <!-- MODAL EDITAR TIPOS DE PLATOS-->
-
-                <ng-template #templateEditarTipoPlato>
-                    <div class="container-fluid modal-menu">
-                        <div class="row">
-                            <div class="modal-header">
-                                <h4 class="modal-title">EDITAR</h4>
-                                <div class="card-icon card-icon-large">
-                                    <i class=""></i>
+                                                <option *ngFor="let listaIconos of listaIconosTipoPlato"
+                                                    [ngValue]="listaIconos">
+                                                    {{listaIconos}}
+                                                </option>
+                                                <option disabled selected>Seleccionar</option>
+                                                <option value="">Seleccionar un icono</option>
+                                            </select>
+                                            <input placeHolder="Ingresar un icono de la url font awesome" type="text"
+                                                class="form-control" id="iconoTipoPlatoParaInput"
+                                                name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-12 pt-3 pb-3">
+                                            <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
+                                                <a class="custom-link text-white"
+                                                    href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                            </label>
+                                            <select class="form-select" id="colorCardTipoPlato"
+                                                name="colorCardTipoPlato" [(ngModel)]="colorCardTipoPlato" required
+                                                (click)="listaColores()">
+                                                <option disabled selected>Seleccionar un color</option>
+                                                <option *ngFor="let listaColores of listaColorTipoPlato"
+                                                    [ngValue]="listaColores">
+                                                    {{listaColores}}
+                                                </option>
+                                                <option value="">Seleccionar un color</option>
+                                            </select>
+                                            <input placeHolder="Ingrese un color en hexadecimal" type="text"
+                                                class="form-control" id="colorCardTipoPlatoParaInput"
+                                                name="colorCardTipoPlatoParaInput"
+                                                [(ngModel)]="colorCardTipoPlatoParaInput" required>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <button class="btn btn-outline-light">
+                                                    Enviar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <button type="button" class="btn btn-outline-light btn-sm"
-                                    (click)="modalEditarTipoPlato.hide()">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                             </div>
-                            <div class="row">
-                                <form (ngSubmit)="editarTipoPlato()" novalidate #f="ngForm">
-                                    <div class="form-group, col-12 pt-3 pb-3">
-                                        <label for="idTipoPlato">ID TIPO PLATO </label>
-                                        <input readonly type="number" class="form-control" id="idTipoPlato"
-                                            name="idTipoPlato" [(ngModel)]="idTipoPlato" required>
-                                    </div>
-                                    <div class="form-group, col-12 pb-3" title="El nombre del tipo de plato acepta un maximo de 27 caracteres y no se puede editar">
-                                        <label for="nombreTipoPlato">NOMBRE TIPO PLATO</label>
-                                        <input  type="text" class="form-control" id="nombreTipoPlato"
-                                            name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
-
-                                    </div>
-                                    <div class="form-group col-12 pt-3 pb-3">
-                                        <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
-                                            <a class="custom-link text-white"
-                                                href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank"><i
-                                                    class="fa fa-link px-1"></i></a>
-                                        </label>
-                                        <!-- no se usa en esta parte del codigo la lista del tipo listaIconosTipoPlato-->
-                                        <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
-                                        <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
-                                        <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
-                                            [(ngModel)]="iconoTipoPlato" required>
-                                            <option *ngFor="let TipoPlato of tiposPlatosModel"
-                                                [ngValue]="TipoPlato.iconoTipoPlato">
-                                                {{TipoPlato.iconoTipoPlato}}
-                                            </option>
-                                            <option value="">No seleccionar ningun ícono</option>
-                                        </select>
-                                        <input placeHolder="Ingresar un icono de la url font awesome" type="text"
-                                            class="form-control" id="iconoTipoPlatoParaInput"
-                                            name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
-                                            required>
-                                    </div>
-                                    <div class="form-group col-12 pt-3 pb-3">
-                                        <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
-                                            <a class="custom-link text-white"
-                                                href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
-                                                target="_blank"><i class="fa fa-link px-1"></i></a>
-                                        </label>
-                                        <!-- no se usa en esta parte del codigo la lista del tipo listaColorTipoPlato-->
-                                        <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
-                                        <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
-                                        <select class="form-select" id="colorCardTipoPlato" name="colorCardTipoPlato"
-                                            [(ngModel)]="colorCardTipoPlato" required>
-                                            <option *ngFor="let TipoPlato of tiposPlatosModel"
-                                                [ngValue]="TipoPlato.colorCardTipoPlato">
-                                                {{TipoPlato.colorCardTipoPlato}}
-                                            </option>
-                                            <option value="">No seleccionar ningun color</option>
-                                        </select>
-                                        <input placeHolder="Ingrese un color en hexadecimal" type="text"
-                                            class="form-control" id="colorCardTipoPlatoParaInput"
-                                            name="colorCardTipoPlatoParaInput" [(ngModel)]="colorCardTipoPlatoParaInput"
-                                            required>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <button class="btn btn-outline-light">
-                                                Enviar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <br>
                         </div>
-                        <br>
-                    </div>
-                </ng-template>
+                    </ng-template>
+
+                    <!-- MODAL EDITAR TIPOS DE PLATOS-->
+
+                    <ng-template #templateEditarTipoPlato>
+                        <div class="container-fluid modal-menu">
+                            <div class="row">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">EDITAR</h4>
+                                    <div class="card-icon card-icon-large">
+                                        <i class=""></i>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-light btn-sm"
+                                        (click)="modalEditarTipoPlato.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <form (ngSubmit)="editarTipoPlato()" novalidate #f="ngForm">
+                                        <div class="form-group, col-12 pt-3 pb-3">
+                                            <label for="idTipoPlato">ID TIPO PLATO </label>
+                                            <input readonly type="number" class="form-control" id="idTipoPlato"
+                                                name="idTipoPlato" [(ngModel)]="idTipoPlato" required>
+                                        </div>
+                                        <div class="form-group, col-12 pb-3"
+                                            title="El nombre del tipo de plato acepta un maximo de 27 caracteres y no se puede editar">
+                                            <label for="nombreTipoPlato">NOMBRE TIPO PLATO</label>
+                                            <input type="text" class="form-control" id="nombreTipoPlato"
+                                                name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
+
+                                        </div>
+                                        <div class="form-group col-12 pt-3 pb-3">
+                                            <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
+                                                <a class="custom-link text-white"
+                                                    href="https://fontawesome.com/v5/search?o=r&m=free"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                            </label>
+                                            <!-- no se usa en esta parte del codigo la lista del tipo listaIconosTipoPlato-->
+                                            <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
+                                            <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
+                                            <select class="form-select" id="iconoTipoPlato" name="iconoTipoPlato"
+                                                [(ngModel)]="iconoTipoPlato" required>
+                                                <option *ngFor="let TipoPlato of tiposPlatosModel"
+                                                    [ngValue]="TipoPlato.iconoTipoPlato">
+                                                    {{TipoPlato.iconoTipoPlato}}
+                                                </option>
+                                                <option value="">No seleccionar ningun ícono</option>
+                                            </select>
+                                            <input placeHolder="Ingresar un icono de la url font awesome" type="text"
+                                                class="form-control" id="iconoTipoPlatoParaInput"
+                                                name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-12 pt-3 pb-3">
+                                            <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
+                                                <a class="custom-link text-white"
+                                                    href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                            </label>
+                                            <!-- no se usa en esta parte del codigo la lista del tipo listaColorTipoPlato-->
+                                            <!-- porque la funcion  obtenerTipoPlaXId() que carga en los inputs los registros a editar-->
+                                            <!--usa los registros de la lista let TipoPlato of tiposPlatosModel-->
+                                            <select class="form-select" id="colorCardTipoPlato"
+                                                name="colorCardTipoPlato" [(ngModel)]="colorCardTipoPlato" required>
+                                                <option *ngFor="let TipoPlato of tiposPlatosModel"
+                                                    [ngValue]="TipoPlato.colorCardTipoPlato">
+                                                    {{TipoPlato.colorCardTipoPlato}}
+                                                </option>
+                                                <option value="">No seleccionar ningun color</option>
+                                            </select>
+                                            <input placeHolder="Ingrese un color en hexadecimal" type="text"
+                                                class="form-control" id="colorCardTipoPlatoParaInput"
+                                                name="colorCardTipoPlatoParaInput"
+                                                [(ngModel)]="colorCardTipoPlatoParaInput" required>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <button class="btn btn-outline-light">
+                                                    Enviar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </ng-template>
+                </div>
+
+
             </div>
-
-
         </div>
-    </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
 
 
 
@@ -954,56 +871,57 @@
 
 
 
-    <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    <!-- TARJETAS  -->
 
-    <!-- LAS TARJETAS RECORREN UNA LISTA DE TIPOS DE PLATOS FILTRADA (*ngFor="let TipoPlato of tiposPlatosFiltrados")           -->
-    <!-- LA CUAL GENERA LAS TARJETAS HTML. LA CANTIDAD DE TARJETAS DEPENDE DE LOS ID_TIPO_PLATO DE LA ENTIDAD TIPO_PLATO        -->
-    <!-- PRESENTES EN LA ENTIDAD PLATO, ES DECIR, QUE LA LISTA tiposPlatosFiltrados FILTRADA EN EL BACK END                     -->
-    <!-- GENERA UNA TERCER LISTA CON LOS REGISTROS CUYO ID_TIPO_PLATO DE LA ENTIDAD PLATOS ESTEN PRESENTES EN LA ENTIDAD PLATOS -->
-    <!-- ESTO SE HIZO PARA QUE NO SE GENEREN CARDS CUYAS LISTAS ESTEN VACIAS                                                    -->
-    <!-- EN EL BOTON LISTA, FUNCION CLICK, HAY UNA FUNCION QUE ES mostrarListaTipoPlato(idTipoPlato:number) ASOCIADA            -->
-    <!-- A MENUCOMPLETOSERVICE . ESTA FUNCION RECIBE TODOS LOS IDTIPOPLATO QUE HAYA EN LA LISTA MENCIONADA Y CON ESTOS ID       -->
-    <!-- TRAE SOLO LOS PLATOS QUE EXISTAN EN LA TABLA/ENTIDAD PLATOS QUE TENGAN ESE IDTIPOPLATO, ESTE ID ES LA FK               -->
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- TARJETAS  -->
+
+        <!-- LAS TARJETAS RECORREN UNA LISTA DE TIPOS DE PLATOS FILTRADA (*ngFor="let TipoPlato of tiposPlatosFiltrados")           -->
+        <!-- LA CUAL GENERA LAS TARJETAS HTML. LA CANTIDAD DE TARJETAS DEPENDE DE LOS ID_TIPO_PLATO DE LA ENTIDAD TIPO_PLATO        -->
+        <!-- PRESENTES EN LA ENTIDAD PLATO, ES DECIR, QUE LA LISTA tiposPlatosFiltrados FILTRADA EN EL BACK END                     -->
+        <!-- GENERA UNA TERCER LISTA CON LOS REGISTROS CUYO ID_TIPO_PLATO DE LA ENTIDAD PLATOS ESTEN PRESENTES EN LA ENTIDAD PLATOS -->
+        <!-- ESTO SE HIZO PARA QUE NO SE GENEREN CARDS CUYAS LISTAS ESTEN VACIAS                                                    -->
+        <!-- EN EL BOTON LISTA, FUNCION CLICK, HAY UNA FUNCION QUE ES mostrarListaTipoPlato(idTipoPlato:number) ASOCIADA            -->
+        <!-- A MENUCOMPLETOSERVICE . ESTA FUNCION RECIBE TODOS LOS IDTIPOPLATO QUE HAYA EN LA LISTA MENCIONADA Y CON ESTOS ID       -->
+        <!-- TRAE SOLO LOS PLATOS QUE EXISTAN EN LA TABLA/ENTIDAD PLATOS QUE TENGAN ESE IDTIPOPLATO, ESTE ID ES LA FK               -->
 
 
 
 
-    <!-- MODAL QUE MUESTRA LA LISTA -->
+        <!-- MODAL QUE MUESTRA LA LISTA -->
 
-    <!-- PARA EL MODAL SE INSTANCIA UN OBJETO DE TIPO BsModalRef QUE ES UNA LIBRERIA ANGULAR PARA MODALES, SE DECLARA EN     -->
-    <!-- EL HTML EL NOMBRE DE LA TEMPLATE ANGULAR (<ng-template #templateBebidas>) Y SE CREA UNA FUNCION QUE ABRIRA EL MODAL -->
-    <!-- openModalMenuComp(templateMenuComp: TemplateRef<any>){
+        <!-- PARA EL MODAL SE INSTANCIA UN OBJETO DE TIPO BsModalRef QUE ES UNA LIBRERIA ANGULAR PARA MODALES, SE DECLARA EN     -->
+        <!-- EL HTML EL NOMBRE DE LA TEMPLATE ANGULAR (<ng-template #templateBebidas>) Y SE CREA UNA FUNCION QUE ABRIRA EL MODAL -->
+        <!-- openModalMenuComp(templateMenuComp: TemplateRef<any>){
     this.modalMenuComp = this.modalService.show(templateMenuComp);}                                                                                                                        -->
-    <!--  ESTE ES EL TUTORIAL QUE SEGUI PARA LOS MODALES https://www.youtube.com/watch?v=eEZlv5j3uRQ                         -->
-    <!--  ESTA ES LA PAGINA DE LOS ICONOS https://fontawesome.com/v5/search                                                  -->
+        <!--  ESTE ES EL TUTORIAL QUE SEGUI PARA LOS MODALES https://www.youtube.com/watch?v=eEZlv5j3uRQ                         -->
+        <!--  ESTA ES LA PAGINA DE LOS ICONOS https://fontawesome.com/v5/search                                                  -->
 
 
 
-    <!-- MODAL AGREGAR PLATO  -->
-    <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL QUE MUESTRA LA LISTA -->
-    <!-- Dentro del modal #templateAgregarPlato hay un formulario con 3 input, el formulario responde a la funcion onCreate()   -->
-    <!-- los 3 input responden a las variables "idTipoPla" "nombrePlato" y "precioPlato". "idTipoPla" se pasa a su input con la -->
-    <!-- openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {this.idTipoPla = idTipoPlato;         -->
-    <!--    this.modalAgregarPla = this.modalService.show(templateAgregarPlato);}  -->
+        <!-- MODAL AGREGAR PLATO  -->
+        <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL QUE MUESTRA LA LISTA -->
+        <!-- Dentro del modal #templateAgregarPlato hay un formulario con 3 input, el formulario responde a la funcion onCreate()   -->
+        <!-- los 3 input responden a las variables "idTipoPla" "nombrePlato" y "precioPlato". "idTipoPla" se pasa a su input con la -->
+        <!-- openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {this.idTipoPla = idTipoPlato;         -->
+        <!--    this.modalAgregarPla = this.modalService.show(templateAgregarPlato);}  -->
 
 
-    <!-- MODAL EDITAR PLATO -->
-    <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL EL RESTO DE LOS MODALES -->
-    <!-- Dentro del modal #templateEditarMenuComp hay un formulario que responde a la funcion editarPlato() con 3 input-->
-    <!--  que corresponden a las variables "idPlato","nombrePlato" y "precioPlato", a estos input se les pasa el valor con la -->
-    <!-- funcion obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato); -->
-    <!--  que se encuentra en el button editar de la lista (tiene un icono, no nombre esta etiqueta) -->
+        <!-- MODAL EDITAR PLATO -->
+        <!-- EL MODAL ES UNA INSTANCIA DE BsModalRef, IGUAL AL MODAL EL RESTO DE LOS MODALES -->
+        <!-- Dentro del modal #templateEditarMenuComp hay un formulario que responde a la funcion editarPlato() con 3 input-->
+        <!--  que corresponden a las variables "idPlato","nombrePlato" y "precioPlato", a estos input se les pasa el valor con la -->
+        <!-- funcion obtenerPlaXId(MenuCompletoModel.idPlato, MenuCompletoModel.nombrePlato, MenuCompletoModel.precioPlato); -->
+        <!--  que se encuentra en el button editar de la lista (tiene un icono, no nombre esta etiqueta) -->
 
 
-    <!-- TARJETA PARA MOSTRAR LISTA DE TIPOS DE PLATO -->
-    <!-- La tarjeta muestra una lista de los tipos de platos, la lista se inicia con la funcion listTipPla()  -->
-    <!-- en el ngOnInit() del componente type. Desde la tarjeta se pueden agregar tipos de platos, editarlos  -->
-    <!-- y borrarlos. Para Editar y Agregar, se usan dos modales con los formularios  -->
+        <!-- TARJETA PARA MOSTRAR LISTA DE TIPOS DE PLATO -->
+        <!-- La tarjeta muestra una lista de los tipos de platos, la lista se inicia con la funcion listTipPla()  -->
+        <!-- en el ngOnInit() del componente type. Desde la tarjeta se pueden agregar tipos de platos, editarlos  -->
+        <!-- y borrarlos. Para Editar y Agregar, se usan dos modales con los formularios  -->
 
-    <!-- MODAL AGREGAR Y EDITAR TIPO DE PLATO  -->
-    <!--  Son dos instancias de BsModalRef, funcionan igual que todos los otros modales de este componente  -->
+        <!-- MODAL AGREGAR Y EDITAR TIPO DE PLATO  -->
+        <!--  Son dos instancias de BsModalRef, funcionan igual que todos los otros modales de este componente  -->
 
-    <!--   -->
-    <!--   -->
-    <!--   -->
+        <!--   -->
+        <!--   -->
+        <!--   -->

@@ -7,6 +7,8 @@ import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.serv
 import { Cartelera } from '../../modelos/cartelera';
 import { CarteleraService } from '../../servicios/cartelera.service';
 import * as XLSX from 'xlsx';
+import { CarteleraSecundariaService } from '../../servicios/cartelera-secundaria.service';
+import { CarteleraSecundaria } from '../../modelos/cartelera-secundaria';
 
 
 
@@ -51,9 +53,7 @@ export class MenucomplComponent {
 
   modalEditarPaAgregarCard!: BsModalRef;
 
-  //MODAL AGREGAR TARJETA
-  ///////////////////////
-  modalEditarPromoNovedad!: BsModalRef;
+
 
   //MODAL VER LISTA COMPLETA DE PLATOS
   ////////////////////////////////////
@@ -82,7 +82,7 @@ export class MenucomplComponent {
   menuCompModel: MenuCompletoModel[] = [];
   tiposPlatosModel: TipoPlato[] = [];
   tiposPlatosFiltrados: TipoPlato[] = [];
-  promosyNovedadesModel: Cartelera[] = [];
+
 
  
   //CREAR PLATO Y EDITAR PLATO
@@ -113,6 +113,7 @@ export class MenucomplComponent {
   imgParaCelOPc!: string;
   tituloPromo!: string;
   textoPromo!: string;
+  colorTexto!: string;
   urlImagenPromo!: string;
   fechaPromo!: string;
 
@@ -124,7 +125,8 @@ export class MenucomplComponent {
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
     private tipoPlaServ: TiposPlatosService,   
-    private cartServ: CarteleraService
+    private cartServ: CarteleraService,
+    private cartServSec: CarteleraSecundariaService
     
   ) { }
 
@@ -132,10 +134,7 @@ export class MenucomplComponent {
     
     this.listaFiltradaTipPla(); //genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
-    this.listaPromoNovedad();
     this.listaPlatosCompleta();
-    
-  
   }
 
 
@@ -173,7 +172,7 @@ export class MenucomplComponent {
     this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato, {backdrop: 'static'});
   }
 
-  //MODAL AGREGAR TIPO PLATO
+  //MODAL EDITAR TIPO PLATO
   //////////////////////
 
   openModalEditarTipoPlato(templateEditarTipoPlato: TemplateRef<any>) {
@@ -187,12 +186,7 @@ export class MenucomplComponent {
     this.modalEditarPaAgregarCard = this.modalService.show(templateEditarPaAgregarCard, {backdrop: 'static'});
   }
 
-  //MODAL EDITAR PROMO/NOVEDAD
-  ////////////////////////////
 
-  openModalEditarPromoNovedad(templateEditarPromoNovedad: TemplateRef<any>) {
-    this.modalEditarPromoNovedad = this.modalService.show(templateEditarPromoNovedad, {backdrop: 'static'});
-  }
 
   //MODAL VER LISTA COMPLETA DE PLATOS
   ////////////////////////////////////
@@ -220,6 +214,7 @@ export class MenucomplComponent {
     this.modalInfo = this.modalService.show(templateModalInfo, {backdrop: 'static'});
   }
 
+//✮------------------------------------------------------------------------------------------------------------✮
 
   // FUNCIONES PARA LISTAS
   ///////////////////////////////////
@@ -244,9 +239,7 @@ export class MenucomplComponent {
     this.tipoPlaServ.listFiltradaTiposPlatos().subscribe(data => this.tiposPlatosFiltrados = data);//genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
   };
 
-  listaPromoNovedad():void {
-    this.cartServ.listPromosNov().subscribe(data => this.promosyNovedadesModel = data);
-  };
+
 
   listaPlatosCompleta(): void{
     this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
@@ -606,65 +599,10 @@ export class MenucomplComponent {
   
   };
   
+ //✮------------------------------------------------------------------------------------------------------------✮ 
 
-  //EDITAR PROMOCION/NOVEDAD/CARTELERA
-  /////////////////////////
+ 
 
-  obtenerPromoXId(idPromo:number, imgParaCelOPc:string, tituloPromo:string, textoPromo:string, urlImagenPromo:string, fechaPromo: string):void{
-    this.idPromo = idPromo;
-    this.imgParaCelOPc = imgParaCelOPc;
-    this. tituloPromo = tituloPromo;
-    this. textoPromo = textoPromo;
-    this. urlImagenPromo = urlImagenPromo;
-    this. fechaPromo = fechaPromo;
-
-  };
-
-  editarCartelera(): void{
-
-    if(this.idPromo === 0 || this.idPromo === undefined || isNaN(this.idPromo)){
-      alert("No se ha cargado el idPromo, contactar al desarrollador");
-      return
-    };
-
-    if(this.imgParaCelOPc === "" || this.imgParaCelOPc === undefined){
-      alert("En imagen para PC o CELULARES Ingrese 'Celulares' para imagen a renderizar en celulares o ingrese 'Pc' para una imagen a renderizar en computadoras");
-      return
-    };
-
-    if(this.tituloPromo === "" || this.tituloPromo === undefined){
-      alert("Ingrese una titulo para la promo");
-      return
-    };
-
-    if(this.textoPromo === "" || this.textoPromo === undefined){
-      alert("Ingrese una descripcion para la promo");
-      return
-    };
-
-    if(this.urlImagenPromo === "" || this.urlImagenPromo === undefined){
-      alert("Ingrese una URL para la imagen de la promo con el siguiente formato: https://images.unsplash.com/photo");
-      return
-    };
-
-    if(this.fechaPromo === "" || this.fechaPromo === undefined){
-      alert("Ingrese una fecha para la imagen de la promo");
-      return
-    };
-
-
-
-    const cartelera = new Cartelera (this.idPromo, this.imgParaCelOPc, this.tituloPromo, this.textoPromo, this.urlImagenPromo, this.fechaPromo)
-    this.cartServ.actualizarPromosNov(this.idPromo, cartelera).subscribe(data => 
-      {        
-        alert("Cartelera editada");   
-        console.log("Msj. Servidor: " + JSON.stringify(data)); 
-        this.listaPromoNovedad();   
-      }, err => {
-        console.log("Msj. Serv: " + err.error.message);
-        alert("Msj. Serv: " + err.error.message);
-      });
-  };
 
 
 

@@ -35,11 +35,13 @@ input {
 /* tamaño de la letra para texto promo */
 #idTextoPromoSecPc {
   font-size: 23px;
+  color:red
 }
 
 /* tamaño del titulo para promo */
 #idTituloPromoPcSec {
   font-size: 32px;
+  color:red
 }
 
 /* SLIDER */

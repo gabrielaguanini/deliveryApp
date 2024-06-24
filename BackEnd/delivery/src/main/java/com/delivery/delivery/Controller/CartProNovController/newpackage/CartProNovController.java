@@ -75,9 +75,10 @@ public class CartProNovController {
             if (carProNov.getImgParaCelOPc() == null || carProNov.getImgParaCelOPc().isEmpty()
                     || carProNov.getTituloPromo() == null || carProNov.getTituloPromo().isEmpty()
                     || carProNov.getTextoPromo() == null || carProNov.getTextoPromo().isEmpty()
+                    || carProNov.getColorTexto() == null || carProNov.getColorTexto().isEmpty()
                     || carProNov.getUrlImagenPromo() == null || carProNov.getUrlImagenPromo().isEmpty()) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException("Faltan datos obligatorios para crear la promoción o novedad.", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, descripcion, color o si la imagen a guardar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar. ", HttpStatus.BAD_REQUEST);
             }
 
             // Verifica la longitud de los campos
@@ -98,6 +99,7 @@ public class CartProNovController {
                     carProNov.getTituloPromo(),
                     carProNov.getTextoPromo(),
                     carProNov.getUrlImagenPromo(),
+                    carProNov.getColorTexto(),
                     carProNov.getFechaPromo()
             );
             carProNovServ.guardarPromo(nuevaPromoNov);
@@ -173,12 +175,13 @@ public class CartProNovController {
             if (carProNov.getImgParaCelOPc() == "" || carProNov.getImgParaCelOPc() == null || carProNov.getImgParaCelOPc().isEmpty()
                     || carProNov.getTituloPromo() == "" || carProNov.getTituloPromo() == null || carProNov.getTituloPromo().isEmpty()
                     || carProNov.getTextoPromo() == "" || carProNov.getTextoPromo() == null || carProNov.getTextoPromo().isEmpty()
+                    || carProNov.getColorTexto() == "" || carProNov.getColorTexto() == null || carProNov.getColorTexto().isEmpty()
                     || carProNov.getUrlImagenPromo() == "" || carProNov.getUrlImagenPromo() == null || carProNov.getUrlImagenPromo().isEmpty()) {
 
                 // Registra la excepcion en el looger
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
-                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, descripcion o si la imagen a editar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar. ", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, descripcion, color o si la imagen a editar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar la edicion. ", HttpStatus.BAD_REQUEST);
             }
 
             // Verifica que los caracteres ingresados para el titulo de la promo no sean mayores a 21
@@ -198,6 +201,7 @@ public class CartProNovController {
             carProNovedades.setImgParaCelOPc(carProNov.getImgParaCelOPc());
             carProNovedades.setTituloPromo(carProNov.getTituloPromo());
             carProNovedades.setTextoPromo(carProNov.getTextoPromo());
+            carProNovedades.setColorTexto(carProNov.getColorTexto());
             carProNovedades.setUrlImagenPromo(carProNov.getUrlImagenPromo());
             carProNovedades.setFechaPromo(carProNov.getFechaPromo());
             carProNovServ.guardarPromo(carProNovedades);

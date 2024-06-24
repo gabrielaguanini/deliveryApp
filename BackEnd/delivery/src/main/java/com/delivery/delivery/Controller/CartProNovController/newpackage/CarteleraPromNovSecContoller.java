@@ -76,9 +76,10 @@ public class CarteleraPromNovSecContoller {
             if (carProNovSec.getImgParaCelOPc() == null || carProNovSec.getImgParaCelOPc().isEmpty()
                     || carProNovSec.getTituloPromo() == null || carProNovSec.getTituloPromo().isEmpty()
                     || carProNovSec.getTextoPromo() == null || carProNovSec.getTextoPromo().isEmpty()
+                    || carProNovSec.getColorTexto() == null || carProNovSec.getColorTexto().isEmpty()
                     || carProNovSec.getUrlImagenPromo() == null || carProNovSec.getUrlImagenPromo().isEmpty()) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException("Faltan datos obligatorios para crear la promoción o novedad.", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, color, descripcion o si la imagen a guardar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar.", HttpStatus.BAD_REQUEST);
             }
 
             // Verifica la longitud de los campos
@@ -98,6 +99,7 @@ public class CarteleraPromNovSecContoller {
                     carProNovSec.getImgParaCelOPc(),
                     carProNovSec.getTituloPromo(),
                     carProNovSec.getTextoPromo(),
+                    carProNovSec.getColorTexto(),
                     carProNovSec.getUrlImagenPromo(),
                     carProNovSec.getFechaPromo()
             );
@@ -174,12 +176,13 @@ public class CarteleraPromNovSecContoller {
             if (carProNovSec.getImgParaCelOPc() == "" || carProNovSec.getImgParaCelOPc() == null || carProNovSec.getImgParaCelOPc().isEmpty()
                     || carProNovSec.getTituloPromo() == "" || carProNovSec.getTituloPromo() == null || carProNovSec.getTituloPromo().isEmpty()
                     || carProNovSec.getTextoPromo() == "" || carProNovSec.getTextoPromo() == null || carProNovSec.getTextoPromo().isEmpty()
+                    || carProNovSec.getColorTexto() == "" || carProNovSec.getColorTexto() == null || carProNovSec.getColorTexto().isEmpty()
                     || carProNovSec.getUrlImagenPromo() == "" || carProNovSec.getUrlImagenPromo() == null || carProNovSec.getUrlImagenPromo().isEmpty()) {
 
                 // Registra la excepcion en el looger
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
-                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, descripcion o si la imagen a editar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar. ", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("No se han ingresado la URL a una imagen, titulo, color, descripcion o si la imagen a editar es para renderizar en CELULARES O PC. Por favor ingrese el/los dato/s faltante/s para continuar la edicion. ", HttpStatus.BAD_REQUEST);
             }
 
            // Verifica la longitud de los campos
@@ -198,6 +201,7 @@ public class CarteleraPromNovSecContoller {
             carProNovedadesSec.setImgParaCelOPc(carProNovSec.getImgParaCelOPc());
             carProNovedadesSec.setTituloPromo(carProNovSec.getTituloPromo());
             carProNovedadesSec.setTextoPromo(carProNovSec.getTextoPromo());
+             carProNovedadesSec.setColorTexto(carProNovSec.getColorTexto());
             carProNovedadesSec.setUrlImagenPromo(carProNovSec.getUrlImagenPromo());
             carProNovedadesSec.setFechaPromo(carProNovSec.getFechaPromo());
 

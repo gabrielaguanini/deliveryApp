@@ -16,6 +16,7 @@ export class CarteleraSecundariaComponent {
   imgParaCelOPc!: string;
   tituloPromo!: string;
   textoPromo!: string;
+  colorTexto!: string;
   urlImagenPromo!: string;
   fechaPromo!: string;
 
@@ -46,4 +47,6 @@ export class CarteleraSecundariaComponent {
       this.slidIntServ.stopInterval('carteleraSecundaria');
     };
   };
+
+ 
 }

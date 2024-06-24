@@ -10,7 +10,7 @@
       <div class="lista-carrousel-cel-unique">
         <div class="carrusel-cel-unique" *ngFor="let carteleramodel of carteleraCel.slice(3, 6); let i = index"
           [style.background-image]="'url(' + carteleramodel.urlImagenPromo + ')'" style="background-size: cover; background-position: center;">
-          <p id="titulo-promo-cel-unique" class="display-5">{{ carteleramodel.tituloPromo }}</p>
+          <p id="titulo-promo-cel-unique" class="display-5" [style.color]="carteleramodel.colorTexto">{{ carteleramodel.tituloPromo }}</p>
           <br>
           <br>
           <br>
@@ -18,7 +18,7 @@
           <br>
           <br>
           <br>
-          <p id="texto-promo-cel-unique">{{ carteleramodel.textoPromo }}</p>
+          <p id="texto-promo-cel-unique" [style.color]="carteleramodel.colorTexto">{{ carteleramodel.textoPromo }}</p>
         </div>
       </div>
       <!-- Flechas a la izquierda por cada imagen: NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE RENDERIZAN -->

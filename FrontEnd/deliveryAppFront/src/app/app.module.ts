@@ -17,6 +17,11 @@ import { PedidosAnterYDescargasComponent } from './usuarios/componentes/pedidos-
 import { PedidosclientesComponent } from './componentes_generales/pedidosclientes/pedidosclientes.component';
 import { CarteleraSecundariaComponent } from './componentes_generales/cartelera-secundaria/cartelera-secundaria.component';
 import { CarteleraSecundariaCelComponent } from './componentes_generales/cartelera-secundaria-cel/cartelera-secundaria-cel.component';
+import { FooterComponent } from './componentes_generales/footer/footer.component';
+import { CartelerasCrudComponent } from './usuarios/componentes/carteleras-crud/carteleras-crud.component';
+import { PanelDeControlComponent } from './usuarios/componentes/panel-de-control/panel-de-control.component';
+
+
 
 
 
@@ -28,7 +33,13 @@ import { CarteleraSecundariaCelComponent } from './componentes_generales/cartele
     NavbarComponent, 
     HomeComponent, 
     CarteleraslidercelComponent, 
-    PedidosplatosamostrarComponent, PedidosAnterYDescargasComponent, PedidosclientesComponent, CarteleraSecundariaComponent, CarteleraSecundariaCelComponent
+    PedidosplatosamostrarComponent, 
+    PedidosAnterYDescargasComponent, 
+    PedidosclientesComponent, 
+    CarteleraSecundariaComponent, 
+    CarteleraSecundariaCelComponent, 
+    FooterComponent, CartelerasCrudComponent, 
+    PanelDeControlComponent
     
   ],
   imports: [
@@ -39,7 +50,8 @@ import { CarteleraSecundariaCelComponent } from './componentes_generales/cartele
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule,
+    RouterModule
+
      
   ],
   providers: [],

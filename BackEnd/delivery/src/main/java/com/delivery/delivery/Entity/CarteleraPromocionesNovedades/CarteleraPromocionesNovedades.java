@@ -22,20 +22,24 @@ public class CarteleraPromocionesNovedades {
     private String imgParaCelOPc;
     private String tituloPromo;
     private String textoPromo;
+    private String colorTexto;
     private String urlImagenPromo;
     private LocalDateTime fechaPromo;
 
     public CarteleraPromocionesNovedades() {
     };
 
-    public CarteleraPromocionesNovedades(Long idPromo, String imgParaCelOPc, String tituloPromo, String textoPromo, String urlImagenPromo, LocalDateTime fechaPromo) {
+    public CarteleraPromocionesNovedades(Long idPromo, String imgParaCelOPc, String tituloPromo, String textoPromo, String colorTexto, String urlImagenPromo, LocalDateTime fechaPromo) {
         this.idPromo = idPromo;
         this.imgParaCelOPc = imgParaCelOPc;
         this.tituloPromo = tituloPromo;
         this.textoPromo = textoPromo;
+        this.colorTexto = colorTexto;
         this.urlImagenPromo = urlImagenPromo;
         this.fechaPromo = fechaPromo;
-    };   
+    }
+
+
 
   
     @PrePersist

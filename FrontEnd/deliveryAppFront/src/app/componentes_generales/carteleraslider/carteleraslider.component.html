@@ -12,7 +12,7 @@
         <div class="Carrusel" *ngFor="let Carteleramodel of cartelera.slice(0, 3); let i = index" 
         [style.background-image]="'url(' + Carteleramodel.urlImagenPromo + ')'" style="background-size: cover; 
         background-position: center;">
-          <p id="idTituloPromoPc" class="display-5">{{ Carteleramodel.tituloPromo }}</p>
+          <p id="idTituloPromoPc" class="display-5" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.tituloPromo }}</p>
           <br>
           <br>
           <br>
@@ -22,7 +22,7 @@
           <br>
           <br>
           <br>
-          <p id="idTextoPromoPc">{{ Carteleramodel.textoPromo }}</p>
+          <p id="idTextoPromoPc" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.textoPromo }}</p>
         </div>
         
        

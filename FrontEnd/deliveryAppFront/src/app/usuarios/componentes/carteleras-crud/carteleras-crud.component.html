@@ -1,0 +1,301 @@
+<div class="container-fluid">
+
+    <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
+
+    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
+        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    </div>
+
+    <div class="row">
+
+        <!-- TARJETA GRANDE QUE MUESTRA LISTA DE LA CARTELERA PRINCIPAL -->
+
+        <div class="col-lg-6">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="bordesYBackGrCardCartelera">
+                <div class="cardGrandeCartelera p-4">
+                    <div class="card-icon card-icon-large">
+                        <i class=></i>
+                    </div>
+                    <div class="mb-1">
+                        <h5 class="card-title pb-3 text-center">LISTA PROMOS Y NOVEDADES PARA CARTELERA
+                        </h5>
+                        <div class="button-divisor pb-4">
+
+                        </div>
+                        <div class="row text-center" *ngFor="let Cartelera of promosyNovedadesModel">
+                            <div class="col-12">
+                                <p class="border-1 border-end border-top border-white"><small> PANTALLA
+                                        A
+                                        MOSTRARSE:
+                                        {{Cartelera.imgParaCelOPc}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>TITULO DE
+                                        PROMO/NOVEDAD:
+                                        {{Cartelera.tituloPromo}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>TEXTO A MOSTRAR:
+                                        {{Cartelera.textoPromo}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>COLOR DEL TEXTO:
+                                        {{Cartelera.colorTexto}}</small>
+                                    <span [style.background-color]="Cartelera.colorTexto" style="display: inline-block; width: 16px; height: 16px; 
+                                       border: 1px solid #000; margin-left: 8px; margin-bottom: -3px;">
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>FECHA DE
+                                        CARGA/EDICION e
+                                        ID:
+                                        {{Cartelera.fechaPromo}} //
+                                        {{Cartelera.idPromo}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50"
+                                    src="{{Cartelera.urlImagenPromo}}">
+                            </div>
+                            <div class="col-12">
+                                <br>
+                                <button class="btn btn-outline-light btn-lg border border-white border-3"
+                                    (click)="openModalEditarPromoNovedad(templateEditarPromoNovedad);  obtenerPromoXId(Cartelera.idPromo, Cartelera.imgParaCelOPc, Cartelera.tituloPromo, Cartelera.textoPromo, Cartelera.colorTexto, Cartelera.urlImagenPromo, Cartelera.fechaPromo)">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
+
+                        <ng-template #templateEditarPromoNovedad>
+                            <div class="container-fluid modal-menu">
+                                <div class="row">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">EDITAR PROMOS/NOVEDADES</h4>
+                                        <div class="card-icon card-icon-large">
+                                            <i class=""></i>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-light btn-sm"
+                                            (click)="modalEditarPromoNovedad.hide();">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <form (ngSubmit)="editarCartelera()" novalidate #f="ngForm">
+                                            <div class="form-group, col-12 pt-3 pb-3">
+                                                <label for="idPromo">ID PROMO </label>
+                                                <input readonly type="number" class="form-control" id="idPromo"
+                                                    name="idPromo" [(ngModel)]="idPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="imgParaCelOPc">IMAGEN PARA PC O
+                                                    CELULARES</label>
+                                                <input readonly type="text" class="form-control" id="imgParaCelOPc"
+                                                    name="imgParaCelOPc" [(ngModel)]="imgParaCelOPc" required>
+
+                                            </div>
+                                            <div class="form-group, col-12 pb-3"
+                                                title="El titulo de la promo acepta 21 caracteres como maximo">
+                                                <label for="tituloPromo">TITULO PROMO</label>
+                                                <input type="text" class="form-control" id="tituloPromo"
+                                                    name="tituloPromo" [(ngModel)]="tituloPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3"
+                                                title="La descripcion de la promo acepta 70 caracteres como maximo">
+                                                <label for="textoPromo">DESCRIPCION PROMO</label>
+                                                <input type="text" class="form-control" id="textoPromo"
+                                                    name="textoPromo" [(ngModel)]="textoPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="colorTexto">COLOR DEL TEXTO</label>
+                                                <a class="custom-link text-white" title="Link para ver colores"
+                                                    href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                                <input type="text" class="form-control" id="colorTexto"
+                                                    name="colorTexto" [(ngModel)]="colorTexto" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="urlImagenPromo">URL A IMAGEN</label>
+                                                <input type="text" class="form-control" id="urlImagenPromo"
+                                                    name="urlImagenPromo" [(ngModel)]="urlImagenPromo"
+                                                    title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                                    required>
+
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="fechaPromo">FECHA DE CARGA</label>
+                                                <input readonly type="text" class="form-control" id="fechaPromo"
+                                                    name="fechaPromo" [(ngModel)]="fechaPromo" required>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button class="btn btn-outline-light" (click)="listaPromoNovedad()">
+                                                        Enviar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- TARJETA GRANDE QUE MUESTRA LISTA DE LA CARTELERA SECUNDARIA -->
+
+        <div class="col-lg-6">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
+                id="bordesYBackGrCardCarteleraSec">
+                <div class="cardGrandeCarteleraSec p-4">
+                    <div class="card-icon card-icon-large">
+                        <i class=></i>
+                    </div>
+                    <div class="mb-1">
+                        <h5 class="card-title pb-3 text-center">LISTA PROMOS Y NOVEDADES PARA CARTELERA SEC
+                        </h5>
+                        <div class="button-divisor pb-4">
+
+                        </div>
+                        <div class="row text-center" *ngFor="let CarteleraSec of promosyNovedadesModelSec">
+                            <div class="col-12">
+                                <p class="border-1 border-end border-top border-white"><small> PANTALLA
+                                        A
+                                        MOSTRARSE:
+                                        {{CarteleraSec.imgParaCelOPc}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>TITULO DE
+                                        PROMO/NOVEDAD:
+                                        {{CarteleraSec.tituloPromo}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>TEXTO A MOSTRAR:
+                                        {{CarteleraSec.textoPromo}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>COLOR DEL TEXTO:
+                                        {{CarteleraSec.colorTexto}}</small>
+                                    <span [style.background-color]="CarteleraSec.colorTexto" style="display: inline-block; width: 16px; height: 16px; 
+                                   border: 1px solid #000; margin-left: 8px; margin-bottom: -3px;">
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-12">
+                                <p class="border-end border-top border-white"><small>FECHA DE
+                                        CARGA/EDICION e
+                                        ID:
+                                        {{CarteleraSec.fechaPromo}} //
+                                        {{CarteleraSec.idPromoSec}}</small></p>
+                            </div>
+                            <div class="col-12">
+                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50"
+                                    src="{{CarteleraSec.urlImagenPromo}}">
+                            </div>
+                            <div class="col-12">
+                                <br>
+                                <button class="btn btn-outline-light btn-lg border border-white border-3"
+                                    (click)="openModalEditarPromoNovedadSec(templateEditarPromoNovedadSec);  obtenerPromoSecXId(CarteleraSec.idPromoSec, CarteleraSec.imgParaCelOPc, CarteleraSec.tituloPromo, CarteleraSec.textoPromo, CarteleraSec.colorTexto, CarteleraSec.urlImagenPromo, CarteleraSec.fechaPromo)">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+
+                        <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA SECUNDARIA-->
+
+                        <ng-template #templateEditarPromoNovedadSec>
+                            <div class="container-fluid modal-menu">
+                                <div class="row">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">EDITAR PROMOS/NOVEDADES SEC</h4>
+                                        <div class="card-icon card-icon-large">
+                                            <i class=""></i>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-light btn-sm"
+                                            (click)="modalEditarPromoNovedadSec.hide();">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <form (ngSubmit)="editarCarteleraSec()" novalidate #f="ngForm">
+                                            <div class="form-group, col-12 pt-3 pb-3">
+                                                <label for="idPromoSec">ID PROMO </label>
+                                                <input readonly type="number" class="form-control" id="idPromoSec"
+                                                    name="idPromoSec" [(ngModel)]="idPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="imgParaCelOPcSec">IMAGEN PARA PC O
+                                                    CELULARES</label>
+                                                <input readonly type="text" class="form-control" id="imgParaCelOPcSec"
+                                                    name="imgParaCelOPcSec" [(ngModel)]="imgParaCelOPc" required>
+
+                                            </div>
+                                            <div class="form-group, col-12 pb-3"
+                                                title="El titulo de la promo acepta 22 caracteres como maximo">
+                                                <label for="tituloPromoSec">TITULO PROMO</label>
+                                                <input type="text" class="form-control" id="tituloPromoSec"
+                                                    name="tituloPromoSec" [(ngModel)]="tituloPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3"
+                                                title="La descripcion de la promo acepta 96 caracteres como maximo">
+                                                <label for="textoPromoSec">DESCRIPCION PROMO</label>
+                                                <input type="text" class="form-control" id="textoPromoSec"
+                                                    name="textoPromoSec" [(ngModel)]="textoPromo" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="colorTextoSec">COLOR DEL TEXTO</label>
+                                                <a class="custom-link text-white" title="Link para ver colores"
+                                                    href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
+                                                    target="_blank"><i class="fa fa-link px-1"></i></a>
+                                                <input type="text" class="form-control" id="colorTextoSec"
+                                                    name="colorTextoSec" [(ngModel)]="colorTexto" required>
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="urlImagenPromoSec">URL A IMAGEN</label>
+                                                <input type="text" class="form-control" id="urlImagenPromoSec"
+                                                    name="urlImagenPromoSec" [(ngModel)]="urlImagenPromo"
+                                                    title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
+                                                    required>
+
+                                            </div>
+                                            <div class="form-group, col-12 pb-3">
+                                                <label for="fechaPromoSec">FECHA DE CARGA</label>
+                                                <input readonly type="text" class="form-control" id="fechaPromoSec"
+                                                    name="fechaPromoSec" [(ngModel)]="fechaPromo" required>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button class="btn btn-outline-light"
+                                                        (click)="listaPromoNovedadSec()">
+                                                        Enviar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />

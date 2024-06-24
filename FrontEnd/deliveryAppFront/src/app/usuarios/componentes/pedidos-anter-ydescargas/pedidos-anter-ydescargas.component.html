@@ -1,5 +1,12 @@
 <!-- BOTONES DE DESCARGAS E INFO -->
 <div class="container-fluid">
+
+    <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
+
+    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
+        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    </div>
+
     <div class="border border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
 
         <div class="row">
@@ -377,16 +384,17 @@
                                 </table>
 
                                 <!-- Formulario editar detalle del pedido -->
-                                <form
-                                    (ngSubmit)="editarDetallePedidos();"
-                                    novalidate #f="ngForm" class="text-center justify-content-center">
+                                <form (ngSubmit)="editarDetallePedidos();" novalidate #f="ngForm"
+                                    class="text-center justify-content-center">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
                                                 <tr *ngIf="modalitoInputEditDetPedid">
-                                                    <th class="text-center" scope="col" [style.display]="'none'">ID DET PED
+                                                    <th class="text-center" scope="col" [style.display]="'none'">ID DET
+                                                        PED
                                                     </th>
-                                                    <th class="text-center" scope="col" [style.display]="'none'">ID DET PED </th>
+                                                    <th class="text-center" scope="col" [style.display]="'none'">ID DET
+                                                        PED </th>
                                                     <th class="text-center" scope="col">NUEVO PLATO </th>
                                                     <th class="text-center" scope="col">PORCION</th>
                                                     <th class="text-center" scope="col">PLATO ACTUAL</th>
@@ -398,7 +406,7 @@
                                                 <tr class="col-2">
 
                                                     <td *ngIf="modalitoInputEditDetPedid" [style.display]="'none'"
-                                                         readonly class="text-center align-middle border-top">
+                                                        readonly class="text-center align-middle border-top">
                                                         <input [(ngModel)]="idDetallePedido" type="number"
                                                             class="form-control" name="idDetPed">
                                                     </td>
@@ -548,8 +556,7 @@
                                      pedidosXIdVacio(); 
                                      modalitoPedidosXFecha = false;
                                      modalitoEditPedid = false;
-                                     modalitoAgrDetPed = false;"
-                                     type="button">
+                                     modalitoAgrDetPed = false;" type="button">
                                         <i class="fas fa-search"></i>
                                     </button>
                                     <br>
@@ -618,7 +625,7 @@
                                                 <div class="row justify-content-center">
                                                     <!-- Boton editar platos -->
                                                     <button class="btn btn-outline-light btn-sm col-3"
-                                                        title="Editar platos" type="button" (click)= "limpiarInputs();
+                                                        title="Editar platos" type="button" (click)="limpiarInputs();
                                                               listaDetallePedidosXIdPedido(pedidos.idPedido);
                                                               mostrarOcultarModalitoEditDetallePedid();
                                                               modalitoInputEditDetPedid = false; 
@@ -629,7 +636,7 @@
                                                     </button>
                                                     <!-- Boton agregar platos -->
                                                     <button class="btn btn-outline-light btn-sm col-3"
-                                                        title="Agregar platos" type="button" (click)= "limpiarInputs();
+                                                        title="Agregar platos" type="button" (click)="limpiarInputs();
                                                                mostrarOcultarModalitoAgrDetPed();
                                                                modalitoEditPedid = false;
                                                                scrollASeccion('anclaAgregDetPed');">
