@@ -35,7 +35,7 @@ export class CartelerasCrudComponent {
 
   constructor(private cartServ: CarteleraService,
               private cartServSec: CarteleraSecundariaService,
-              private modalService: BsModalService,) { }
+              private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.listaPromoNovedad(); 
@@ -54,7 +54,7 @@ export class CartelerasCrudComponent {
 
 
 
-    //MODAL EDITAR PROMO/NOVEDAD PRINCIPAL
+  // FUNCIONES PARA MODAL EDITAR PROMO/NOVEDAD PRINCIPAL
   ////////////////////////////
 
   openModalEditarPromoNovedad(templateEditarPromoNovedad: TemplateRef<any>) {

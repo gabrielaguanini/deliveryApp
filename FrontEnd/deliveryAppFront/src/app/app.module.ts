@@ -20,6 +20,7 @@ import { CarteleraSecundariaCelComponent } from './componentes_generales/cartele
 import { FooterComponent } from './componentes_generales/footer/footer.component';
 import { CartelerasCrudComponent } from './usuarios/componentes/carteleras-crud/carteleras-crud.component';
 import { PanelDeControlComponent } from './usuarios/componentes/panel-de-control/panel-de-control.component';
+import { FooterYLogoCrudComponent } from './usuarios/componentes/footer-ylogo-crud/footer-ylogo-crud.component';
 
 
 
@@ -39,7 +40,7 @@ import { PanelDeControlComponent } from './usuarios/componentes/panel-de-control
     CarteleraSecundariaComponent, 
     CarteleraSecundariaCelComponent, 
     FooterComponent, CartelerasCrudComponent, 
-    PanelDeControlComponent
+    PanelDeControlComponent, FooterYLogoCrudComponent
     
   ],
   imports: [

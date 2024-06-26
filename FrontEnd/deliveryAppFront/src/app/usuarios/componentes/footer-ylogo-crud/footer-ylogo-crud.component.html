@@ -1,0 +1,125 @@
+<div class="container-fluid">
+
+    <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
+
+    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
+        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    </div>
+
+    <div class="row">
+
+        <!-- TARJETA GRANDE QUE MUESTRA LISTA DE REGISTOS DE LA TABLA FooterYLogo -->
+
+        <div class="col-lg-12">
+            <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
+                <div class="cardGrandeFooYLo p-4">
+                    <div class="mb-1">
+                        <h5 class="card-title pb-3 text-center">LISTA REGISTROS FOOTER Y LOGO
+                        </h5>
+                        <hr>
+                        <div class="d-flex justify-content-center align-items-center flex-column">
+                            <div class="col-6 text-center border border-white rounded mb-5" *ngFor="let FooterYLogoModel of footerYLogoList">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <h4>DATO ACTUAL:</h4>
+                                    </div>
+                                    <div class="row">
+                                        <h5 class="border-1 border-white">
+                                            <strong>{{FooterYLogoModel.nombreDatoAMostrar}}</strong>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <!-- Verifica si hay un dato a mostrar como imagen -->
+                                    <ng-container *ngIf="isImageFormat(FooterYLogoModel.datoAMostrar)">
+                                        <div class="row align-items-center justify-content-center text-center">
+                                            <img class="img-fluid w-25 h-25"
+                                                [src]="FooterYLogoModel.datoAMostrar">
+                                        </div>
+                                    </ng-container>
+                        
+                                    <!-- Verifica si hay un dato a mostrar como ícono -->
+                                    <ng-container *ngIf="!isImageFormat(FooterYLogoModel.datoAMostrar)">
+                                        <div class="row align-items-center justify-content-center text-center">
+                                            <i class="{{FooterYLogoModel.datoAMostrar}} display-1"></i>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                        
+                                <div class="col-12">
+                                    <br>
+                                    <button class="btn btn-outline-light btn-lg border border-white border-3"
+                                        (click)="openModalEditarfooYLo(templateEditarFooterYLogo); obtenerXId(FooterYLogoModel.idOtrosDatos, FooterYLogoModel.nombreDatoAMostrar, FooterYLogoModel.datoAMostrar)">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                        
+                       
+                        <!-- MODAL EDITAR FOOTER Y LOGO-->
+
+                        <ng-template #templateEditarFooterYLogo>
+                            <div class="container-fluid modal-menu">
+                                <div class="row">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">EDITAR FOOTER Y LOGO</h4>
+                                        <div class="card-icon card-icon-large">
+                                            <i class=""></i>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-light btn-sm"
+                                            (click)="modalEditarFooYLo.hide();">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                        <form (ngSubmit)="editarFooyLo()" novalidate #f="ngForm">
+                                            <div class="form-group col-12 pt-3 pb-3">
+                                                <label for="idOtrosDatos">ID idOtrosDatos</label>
+                                                <input readonly type="number" class="form-control" id="idOtrosDatos"
+                                                    name="idOtrosDatos" [(ngModel)]="idOtrosDatos" required>
+                                            </div>
+                                            <div class="form-group col-12 pb-3">
+                                                <label for="nombreDatoAMostrar">NOMBRE DATO A MOSTRAR</label>
+                                                <input type="text" class="form-control" id="nombreDatoAMostrar"
+                                                    name="nombreDatoAMostrar" [(ngModel)]="nombreDatoAMostrar" required>
+
+                                            </div>
+                                            <div class="form-group col-12 pb-3"
+                                                title="El titulo de la promo acepta 21 caracteres como maximo">
+                                                <label for="datoAMostrar">DATO A MOSTRAR</label>
+                                                <input type="text" class="form-control" id="datoAMostrar"
+                                                    name="datoAMostrar" [(ngModel)]="datoAMostrar" required>
+                                            </div>
+                                            <div class="form-group col-12 pb-3">
+                                                <label for="datoAMostrar2">URL A IMAGEN</label>
+                                                <input type="text" class="form-control" id="datoAMostrar2"
+                                                    name="datoAMostrar2" [(ngModel)]="datoAMostrar" required>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <button class="btn btn-outline-light" (click)="listaFooteryLogo()">
+                                                        Enviar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />

@@ -9,6 +9,7 @@ import { PedidosAnterYDescargasComponent } from '../usuarios/componentes/pedidos
 import { PedidosclientesComponent } from '../componentes_generales/pedidosclientes/pedidosclientes.component';
 import { PanelDeControlComponent } from '../usuarios/componentes/panel-de-control/panel-de-control.component';
 import { CartelerasCrudComponent } from '../usuarios/componentes/carteleras-crud/carteleras-crud.component';
+import { FooterYLogoCrudComponent } from '../usuarios/componentes/footer-ylogo-crud/footer-ylogo-crud.component';
 
 const routes: Routes = [
   { path: 'homepage', component: HomeComponent },
@@ -18,8 +19,8 @@ const routes: Routes = [
   { path: 'pedidosantydescarg', component: PedidosAnterYDescargasComponent},
   { path: 'selecpla', component: PedidosclientesComponent},
   { path: 'carteleras', component: CartelerasCrudComponent},
-  { path: 'paneldecontrol', component: PanelDeControlComponent}
-
+  { path: 'paneldecontrol', component: PanelDeControlComponent},
+  { path: 'footerylogocrud', component: FooterYLogoCrudComponent}
 ];
 
 
