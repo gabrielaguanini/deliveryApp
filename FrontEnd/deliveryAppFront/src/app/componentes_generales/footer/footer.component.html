@@ -3,18 +3,70 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="contact-content text-center">
-                    <a href="#"><img src="https://i.ibb.co/QDy827D/ak-logo.png" alt="logo"></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum </p>
-                    <div class="hr"></div>
-                    <h6>1120 Lorem ipsum dolor sit amet, KC 179050, Chandigarh.</h6>
-                    <h6>+01 2345 6789 12<span>|</span>+01 2345 6789 12</h6>
-                    <div class="contact-social">
+                    <a href="#"><img src="{{footerYLogoList[0]?.iconoOImgAMostrar}}" class="img-fluid w-25 h-25" alt="logo"></a>
+                  <hr>
+                    <!-- direccion-->
+                    <h6>
+                        <a href="{{ footerYLogoList[1]?.urlAMostrar }}" target="_blank" rel="noopener noreferrer">
+                            <i class="{{ footerYLogoList[1]?.iconoOImgAMostrar }} p-2"></i>
+                            {{ footerYLogoList[1]?.textoAMostrar }}
+                        </a>
+                    </h6>
+                    <!-- telefono y whatsapp-->
+                    <h6>
+                        <i
+                            class="{{footerYLogoList[2]?.iconoOImgAMostrar}} p-2"></i>{{footerYLogoList[2]?.textoAMostrar}}<span>|</span>
+                        <a href="{{footerYLogoList[3]?.urlAMostrar}}" target="_blank" rel="noopener noreferrer">
+                            <i
+                                class="{{footerYLogoList[3]?.iconoOImgAMostrar}} pe-2"></i></a>{{footerYLogoList[3]?.textoAMostrar}}
+                    </h6>
+                    <!-- mail-->
+                    <h6><i
+                            class="{{footerYLogoList[4]?.iconoOImgAMostrar}} p-2"></i>{{footerYLogoList[4]?.textoAMostrar}}
+                    </h6>
+                    <!-- LISTA PARA PEDIDOS YA Y RAPPI-->
+                    <div class="contact-social" id="footer-social-icons">
                         <ul>
-                            <li><a class="hover-target" href=""><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a class="hover-target" href=""><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a class="hover-target" href=""><i class="fab fa-github"></i></a></li>
-                            <li><a class="hover-target" href=""><i class="fab fa-behance"></i></a></li>
-                            <li><a class="hover-target" href=""><i class="fab fa-pinterest-p"></i></a></li>
+                            <!-- pedidos ya-->
+                            <li>
+                                <a class="hover-target" href="{{ footerYLogoList[8]?.urlAMostrar }}" target="_blank">
+                                    <img src="{{ footerYLogoList[8]?.iconoOImgAMostrar }}" class="img-fluid"
+                                        id="footer-social-icons-1">
+                                </a>
+                            </li>
+                            <!-- rappi-->
+                            <li>
+                                <a class="hover-target" href="{{ footerYLogoList[9]?.urlAMostrar }}" target="_blank">
+                                    <img src="{{ footerYLogoList[9]?.iconoOImgAMostrar }}" class="img-fluid"
+                                        id="footer-social-icons-2">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- LISTA PARA REDES SOCIALES-->
+                    <div class="contact-social">
+                        <h5>Seguinos</h5>
+                        <ul>
+                            <!-- instagram-->
+                            <li>
+                                <a class="hover-target" href="{{footerYLogoList[5]?.urlAMostrar}}" target="_blank">
+                                    <i class="{{footerYLogoList[5]?.iconoOImgAMostrar}}"></i>
+                                </a>
+                            </li>
+                            <!-- facebook-->
+                            <li>
+                                <a class="hover-target" href="{{footerYLogoList[6]?.urlAMostrar}}" target="_blank">
+                                    <i class="{{footerYLogoList[6]?.iconoOImgAMostrar}}"></i>
+                                </a>
+                            </li>
+                            <!-- twitter-->
+                            <li>
+                                <a class="hover-target" href="{{footerYLogoList[7]?.urlAMostrar}}" target="_blank">
+                                    <i class="{{footerYLogoList[7]?.iconoOImgAMostrar}}"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -22,6 +74,7 @@
         </div>
     </div>
 </section>
+
 <!-- =============== 1.9 Contact Area End ====================-->
 <!-- =============== 1.9 Footer Area Start ====================-->
 <footer>

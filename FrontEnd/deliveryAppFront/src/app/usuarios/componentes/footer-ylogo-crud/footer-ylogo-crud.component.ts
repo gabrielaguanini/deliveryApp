@@ -15,7 +15,9 @@ export class FooterYLogoCrudComponent {
 
   idOtrosDatos!: number;
   nombreDatoAMostrar!: string;
-  datoAMostrar!: string;
+  textoAMostrar!: string;
+  urlAMostrar!: string;
+  iconoOImgAMostrar!: string;
 
 
   constructor(private fooYLoServ: FooterYLogoService, private modalService: BsModalService
@@ -46,12 +48,12 @@ export class FooterYLogoCrudComponent {
    //EDITAR PROMOCION/NOVEDAD/CARTELERA PRINCIPAL
   /////////////////////////
 
-  obtenerXId(idOtrosDatos:number, nombreDatoAMostrar:string, datoAMostrar:string):void{
+  obtenerXId(idOtrosDatos:number, nombreDatoAMostrar:string, textoAMostrar:string, urlAMostrar: string, iconoOImgAMostrar: string):void{
     this.idOtrosDatos = idOtrosDatos;
     this.nombreDatoAMostrar = nombreDatoAMostrar;
-    this.datoAMostrar = datoAMostrar;
-
-
+    this.textoAMostrar = textoAMostrar;
+    this.urlAMostrar = urlAMostrar;
+    this.iconoOImgAMostrar = iconoOImgAMostrar;
   };
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -68,18 +70,28 @@ export class FooterYLogoCrudComponent {
       return
     };
 
-    if(this.datoAMostrar === "" || this.datoAMostrar === undefined){
-      alert("No se ingreso un dato para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
+    if(this.textoAMostrar === "" || this.textoAMostrar === undefined){
+      alert("No se ingreso un texto para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
       return
     };
 
-    if(this.datoAMostrar.length > 100 ) {
-      alert("El maximo de caracteres permitidos para el dato es 100.");      
+    if(this.urlAMostrar === "" || this.urlAMostrar === undefined){
+      alert("No se ingreso un direccion web para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
+      return
+    };
+
+    if(this.iconoOImgAMostrar === "" || this.iconoOImgAMostrar === undefined){
+      alert("No se ingreso un icono o imagen para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
+      return
+    };
+
+    if(this.textoAMostrar.length > 60 ) {
+      alert("El maximo de caracteres permitidos para el texto es 60.");      
       return
     };
     
 
-    const footYLogo = new FooterYLogoModel (this.idOtrosDatos, this.nombreDatoAMostrar, this.datoAMostrar)
+    const footYLogo = new FooterYLogoModel (this.idOtrosDatos, this.nombreDatoAMostrar, this.textoAMostrar, this.urlAMostrar, this.iconoOImgAMostrar)
     this.fooYLoServ.actualizarFooYLo(this.idOtrosDatos, footYLogo).subscribe(data => 
       {        
         alert("Footr y logo editados");   
@@ -93,12 +105,12 @@ export class FooterYLogoCrudComponent {
 
 //✮------------------------------------------------------------------------------------------------------------✮
 
-  isImageFormat(datoAMostrar: string): boolean {
-    // Lista de extensiones de imagen válidas
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg'];
-
-    // Verifica si el dato a mostrar contiene alguna de las extensiones de imagen válidas
-    return imageExtensions.some(ext => datoAMostrar.toLowerCase().includes(ext));
+//Funcion para traer img por defecto cuando hay una url a un icono o una imagen
+onImageError(event: Event): void {
+  const imgElement = event.target as HTMLImageElement;
+  imgElement.src = '../assets/fondoblanco.jpg';   //si hay error redirige a una imagen en blanco
+  imgElement.style.opacity = '0'; //deja transparente la img si hay error
+  
 }
 
 }

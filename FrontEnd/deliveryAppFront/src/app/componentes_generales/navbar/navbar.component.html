@@ -1,7 +1,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/homepage">Nombre del Restaurante</a>
+      <a class="navbar-brand" routerLink="/homepage"><img src="{{footYLogModel.iconoOImgAMostrar}}" class="img-fluid w-25 h-25"></a>
       <button class="navbar-toggler" type="button" (click)="toggleCollapse()"
        [attr.aria-expanded]="isExpanded ? 'true' : 'false'" [attr.aria-controls]="'collapseExample'">
         <span class="navbar-toggler-icon"></span>

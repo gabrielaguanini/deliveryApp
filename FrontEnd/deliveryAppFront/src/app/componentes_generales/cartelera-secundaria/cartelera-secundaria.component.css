@@ -1,168 +1,127 @@
-#container-slider-sec {
-  height: 80vh;
-  background-color: #101010;
+.containerAll{
+  background-color: #111;
+}
+
+.slider-section {
+  padding: 3rem 0; /* Ajusta el padding según sea necesario */
+  position: relative; /* Añade posición relativa para alinear el pseudo-elemento */
+  background-image: url("/assets/backgCarSec.jpg");
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: White;
-  font-size: min(30px, max(3.75vw, 25px));
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  overflow-x: hidden;
-  margin-top: 5%;
-
+  color: white; /* Color de texto dentro del área del slider */
 }
 
-label {
-  cursor: pointer;
-}
 
-/* CONTENEDOR PARA CENTRAR */
-.ContainerCenterSec {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 3%;
-}
-
-/* INPUT */
-input {
-  display: none;
-}
-
-/* tamaño de la letra para texto promo */
-#idTextoPromoSecPc {
-  font-size: 23px;
-  color:red
-}
-
-/* tamaño del titulo para promo */
-#idTituloPromoPcSec {
-  font-size: 32px;
-  color:red
-}
-
-/* SLIDER */
-.CarruselsSec {
-  height: 395px;
-  width: 600px;
-  position: relative;
-  overflow-x: hidden;
-  
-}
-
-.CarruselSec {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.slider-container {
   overflow: hidden;
-  transition: all .5s ease;
+  width: min(95vw, 80rem); /* Ancho máximo del slider para pantallas grandes */
+  margin: auto;
+  position: relative;
+  z-index: 0; /* Asegura que el slider esté por debajo del footer */
 }
 
-/* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
-/* Estado 1 */
-#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
-  transform: translate(0%, 0);
-}
-
-#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
-  transform: translate(100%, 0);
-}
-
-#SliderSec1:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
-  transform: translate(200%, 0);
-}
-
-/* Estado 2 */
-#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
-  transform: translate(-100%, 0);
-}
-
-#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
-  transform: translate(0%, 0);
-}
-
-#SliderSec2:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
-  transform: translate(100%, 0);
-}
-
-/* Estado 3 */
-#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(1) {
-  transform: translate(-200%, 0);
-}
-
-#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(2) {
-  transform: translate(-100%, 0);
-}
-
-#SliderSec3:checked~.CarruselsSec .CarruselSec:nth-of-type(3) {
-  transform: translate(0%, 0);
-}
-
-/* FLECHAS */
-.CarruselsSec .ArrowLeft,
-.CarruselsSec .ArrowRight {
-  position: absolute;
-  height: 100%;
-  width: 2em;
+.slider {
+  font-size: 1.5rem;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  display: none;
-  user-select: none;
-  color: transparent;
+  height: 25rem; /* Ajusta la altura del slider según sea necesario */
+  position: relative;
+  overflow: hidden; /* Asegúrate de que el contenido no se desborde */
 }
 
-.CarruselsSec .ArrowLeft {
-  left: 0px;
+.slider:hover .slider-list {
+  animation-play-state: paused;
 }
 
-.CarruselsSec .ArrowRight {
-  right: 0px;
+.slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      to right,
+      #111,
+      transparent 30%,
+      transparent 70%,
+      #111
+  );
+  pointer-events: none;
 }
 
-/* CONFIGURACION DE FLECHAS INDIVIDUALES */
-#SliderSec1:checked~.CarruselsSec .ArrowSec1 {
+.slider-list {
+  --width: 30rem; /* Ajusta el ancho de cada imagen para pantallas grandes */
+  --speed: 40s;
+  margin: 0;
+  padding: 0;
+  position: absolute;
   display: flex;
+  width: calc(3 * var(--width));
+  list-style: none; /* Elimina los marcadores de la lista */
+  padding: 0; /* Asegúrate de que no haya padding adicional */
+  margin: 0; /* Asegúrate de que no haya margen adicional */
+  justify-content: space-between; /* Distribuye el espacio entre las imágenes */
 }
 
-#SliderSec2:checked~.CarruselsSec .ArrowSec2 {
-  display: flex;
+.slider-list > * {
+  flex-grow: 1;
+  text-align: center;
+  width: var(--width);
+  margin-right: 3rem; /* Ajusta el espacio horizontal entre las imágenes */
 }
 
-#SliderSec3:checked~.CarruselsSec .ArrowSec3 {
-  display: flex;
+.slider-list img {
+  max-width: 100%; /* Asegura que las imágenes no se desborden */
+  height: auto; /* Ajusta automáticamente la altura */
+  display: block; /* Elimina el espacio adicional debajo de las imágenes */
+  width: 100%;
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin recortarse */
 }
 
-/* SELECTORES */
-.SelectorsSec {
-  width: 60px;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
+
+
+.slider-list:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último elemento para evitar espacio extra */
 }
 
-.SelectorsSec .SelectorSec {
-  background-color: #FFF;
-  height: 10px;
-  width: 10px;
-  display: block;
-  border-radius: 5px;
+.slider-list:nth-child(1) {
+  animation: slider1 var(--speed) linear infinite;
 }
 
-/* CONDICIONALES PARA BOTÓN INFERIOR */
-#SliderSec1:checked~.SelectorsSec .SelectorSec:nth-of-type(1) {
-  background-color: #999999;
+@keyframes slider1 {
+  0% {
+      transform: translateX(0rem);
+  }
+  50% {
+      transform: translateX(calc(-1 * 3 * var(--width)));
+  }
+  50.01% {
+      transform: translateX(calc(+1 * 3 * var(--width)));
+  }
+  100% {
+      transform: translateX(0rem);
+  }
 }
 
-#SliderSec2:checked~.SelectorsSec .SelectorSec:nth-of-type(2) {
-  background-color: #999999;
+.slider-list:nth-child(2) {
+  animation: slider2 var(--speed) linear infinite;
 }
 
-#SliderSec3:checked~.SelectorsSec .SelectorSec:nth-of-type(3) {
-  background-color: #999999;
+@keyframes slider2 {
+  0% {
+      transform: translateX(calc(+1 * 3 * var(--width)));
+  }
+  100% {
+      transform: translateX(calc(-1 * 3 * var(--width)));
+  }
+}
+
+h3 {
+  font-size:90%;
+}
+
+p {
+  font-size:medium;
+}
+
+.backgroundImages {
+  background-color: rgba(51, 51, 51, 0.7); 
 }

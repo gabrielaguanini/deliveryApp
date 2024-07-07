@@ -1,39 +1,77 @@
-/* formato cartelera principal */ 
-.cardGrandeFooYLo{
-    background-color: #fff;
+/* Cambiar el color de fondo del contenedor */
+body {
+    background-color: #f0f4f8; /* Color de fondo claro */
+}
+
+/* formato cartelera principal */
+.cardGrandeFooYLo {
+    background-color: #adad62;
     border-radius: 10px;
-    border: none;
     position: relative;
     margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    background: linear-gradient(to right, #3C3C3C, rgb(199, 219, 246)) !important;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 
+                0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 
+                0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 
+                0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+  
     color: #fff;
-    border-radius: 10px; 
+    border-radius: 10px;
+}
+
+/* background image */
+#containerBakImg {
+    background: url("/assets/escritorioBackGround.jpg");
+    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen dentro del contenedor */
 }
 
 
-
-/* formato imagen de los modales */ 
+/* formato imagen de los modales */
 .card-icon {
     text-align: center;
     line-height: 50px;
     margin-left: 15px;
     color: #000;
-    position:relative;  
+    position: relative;
     opacity: 0.1;
 }
 
-/* formato de los modales */ 
+/* formato de los modales */
 .modal-menu {
-    background: linear-gradient(to right, #493240, rgb(246, 199, 227)) !important;
+    background: linear-gradient(to right, #adad62, rgb(75, 81, 57)) !important;
     color: #fff;
     border-radius: 10px;
 }
 
-
-/* separa en silabas palabras largas */ 
-p {    
+/* separa en silabas palabras largas */
+p {
     overflow-wrap: break-word;
     hyphens: auto;
-  }
+}
 
+/* clases para las tarjetas */
+.card-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.card-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.card-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.card-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.card-info {
+    background-color: #17a2b8;
+    color: white;
+}

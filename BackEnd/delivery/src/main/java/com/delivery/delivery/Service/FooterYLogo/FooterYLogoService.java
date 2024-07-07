@@ -7,7 +7,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Collections;
+import java.util.Comparator;
 @Service
 @Transactional
 public class FooterYLogoService {
@@ -17,16 +18,25 @@ public class FooterYLogoService {
 
 
 //===================================================================================================
-    /**
-     * Método para obtener una lista de objetos FooterYLogo.
-     *
-     * @return una lista de todos los objetos FooterYLogo en la base de datos.
-     */
-    public List<FooterYLogo> footerYLogoList() {
-        // Llama al método findAll() de iFoYLo para obtener todos los objetos FooterYLogo
-        return iFoYLoRepo.findAll();
-    }
-
+/**
+ * Método para obtener una lista de objetos FooterYLogo ordenada por su id.
+ *
+ * @return una lista de todos los objetos FooterYLogo en la base de datos, ordenada por id.
+ */
+public List<FooterYLogo> footerYLogoList() {
+    // Llama al método findAll() de iFoYLo para obtener todos los objetos FooterYLogo
+    List<FooterYLogo> list = iFoYLoRepo.findAll();
+    
+    // Ordena la lista por id de menor a mayor
+    Collections.sort(list, new Comparator<FooterYLogo>() {
+        @Override
+        public int compare(FooterYLogo o1, FooterYLogo o2) {
+            return o1.getIdOtrosDatos().compareTo(o2.getIdOtrosDatos());
+        }
+    });
+    
+    return list;
+}
 //===================================================================================================
     /**
      * Método para guardar un objeto FooterYLogo en la base de datos.

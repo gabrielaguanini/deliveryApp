@@ -17,17 +17,24 @@ public class FooterYLogo {
 @GeneratedValue(strategy = GenerationType.IDENTITY)     
 private Long idOtrosDatos;
 private String nombreDatoAMostrar;
-private String datoAMostrar;
+private String textoAMostrar;
+private String urlAMostrar;
+private String iconoOImgAMostrar;
 
     public FooterYLogo() {
     }
 
-
-
-    public FooterYLogo(String nombreDatoAMostrar, String datoAMostrar) {
+    public FooterYLogo(String nombreDatoAMostrar, String textoAMostrar, String urlAMostrar, String iconoOImgAMostrar) {
         this.nombreDatoAMostrar = nombreDatoAMostrar;
-        this.datoAMostrar = datoAMostrar;
+        this.textoAMostrar = textoAMostrar;
+        this.urlAMostrar = urlAMostrar;
+        this.iconoOImgAMostrar = iconoOImgAMostrar;
     }
+
+ 
+
+ 
+
 
 
 

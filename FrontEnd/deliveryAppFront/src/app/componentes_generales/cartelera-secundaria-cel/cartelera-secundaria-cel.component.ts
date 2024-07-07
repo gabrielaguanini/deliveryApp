@@ -11,46 +11,24 @@ import { SliderIntervalService } from '../servicios/Slider-interval.service';
 export class CarteleraSecundariaCelComponent {
 
   
-  carteleraSecCel: CarteleraSecundaria[] = [];
+  carteleraSec: CarteleraSecundaria[] = [];
+ 
 
-  idPromoSec!: number;
-  imgParaCelOPc!: string;
-  tituloPromo!: string;
-  textoPromo!: string;
-  colorTexto!: string;
-  urlImagenPromo!: string;
-  fechaPromo!: string;
-  
-    // Variables para controlar el carrusel
-    private intervalId!: number;
-    currentIndexSecCel = 0;
-    intervalCel: any;
-  
-  
   constructor(private cartSecServ: CarteleraSecundariaService, private slidIntServ: SliderIntervalService) { };
-  
+
   ngOnInit(): void {
-    this.listaPromoNovedadSecCel();
-    this.startAutoPlay();
-   };
-
-  
-  listaPromoNovedadSecCel():void {
-    this.cartSecServ.listPromosNovSec().subscribe(data => this.carteleraSecCel = data);
-  };
-  
-  startAutoPlay() {
-    this.intervalId = this.slidIntServ.startInterval(5000, () => {
-      this.currentIndexSecCel = (this.currentIndexSecCel + 1) % 3; // o 4, si es necesario
-    }, 'carteleraslider');
+    this.listaPromoNovedadSec();
+    this.agradSlidDesarrollador();
   };
 
-  stopAutoPlay() {
-    if (this.intervalId !== undefined) {
-      this.slidIntServ.stopInterval('carteleraslider');
-    };
+  listaPromoNovedadSec(): void {
+    this.cartSecServ.listPromosNovSec().subscribe(data => this.carteleraSec = data);
   };
-  
+
+
+  agradSlidDesarrollador(): void{
+    console.log("Slider secundario adaptado del codigo original proporcionado por Script Raccoon. Link a su trabajo en codepen: https://codepen.io/scriptraccoon")
+  };
   
   }
   

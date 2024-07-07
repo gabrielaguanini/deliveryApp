@@ -88,16 +88,19 @@ public class FooterYLogoController {
             // Verifica si footerYLogo es nulo o si alguna de sus propiedades importantes está vacía.
             if (footerYLogo == null
                     || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()
-                    || footerYLogo.getDatoAMostrar() == null || footerYLogo.getDatoAMostrar().isEmpty()) {
+                    || footerYLogo.getTextoAMostrar() == null || footerYLogo.getTextoAMostrar().isEmpty()
+                    || footerYLogo.getUrlAMostrar() == null || footerYLogo.getUrlAMostrar().isEmpty()
+                    || footerYLogo.getIconoOImgAMostrar() == null || footerYLogo.getIconoOImgAMostrar().isEmpty()
+                    ) {
                 // Si footerYLogo es nulo o alguna propiedad importante está vacía, lanza una excepción con un mensaje descriptivo.
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
 
-            // Verifica que los caracteres ingresados para el datoAMostrar no sean mayores a 100
-            if (footerYLogo.getDatoAMostrar().length() > 100) {
+            // Verifica que los caracteres ingresados para el datoAMostrar no sean mayores a 60
+            if (footerYLogo.getTextoAMostrar().length() > 60) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException(new Mensaje("El máximo de caracteres permitidos para el dato a mostrar de la tabla FooterYLogo es 100.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+                throw new MensajeResponseStatusException(new Mensaje("El máximo de caracteres permitidos para el texto del dato a mostrar de la tabla FooterYLogo es 60.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
 
             // Guarda el objeto FooterYLogo en la base de datos
@@ -140,22 +143,27 @@ public class FooterYLogoController {
             // Verifica si footerYLogo es nulo o si alguna de sus propiedades importantes está vacía.
             if (footerYLogo == null
                     || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()
-                    || footerYLogo.getDatoAMostrar() == null || footerYLogo.getDatoAMostrar().isEmpty()) {
+                    || footerYLogo.getTextoAMostrar() == null || footerYLogo.getTextoAMostrar().isEmpty()
+                    || footerYLogo.getUrlAMostrar() == null || footerYLogo.getUrlAMostrar().isEmpty()
+                    || footerYLogo.getIconoOImgAMostrar() == null || footerYLogo.getIconoOImgAMostrar().isEmpty()
+                    ) {
                 // Si footerYLogo es nulo o alguna propiedad importante está vacía, lanza una excepción con un mensaje descriptivo.
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
 
-            // Verifica que los caracteres ingresados para el datoAMostrar no sean mayores a 100.
-            if (footerYLogo.getDatoAMostrar().length() > 100) {
+            // Verifica que los caracteres ingresados para el datoAMostrar no sean mayores a 60.
+            if (footerYLogo.getTextoAMostrar().length() > 60) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException(new Mensaje("El máximo de caracteres permitidos para el dato a mostrar de la tabla FooterYLogo es 100.").getMensaje(), HttpStatus.BAD_REQUEST, null);
+                throw new MensajeResponseStatusException(new Mensaje("El máximo de caracteres permitidos para el texto del dato a mostrar de la tabla FooterYLogo es 60.").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
 
             // Obtiene el objeto FooterYLogo existente por su ID y actualiza sus propiedades.
             FooterYLogo ActualizadoFooterYLogo = fooYLoServ.getOne(idOtrosDatos).get();
             ActualizadoFooterYLogo.setNombreDatoAMostrar(footerYLogo.getNombreDatoAMostrar());
-            ActualizadoFooterYLogo.setDatoAMostrar(footerYLogo.getDatoAMostrar());
+            ActualizadoFooterYLogo.setTextoAMostrar(footerYLogo.getTextoAMostrar());
+            ActualizadoFooterYLogo.setUrlAMostrar(footerYLogo.getUrlAMostrar());
+            ActualizadoFooterYLogo.setIconoOImgAMostrar(footerYLogo.getIconoOImgAMostrar());
 
             // Guarda el objeto actualizado.
             fooYLoServ.guardarFooYLo(ActualizadoFooterYLogo);

@@ -1,183 +1,127 @@
-#container-slider-sec-cel-unique {
-  background-color: #101010;
+.containerAll{
+  background-color: #111;
+}
+
+.slider-section {
+  padding: 1rem 0; /* Ajusta el padding según sea necesario */
+  position: relative; /* Añade posición relativa para alinear el pseudo-elemento */
+  background-image: url("/assets/backgCarSec.jpg");
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: white;
-  font-size: min(30px, max(3.75vw, 25px));
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  overflow-x: hidden;
-  margin-bottom: 5%;
+  color: white; /* Color de texto dentro del área del slider */
 }
 
-.label-sec-cel-unique {
-  cursor: pointer;
-}
 
-/* CONTENEDOR PARA CENTRAR */
-.container-center-sec-cel-unique {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-/* INPUT */
-.input-sec-cel-unique {
-  display: none;
-}
-
-/* SLIDER */
-.carrusels-sec-cel-unique {
-  height: 70vh;
-  width: 50vh;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.carrusel-sec-cel-unique {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.slider-container {
   overflow: hidden;
-  transition: all 0.5s ease;
+  width: min(95vw, 80rem); /* Ancho máximo del slider para pantallas grandes */
+  margin: auto;
+  position: relative;
+  z-index: 0; /* Asegura que el slider esté por debajo del footer */
 }
 
-/* tamaño de la letra para texto promo */
-#texto-promo-sec-cel-unique {
-  font-size: 15px;
-  margin-top: -20px;
-}
-
-/* tamaño del titulo para promo */
-#titulo-promo-sec-cel-unique {
-  font-size: 22px;
-}
-
-/* Estilos para pantallas medianas */
-@media (min-width: 768px) and (max-width: 1023px) {
-  #texto-promo-sec-cel-unique {
-    font-size: 15px;
-    margin-top: -20px;
-  }
-}
-
-/* Estilos para pantallas pequeñas */
-@media (max-width: 767px) {
-  header nav ul li {
-    display: block;
-    margin: 10px 0;
-  }
-
-  main {
-    flex-direction: column;
-  }
-}
-
-/* CONFIGURACION DE ELEMENTOS INDIVIDUALES */
-/* Estado 1 */
-#slider-sec-cel-unique-1:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(1) {
-  transform: translate(0%, 0);
-}
-
-#slider-sec-cel-unique-1:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(2) {
-  transform: translate(100%, 0);
-}
-
-#slider-sec-cel-unique-1:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(3) {
-  transform: translate(200%, 0);
-}
-
-/* Estado 2 */
-#slider-sec-cel-unique-2:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(1) {
-  transform: translate(-100%, 0);
-}
-
-#slider-sec-cel-unique-2:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(2) {
-  transform: translate(0%, 0);
-}
-
-#slider-sec-cel-unique-2:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(3) {
-  transform: translate(100%, 0);
-}
-
-/* Estado 3 */
-#slider-sec-cel-unique-3:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(1) {
-  transform: translate(-200%, 0);
-}
-
-#slider-sec-cel-unique-3:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(2) {
-  transform: translate(-100%, 0);
-}
-
-#slider-sec-cel-unique-3:checked ~ .carrusels-sec-cel-unique .carrusel-sec-cel-unique:nth-of-type(3) {
-  transform: translate(0%, 0);
-}
-
-/* FLECHAS */
-.carrusels-sec-cel-unique .arrow-left-sec-cel-unique,
-.carrusels-sec-cel-unique .arrow-right-sec-cel-unique {
-  position: absolute;
-  height: 100%;
-  width: 2em;
+.slider {
+  font-size: 1.5rem;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  display: none;
-  user-select: none;
-  color: transparent;
+  height: 25rem; /* Ajusta la altura del slider según sea necesario */
+  position: relative;
+  overflow: hidden; /* Asegúrate de que el contenido no se desborde */
 }
 
-.carrusels-sec-cel-unique .arrow-left-sec-cel-unique {
-  left: 0px;
+.slider:hover .slider-list {
+  animation-play-state: paused; /* Pausa la animación al posar el mouse sobre el slider */
 }
 
-.carrusels-sec-cel-unique .arrow-right-sec-cel-unique {
-  right: 0px;
+.slider:hover {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el slider para indicar interactividad */
 }
 
-/* CONFIGURACION DE FLECHAS INDIVIDUALES */
-#slider-sec-cel-unique-1:checked ~ .carrusels-sec-cel-unique .arrow-sec-cel-unique-1 {
+.slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      to right,
+      #111,
+      transparent 30%,
+      transparent 70%,
+      #111
+  );
+  pointer-events: none;
+}
+
+.slider-list {
+  --width: 15rem; /* Ajusta el ancho de cada imagen para pantallas grandes */
+  --speed: 40s;
+  position: absolute;
   display: flex;
+  width: calc(3 * var(--width));
+  list-style: none; /* Elimina los marcadores de la lista */
+  padding: 0; /* Asegúrate de que no haya padding adicional */
+  margin: 0; /* Asegúrate de que no haya margen adicional */
+  justify-content: space-between; /* Distribuye el espacio entre las imágenes */
 }
 
-#slider-sec-cel-unique-2:checked ~ .carrusels-sec-cel-unique .arrow-sec-cel-unique-2 {
-  display: flex;
+.slider-list > * {
+  flex-grow: 1;
+  text-align: center;
+  width: var(--width);
+  margin-right: 3rem; /* Ajusta el espacio horizontal entre las imágenes */
 }
 
-#slider-sec-cel-unique-3:checked ~ .carrusels-sec-cel-unique .arrow-sec-cel-unique-3 {
-  display: flex;
+.slider-list img {
+  max-width: 100%; /* Asegura que las imágenes no se desborden */
+  height: 200px; /* Ajusta automáticamente la altura */
+  display: block; /* Elimina el espacio adicional debajo de las imágenes */
+  width: 100%;
+  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin recortarse */
 }
 
-/* SELECTORES */
-.selectors-sec-cel-unique {
-  width: 60px;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
+.slider-list:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último elemento para evitar espacio extra */
 }
 
-.selectors-sec-cel-unique .selector-sec-cel-unique {
-  background-color: #fff;
-  height: 10px;
-  width: 10px;
-  display: block;
-  border-radius: 5px;
+.slider-list:nth-child(1) {
+  animation: slider1 var(--speed) linear infinite;
 }
 
-/* CONDICIONALES PARA BOTÓN INFERIOR */
-#slider-sec-cel-unique-1:checked ~ .selectors-sec-cel-unique .selector-sec-cel-unique:nth-of-type(1) {
-  background-color: #999999;
+@keyframes slider1 {
+  0% {
+      transform: translateX(0rem);
+  }
+  50% {
+      transform: translateX(calc(-1 * 3 * var(--width)));
+  }
+  50.01% {
+      transform: translateX(calc(+1 * 3 * var(--width)));
+  }
+  100% {
+      transform: translateX(0rem);
+  }
 }
 
-#slider-sec-cel-unique-2:checked ~ .selectors-sec-cel-unique .selector-sec-cel-unique:nth-of-type(2) {
-  background-color: #999999;
+.slider-list:nth-child(2) {
+  animation: slider2 var(--speed) linear infinite;
 }
 
-#slider-sec-cel-unique-3:checked ~ .selectors-sec-cel-unique .selector-sec-cel-unique:nth-of-type(3) {
-  background-color: #999999;
+@keyframes slider2 {
+  0% {
+      transform: translateX(calc(+1 * 3 * var(--width)));
+  }
+  100% {
+      transform: translateX(calc(-1 * 3 * var(--width)));
+  }
+}
+
+h3 {
+  font-size: 80%; /* Tamaño de fuente más pequeño para los títulos */
+}
+
+p {
+  font-size: small; /* Tamaño de fuente más pequeño para el texto */
+}
+
+.backgroundImages {
+  background-color: #333333; /* Color de fondo para el contenedor de imágenes */
 }

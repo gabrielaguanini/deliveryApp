@@ -1,49 +1,31 @@
-<div class="container-fluid pt-2" id="container-slider-sec">
-  <div class="ContainerCenterSec">
-      <!-- Radio Seleccionar -->
-      <input type="radio" name="CarruselSec" id="SliderSec1" [checked]="currentIndexSec === 0">
-      <input type="radio" name="CarruselSec" id="SliderSec2" [checked]="currentIndexSec === 1">
-      <input type="radio" name="CarruselSec" id="SliderSec3" [checked]="currentIndexSec === 2">
-  
-      <div class="CarruselsSec">
-          <!-- Imagen contenido -->
-          <div class="listaCarrousel">
-              <div class="CarruselSec" *ngFor="let Carteleramodel of carteleraSec.slice(0, 3); let i = index" 
-              [style.background-image]="'url(' + Carteleramodel.urlImagenPromo + ')'" style="background-size: cover; 
-              background-position: center;">
-              <div class="CarruselSecTexto">
-                  <p id="idTituloPromoPcSec" class="display-5" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.tituloPromo }}</p>
-                  <br>
-                  <br>
-                  <br>     
-                  <br>
-                  <br>
-                  <br>        
-                  <p id="idTextoPromoSecPc" [style.color]="Carteleramodel.colorTexto">{{ Carteleramodel.textoPromo }}</p>
-              </div>
-              </div>
-          </div>
-          <!-- Flechas a la izquierda por cada imagen: NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE VEN -->
-          <label for="SliderSec3" class="ArrowLeft ArrowSec1">❮</label>
-          <label for="SliderSec1" class="ArrowLeft ArrowSec2">❮</label>
-          <label for="SliderSec2" class="ArrowLeft ArrowSec3">❮</label>
-  
-          <!-- Flechas a la derecha por cada imagen NO SACAR, TRABAJAN CON EL DIV CLASS SELECTOR, PERO NO SE VEN -->
-          <label for="SliderSec2" class="ArrowRight ArrowSec1">❯</label>
-          <label for="SliderSec3" class="ArrowRight ArrowSec2">❯</label>
-          <label for="SliderSec1" class="ArrowRight ArrowSec3">❯</label>
-      </div>
-  
-      <!-- Selector circulos inferiores colgantes -->
-      <div class="SelectorsSec">
-          <label for="SliderSec1" class="SelectorSec"></label>
-          <label for="SliderSec2" class="SelectorSec"></label>
-          <label for="SliderSec3" class="SelectorSec"></label>
-      </div>
-  </div>  
+<div class="containerAll pt-5 pb-5">
+<section class="slider-section">
+    <div class="slider-container">
+        <div class="slider">
+            <ul class="slider-list">
+                <li *ngFor="let item of carteleraSec.slice(0, 3)" class="backgroundImages border border-2 border-secondary-subtle rounded">
+                    <div class="slide-item">
+                        <img [src]="item.urlImagenPromo" class="img-fluid border border-1 border-secondary-subtle">
+                        <div class="promo-content pt-2">
+                            <h3>{{ item.tituloPromo }}</h3>
+                            <p>{{ item.textoPromo }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="slider-list" aria-hidden="true">
+                <li *ngFor="let item of carteleraSec.slice(0, 3)" class="backgroundImages border border-1 border-secondary-subtle rounded">
+                    <div class="slide-item">
+                        <img [src]="item.urlImagenPromo" class="img-fluid border border-1 border-secondary-subtle">
+                        <div class="promo-content">
+                            <h3>{{ item.tituloPromo }}</h3>
+                            <p>{{ item.textoPromo }}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 </div>
-
-
-
-  
 

@@ -11,8 +11,17 @@ img {
             padding: 0;
             list-style: none;
         }
+
+/* color todas las etiquetas <i> y <a> */
+ i, a {
+    color: #8b9199;
+    text-decoration: none;
+ }       
+
+
+
 .contact-area {
-    border-bottom: 1px solid #353C46;
+    border-bottom: 1px solid #353C46; 
 }
 
 .contact-content p {
@@ -64,8 +73,8 @@ img {
 }
 
 .contact-social ul li a:hover {
-    border: 1px solid #FAB702;
-    color: #FAB702;
+    border: 1px solid #c50202;
+    color: #c50202;
 }
 
 .contact-content img {
@@ -85,3 +94,45 @@ footer p {
 footer img {
     width: 44px;
 }
+
+/* formato para img de pedidosya y rappi */
+
+#footer-social-icons-1, #footer-social-icons-2{
+    margin-top: -18px;
+}
+
+#footer-social-icons ul {
+    list-style: none;
+    padding: 0;
+}
+
+#footer-social-icons ul li {
+    display: inline-block;
+    margin-right: 10px; /* Espacio entre elementos li */
+    vertical-align: middle; /* Alinea verticalmente los elementos */
+    text-align: center; /* Centra horizontalmente los elementos */
+}
+
+#footer-social-icons ul li a {
+    display: block; /* Hace que el área de clic sea todo el contenedor a */
+    text-decoration: none;
+    color: #8b9199;
+    border: 1px solid #8b9199;
+    width: 40px; /* Ancho del contenedor a */
+    height: 40px; /* Altura del contenedor a */
+    line-height: 40px; /* Centra verticalmente el contenido */
+}
+
+#footer-social-icons ul li a:hover {
+    border: 1px solid #c50202;
+    color: #c50202;
+}
+
+#footer-social-icons ul li img {
+    max-width: 100%; /* Ajusta el ancho máximo de la imagen al contenedor li */
+    height: auto; /* Mantiene la proporción de la imagen */
+    vertical-align: middle; /* Alinea la imagen verticalmente */
+}
+
+
+
