@@ -2,8 +2,12 @@
 
     <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
 
-    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
-        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end">
+            <a class="btnPanelDeControl" routerLink="/paneldecontrol">
+                <i class="far fa-window-close fa-3x text-secondary"></i>
+            </a>
+        </div>
     </div>
 
     <div class="row">
@@ -14,8 +18,7 @@
             <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerBakImg">
                 <div class="cardGrandeFooYLo border border-secondary border-2 rounded p-4">
                     <div class="mb-1">
-                        <h2 class="card-title pb-3 text-center">PANEL DE CONTROL
-                        </h2>
+                        <h3 class="title col-12 mx-auto">DATOS DEL FOOTER Y LOGO DEL NAVBAR</h3>
                         <hr>
                         <div class="container-fluid">
                             <div class="row justify-content-center">
@@ -122,8 +125,22 @@
                                                 <label for="iconoOImgAMostrar">ICONO O URL A IMAGEN</label>
                                                 <input type="text" class="form-control" id="iconoOImgAMostrar"
                                                     name="iconoOImgAMostrar" [(ngModel)]="iconoOImgAMostrar" required>
+                                                <br>    
+                                               <!-- Contenedor para mostrar la imagen -->
+                                <div class="d-flex justify-content-center">
+                                    <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded" *ngIf="iconoOImgAMostrar" [src]="iconoOImgAMostrar" onerror="this.style.display='none'" alt="Vista Previa de Imagen">
+                                </div>
+                                 <!-- Contenedor para mostrar el ícono -->
+                                 <div class="d-flex justify-content-center">
+                                    <!-- Mostrar el ícono seleccionado o ingresado manualmente -->
+                                    <i *ngIf="iconoOImgAMostrar"
+                                        [class]="iconoOImgAMostrar"
+                                        class="border border-white border-2 rounded p-3 m-3"
+                                        style="font-size: 5rem; color: white;"></i>
+                                </div>
+
+
                                             </div>
-                                            <br>
                                             <div class="row">
                                                 <div class="col-4">
                                                     <button class="btn btn-outline-light" (click)="listaFooteryLogo()">

@@ -1,3 +1,31 @@
+/* formato de los titulos */ 
+.title {
+    padding: 10px 20px;
+    min-width: 300px;
+    text-align: center;
+    position: relative;
+    border: 2px solid rgb(84, 89, 95);
+    z-index: 1;
+    color: #383c40;
+    background-color: #88b0dd;
+  }
+  
+  .title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    top: -3px;
+    left: -3px;
+    background-image: 
+    linear-gradient(135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
+  }
+
+
+
 /* ///////////// TARJETAS PEQUEÑAS /////////////  */ 
 
 .card{
@@ -29,7 +57,12 @@
     position: relative;
     margin-bottom: 30px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    background: linear-gradient(to right, #3C3C3C, rgb(199, 246, 201)) !important;
+    background: linear-gradient(to right, #0666cd, #6d6e70, #F5E1A4) !important;
+
+
+
+
+
     color: #fff;
     border-radius: 10px; 
 }
@@ -89,12 +122,17 @@ p {
 
 /* BACKGROUNDS IMAGES */ 
 
-#btn-group, #bordesCard, 
+#bordesCard, 
 #bordesYBackGrCardGde, #bordesYBackGrCardCartelera, #bordesYBackGrCardCarteleraSec{
-    background: url("/assets/donasBackground.jpg");
+    background: url("/assets/heladosmultitranspa.png");
     background-size:cover;
 }
 
+#btn-group{
+    background-color: #e4d187;
+    background-size:cover
+}
+
 #containerAll{
-    background-color: rgb(250, 228, 189);
+    background-color: #f7f3db;
 }

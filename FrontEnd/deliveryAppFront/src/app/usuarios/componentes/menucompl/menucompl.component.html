@@ -4,8 +4,12 @@
 
     <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
 
-    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
-        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end">
+            <a class="btnPanelDeControl" routerLink="/paneldecontrol">
+                <i class="far fa-window-close fa-3x text-secondary"></i>
+            </a>
+        </div>
     </div>
 
     <!-- TARJETAS  -->
@@ -257,13 +261,19 @@
                                 <input type="text" class="form-control" id="precioPlato" name="precioPlato"
                                     [(ngModel)]="precioPlato" required>
                             </div>
-                            <div class="form-group, col-12 pb-3">
+                            <div class="form-group col-12 pb-3">
                                 <label for="imgPlato">URL A IMAGEN DEL PLATO</label>
                                 <input type="text" class="form-control" id="imgPlato" name="imgPlato"
                                     [(ngModel)]="imgPlato"
                                     title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
                                     required>
+                                <br>
+                                <div class="d-flex justify-content-center">
+                                    <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded"
+                                        *ngIf="imgPlato" [src]="imgPlato" alt="Vista Previa de Imagen">
+                                </div>
                             </div>
+
                             <br>
                             <div class="row">
                                 <div class="col-4">
@@ -278,25 +288,18 @@
                 <br>
             </div>
         </ng-template>
-
-
-
-
-
-
-
-
-
         <!--  //✮------------------------------------------------------------------------------------------------------------✮ -->
         <!-- TARJETAS GENERADAS POR LA ENTIDAD TIPOPLATO -->
 
         <div class="container-fluid">
             <div class="bordesCard border border-secondary border-2 rounded pt-3 ps-3 pe-3 mb-4" id="bordesCard">
                 <div class="row">
-                    <div class="col-md-12 mb-2 text-center">
+                    <h5 class="title col-6 mx-auto">MENU COMPLETO</h5>
+                    <div class="col-md-12 mb-2 text-center pb-2">
+                        <br>
                         <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputsCerrarModalito()"
                             type="button" class="btn btn-secondary btn-sm rounded-pill btn-block">
-                            AGREGAR PLATOOOOO
+                            AGREGAR PLATO
                         </button>
                         <br>
                     </div>
@@ -375,8 +378,14 @@
                                                     [(ngModel)]="imgPlato"
                                                     title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
                                                     required>
+                                                <br>
+                                                <!-- Contenedor para mostrar la imagen -->
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded"
+                                                        *ngIf="imgPlato" [src]="imgPlato" alt="Vista Previa de Imagen">
+                                                </div>
                                             </div>
-                                            <br>
+
                                             <div class="row">
                                                 <div class="col-6">
                                                     <button class="btn btn-outline-light">
@@ -570,12 +579,13 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
                             id="bordesYBackGrCardGde">
-                            <div class="cardGrandeTipoPla p-4">
+                            <div class="cardGrandeTipoPla border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
                                 <div class="card-icon card-icon-large">
                                     <i class=></i>
                                 </div>
                                 <div class="mb-1">
-                                    <h5 class="card-title pb-3 text-center">LISTA TIPO PLATOS</h5>
+                                    <h5 class="title col-6 mx-auto">TIPOS DE PLATOS</h5>
+                                    <hr>
                                     <div class="button-divisor pb-4 text-center">
                                         <button type="button" class="btn btn-outline-light btn-sm"
                                             (click)="openModalAgregarTipoPlato(templateAgregarTipoPlato); borrarInputsCerrarModalito()">
@@ -714,7 +724,7 @@
                                                 name="nombreTipoPlato" [(ngModel)]="nombreTipoPlato" required>
                                         </div>
                                         <div class="form-group col-12 pt-3 pb-3">
-                                            <label for="iconoTipoPlato">SELECCIONE UN ICONO O INGRESE UNO NUEVO
+                                            <label for="iconoTipoPlato">SELECCIONAR UN ICONO O INGRESAR UNO NUEVO
                                                 <a class="custom-link text-white"
                                                     href="https://fontawesome.com/v5/search?o=r&m=free"
                                                     target="_blank"><i class="fa fa-link px-1"></i></a>
@@ -726,16 +736,25 @@
                                                     [ngValue]="listaIconos">
                                                     {{listaIconos}}
                                                 </option>
-                                                <option disabled selected>Seleccionar</option>
                                                 <option value="">Seleccionar un icono</option>
+                                                <option value="">Eliminar Seleccion</option>
+
                                             </select>
                                             <input placeHolder="Ingresar un icono de la url font awesome" type="text"
                                                 class="form-control" id="iconoTipoPlatoParaInput"
                                                 name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
                                                 required>
+                                            <!-- Contenedor para mostrar el ícono -->
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <!-- Mostrar el ícono seleccionado o ingresado manualmente -->
+                                                <i *ngIf="iconoTipoPlato || iconoTipoPlatoParaInput"
+                                                    [class]="iconoTipoPlato || iconoTipoPlatoParaInput "
+                                                    class="border border-white border-2 rounded p-3 m-3"
+                                                    style="font-size: 4rem; color: white;"></i>
+                                            </div>
                                         </div>
                                         <div class="form-group col-12 pt-3 pb-3">
-                                            <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
+                                            <label for="colorCardTipoPlato">SELECCIONAR UN COLOR O INGRESAR UNO NUEVO
                                                 <a class="custom-link text-white"
                                                     href="https://html-color-codes.info/codigos-de-colores-hexadecimales"
                                                     target="_blank"><i class="fa fa-link px-1"></i></a>
@@ -743,17 +762,26 @@
                                             <select class="form-select" id="colorCardTipoPlato"
                                                 name="colorCardTipoPlato" [(ngModel)]="colorCardTipoPlato" required
                                                 (click)="listaColores()">
-                                                <option disabled selected>Seleccionar un color</option>
                                                 <option *ngFor="let listaColores of listaColorTipoPlato"
                                                     [ngValue]="listaColores">
                                                     {{listaColores}}
                                                 </option>
                                                 <option value="">Seleccionar un color</option>
+                                                <option value="">Eliminar seleccion</option>
                                             </select>
                                             <input placeHolder="Ingrese un color en hexadecimal" type="text"
                                                 class="form-control" id="colorCardTipoPlatoParaInput"
                                                 name="colorCardTipoPlatoParaInput"
                                                 [(ngModel)]="colorCardTipoPlatoParaInput" required>
+
+                                            <!-- Mostrar el color seleccionado o ingresado -->
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <div *ngIf="colorCardTipoPlato || colorCardTipoPlatoParaInput"
+                                                    [style.backgroundColor]="colorCardTipoPlato || colorCardTipoPlatoParaInput"
+                                                    class="color-preview rounded border"
+                                                    style="width: 100px; height: 100px;">
+                                                </div>
+                                            </div>
                                         </div>
                                         <br>
                                         <div class="row">
@@ -820,6 +848,14 @@
                                                 class="form-control" id="iconoTipoPlatoParaInput"
                                                 name="iconoTipoPlatoParaInput" [(ngModel)]="iconoTipoPlatoParaInput"
                                                 required>
+                                            <!-- Contenedor para mostrar el ícono -->
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <!-- Mostrar el ícono seleccionado o ingresado manualmente -->
+                                                <i *ngIf="iconoTipoPlato || iconoTipoPlatoParaInput"
+                                                    [class]="iconoTipoPlato || iconoTipoPlatoParaInput "
+                                                    class="border border-white border-2 rounded p-3 m-3"
+                                                    style="font-size: 4rem; color: white;"></i>
+                                            </div>
                                         </div>
                                         <div class="form-group col-12 pt-3 pb-3">
                                             <label for="colorCardTipoPlato">SELECCIONE UN COLOR O INGRESE UNO NUEVO
@@ -842,6 +878,14 @@
                                                 class="form-control" id="colorCardTipoPlatoParaInput"
                                                 name="colorCardTipoPlatoParaInput"
                                                 [(ngModel)]="colorCardTipoPlatoParaInput" required>
+                                            <!-- Mostrar el color seleccionado o ingresado -->
+                                            <div class="d-flex justify-content-center mt-3">
+                                                <div *ngIf="colorCardTipoPlato || colorCardTipoPlatoParaInput"
+                                                    [style.backgroundColor]="colorCardTipoPlato || colorCardTipoPlatoParaInput"
+                                                    class="color-preview rounded border"
+                                                    style="width: 100px; height: 100px;">
+                                                </div>
+                                            </div>
                                         </div>
                                         <br>
                                         <div class="row">

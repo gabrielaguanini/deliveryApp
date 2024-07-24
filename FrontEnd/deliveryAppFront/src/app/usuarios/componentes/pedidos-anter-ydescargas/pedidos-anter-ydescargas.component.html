@@ -3,8 +3,12 @@
 
     <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
 
-    <div class="row btnPanelDeControl justify-content-end" routerLink="/paneldecontrol">
-        <i class="far fa-window-close col-1 fa-3x text-secondary p-2"></i>
+    <div class="container-fluid">
+        <div class="d-flex justify-content-end">
+            <a class="btnPanelDeControl" routerLink="/paneldecontrol">
+                <i class="far fa-window-close fa-3x text-secondary"></i>
+            </a>
+        </div>
     </div>
 
     <div class="border border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
@@ -60,18 +64,20 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4
                          bordesYBackGrCardGdepPedAnteriores">
-                        <div class="divPediAnter p-2">
+                        <div class="divPediAnter border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
 
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <h5 class="card-title pb-3 text-center">PEDIDOS POR FECHA</h5>
+                                    <h6 class="title col-6 mx-auto">BUSCAR PEDIDOS POR FECHA</h6>
+                                    <hr>
+
                                     <!-- boton abrir modalitoPedidosXFecha-->
-                                    <button class="btn btn-outline-light btn-md" title="Buscar" (click)="mostrarOcultarModalitoPedidosXFecha(); 
+                                    <button class="btn btn-outline-light btn-md" title="Buscar pedidos por fecha" (click)="mostrarOcultarModalitoPedidosXFecha(); 
                                      modalitoPedidosXId = false;
                                      modalitoEditPedid = false;
                                      modalitoAgrDetPed = false;
                                      listaPedXFechaVacia()" type="button">
-                                        <i class="fas fa-search"></i>
+                                        Buscar <i class="fas fa-search"></i>
                                     </button>
                                     <br>
                                     <br>
@@ -83,7 +89,7 @@
                                     class="formPedidosXFecha">
                                     <!-- buscar pedidos por fecha-->
                                     <div class="row d-flex justify-content-center">
-                                        <h5 class="card-title pb-3 text-center"><small>Ingrese una fecha</small></h5>
+                                        <h5 class="card-title pb-3 text-center"><small>Ingresar una fecha</small></h5>
                                         <br>
                                         <div class="col-md-4">
                                             <div class="input-group">
@@ -458,20 +464,6 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- FORMULARIO AGREGAR PLATO O DETALLES PEDIDO -->
 
         <div class="container-fluid">
@@ -545,19 +537,20 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4
                          bordesYBackGrCardGdepPedXId">
-                        <div class="divPedixId p-2">
+                        <div class="divPedixId border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
 
                             <div class="row">
                                 <div class="col-12 text-center">
-                                    <h5 class="card-title pb-3 text-center">PEDIDOS POR ID</h5>
+                                    <h6 class="title col-6 mx-auto">BUSCAR POR NUMERO DE PEDIDO</h6>
+                                    <hr>
                                     <!-- boton abrir modalitoPedidosXId-->
-                                    <button class="btn btn-outline-light btn-md" title="AGREGAR PEDIDO" (click)="mostrarOcultarModalitoPedidosXId();
+                                    <button class="btn btn-outline-light btn-md" title="Buscar por id o numero de pedido" (click)="mostrarOcultarModalitoPedidosXId();
                                     fechaPredeterminda();
                                      pedidosXIdVacio(); 
                                      modalitoPedidosXFecha = false;
                                      modalitoEditPedid = false;
                                      modalitoAgrDetPed = false;" type="button">
-                                        <i class="fas fa-search"></i>
+                                      Buscar <i class="fas fa-search"></i>
                                     </button>
                                     <br>
                                     <br>
@@ -568,7 +561,7 @@
                                     class="formPedidosXid">
                                     <!-- buscar pedidos por id-->
                                     <div class="row d-flex justify-content-center">
-                                        <h5 class="card-title pb-3 text-center"><small>Ingrese un ID</small></h5>
+                                        <h5 class="card-title pb-3 text-center"><small>Ingresar un N° de pedido o ID</small></h5>
                                         <br>
                                         <div class="col-md-4">
                                             <div class="input-group">

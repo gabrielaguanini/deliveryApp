@@ -2,6 +2,33 @@
     background-color: rgb(249, 232, 226);
 }
 
+/* formato de los titulos */ 
+.title {
+    padding: 10px 20px;
+    min-width: 300px;
+    text-align: center;
+    position: relative;
+    border: 2px solid #4e364a;
+    z-index: 1;
+    color: white;
+    background-color: #997b7f;
+  }
+  
+  .title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    top: -3px;
+    left: -3px;
+    background-image: 
+    linear-gradient(135deg, #4e364a 0, #4e364a 20px, transparent 20px, transparent 100%),
+    linear-gradient(-135deg, #4e364a 0, #4e364a 20px, transparent 20px, transparent 100%),
+    linear-gradient(-45deg, #4e364a 0, #4e364a 20px, transparent 20px, transparent 100%),
+    linear-gradient(45deg, #4e364a 0, #4e364a 20px, transparent 20px, transparent 100%);
+  }
+
+
 /* formato de los modales */ 
 .modal-menu {
     background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
@@ -9,15 +36,15 @@
     border-radius: 10px;
 }
 
-#btn-group {
-    background: url("/assets/donasBackground3.jpg");
-    background-size:contain;
-    
+#btn-group{
+    background-color: #f0e6be;
+    background-size:cover
 }
 
 
+
  .bordesYBackGrCardGdepPedAnteriores, .bordesYBackGrCardGdepPedXId, #bordesYBackGrLisPedEdit, .borderFormAgPed {
-    background: url("/assets/donasBackgroundMulti.jpg");
+    background: url("/assets/donasBackgroundMultiMAS.jpg");
     background-size:cover;
     
 }

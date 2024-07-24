@@ -1,3 +1,29 @@
+/* formato de los titulos */ 
+.title {
+    padding: 10px 20px;
+    min-width: 300px;
+    text-align: center;
+    position: relative;
+    border: 2px solid rgb(84, 89, 95);
+    z-index: 1;
+    color: #54595f;
+  }
+  
+  .title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    top: -3px;
+    left: -3px;
+    background-image: 
+    linear-gradient(135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
+  }
+
+
 /* Cambiar el color de fondo del contenedor */
 body {
     background-color: #f0f4f8; /* Color de fondo claro */

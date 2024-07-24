@@ -117,6 +117,8 @@ export class MenucomplComponent {
   urlImagenPromo!: string;
   fechaPromo!: string;
 
+  
+
  //EDITAR PROMO/NOVEDAD/CARTELERA
 /////////////////////////////////
 
