@@ -4,6 +4,7 @@
 *agregar @param a los repo en donde falten, ver otras medidas de seguridad a tomar, sobre todo por las consultas sql nativas
 * ver poder modificar para confirmación del pedido, en lugar de true o false, que muestre si o no
 * SI O SI EJECUTAR npm audit fix Y CORREGIR LAS VULNERABILIDADES QUE MARCA
+* agrgar botón para volver al panel de control en homepage cuando tenga la capa de seguridad de usuarios, este debe mostrarse solo a usuarios logueados.
 
 +++ VER SI ESAN BIEN LAS VALIDACIONES DEL FRONT PARA CARTELERA SECUNDARIA PARA LA CANTIDAD DE CARACTERES QUE ACEPTA TEXTO PROMO SEC O TITULO PROMO SEC
 

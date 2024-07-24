@@ -30,10 +30,19 @@
                             <p class="col-6 border border-danger rounded-pill p-2 mb-4">
                                 {{PlatosAMostrar.platos.nombrePlato}}</p>
                         </strong>
-                        <!-- Imagen del plato -->
-                        <div class="col-lg-6 col-md-12 imgPlato">
-                            <img class="img-fluid border border-info rounded w-100 h-100" src="{{PlatosAMostrar.platos.imgPlato}}">
-                        </div>
+<!-- Imagen del plato -->
+<div class="col-lg-6 col-md-12">
+    <div class="image-container" style="background-image: url('{{PlatosAMostrar.platos.imgPlato}}')">
+        <img class="img-fluid" src="{{PlatosAMostrar.platos.imgPlato}}" alt="Plato">
+    </div>
+</div>
+
+
+
+
+
+
+
                         <!-- Descripción -->
                         <div class="col-lg-6 col-md-12 text-center divDescrpPla">
                             <p class="justify-content-center">{{PlatosAMostrar.descripcionPlatoAMostrar}}</p>
@@ -84,7 +93,7 @@
                                                 [disabled]="disabledInpSelPla"
                                                 class="form-check-input text-center border border-1 rounded-2 bg-transparent p-3"
                                                 id="chekSelPed"
-                                                (change)="agregarPorcionesPlaSeleccionandoChekBox(i); chekBoxSeleccion(i); getListaDatosClienteAntesEnvio()"
+                                                (change)="agregarPorcionesPlaSeleccionandoChekBox(i); chekBoxSeleccion(i); getListaDatosClienteAntesEnvio(); totalPedMayCe()"
                                                 title="Click para seleccionar">
                                         </div>
                                     </div>
@@ -109,7 +118,7 @@
 
         <!-- Muestra el total del pedido para control del cliente -->
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" *ngIf="totalPedMayCerp">
             <div class="col-4 alert alert-warning mx-auto" role="alert">
                 <h5 class="text-center">Total pedido $: {{ calcularTotalPedido() }}</h5>
             </div>

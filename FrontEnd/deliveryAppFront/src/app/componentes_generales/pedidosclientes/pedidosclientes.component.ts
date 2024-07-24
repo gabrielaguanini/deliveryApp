@@ -48,6 +48,8 @@ export class PedidosclientesComponent {
 
   chekBoxSelcPlat: boolean = false;
 
+  totalPedMayCerp: boolean = false;
+
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
   //⋅•⋅⊰∙∘☽= MODALITOS NGIF =☾∘∙⊱⋅•⋅
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
@@ -115,6 +117,7 @@ export class PedidosclientesComponent {
   ngOnInit(): void {
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
     this.inicBtnTextAgrePed(); // Inicializa todos los botones "agregar al pedido" en estado de true o con el texto "Agregar al pedido"
+    
   };
 
 //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
@@ -822,6 +825,15 @@ export class PedidosclientesComponent {
       console.error('Error al intentar hacer scroll:', error);
     }
   };
+
+  totalPedMayCe() {
+     if(this.calcularTotalPedido() > 0) {
+      this.totalPedMayCerp = true;
+     };
+     if(this.calcularTotalPedido() == 0) {
+      this.totalPedMayCerp = false;
+     };
+  }
 
 
   //para ejecutar funcione al hacer scroll en pc o en pantallas tactiles. La annotation @HostListener capta el evento scroll

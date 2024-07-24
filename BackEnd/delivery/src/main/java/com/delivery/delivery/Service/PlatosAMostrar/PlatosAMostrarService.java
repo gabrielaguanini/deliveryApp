@@ -1,6 +1,5 @@
 package com.delivery.delivery.Service.PlatosAMostrar;
 
-import com.delivery.delivery.Entity.Platos.TipoPlato;
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
@@ -23,8 +22,6 @@ public class PlatosAMostrarService {
     @Autowired
     IPlatosAMostrarRepository iPlatosAMostrarRepo;
 
-    @Autowired
-    IPlatosRepository iPlaRep;
 
     private static final Logger logger = LoggerFactory.getLogger(PlatosAMostrarService.class);
 
@@ -32,10 +29,14 @@ public class PlatosAMostrarService {
      * Recupera una lista de todos los platos a mostrar almacenados en la base
      * de datos, ordenados de la siguiente manera:
      *
-     * 1. Resto de platos: Todos los platos de la base de datos que no son ni
-     * POSTRES ni BEBIDAS, ordenados por ID de plato. 2. POSTRES: Todos los
-     * platos con tipo de plato "POSTRES" ordenados por ID de plato. 3. BEBIDAS:
-     * Todos los platos con tipo de plato "BEBIDAS" ordenados por ID de plato.
+     * 1. PROMOCIONES: Todos los platos cuyo nombreTipoPlato responda a PROMOCIONES
+     * ordenados por ID de plato. 
+     * 2. Resto de platos: Todos los platos de la base de datos que no son ni
+     * POSTRES ni BEBIDAS ni PROMOCIONES, ordenados por ID de plato. 
+     * 3. MERIENDAS: Todos los platos con nombreTipoPlato "MERIENDAS" ordenados por ID de plato.
+     * 4. DESAYUNO: Todos los platos con nombreTipoPlato "DESAYUNO" ordenados por ID de plato.
+     * 2. POSTRES: Todos los platos con nombreTipoPlato "POSTRES" ordenados por ID de plato. 
+     * 3. BEBIDAS: Todos los platos con nombreTipoPlato "BEBIDAS" ordenados por ID de plato.
      *
      * @return Una lista ordenada de platos a mostrar.
      * @throws DataAccessException Si se produce algún error al acceder a la
@@ -48,6 +49,7 @@ public class PlatosAMostrarService {
                 .filter(platoAMostrar
                         -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("BEBIDAS")
                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("BEBIDA")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("bebida")
                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Bebidas"))
                 .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
                 .collect(Collectors.toList());
@@ -57,19 +59,70 @@ public class PlatosAMostrarService {
                 .filter(platoAMostrar
                         -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("POSTRES")
                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("POSTRE")
-                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Postres"))
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("postre")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Postres")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Postre"))
                 .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
-                .collect(Collectors.toList());
-
+                .collect(Collectors.toList());        
+        
+        
+              //Filtra y ordena en la lista platosPostres las PROMOCIONES a los efectos de ubicar sus elementos al principio de la lista platosAMostrarOrdenados
+        List<PlatosAMostrar> platosPromos = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar
+                        -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("PROMOCION")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("PROMOCIÓN")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Promocion")
+                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Promoción")
+                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Promo")
+                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("PROMO")
+                 || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("promo")
+                )
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
+                .collect(Collectors.toList());  
+        
+        
+        //Filtra y ordena en la lista platosMeriendas las MERIENDAS a los efectos de ubicar sus elementos al final de la lista platosAMostrarOrdenados
+        List<PlatosAMostrar> platosMerienda = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar
+                        -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("MERIENDAS")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Meriendas")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Merienda")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("merienda")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("MERIENDA")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("meriendas"))
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
+                .collect(Collectors.toList());  
+        
+                //Filtra y ordena en la lista platosDesayuno los DESAYUNOS a los efectos de ubicar sus elementos al final de la lista platosAMostrarOrdenados
+        List<PlatosAMostrar> platosDesayuno = iPlatosAMostrarRepo.findAll().stream()
+                .filter(platoAMostrar
+                        -> platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("DESAYUNO")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Desayuno")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("desayuno")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("DESAYUNOS")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("Desayunos")
+                || platoAMostrar.getPlatos().getTipoPlato().getNombreTipoPlato().equals("desayunos"))
+                .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
+                .collect(Collectors.toList());    
+        
+        
         //Filtra y ordena los elementos restantos de la lista de platos a mostrar
         List<PlatosAMostrar> platosResto = iPlatosAMostrarRepo.findAll().stream()
-                .filter(platoAMostrar -> !platosBebidas.contains(platoAMostrar) && !platosPostres.contains(platoAMostrar))
+                .filter(platoAMostrar -> !platosBebidas.contains(platoAMostrar) 
+                        && !platosPostres.contains(platoAMostrar)
+                        && !platosPromos.contains(platoAMostrar)
+                        && !platosMerienda.contains(platoAMostrar)
+                        && !platosDesayuno.contains(platoAMostrar)
+                )
                 .sorted(Comparator.comparing(platoAMostrar -> platoAMostrar.getPlatos().getIdPlato()))
                 .collect(Collectors.toList());
 
         // Combina las listas en el orden deseado, es decir BEBIDAS y POSTRES al final
         List<PlatosAMostrar> platosAMostrarOrdenados = new ArrayList<>();
+        platosAMostrarOrdenados.addAll(platosPromos);
         platosAMostrarOrdenados.addAll(platosResto);
+        platosAMostrarOrdenados.addAll(platosDesayuno);
+        platosAMostrarOrdenados.addAll(platosMerienda);
         platosAMostrarOrdenados.addAll(platosPostres);
         platosAMostrarOrdenados.addAll(platosBebidas);
 

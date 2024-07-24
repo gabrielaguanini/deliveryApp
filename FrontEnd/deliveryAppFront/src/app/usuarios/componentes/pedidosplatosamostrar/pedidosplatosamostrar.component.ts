@@ -79,7 +79,10 @@ export class PedidosplatosamostrarComponent {
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPlatosDelPedido: string[] = [];
   detallesPedidosAcotada: DetallePedidosAcotadaModel[] = [];
-  listaPeConfTrueFalse: Boolean[] = [true, false];
+  listaPeConfTrueFalse = [
+    { value: true, label: 'CONFIRMADO' },
+    { value: false, label: 'NO CONFIRMADO' }
+  ];
   listaPlatosCompleta: MenuCompletoModel[] = [];
 
 
@@ -112,6 +115,7 @@ export class PedidosplatosamostrarComponent {
   listaPlatosDelPedidoCli!: string;
   importeTotalPedido!: number;
   pedidoConfirmado: boolean = false;
+  pedidoConfirAVerdOFal!: string;
 
 
 
@@ -273,6 +277,7 @@ export class PedidosplatosamostrarComponent {
         if(this.pedidosDeHoyList.length > 0 ){
           console.log("Lista de platos del día o fecha actual recibida");
         };  
+        this.pedidoConfiAVerdOFalso();
       
       },
       err => {     
@@ -1136,8 +1141,13 @@ export class PedidosplatosamostrarComponent {
 
     this.listaPlatosCompleta = [];
 
+    
+
   };
 
+  pedidoConfiAVerdOFalso(): void {
+    this.pedidoConfirAVerdOFal = this.pedidoConfirmado ? "CONFIRMADO" : "NO CONFIRMADO";
+  };
 
   // Evita que se ingresen numeros o porciones manualmente en el input
   handleKeydown(event: KeyboardEvent): void {

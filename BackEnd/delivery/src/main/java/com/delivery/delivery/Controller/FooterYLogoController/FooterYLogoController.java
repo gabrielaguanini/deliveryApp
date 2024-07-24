@@ -143,9 +143,7 @@ public class FooterYLogoController {
             // Verifica si footerYLogo es nulo o si alguna de sus propiedades importantes está vacía.
             if (footerYLogo == null
                     || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()
-                    || footerYLogo.getTextoAMostrar() == null || footerYLogo.getTextoAMostrar().isEmpty()
-                    || footerYLogo.getUrlAMostrar() == null || footerYLogo.getUrlAMostrar().isEmpty()
-                    || footerYLogo.getIconoOImgAMostrar() == null || footerYLogo.getIconoOImgAMostrar().isEmpty()
+
                     ) {
                 // Si footerYLogo es nulo o alguna propiedad importante está vacía, lanza una excepción con un mensaje descriptivo.
                 logger.info(HttpStatus.BAD_REQUEST.toString());

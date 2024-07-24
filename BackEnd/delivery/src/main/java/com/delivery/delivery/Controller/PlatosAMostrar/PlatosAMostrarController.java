@@ -106,7 +106,7 @@ public class PlatosAMostrarController {
     @PostMapping("/guardarplatoamostrar")
     public ResponseEntity<?> guardarPlatoAMos(@RequestBody PlatosAMostrar platosAMostrar) {
         try {
-            // Verifica si el plato a mostrar ya existe en la tabla de platos a mostrar
+             // Verifica si el plato a mostrar ya existe en la tabla de platos a mostrar
             if (plaMosServ.existsByIdPlato(platosAMostrar.getPlatos().getIdPlato())) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El plato seleccionado ya se encuentra en Platos a Mostrar").getMensaje(), HttpStatus.BAD_REQUEST, null);

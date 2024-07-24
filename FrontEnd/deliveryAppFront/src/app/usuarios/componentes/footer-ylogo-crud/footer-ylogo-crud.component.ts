@@ -70,20 +70,7 @@ export class FooterYLogoCrudComponent {
       return
     };
 
-    if(this.textoAMostrar === "" || this.textoAMostrar === undefined){
-      alert("No se ingreso un texto para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
-      return
-    };
-
-    if(this.urlAMostrar === "" || this.urlAMostrar === undefined){
-      alert("No se ingreso un direccion web para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
-      return
-    };
-
-    if(this.iconoOImgAMostrar === "" || this.iconoOImgAMostrar === undefined){
-      alert("No se ingreso un icono o imagen para el registro de la tabla FooterYLogo. Ingrese uno para continuar.");
-      return
-    };
+   
 
     if(this.textoAMostrar.length > 60 ) {
       alert("El maximo de caracteres permitidos para el texto es 60.");      

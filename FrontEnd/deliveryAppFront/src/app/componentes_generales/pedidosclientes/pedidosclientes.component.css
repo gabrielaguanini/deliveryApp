@@ -18,6 +18,48 @@
     aspect-ratio: 1 / 1; /* Relación de aspecto cuadrada */
 }
 
+/* Contenedor de imagen */
+.image-container {
+    
+    background-size: 70px; /* tamaño imagen del background */
+    background-repeat: repeat; /* repite la imagen para que quede como tapiz */
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Mantiene una proporción cuadrada */
+    overflow: hidden;
+    border: 1px solid #17a2b8; /* Borde alrededor del contenedor */
+    border-radius: 0.25rem; /* Esquinas redondeadas para el contenedor */
+    background-color: transparent; /* Fondo del contenedor transparente */
+}
+
+/* Estilo del pseudo-elemento para la imagen de fondo como tapiz */
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* Asegura que la imagen cubra el contenedor */
+    background-color: rgba(0, 0, 0, 0.7); /* Color negro con opacidad para el tapiz */
+    z-index: 0; /* Coloca el fondo debajo del contenido principal */
+}
+
+/* Imagen dentro del contenedor */
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta la imagen para que se muestre completa */
+    object-position: center; /* Centra la imagen dentro del contenedor */
+    border-radius: 0.25rem; /* Esquinas redondeadas para la imagen */
+    z-index: 1; /* Coloca la imagen principal sobre el fondo */
+}
+
+
+
 .textoBtnAgOCe{
     margin-bottom: 1%;
 }

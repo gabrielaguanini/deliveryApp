@@ -348,7 +348,12 @@
                                                     <p class="text-justify">{{DetallePedidosHoy.idPedido}}</p>
                                                 </td>
                                                 <td class="text-center" scope="col">
-                                                    <p class="text-justify">{{DetallePedidosHoy.pedidoConfirmado}}</p>
+                                                    <p class="text-justify">{{ DetallePedidosHoy.pedidoConfirmado ? 'CONFIRMADO' : 'NO CONFIRMADO' }}</p>
+                                                    <button type="button" class="btn btn-outline-light" (click)="openModalEditarPedidos(templateEditarPedido); 
+                                                    obtPedidoXId(DetallePedidosHoy.idPedido, DetallePedidosHoy.fecha, DetallePedidosHoy.hora, 
+                                                    DetallePedidosHoy.nombreCliente, DetallePedidosHoy.telefonoCliente, 
+                                                    DetallePedidosHoy.direccionCliente, DetallePedidosHoy.localidadCliente, 
+                                                    DetallePedidosHoy.listaPlatosDelPedido, DetallePedidosHoy.importeTotalPedido, DetallePedidosHoy.pedidoConfirmado?? false)"><i class="fas fa-sync"></i></button>  
                                                 </td>
                                                 <td class="text-center" scope="col">
                                                     <p class="text-justify">{{DetallePedidosHoy.fecha}}</p>
@@ -487,26 +492,6 @@
                             </form>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
 
@@ -534,11 +519,9 @@
                                         </div>
                                         <div class="form-group col-12 pb-3">
                                             <label for="pedidoConfirmado">PEDIDO CONFIRMADO</label>
-                                            <select class="form-select" [(ngModel)]="pedidoConfirmado"
-                                                name="pedidoConfirmado" required>
-                                                <option *ngFor="let trueOFalse of listaPeConfTrueFalse"
-                                                    [value]="trueOFalse">
-                                                    {{ trueOFalse}}
+                                            <select class="form-select" [(ngModel)]="pedidoConfirmado" name="pedidoConfirmado" required>
+                                                <option *ngFor="let option of listaPeConfTrueFalse" [ngValue]="option.value">
+                                                    {{ option.label }}
                                                 </option>
                                             </select>
                                         </div>

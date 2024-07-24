@@ -2,26 +2,29 @@ img {
     max-width: 100%;
     height: auto;
 }
-        section {
-            padding: 60px 0;
-           /* min-height: 100vh;*/
-        }
- ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+
+section {
+    padding: 60px 0;
+    /* min-height: 100vh;*/
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
 /* color todas las etiquetas <i> y <a> */
- i, a {
+i,
+a {
     color: #8b9199;
     text-decoration: none;
- }       
+}
 
 
 
 .contact-area {
-    border-bottom: 1px solid #353C46; 
+    border-bottom: 1px solid #353C46;
 }
 
 .contact-content p {
@@ -57,13 +60,11 @@ img {
     margin-top: 30px;
 }
 
-.contact-social > ul {
+.contact-social>ul {
     display: inline-flex;
 }
 
 .contact-social ul li a {
-    border: 1px solid #8b9199;
-    color: #8b9199;
     display: inline-block;
     height: 40px;
     margin: 0 10px;
@@ -72,16 +73,13 @@ img {
     width: 40px;
 }
 
-.contact-social ul li a:hover {
-    border: 1px solid #c50202;
-    color: #c50202;
-}
 
 .contact-content img {
     max-width: 210px;
 }
 
-section, footer {
+section,
+footer {
     background: #1A1E25;
     color: #868c96;
 }
@@ -97,7 +95,8 @@ footer img {
 
 /* formato para img de pedidosya y rappi */
 
-#footer-social-icons-1, #footer-social-icons-2{
+#footer-social-icons-1,
+#footer-social-icons-2 {
     margin-top: -18px;
 }
 
@@ -108,31 +107,46 @@ footer img {
 
 #footer-social-icons ul li {
     display: inline-block;
-    margin-right: 10px; /* Espacio entre elementos li */
-    vertical-align: middle; /* Alinea verticalmente los elementos */
-    text-align: center; /* Centra horizontalmente los elementos */
+    margin-right: 10px;
+    /* Espacio entre elementos li */
+    vertical-align: middle;
+    /* Alinea verticalmente los elementos */
+    text-align: center;
+    /* Centra horizontalmente los elementos */
 }
 
 #footer-social-icons ul li a {
-    display: block; /* Hace que el área de clic sea todo el contenedor a */
+    display: block;
+    /* Hace que el área de clic sea todo el contenedor a */
     text-decoration: none;
-    color: #8b9199;
-    border: 1px solid #8b9199;
-    width: 40px; /* Ancho del contenedor a */
-    height: 40px; /* Altura del contenedor a */
-    line-height: 40px; /* Centra verticalmente el contenido */
+    width: 40px;
+    /* Ancho del contenedor a */
+    height: 40px;
+    /* Altura del contenedor a */
+    line-height: 40px;
+    /* Centra verticalmente el contenido */
 }
 
-#footer-social-icons ul li a:hover {
-    border: 1px solid #c50202;
-    color: #c50202;
-}
 
 #footer-social-icons ul li img {
-    max-width: 100%; /* Ajusta el ancho máximo de la imagen al contenedor li */
-    height: auto; /* Mantiene la proporción de la imagen */
-    vertical-align: middle; /* Alinea la imagen verticalmente */
+    max-width: 100%;
+    /* Ajusta el ancho máximo de la imagen al contenedor li */
+    height: auto;
+    /* Mantiene la proporción de la imagen */
+    vertical-align: middle;
+    /* Alinea la imagen verticalmente */
 }
 
+/* bordes de iconos de redes e imagenes pedidos ya y rappi */
 
+#icono1,
+#icono2,
+#icono3 {
+    border: 1px solid #8b9199;
+}
 
+#footer-social-icons-1,
+#footer-social-icons-2 {
+    border: 1px solid #8b9199;
+    /* Hace que el área de clic sea todo el contenedor a */
+}
