@@ -153,6 +153,9 @@ export class PedidosplatosamostrarComponent {
   botonDisplayNoneDatosEnvio: string = "none";
   botonDisplayNoneGuardEdiDatEnv: string = "none";
   mensajePedEnviadoDB: string = "";
+ 
+  mensajeLisPedDiaVacio: String = "";
+  mensajeLisPlaMosVacio: String = "";
 
 
 
@@ -180,7 +183,7 @@ export class PedidosplatosamostrarComponent {
   ////////////////////////////
 
   openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar: TemplateRef<any>) {
-    this.modalAgregarPlatosAMos = this.modalService.show(templateAgregarPlatoAMostrar, { backdrop: 'static' })
+    this.modalAgregarPlatosAMos = this.modalService.show(templateAgregarPlatoAMostrar, { backdrop: 'static', class:'modal-lg' })
   };
 
 
@@ -254,7 +257,14 @@ export class PedidosplatosamostrarComponent {
         if (data.length > 0) {
           this.platosAMostrarList = data;
           console.log("Lista de platos a mostrar recibida. ");
-        }
+          this.mensajeLisPlaMosVacio = "";
+        };
+        if (data.length < 1) {
+          this.platosAMostrarList = data;
+          console.log("Lista de platos a mostrar vacia. ");
+          this.mensajeLisPlaMosVacio = "Lista de platos a mostrar en la pagina web vacia";
+          
+        };
       },
       err => {
         console.log("Msj. Serv.: " + err.error.message);
@@ -273,9 +283,11 @@ export class PedidosplatosamostrarComponent {
         this.pedidosDeHoyList = data;
         if( this.pedidosDeHoyList.length < 1){
           console.log("La lista de pedidos de hoy no contiene registros. ")
+          this.mensajeLisPedDiaVacio = "Sin pedidos hasta el momento"
         };
         if(this.pedidosDeHoyList.length > 0 ){
           console.log("Lista de platos del día o fecha actual recibida");
+          this.mensajeLisPedDiaVacio = ""
         };  
         this.pedidoConfiAVerdOFalso();
       

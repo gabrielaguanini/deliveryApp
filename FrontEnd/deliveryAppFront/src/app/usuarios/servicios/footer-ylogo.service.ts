@@ -16,6 +16,14 @@ export class FooterYLogoService {
     return this.httpClient.get<FooterYLogoModel[]>(this.URL + 'listafooterylogo');
   };
 
+  public listaFooterYLogoxId(ids: number[]): Observable<FooterYLogoModel[]> {
+   
+    // Convierte la lista de IDs en una cadena separada por comas para incluir en la URL
+    const idsParam = ids.join(',');
+    // Realiza la solicitud GET a la API y retorna el observable
+    return this.httpClient.get<FooterYLogoModel[]>(`${this.URL}listafooterylogoxid/${idsParam}`);
+  }
+  
   public guardarFooYLo(footerYLogoModel: FooterYLogoModel): Observable<any> {
     return this.httpClient.post<any>(this.URL + 'guardarfooylogo', footerYLogoModel);
   };

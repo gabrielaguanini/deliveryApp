@@ -69,6 +69,44 @@ public class FooterYLogoController {
         }
     }
 
+    //=============================================================================================================
+    /**
+     * Obtiene una lista de objetos {@link FooterYLogo} basada en una lista de
+     * IDs proporcionados.
+     *
+     * @param ids Una lista de IDs de tipo {@link Long} que se utilizarán para
+     * buscar los objetos {@link FooterYLogo}.
+     * @return Una respuesta HTTP con la lista de objetos {@link FooterYLogo}
+     * correspondientes a los IDs proporcionados, ordenada por ID de menor a
+     * mayor, o un error en caso de fallo.
+     */
+    @GetMapping("/listafooterylogoxid/{ids}")
+    public ResponseEntity<List<FooterYLogo>> listaFooterYLogoXId(@PathVariable("ids") List<Long> ids) {
+        try {
+            // Obtiene la lista de objetos FooterYLogo a partir de los IDs proporcionados y los ordena
+            List<FooterYLogo> fooYLoLiXid = fooYLoServ.footerYLogoListXId(ids);
+
+            // Devuelve la lista en una respuesta HTTP con estado OK (200)
+            return new ResponseEntity<>(fooYLoLiXid, HttpStatus.OK);
+        } catch (MensajeDataAccessException e) {
+            // Captura y maneja la excepción de acceso a datos
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeDataAccessException(
+                    "Error al acceder a la base de datos para procesar la solicitud de una lista completa de la tabla FooterYLogo.",
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null
+            );
+        } catch (MensajeRunTimeException e) {
+            // Captura y maneja la excepción de tiempo de ejecución
+            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
+            throw new MensajeRunTimeException(
+                    new Mensaje("Error inesperado al procesar la solicitud de una lista completa de la tabla FooterYLogo."),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    null
+            );
+        }
+    }
+
 //=============================================================================================================   
     /**
      * Endpoint para guardar un objeto FooterYLogo en la base de datos.
@@ -90,8 +128,7 @@ public class FooterYLogoController {
                     || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()
                     || footerYLogo.getTextoAMostrar() == null || footerYLogo.getTextoAMostrar().isEmpty()
                     || footerYLogo.getUrlAMostrar() == null || footerYLogo.getUrlAMostrar().isEmpty()
-                    || footerYLogo.getIconoOImgAMostrar() == null || footerYLogo.getIconoOImgAMostrar().isEmpty()
-                    ) {
+                    || footerYLogo.getIconoOImgAMostrar() == null || footerYLogo.getIconoOImgAMostrar().isEmpty()) {
                 // Si footerYLogo es nulo o alguna propiedad importante está vacía, lanza una excepción con un mensaje descriptivo.
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s.").getMensaje(), HttpStatus.BAD_REQUEST, null);
@@ -142,9 +179,7 @@ public class FooterYLogoController {
 
             // Verifica si footerYLogo es nulo o si alguna de sus propiedades importantes está vacía.
             if (footerYLogo == null
-                    || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()
-
-                    ) {
+                    || footerYLogo.getNombreDatoAMostrar() == null || footerYLogo.getNombreDatoAMostrar().isEmpty()) {
                 // Si footerYLogo es nulo o alguna propiedad importante está vacía, lanza una excepción con un mensaje descriptivo.
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Una o varias propiedades a guardar está/n vacía/s.").getMensaje(), HttpStatus.BAD_REQUEST, null);

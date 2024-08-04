@@ -65,9 +65,16 @@ body {
 
 /* formato de los modales */
 .modal-menu {
-    background: linear-gradient(to right, #adad62, rgb(75, 81, 57)) !important;
+    background: #adad62;
     color: #fff;
-    border-radius: 10px;
+}
+
+#backGroT{
+    background-color: #17a2b8;
+}
+
+#backGF{
+    background-color: #dc3545; 
 }
 
 /* separa en silabas palabras largas */

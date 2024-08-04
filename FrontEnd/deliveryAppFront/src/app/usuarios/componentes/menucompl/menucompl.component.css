@@ -1,3 +1,8 @@
+
+#containerAll{
+    background-color: #f7f3db;
+}
+
 /* formato de los titulos */ 
 .title {
     padding: 10px 20px;
@@ -36,7 +41,6 @@
     margin-bottom: 30px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
     color: #fff;
-    border-radius: 10px; 
 }
 
 
@@ -58,40 +62,10 @@
     margin-bottom: 30px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
     background: linear-gradient(to right, #0666cd, #6d6e70, #F5E1A4) !important;
-
-
-
-
-
     color: #fff;
-    border-radius: 10px; 
 }
 
-.cardGrandeCartelera{
-    background-color: #fff;
-    border-radius: 10px;
-    border: none;
-    position: relative;
-    margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    background: linear-gradient(to right, #3C3C3C, rgb(199, 219, 246)) !important;
-    color: #fff;
-    border-radius: 10px; 
-}
-
-.cardGrandeCarteleraSec{
-    background-color: #fff;
-    border-radius: 10px;
-    border: none;
-    position: relative;
-    margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    background: linear-gradient(to right, #3C3C3C, rgb(246, 199, 239)) !important;
-    color: #fff;
-    border-radius: 10px; 
-}
-
-            
+           
 
 /* ///////////// MODAL /////////////  */ 
 
@@ -108,9 +82,16 @@
 
 /* formato de los modales */ 
 .modal-menu {
-    background: linear-gradient(to right, #493240, rgb(246, 199, 227)) !important;
+    background-color:#F5A69B;
     color: #fff;
-    border-radius: 10px;
+}
+
+#backgTitleAgPl, #backgTitleAgPl2, #backgTitleAgTiPl, #backgTitleEdTiPl, #backGLiPlC, #bGYaNoSe{
+    background-color:#e4d187;
+}
+
+#backGroundForm, #backGroundForm2, #backGroundFormTp, #backGroundFormEdTp, #listaCoP, #backGLiPlC2{
+    background-color:#0666cd;  
 }
 
 
@@ -131,8 +112,4 @@ p {
 #btn-group{
     background-color: #e4d187;
     background-size:cover
-}
-
-#containerAll{
-    background-color: #f7f3db;
 }

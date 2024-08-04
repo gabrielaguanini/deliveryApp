@@ -59,17 +59,18 @@
         <!-- MODAL QUE MUESTRA LA LISTA COMPLETA DE PLATOS-->
 
         <ng-template #templateListaComPlato>
-            <div class="container-fluid modal-menu">
-                <div class="modal-header">
-                    <h4 class="modal-title">LISTA COMPLETA DE PLATOS</h4>
-                    <div class="card-icon card-icon-large">
-                        <i class=""></i>
-                    </div>
-                    <button type="button" class="btn btn-outline-light btn-sm"
-                        (click)="borrarInputsCerrarModalito(); modalListaComPlatos.hide()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-header" id="listaCoP">
+                <h4 class="modal-title text-white">LISTA COMPLETA DE PLATOS</h4>
+                <div class="card-icon card-icon-large">
+                    <i class=""></i>
                 </div>
+                <button type="button" class="btn btn-outline-light btn-sm"
+                    (click)="borrarInputsCerrarModalito(); modalListaComPlatos.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="container-fluid modal-menu border border-white border-2 rounded" id="backGLiPlC">     
+            <div class="container-fluid modal-menu border border-white border-2 rounded m-1">               
                 <div class="row" id="tituloListaCompletaPlato">
                     <div class="col-2 text-center pt-2">
                         <blockquote class="blockquote border-end border-top border-white">
@@ -207,6 +208,7 @@
                     </div>
                 </div>
             </div>
+            </div>
 
         </ng-template>
 
@@ -230,7 +232,7 @@
         <ng-template #templateEditarPaAgregarCard>
             <div class="container-fluid modal-menu">
                 <div class="row">
-                    <div class="modal-header text-center">
+                    <div class="modal-header text-center" id="backgTitleAgPl">
                         <h4 class="modal-title">AGREGAR PLATO</h4>
                         <div class="card-icon card-icon-large">
                             <i class=""></i>
@@ -241,7 +243,10 @@
                         </button>
                     </div>
                     <div class="row">
-                        <form (ngSubmit)="generarCardPequena()" novalidate #f="ngForm">
+                        <form (ngSubmit)="generarCardPequena()" novalidate #f="ngForm" class="ps-5 pe-4">
+                            <div class="border border-white border-2 rounded m-3 p-3" id="backGroundForm">
+                                <div class=""></div>
+                            <div class="border border-white border-2 rounded m-3 p-3">
                             <div class="form-group col-12 pt-3 pb-3">
                                 <label for="idTipoPla">SELECCIONE EL TIPO PLATO</label>
                                 <select class="form-select" id="idTipoPlato" name="idTipoPlato" [(ngModel)]="idTipoPla"
@@ -272,8 +277,7 @@
                                     <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded"
                                         *ngIf="imgPlato" [src]="imgPlato" alt="Vista Previa de Imagen">
                                 </div>
-                            </div>
-
+                            </div> 
                             <br>
                             <div class="row">
                                 <div class="col-4">
@@ -282,6 +286,9 @@
                                     </button>
                                 </div>
                             </div>
+                            </div>
+                            </div>
+                            <br>
                         </form>
                     </div>
                 </div>
@@ -289,13 +296,14 @@
             </div>
         </ng-template>
         <!--  //✮------------------------------------------------------------------------------------------------------------✮ -->
+
         <!-- TARJETAS GENERADAS POR LA ENTIDAD TIPOPLATO -->
 
         <div class="container-fluid">
-            <div class="bordesCard border border-secondary border-2 rounded pt-3 ps-3 pe-3 mb-4" id="bordesCard">
-                <div class="row">
-                    <h5 class="title col-6 mx-auto">MENU COMPLETO</h5>
-                    <div class="col-md-12 mb-2 text-center pb-2">
+            <div class="bordesCard border border-secondary border-2 rounded" id="bordesCard">
+                <div class="row p-4">                   
+                    <div class="col-md-12 text-center mb-2 pb-2">
+                        <h5 class="title col-6 mx-auto">MENU COMPLETO</h5>
                         <br>
                         <button (click)="openModalEditarcard(templateEditarPaAgregarCard); borrarInputsCerrarModalito()"
                             type="button" class="btn btn-secondary btn-sm rounded-pill btn-block">
@@ -306,12 +314,12 @@
                     <div class="col-lg-2 col-md-6" *ngFor="let TipoPlato of tiposPlatosFiltrados">
 
 
-                        <div class="card card-container" [style.background-color]="TipoPlato.colorCardTipoPlato">
+                        <div class="card card-container mb-3" [style.background-color]="TipoPlato.colorCardTipoPlato">
                             <div class="text-center pt-1">
-                                <h6 class="card-title pt-1">{{TipoPlato.nombreTipoPlato}}</h6>
+                                <h6 class="card-title ">{{TipoPlato.nombreTipoPlato}}</h6>
                                 <hr>
                             </div>
-                            <div class="card-icon card-icon-large">
+                            <div class="card-icon card-icon-large mx-auto justify-content-center">
                                 <i class="{{TipoPlato.iconoTipoPlato}}"></i>
                             </div>
                             <hr>
@@ -341,21 +349,22 @@
                         <!-- MODAL AGREGAR PLATO -->
 
                         <ng-template #templateAgregarPlato>
+                            <div class="modal-header" id="backgTitleAgPl2">
+                                <h4 class="modal-title text-white">AGREGAR {{TipoPlato.nombreTipoPlato}}</h4>
+                                <div class="card-icon card-icon-large">
+                                    <i class="{{TipoPlato.iconoTipoPlato}}"></i>
+                                </div>
+                                <button type="button" class="btn btn-outline-light btn-sm"
+                                    (click)="borrarInputsCerrarModalito(); modalAgregarPla.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="container-fluid modal-menu">
-                                <div class="row">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">AGREGAR {{TipoPlato.nombreTipoPlato}}</h4>
-                                        <div class="card-icon card-icon-large">
-                                            <i class="{{TipoPlato.iconoTipoPlato}}"></i>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="borrarInputsCerrarModalito(); modalAgregarPla.hide()">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                    <div class="row">
-                                        <form (ngSubmit)="onCreate()" novalidate #f="ngForm">
+                                <div class="row"> 
+                                     <div class="row">                                  
+                                        <form (ngSubmit)="onCreate()" novalidate #f="ngForm" class="ps-5 pe-4">
+                                        <div class="border border-white border-2 rounded m-3 p-3" id="backGroundForm2">
+                                        <div class="border border-white border-2 rounded m-3 p-3">    
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idTipoPlato">ID TIPO PLATO </label>
                                                 <input readonly type="number" class="form-control" id="idTipoPlato"
@@ -386,19 +395,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="container row mx-auto justify-content-center">
                                                 <div class="col-6">
                                                     <button class="btn btn-outline-light">
                                                         Enviar
                                                     </button>
                                                 </div>
-                                                <div class="col-6 ps-5">
+                                                <div class="col-6">
                                                     <button type="button" class="btn btn-outline-secondary"
                                                         (click)="modalAgregarPla.hide(); openModalMenuComp(templateMenuComp);  mostrarListaTipoPlato(TipoPlato.idTipoPlato)">
                                                         Ver lista actualizada
                                                     </button>
                                                 </div>
                                             </div>
+                                        </div>
+                                        </div>
                                         </form>
                                     </div>
                                 </div>
@@ -410,17 +421,20 @@
                         <!-- MODAL QUE MUESTRA LA LISTA DE PLATOS-->
 
                         <ng-template #templateMenuComp>
-                            <div class="container-fluid modal-menu">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">{{TipoPlato.nombreTipoPlato}}</h4>
+                            <div class="modal-header" id="backGLiPlC2">
+                                <div class="d-flex align-items-center">
+                                    <h4 class="modal-title text-white me-2">{{TipoPlato.nombreTipoPlato}}</h4>
                                     <div class="card-icon card-icon-large">
-                                        <i class="{{TipoPlato.iconoTipoPlato}}"></i>
+                                        <i class="{{TipoPlato.iconoTipoPlato}} text-white"></i>
                                     </div>
-                                    <button type="button" class="btn btn-outline-light btn-sm"
-                                        (click)="modalMenuComp.hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
+                                <button type="button" class="btn btn-outline-light btn-sm" (click)="modalMenuComp.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            
+                            <div class="container-fluid modal-menu border border-white border-2 rounded p-2" id="bGYaNoSe"> 
+                            <div class="container-fluid modal-menu border border-white border-2 rounded">                               
                                 <div class="row" id="titulosListaxTipoPla">
                                     <div class="col-lg-4 col-md-12 d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
@@ -566,6 +580,7 @@
                                     </ng-template>
                                 </div>
                             </div>
+                            </div>
                         </ng-template>
                     </div>
                 </div>
@@ -574,7 +589,7 @@
 
             <!-- TARJETA GRANDE QUE MUESTRA LISTA DE LOS TIPOS DE PLATOS -->
 
-            <div class="container-fluid">
+            <div class="container-fluid pt-3">
                 <div class="row">
                     <div class="col-lg-12 col-md-12">
                         <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4"
@@ -655,19 +670,21 @@
                     <!-- MODAL AGREGAR TIPOS DE PLATOS-->
 
                     <ng-template #templateAgregarTipoPlato>
+                        <div class="modal-header" id="backgTitleAgTiPl">
+                            <h4 class="modal-title text-white">AGREGAR TIPOS DE PLATOS</h4>
+                            <div class="card-icon card-icon-large">
+                                <i class=""></i>
+                            </div>
+                            <button type="button" class="btn btn-outline-light btn-sm"
+                                (click)="modalAgregarTipoPlato.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <div class="container-fluid modal-menu">
-                            <div class="row">
-                                <div class="modal-header">
-                                    <h4 class="modal-title pb-4">AGREGAR TIPOS DE PLATOS</h4>
-                                    <div class="card-icon card-icon-large">
-                                        <i class=""></i>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-light btn-sm"
-                                        (click)="modalAgregarTipoPlato.hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
+                           
+                             
+                            <div class="border border-white border-2 rounded m-3 p-3" id="backGroundFormTp">
+                            <div class="border border-white border-2 rounded m-3 p-3">    
                                 <div class="muestraColoresIconos p-3 text-center">
                                     <button class="btn btn-outline-light btn-sm text-center"
                                         (click)="mostrarOcultarModalitoColores(); listaColores()">
@@ -794,6 +811,7 @@
                                     </form>
                                 </div>
                             </div>
+                            </div>
                             <br>
                         </div>
                     </ng-template>
@@ -801,19 +819,20 @@
                     <!-- MODAL EDITAR TIPOS DE PLATOS-->
 
                     <ng-template #templateEditarTipoPlato>
-                        <div class="container-fluid modal-menu">
-                            <div class="row">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">EDITAR</h4>
-                                    <div class="card-icon card-icon-large">
-                                        <i class=""></i>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-light btn-sm"
-                                        (click)="modalEditarTipoPlato.hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="row">
+                        <div class="modal-header" id="backgTitleEdTiPl">
+                            <h4 class="modal-title text-white">EDITAR</h4>
+                            <div class="card-icon card-icon-large">
+                                <i class=""></i>
+                            </div>
+                            <button type="button" class="btn btn-outline-light btn-sm"
+                                (click)="modalEditarTipoPlato.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="container-fluid modal-menu">                            
+                            <div class="border border-white border-2 rounded m-3 p-3" id="backGroundFormEdTp">
+                              
+                                <div class="border border-white border-2 rounded m-3 p-3">
                                     <form (ngSubmit)="editarTipoPlato()" novalidate #f="ngForm">
                                         <div class="form-group, col-12 pt-3 pb-3">
                                             <label for="idTipoPlato">ID TIPO PLATO </label>

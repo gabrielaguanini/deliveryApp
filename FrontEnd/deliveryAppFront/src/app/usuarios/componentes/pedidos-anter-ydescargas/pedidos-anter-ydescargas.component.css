@@ -30,10 +30,17 @@
 
 
 /* formato de los modales */ 
-.modal-menu {
-    background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
-    color: #fff;
-    border-radius: 10px;
+
+#backGTitl{
+    background-color: rgb(251, 199, 111);
+}
+
+#backGfor{
+    background-color: #4e364a;
+}
+
+#backGfor2{
+    background-color: rgb(249, 232, 226);
 }
 
 #btn-group{

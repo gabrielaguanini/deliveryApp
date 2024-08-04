@@ -64,9 +64,16 @@
 
 /* formato de los modales */ 
 .modal-menu {
-    background: linear-gradient(to right, #493240, rgb(246, 199, 227)) !important;
+    background-color: #E0E0E0;
     color: #fff;
-    border-radius: 10px;
+}
+
+#backGTitCarPrin, #backGTitCarSec{
+  background-color: #FF5733; 
+}
+
+#backGFoCarPrin, #backGFoCarSec{
+  background-color: #1E90FF;
 }
 
 

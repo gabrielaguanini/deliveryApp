@@ -1,4 +1,10 @@
+#containerAll{
+    background-color: rgb(231, 227, 199);
+}
+
 /* ///////////// FORMATO PARA TITULOS /////////////  */ 
+
+
 .title {
     padding: 10px 20px;
     min-width: 300px;
@@ -7,6 +13,7 @@
     border: 2px solid rgb(84, 89, 95);
     z-index: 1;
     color: #54595f;
+    background-color: #71a6a6;
   }
   
   .title::before {
@@ -22,24 +29,30 @@
     linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
     linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
   }
-  
-/* ///////////// FORMATO TODO EL FONDO, MODALES Y TABLA /////////////  */ 
 
 
-#containerAll{
-    background-color: rgb(231, 227, 199);
-}
-/* formato de los modales */ 
+/* ///////////// FORMATO MODALES Y TABLA /////////////  */ 
+
+
+
+/* formato fondo y color texto de los modales */ 
 .modal-menu {
-    background: linear-gradient(to right, #d8a374, rgb(81, 86, 74)) !important;
+    background-color:#b3ae93;
     color: #fff;
-    border-radius: 10px;
 }
 
 .tableAgregarPlato{
-    color:white;
-   
+    color:white;   
 }
+
+#backgrTitleModalAgPl, #backgrTitleModalAgPe, #backgrTitleModaleEdiDaEn {
+    background-color: #71a6a6;
+}
+
+#backgrModalAgPl, #backgrAgPl, #backgrediDaEn {
+    background-color: #968092;
+}
+
 
 /* ///////////// FORMATO BORDES /////////////  */ 
 
@@ -58,6 +71,7 @@
     background: url("/assets/citricosBackGround.jpg");
     background-size:contain
 }
+
 /* ///////////// FORMATO BOTONES SUPERIORES /////////////  */ 
 
 #btn-group{
@@ -76,7 +90,6 @@
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
     background: linear-gradient(to right, #968092, rgb(246, 204, 133)) !important;
     color: #fff;
-    border-radius: 10px; 
 }
 
 .cardGrandepPlaMos {
@@ -88,7 +101,6 @@
     box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
     background: linear-gradient(to right, #b3ae93, rgb(166, 166, 97))!important;
     color: #fff;
-    border-radius: 10px; 
 }
 
 

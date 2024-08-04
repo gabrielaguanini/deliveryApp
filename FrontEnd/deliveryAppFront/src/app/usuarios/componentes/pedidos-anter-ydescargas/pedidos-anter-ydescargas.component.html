@@ -1,4 +1,3 @@
-<!-- BOTONES DE DESCARGAS E INFO -->
 <div class="container-fluid">
 
     <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
@@ -11,8 +10,8 @@
         </div>
     </div>
 
+    <!-- BOTONES DE DESCARGAS E INFO -->
     <div class="border border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerAll">
-
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="btn-group border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
@@ -67,12 +66,20 @@
                         <div class="divPediAnter border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
 
                             <div class="row">
+                               <!-- Botón ir a sección -->
+                               <div class="col-1 ms-auto">
+                                <button class=" btn btn-outline-secondary btn-md"
+                                    title="IR A BUSCAR PEDIDOS POR N° DE PEDIDO O ID"
+                                    (click)="scrollASeccion('anclaBscXId')">
+                                    <i class="fas fa-arrow-circle-down"></i>
+                                </button>
+                            </div>
                                 <div class="col-12 text-center">
-                                    <h6 class="title col-6 mx-auto">BUSCAR PEDIDOS POR FECHA</h6>
+                                    <h6 class="title col-6 mx-auto" id="anclaBscXFec">BUSCAR PEDIDOS POR FECHA</h6>
                                     <hr>
-
                                     <!-- boton abrir modalitoPedidosXFecha-->
-                                    <button class="btn btn-outline-light btn-md" title="Buscar pedidos por fecha" (click)="mostrarOcultarModalitoPedidosXFecha(); 
+                                    <button class="btn btn-outline-light btn-md" title="Buscar pedidos por fecha"
+                                        (click)="mostrarOcultarModalitoPedidosXFecha(); 
                                      modalitoPedidosXId = false;
                                      modalitoEditPedid = false;
                                      modalitoAgrDetPed = false;
@@ -220,19 +227,19 @@
                             <!-- MODAL EDITAR PEDIDO -->
 
                             <ng-template #templateEditarPedido>
-                                <div class="container-fluid modal-menu">
-                                    <div class="row">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">EDITAR</h4>
-                                            <div class="card-icon card-icon-large">
-                                                <i class=""></i>
-                                            </div>
-                                            <button type="button" class="btn btn-outline-light btn-sm"
-                                                (click)="modalEditarPedido.hide()">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="row">
+                                <div class="modal-header" id="backGTitl">
+                                    <h4 class="modal-title text-white">EDITAR</h4>
+                                    <div class="card-icon card-icon-large">
+                                        <i class=""></i>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-light btn-sm"
+                                        (click)="modalEditarPedido.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="container-fluid modal-menu text-white" id="backGfor2">
+                                    <div class="border border-white border-2 rounded m-3 p-3" id="backGfor">
+                                        <div class="border border-white border-2 rounded m-3 p-3">
                                             <form (ngSubmit)="editarPedido()" novalidate #f="ngForm">
                                                 <div class="table-responsive">
                                                     <div class="form-group col-12 pb-3">
@@ -540,17 +547,26 @@
                         <div class="divPedixId border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
 
                             <div class="row">
+                                <!-- Botón ir a sección -->
+                                <div class="col-1 ms-auto">
+                                    <button class=" btn btn-outline-secondary btn-md"
+                                        title="IR A BUSCAR PEDIDOS POR FECHA"
+                                        (click)="scrollASeccion('anclaBscXFec')">
+                                        <i class="fas fa-arrow-circle-up"></i>
+                                    </button>
+                                </div>
                                 <div class="col-12 text-center">
-                                    <h6 class="title col-6 mx-auto">BUSCAR POR NUMERO DE PEDIDO</h6>
+                                    <h6 class="title col-6 mx-auto" id="anclaBscXId">BUSCAR POR NUMERO DE PEDIDO</h6>
                                     <hr>
                                     <!-- boton abrir modalitoPedidosXId-->
-                                    <button class="btn btn-outline-light btn-md" title="Buscar por id o numero de pedido" (click)="mostrarOcultarModalitoPedidosXId();
+                                    <button class="btn btn-outline-light btn-md"
+                                        title="Buscar por id o numero de pedido" (click)="mostrarOcultarModalitoPedidosXId();
                                     fechaPredeterminda();
                                      pedidosXIdVacio(); 
                                      modalitoPedidosXFecha = false;
                                      modalitoEditPedid = false;
                                      modalitoAgrDetPed = false;" type="button">
-                                      Buscar <i class="fas fa-search"></i>
+                                        Buscar <i class="fas fa-search"></i>
                                     </button>
                                     <br>
                                     <br>
@@ -561,7 +577,8 @@
                                     class="formPedidosXid">
                                     <!-- buscar pedidos por id-->
                                     <div class="row d-flex justify-content-center">
-                                        <h5 class="card-title pb-3 text-center"><small>Ingresar un N° de pedido o ID</small></h5>
+                                        <h5 class="card-title pb-3 text-center"><small>Ingresar un N° de pedido o
+                                                ID</small></h5>
                                         <br>
                                         <div class="col-md-4">
                                             <div class="input-group">

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Comparator;
+
 @Service
 @Transactional
 public class FooterYLogoService {
@@ -16,27 +17,56 @@ public class FooterYLogoService {
     @Autowired
     IFooterYLogo iFoYLoRepo;
 
-
 //===================================================================================================
-/**
- * Método para obtener una lista de objetos FooterYLogo ordenada por su id.
- *
- * @return una lista de todos los objetos FooterYLogo en la base de datos, ordenada por id.
- */
-public List<FooterYLogo> footerYLogoList() {
-    // Llama al método findAll() de iFoYLo para obtener todos los objetos FooterYLogo
-    List<FooterYLogo> list = iFoYLoRepo.findAll();
-    
-    // Ordena la lista por id de menor a mayor
-    Collections.sort(list, new Comparator<FooterYLogo>() {
-        @Override
-        public int compare(FooterYLogo o1, FooterYLogo o2) {
-            return o1.getIdOtrosDatos().compareTo(o2.getIdOtrosDatos());
-        }
-    });
-    
-    return list;
-}
+    /**
+     * Método para obtener una lista de objetos FooterYLogo ordenada por su id.
+     *
+     * @return una lista de todos los objetos FooterYLogo en la base de datos,
+     * ordenada por id.
+     */
+    public List<FooterYLogo> footerYLogoList() {
+        // Llama al método findAll() de iFoYLo para obtener todos los objetos FooterYLogo
+        List<FooterYLogo> list = iFoYLoRepo.findAll();
+
+        // Ordena la lista por id de menor a mayor
+        Collections.sort(list, new Comparator<FooterYLogo>() {
+            @Override
+            public int compare(FooterYLogo o1, FooterYLogo o2) {
+                return o1.getIdOtrosDatos().compareTo(o2.getIdOtrosDatos());
+            }
+        });
+
+        return list;
+    }
+//===================================================================================================
+
+    /**
+     * Obtiene una lista de objetos {@link FooterYLogo} basada en una lista de
+     * IDs proporcionados.
+     *
+     * @param ids Una lista de IDs de tipo {@link Long} que se utilizarán para
+     * buscar los objetos {@link FooterYLogo}.
+     * @return Una lista de objetos {@link FooterYLogo} correspondientes a los
+     * IDs proporcionados, ordenada por ID de menor a mayor.
+     */
+    public List<FooterYLogo> footerYLogoListXId(List<Long> ids) {
+        // Llama al método findAllById() del repositorio para obtener todos los objetos FooterYLogo
+        // que corresponden a los IDs proporcionados en la lista.
+        List<FooterYLogo> list = iFoYLoRepo.findAllById(ids);
+
+        // Ordena la lista obtenida por el campo ID en orden ascendente (de menor a mayor).
+        // La comparación se realiza usando el método compareTo() del tipo Long.
+        Collections.sort(list, new Comparator<FooterYLogo>() {
+            @Override
+            public int compare(FooterYLogo o1, FooterYLogo o2) {
+                return o1.getIdOtrosDatos().compareTo(o2.getIdOtrosDatos());
+            }
+        });
+
+        // Devuelve la lista ordenada de objetos FooterYLogo.
+        return list;
+    }
+
 //===================================================================================================
     /**
      * Método para guardar un objeto FooterYLogo en la base de datos.

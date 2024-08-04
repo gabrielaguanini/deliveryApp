@@ -9,6 +9,51 @@
             </a>
         </div>
     </div>
+    
+
+     <!-- BOTONES DE DESCARGAS E INFO -->
+
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="btn-group bg-info border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
+                    style="margin: 0 auto;">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <button type="button" class="btn btn-primary btn-sm rounded-pill btn-block"
+                                (click)="mostrarOcultarModalInfo(templateModalInfo)">
+                                INFO
+                            </button>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <button type="button" (click)="exportToExcelOnClick()"
+                                class="btn btn-danger btn-success btn-sm rounded-pill btn-block">
+                                DESCARGAR LISTA COMPLETA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+
+           <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
+           <div class="container-fluid">
+            <ng-template #templateModalInfo>
+                <div class="container-fluid modal-menu">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">COMO USAR</h4>
+                        <div class="">
+                            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalInfo.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
 
     <div class="row">
 
@@ -73,21 +118,21 @@
                         </div>
 
                         <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
-
+                        
                         <ng-template #templateEditarPromoNovedad>
+                            <div class="modal-header" id="backGTitCarPrin">
+                                <h4 class="modal-title text-white">EDITAR CARTELERA PRINCIPAL</h4>
+                                <div class="card-icon card-icon-large">
+                                    <i class=""></i>
+                                </div>
+                                <button type="button" class="btn btn-outline-light btn-sm"
+                                    (click)="modalEditarPromoNovedad.hide();">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="container-fluid modal-menu">
-                                <div class="row">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">EDITAR CARTELERA PRINCIPAL</h4>
-                                        <div class="card-icon card-icon-large">
-                                            <i class=""></i>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="modalEditarPromoNovedad.hide();">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="row">
+                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarPrin">                                    
+                                    <div class="border border-white border-2 rounded m-3 p-3">
                                         <form (ngSubmit)="editarCartelera()" novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idPromo">ID PROMO </label>
@@ -233,19 +278,19 @@
                         <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA SECUNDARIA-->
 
                         <ng-template #templateEditarPromoNovedadSec>
+                            <div class="modal-header" id="backGTitCarSec">
+                                <h4 class="modal-title text-white">EDITAR PROMOS/NOVEDADES SEC</h4>
+                                <div class="card-icon card-icon-large">
+                                    <i class=""></i>
+                                </div>
+                                <button type="button" class="btn btn-outline-light btn-sm"
+                                    (click)="modalEditarPromoNovedadSec.hide();">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="container-fluid modal-menu">
-                                <div class="row">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">EDITAR PROMOS/NOVEDADES SEC</h4>
-                                        <div class="card-icon card-icon-large">
-                                            <i class=""></i>
-                                        </div>
-                                        <button type="button" class="btn btn-outline-light btn-sm"
-                                            (click)="modalEditarPromoNovedadSec.hide();">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="row">
+                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarSec">                                    
+                                    <div class="border border-white border-2 rounded m-3 p-3">
                                         <form (ngSubmit)="editarCarteleraSec()" novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
                                                 <label for="idPromoSec">ID PROMO </label>

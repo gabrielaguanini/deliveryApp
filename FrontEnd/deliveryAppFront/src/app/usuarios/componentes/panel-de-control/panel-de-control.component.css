@@ -1,3 +1,29 @@
+/* formato de los titulos */ 
+.title {
+    padding: 10px 20px;
+    min-width: 300px;
+    text-align: center;
+    position: relative;
+    border: 2px solid rgb(84, 89, 95);
+    z-index: 1;
+    color: #383c40;
+    background-color: #88b0dd;
+  }
+  
+  .title::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    top: -3px;
+    left: -3px;
+    background-image: 
+    linear-gradient(135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+    linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
+  }
+
 /* todos los botones  */ 
 
 .container-fluid {
