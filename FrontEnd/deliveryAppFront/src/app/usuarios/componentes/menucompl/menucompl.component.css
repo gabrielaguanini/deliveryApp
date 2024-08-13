@@ -3,10 +3,21 @@
     background-color: #f7f3db;
 }
 
+
+  /*animacion iconos o imagenes */
+  .animacion {
+	transition: color 0.3s ease, transform 0.5s ease;
+  }
+  
+  .animacion:hover {	
+	transform: rotate(360deg);
+  }
+  
+
 /* formato de los titulos */ 
 .title {
     padding: 10px 20px;
-    min-width: 300px;
+    min-width: 30%;
     text-align: center;
     position: relative;
     border: 2px solid rgb(84, 89, 95);

@@ -29,7 +29,7 @@ export class NavbarComponent {
       data => {
         this.footerYLogoList = data; // Asigna los datos recibidos a la propiedad
         console.log('listaFooterYLogoxId recibida');
-        console.log("lista que quiero: " + JSON.stringify(data))
+       
       },
       err => {
         console.error('Msj. Servidor: :' + err.error.message);

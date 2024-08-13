@@ -6,6 +6,12 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  /* padding redes y pedidosyarappi */
+  #navbarNav{
+    padding-left: 8%;
+  }
+
+ 
   .navbar-brand {
     display: flex;
     align-items: center;
@@ -28,15 +34,25 @@
     transform: scale(1.1);
   }
   
+
   .nav-item i {
     color: #ffffff;
     transition: color 0.3s, transform 0.3s;
   }
   
+  /*efecto redes */
   .nav-item i:hover {
     color: #f0f0f0;
     transform: rotate(360deg);
   }
+
+  /*efecto pedidosya rappi y logo */
+  .nav-item img:hover, .navbar-brand img:hover{
+    opacity: 1; /* Cambia la opacidad para hacerla más visible al hacer hover */
+    transform: rotate(360deg);
+    transition: transform 0.5s, opacity 0.5s; /* Añade una transición suave */
+}
+
   
   
   @media (max-width: 767px) {
@@ -44,4 +60,5 @@
       text-align: center;
     }
   }
+  
   

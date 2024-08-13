@@ -2,7 +2,7 @@
 /* formato de los titulos */ 
 .title {
     padding: 10px 20px;
-    min-width: 300px;
+    min-width: 70%;
     text-align: center;
     position: relative;
     border: 2px solid rgb(84, 89, 95);
@@ -23,6 +23,17 @@
     linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
     linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
   }
+
+    /*animacion iconos o imagenes */
+    .animacion {
+      transition: color 0.3s ease, transform 0.5s ease;
+      }
+      
+      .animacion:hover {
+      color: #f0f0f0;
+      transform: rotate(360deg);
+      }
+      
 
 
 /* formato cartelera principal */ 

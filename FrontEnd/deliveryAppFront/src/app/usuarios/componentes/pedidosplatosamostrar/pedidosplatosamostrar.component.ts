@@ -556,7 +556,7 @@ export class PedidosplatosamostrarComponent {
 
       //this.mostrarModalitoAgregarPlatos = false;
       console.log("Falta ingresar datos para envio del pedido: " + validadorDatosCliente);
-      alert("Ingresa tus datos para continuar");
+      alert("Ingresa los datos del cliente para continuar");
 
     } else {
       this.botonDisabledSeleccPlato = true;

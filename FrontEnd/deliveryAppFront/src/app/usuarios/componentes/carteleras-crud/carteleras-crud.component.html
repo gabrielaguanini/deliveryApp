@@ -9,11 +9,11 @@
             </a>
         </div>
     </div>
-    
 
-     <!-- BOTONES DE DESCARGAS E INFO -->
 
-     <div class="container-fluid">
+    <!-- BOTONES DE DESCARGAS E INFO -->
+
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="btn-group bg-info border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
@@ -38,8 +38,8 @@
             </div>
         </div>
 
-           <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
-           <div class="container-fluid">
+        <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
+        <div class="container-fluid">
             <ng-template #templateModalInfo>
                 <div class="container-fluid modal-menu">
                     <div class="modal-header text-center">
@@ -103,7 +103,7 @@
                                         {{Cartelera.idPromo}}</small></p>
                             </div>
                             <div class="col-12">
-                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50"
+                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50 animacion"
                                     src="{{Cartelera.urlImagenPromo}}">
                             </div>
                             <div class="col-12">
@@ -118,7 +118,7 @@
                         </div>
 
                         <!-- MODAL EDITAR PROMO/NOVEDAD/CARTELERA-->
-                        
+
                         <ng-template #templateEditarPromoNovedad>
                             <div class="modal-header" id="backGTitCarPrin">
                                 <h4 class="modal-title text-white">EDITAR CARTELERA PRINCIPAL</h4>
@@ -131,7 +131,7 @@
                                 </button>
                             </div>
                             <div class="container-fluid modal-menu">
-                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarPrin">                                    
+                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarPrin">
                                     <div class="border border-white border-2 rounded m-3 p-3">
                                         <form (ngSubmit)="editarCartelera()" novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
@@ -165,14 +165,13 @@
                                                     target="_blank"><i class="fa fa-link px-1"></i></a>
                                                 <input type="text" class="form-control" id="colorTexto"
                                                     name="colorTexto" [(ngModel)]="colorTexto" required>
-                                                            <!-- Mostrar el color seleccionado o ingresado -->
-                                            <div class="d-flex justify-content-center mt-3">
-                                                <div *ngIf="colorTexto"
-                                                    [style.backgroundColor]="colorTexto"
-                                                    class="color-preview rounded border"
-                                                    style="width: 100px; height: 100px;">
+                                                <!-- Mostrar el color seleccionado o ingresado -->
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <div *ngIf="colorTexto" [style.backgroundColor]="colorTexto"
+                                                        class="color-preview rounded border"
+                                                        style="width: 100px; height: 100px;">
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="urlImagenPromo">URL A IMAGEN</label>
@@ -181,11 +180,13 @@
                                                     title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
                                                     required>
                                                 <br>
-                                               <!-- Contenedor para mostrar la imagen -->
-                                               <div class="d-flex justify-content-center">
-                                                <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded" *ngIf="urlImagenPromo" [src]="urlImagenPromo" alt="Vista Previa de Imagen">
-                                            </div>
-            
+                                                <!-- Contenedor para mostrar la imagen -->
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded"
+                                                        *ngIf="urlImagenPromo" [src]="urlImagenPromo"
+                                                        alt="Vista Previa de Imagen">
+                                                </div>
+
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="fechaPromo">FECHA DE CARGA</label>
@@ -261,7 +262,7 @@
                                         {{CarteleraSec.idPromoSec}}</small></p>
                             </div>
                             <div class="col-12">
-                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50"
+                                <img class="img-fluid w-50 h-60 border border-white border-5 rounded-5 border-opacity-50 animacion"
                                     src="{{CarteleraSec.urlImagenPromo}}">
                             </div>
                             <div class="col-12">
@@ -289,7 +290,7 @@
                                 </button>
                             </div>
                             <div class="container-fluid modal-menu">
-                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarSec">                                    
+                                <div class="border border-white border-2 rounded m-3 p-3" id="backGFoCarSec">
                                     <div class="border border-white border-2 rounded m-3 p-3">
                                         <form (ngSubmit)="editarCarteleraSec()" novalidate #f="ngForm">
                                             <div class="form-group, col-12 pt-3 pb-3">
@@ -323,14 +324,13 @@
                                                     target="_blank"><i class="fa fa-link px-1"></i></a>
                                                 <input type="text" class="form-control" id="colorTextoSec"
                                                     name="colorTextoSec" [(ngModel)]="colorTexto" required>
-                                                      <!-- Mostrar el color seleccionado o ingresado -->
-                                            <div class="d-flex justify-content-center mt-3">
-                                                <div *ngIf="colorTexto"
-                                                    [style.backgroundColor]="colorTexto"
-                                                    class="color-preview rounded border"
-                                                    style="width: 100px; height: 100px;">
+                                                <!-- Mostrar el color seleccionado o ingresado -->
+                                                <div class="d-flex justify-content-center mt-3">
+                                                    <div *ngIf="colorTexto" [style.backgroundColor]="colorTexto"
+                                                        class="color-preview rounded border"
+                                                        style="width: 100px; height: 100px;">
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="urlImagenPromoSec">URL A IMAGEN</label>
@@ -339,11 +339,13 @@
                                                     title="El formato de la URL debe ser: formato: https://images.unsplash.com/photo"
                                                     required>
                                                 <br>
-                                               <!-- Contenedor para mostrar la imagen -->
-                                               <div class="d-flex justify-content-center">
-                                                <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded" *ngIf="urlImagenPromo" [src]="urlImagenPromo" alt="Vista Previa de Imagen">
-                                            </div>
-            
+                                                <!-- Contenedor para mostrar la imagen -->
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="img-fluid w-50 h-50 border border-secondary border-2 rounded"
+                                                        *ngIf="urlImagenPromo" [src]="urlImagenPromo"
+                                                        alt="Vista Previa de Imagen">
+                                                </div>
+
                                             </div>
                                             <div class="form-group, col-12 pb-3">
                                                 <label for="fechaPromoSec">FECHA DE CARGA</label>

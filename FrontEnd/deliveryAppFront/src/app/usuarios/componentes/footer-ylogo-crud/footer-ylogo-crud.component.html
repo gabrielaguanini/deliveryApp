@@ -10,10 +10,52 @@
         </div>
     </div>
 
+     <!-- BOTONES DE DESCARGAS E INFO -->
+
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="btn-group bg-success border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
+                    style="margin: 0 auto;">
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <button type="button" class="btn btn-primary btn-sm rounded-pill btn-block border border-secondary"
+                                (click)="mostrarOcultarModalInfo(templateModalInfo)">
+                                INFO
+                            </button>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <button type="button" (click)="exportToExcelOnClick()"
+                                class="btn btn-danger btn-success btn-sm rounded-pill btn-block border border-secondary">
+                                DESCARGAR LISTA COMPLETA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+
+        <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
+        <div class="container-fluid">
+            <ng-template #templateModalInfo>
+                <div class="container-fluid modal-menu">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">COMO USAR</h4>
+                        <div class="">
+                            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalInfo.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+     <!-- TARJETA GRANDE QUE MUESTRA LISTA DE REGISTOS DE LA TABLA FooterYLogo -->
     <div class="row">
-
-        <!-- TARJETA GRANDE QUE MUESTRA LISTA DE REGISTOS DE LA TABLA FooterYLogo -->
-
         <div class="col-lg-12">
             <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerBakImg">
                 <div class="cardGrandeFooYLo border border-secondary border-2 rounded p-4">
@@ -50,12 +92,12 @@
                                         <div>
                                             <div class="row align-items-center justify-content-center text-center">
                                                 <!-- url a imagen -->
-                                                <img class="img-fluid w-50 h-50" (error)="onImageError($event)"
+                                                <img class="img-fluid w-50 h-50 animacion" (error)="onImageError($event)"
                                                     [src]="FooterYLogoModel.iconoOImgAMostrar" id="zzz">
                                                 <!-- url a icono -->
                                                 <div class="row align-items-center justify-content-center text-center">
                                                     <i
-                                                        class="{{FooterYLogoModel.iconoOImgAMostrar}} display-1 w-50 h-50"></i>
+                                                        class="{{FooterYLogoModel.iconoOImgAMostrar}} display-1 w-50 h-50 animacion"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,7 +144,7 @@
                                             </div>
                                             <div class="form-group col-12 pb-3">
                                                 <label for="nombreDatoAMostrar">NOMBRE DATO A MOSTRAR</label>
-                                                <input type="text" class="form-control" id="nombreDatoAMostrar"
+                                                <input readonly type="text" class="form-control" id="nombreDatoAMostrar"
                                                     name="nombreDatoAMostrar" [(ngModel)]="nombreDatoAMostrar" required>
 
                                             </div>
