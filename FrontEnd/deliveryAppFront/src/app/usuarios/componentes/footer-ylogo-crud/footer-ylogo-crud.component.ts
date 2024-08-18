@@ -29,9 +29,13 @@ export class FooterYLogoCrudComponent {
     this.listaFooteryLogo(); 
   }
 
-  listaFooteryLogo(): void {
-    this.fooYLoServ.listaFooterYLogo().subscribe(data => this.footerYLogoList = data);
-  };
+listaFooteryLogo(): void {
+  this.fooYLoServ.listaFooterYLogo().subscribe(data => {
+    this.footerYLogoList = data;
+    //console.log('Datos recibidos:', this.footerYLogoList); // Muestra los datos en la consola
+  });
+}
+
 
   //MODAL EDITAR FOOTER Y LOGO
   ///////////////////////
@@ -58,13 +62,20 @@ export class FooterYLogoCrudComponent {
    //EDITAR PROMOCION/NOVEDAD/CARTELERA PRINCIPAL
   /////////////////////////
 
-  obtenerXId(idOtrosDatos:number, nombreDatoAMostrar:string, textoAMostrar:string, urlAMostrar: string, iconoOImgAMostrar: string):void{
+  obtenerXId(
+    idOtrosDatos: number,
+    nombreDatoAMostrar: string,
+    textoAMostrar?: string,
+    urlAMostrar?: string,
+    iconoOImgAMostrar?: string  // Puede ser undefined
+  ): void {
     this.idOtrosDatos = idOtrosDatos;
     this.nombreDatoAMostrar = nombreDatoAMostrar;
-    this.textoAMostrar = textoAMostrar;
-    this.urlAMostrar = urlAMostrar;
-    this.iconoOImgAMostrar = iconoOImgAMostrar;
-  };
+    this.textoAMostrar = textoAMostrar ?? '';
+    this.urlAMostrar = urlAMostrar ?? '';
+    this.iconoOImgAMostrar = iconoOImgAMostrar ?? '';  // Asigna un valor por defecto si es undefined
+  }
+  
 
   //✮------------------------------------------------------------------------------------------------------------✮
 
@@ -148,6 +159,11 @@ export class FooterYLogoCrudComponent {
   };
 
 //✮------------------------------------------------------------------------------------------------------------✮
+isImage(url: string): boolean {
+  // Verifica si la URL comienza con https://
+  return /^https:\/\/.*/i.test(url);
+}
+
 
 //Funcion para traer img por defecto cuando hay una url a un icono o una imagen
 onImageError(event: Event): void {

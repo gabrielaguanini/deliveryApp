@@ -2,15 +2,15 @@ export class FooterYLogoModel {
 
 idOtrosDatos!: number;
 nombreDatoAMostrar!: string;
-textoAMostrar!: string;
-urlAMostrar!: string;
-iconoOImgAMostrar!: string;
+textoAMostrar?: string;
+urlAMostrar?: string;
+iconoOImgAMostrar?: string;
 
 constructor(idOtrosDatos: number, 
             nombreDatoAMostrar: string, 
-            textoAMostrar: string,
-            urlAMostrar: string,
-            iconoOImgAMostrar: string) 
+            textoAMostrar?: string,
+            urlAMostrar?: string,
+            iconoOImgAMostrar?: string) 
 {
 
     this.idOtrosDatos = idOtrosDatos;

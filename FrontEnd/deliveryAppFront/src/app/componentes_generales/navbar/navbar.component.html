@@ -1,67 +1,71 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
-    <!-- Mostrar el logo en la posición 0 (primer elemento) -->
+    <!-- Logo (Izquierda en pantallas grandes) -->
     <ng-container *ngIf="footerYLogoList[0]?.iconoOImgAMostrar">
       <a class="navbar-brand" routerLink="/homepage">
-        <img *ngIf="footerYLogoList[0]?.iconoOImgAMostrar" [src]="footerYLogoList[0].iconoOImgAMostrar" class="img-fluid" style="width: 90px; height: 90px;" alt="Logo">
+        <img *ngIf="footerYLogoList[0]?.iconoOImgAMostrar" [src]="footerYLogoList[0].iconoOImgAMostrar"
+          class="img-fluid" style="width: 90px; height: 90px;" alt="Logo">
       </a>
     </ng-container>
-    
     <button class="navbar-toggler" type="button" (click)="toggleCollapse()"
       [attr.aria-expanded]="isExpanded ? 'true' : 'false'" [attr.aria-controls]="'navbarNav'">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
     <!-- Contenedor principal del navbar -->
     <div class="collapse navbar-collapse" id="navbarNav" [ngClass]="{'show': isExpanded}">
-      <div class="d-flex flex-lg-row flex-column w-100">
-        <!-- Redes sociales -->
-        <ul class="navbar-nav d-flex flex-lg-row flex-column flex-sm-row justify-content-center align-items-center mb-3 mb-lg-0 mx-auto border border-secondary border-2 rounded rounded-pill">
-          <li *ngIf="footerYLogoList[1]?.iconoOImgAMostrar" class="nav-item mx-2">
-            <a class="nav-link" [href]="footerYLogoList[1]?.urlAMostrar" target="_blank">
-              <i [class]="footerYLogoList[1]?.iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
+      <div class="d-flex flex-lg-row flex-column w-100 justify-content-between align-items-center">
+
+        <!-- Redes sociales (centradas) -->
+        <ul
+          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 border border-secondary border-2 rounded rounded-pill">
+          <li *ngIf="footerYLogoList[1]?.iconoOImgAMostrar" class="nav-item mx-3">
+            <a class="nav-link" [href]="footerYLogoList[1].urlAMostrar" target="_blank">
+              <i [class]="footerYLogoList[1].iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
             </a>
           </li>
-          <li *ngIf="footerYLogoList[2]?.iconoOImgAMostrar" class="nav-item mx-2">
-            <a class="nav-link" [href]="footerYLogoList[2]?.urlAMostrar" target="_blank">
-              <i [class]="footerYLogoList[2]?.iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
+          <li *ngIf="footerYLogoList[2]?.iconoOImgAMostrar" class="nav-item mx-3">
+            <a class="nav-link" [href]="footerYLogoList[2].urlAMostrar" target="_blank">
+              <i [class]="footerYLogoList[2].iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
             </a>
           </li>
-          <li *ngIf="footerYLogoList[3]?.iconoOImgAMostrar" class="nav-item mx-2">
-            <a class="nav-link" [href]="footerYLogoList[3]?.urlAMostrar" target="_blank">
-              <i [class]="footerYLogoList[3]?.iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
+          <li *ngIf="footerYLogoList[3]?.iconoOImgAMostrar" class="nav-item mx-3">
+            <a class="nav-link" [href]="footerYLogoList[3].urlAMostrar" target="_blank">
+              <i [class]="footerYLogoList[3].iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
             </a>
           </li>
-          <li *ngIf="footerYLogoList[4]?.iconoOImgAMostrar" class="nav-item mx-2">
-            <a class="nav-link" [href]="footerYLogoList[4]?.urlAMostrar" target="_blank">
-              <i [class]="footerYLogoList[4]?.iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
-            </a>
-          </li>
-        </ul>
-       
-        <!-- Pedidos ya y Rappi -->
-        <ul class="navbar-nav d-flex flex-lg-row flex-column flex-sm-row justify-content-center align-items-center mb-3 mb-lg-0 mx-auto border border-secondary border-2 rounded rounded-pill">
-          <!-- Se agregó 'ms-4' para margen a la izquierda -->
-          <li class="nav-item mx-2" *ngIf="footerYLogoList[5]?.iconoOImgAMostrar">
-            <a class="nav-link" [href]="footerYLogoList[5]?.urlAMostrar" target="_blank">
-              <img [src]="footerYLogoList[5]?.iconoOImgAMostrar" style="width: 50px; height: 50px; opacity: 0.4; border-radius: 15px;">
-            </a>
-          </li>
-          <li class="nav-item mx-2" *ngIf="footerYLogoList[6]?.iconoOImgAMostrar">
-            <a class="nav-link" [href]="footerYLogoList[6]?.urlAMostrar" target="_blank">
-              <img [src]="footerYLogoList[6]?.iconoOImgAMostrar" style="width: 50px; height: 50px; opacity: 0.4; border-radius: 15px;">
+          <li *ngIf="footerYLogoList[4]?.iconoOImgAMostrar" class="nav-item mx-3">
+            <a class="nav-link" [href]="footerYLogoList[4].urlAMostrar" target="_blank">
+              <i [class]="footerYLogoList[4].iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
             </a>
           </li>
         </ul>
-        
-        <!-- Enlaces adicionales -->
-        <ul class="navbar-nav d-flex flex-lg-row flex-column flex-sm-row justify-content-center align-items-center mb-3 mb-lg-0 mx-auto">
+        <!-- Pedidos ya y Rappi (centradas) -->
+        <ul
+          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 border border-secondary border-2 rounded rounded-pill">
+          <li class="nav-item mx-3" *ngIf="footerYLogoList[5]?.iconoOImgAMostrar">
+            <a class="nav-link" [href]="footerYLogoList[5].urlAMostrar" target="_blank">
+              <img [src]="footerYLogoList[5].iconoOImgAMostrar"
+                style="width: 40px; height: 40px; opacity: 0.4; border-radius: 15px;">
+            </a>
+          </li>
+          <li class="nav-item mx-3" *ngIf="footerYLogoList[6]?.iconoOImgAMostrar">
+            <a class="nav-link" [href]="footerYLogoList[6].urlAMostrar" target="_blank">
+              <img [src]="footerYLogoList[6].iconoOImgAMostrar"
+                style="width: 40px; height: 40px; opacity: 0.4; border-radius: 15px;">
+            </a>
+          </li>
+        </ul>
+        <!-- Ingreso usuarios (Derecha en pantallas grandes) -->
+        <ul
+          class="navbar-nav d-flex flex-lg-row flex-column justify-content-lg-end justify-content-center align-items-center mb-3 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/paneldecontrol">Ingreso usuarios</a>
+            <a class="nav-link" routerLink="/paneldecontrol">
+              <p>Ingreso usuarios</p>
+            </a>
           </li>
         </ul>
-      </div>      
+      </div>
     </div>
   </div>
 </nav>

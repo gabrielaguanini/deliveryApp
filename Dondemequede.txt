@@ -6,7 +6,7 @@
 * SI O SI EJECUTAR npm audit fix Y CORREGIR LAS VULNERABILIDADES QUE MARCA
 * agrgar botón para volver al panel de control en homepage cuando tenga la capa de seguridad de usuarios, este debe mostrarse solo a usuarios logueados.
 
-** AGREGAR LOS BOTONES DE INFO Y DESCARGAS AL NAVBAR CRUD
+
 
 =========================
 

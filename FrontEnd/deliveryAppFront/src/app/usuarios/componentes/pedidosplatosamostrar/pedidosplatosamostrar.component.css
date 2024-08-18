@@ -1,8 +1,8 @@
-#containerAll{
+#containerAll {
     background-color: rgb(231, 227, 199);
 }
 
-/* ///////////// FORMATO PARA TITULOS /////////////  */ 
+/* ///////////// FORMATO PARA TITULOS /////////////  */
 
 
 .title {
@@ -14,80 +14,88 @@
     z-index: 1;
     color: #54595f;
     background-color: #71a6a6;
-  }
-  
-  .title::before {
+}
+
+.title::before {
     position: absolute;
     content: "";
     width: calc(100% + 8px);
     height: calc(100% + 8px);
     top: -3px;
     left: -3px;
-    background-image: 
-    linear-gradient(135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
-    linear-gradient(-135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
-    linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
-    linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
-  }
+    background-image:
+        linear-gradient(135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+        linear-gradient(-135deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+        linear-gradient(-45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%),
+        linear-gradient(45deg, #54595f 0, #54595f 20px, transparent 20px, transparent 100%);
+}
 
 
-/* ///////////// FORMATO MODALES Y TABLA /////////////  */ 
+/* ///////////// FORMATO MODALES Y TABLA /////////////  */
 
 
 
-/* formato fondo y color texto de los modales */ 
+/* formato fondo y color texto de los modales */
 .modal-menu {
-    background-color:#b3ae93;
+    background-color: #b3ae93;
     color: #fff;
 }
 
-.tableAgregarPlato{
-    color:white;   
+.tableAgregarPlato {
+    color: white;
 }
 
-#backgrTitleModalAgPl, #backgrTitleModalAgPe, #backgrTitleModaleEdiDaEn {
+#backgrTitleModalAgPl,
+#backgrTitleModalAgPe,
+#backgrTitleModaleEdiDaEn {
     background-color: #71a6a6;
 }
 
-#backgrModalAgPl, #backgrAgPl, #backgrediDaEn {
+#backgrModalAgPl,
+#backgrAgPl,
+#backgrediDaEn {
     background-color: #968092;
 }
 
 
-/* ///////////// FORMATO BORDES /////////////  */ 
+/* ///////////// FORMATO BORDES /////////////  */
 
 #bordesYBackGrCardGdepPedDia {
     background: url("/assets/citricosBackGroundGde.jpg");
-    background-size:contain 
+    background-size: contain
 }
 
 #bordesYBackGrCardGdePlaMos {
     background: url("/assets/olivasfondo.png");
-    background-size:contain;    
+    background-size: contain;
 }
 
 
-.borderFormAgPed, #bordesYBackGrLisPedEdit{
+.borderFormAgPed,
+#bordesYBackGrLisPedEdit {
     background: url("/assets/citricosBackGround.jpg");
-    background-size:contain
+    background-size: contain
 }
 
-/* ///////////// FORMATO BOTONES SUPERIORES /////////////  */ 
+/* ///////////// FORMATO BOTONES SUPERIORES /////////////  */
 
-#btn-group{
+#btn-group {
     background-color: #f0e6be;
-    background-size:cover
+    background-size: cover
 }
 
-/* ///////////// FORMATO CARDS /////////////  */ 
+/* ///////////// FORMATO CARDS /////////////  */
 
-.cardGrandepPedDia, .modalitoEditPedid, .cardGrandepPlaMos, #backGrFormAgPed{
+.cardGrandepPedDia,
+.modalitoEditPedid,
+.cardGrandepPlaMos,
+#backGrFormAgPed {
     background-color: #fff;
     border-radius: 10px;
     border: none;
     position: relative;
     margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
     background: linear-gradient(to right, #968092, rgb(246, 204, 133)) !important;
     color: #fff;
 }
@@ -98,32 +106,18 @@
     border: none;
     position: relative;
     margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-    background: linear-gradient(to right, #b3ae93, rgb(166, 166, 97))!important;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
+    background: linear-gradient(to right, #b3ae93, rgb(166, 166, 97)) !important;
     color: #fff;
 }
 
 
-    /*animacion iconos o imagenes */
-    .animacion {
-        transition: color 0.3s ease, transform 0.5s ease;
-      }
-      
-      .animacion:hover {
-        color: #f0f0f0;
-        transform: rotate(360deg);
-      }
-      
+/*animacion iconos o imagenes */
+.animacion {
+    transition: color 0.3s ease, transform 0.5s ease;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.animacion:hover {
+    color: #f0f0f0;
+    transform: rotate(360deg);
+}

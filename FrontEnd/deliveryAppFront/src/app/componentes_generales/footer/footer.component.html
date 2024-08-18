@@ -3,79 +3,110 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="contact-content text-center">
-                    <a href="#"><img src="{{footerYLogoList[0]?.iconoOImgAMostrar}}" class="img-fluid w-25 h-25 animacion"
-                            alt="logo"></a>
-                    <hr>
-                    <!-- direccion-->
-                    <h6>
-                        <a href="{{ footerYLogoList[1]?.urlAMostrar }}" target="_blank" rel="noopener noreferrer">
-                            <i class="{{ footerYLogoList[1]?.iconoOImgAMostrar }} p-2 animacion"></i>
-                            {{ footerYLogoList[1]?.textoAMostrar }}
+                    <!-- Logo -->
+                    <ng-container *ngIf="footerYLogoList?.[0]">
+                        <a href="#">
+                            <img *ngIf="footerYLogoList[0].iconoOImgAMostrar && footerYLogoList[0].iconoOImgAMostrar.startsWith('https://')"
+                                [src]="footerYLogoList[0].iconoOImgAMostrar" class="img-fluid w-25 h-25 animacion"
+                                alt="logo">
                         </a>
-                    </h6>
-                    <!-- telefono y whatsapp-->
+                    </ng-container>
+                    <hr>
+
+                    <!-- Dirección -->
                     <h6>
-                        <i
-                            class="{{footerYLogoList[2]?.iconoOImgAMostrar}} p-2 animacion" ></i>{{footerYLogoList[2]?.textoAMostrar}}<span>|</span>
-                        <a href="{{footerYLogoList[3]?.urlAMostrar}}" target="_blank" rel="noopener noreferrer">
-                            <i
-                                class="{{footerYLogoList[3]?.iconoOImgAMostrar}} pe-2 animacion"></i></a>{{footerYLogoList[3]?.textoAMostrar}}
+                        <ng-container *ngIf="footerYLogoList.length > 1 && footerYLogoList[1]">
+                            <a *ngIf="footerYLogoList[1].urlAMostrar" [href]="footerYLogoList[1].urlAMostrar"
+                                target="_blank" rel="noopener noreferrer">
+                                <i [class]="footerYLogoList[1].iconoOImgAMostrar + ' p-2 animacion'"></i>
+                                {{ footerYLogoList[1].textoAMostrar }}
+                            </a>
+                        </ng-container>
                     </h6>
-                    <!-- mail-->
-                    <h6><i
-                            class="{{footerYLogoList[4]?.iconoOImgAMostrar}} p-2 animacion"></i>{{footerYLogoList[4]?.textoAMostrar}}
+
+                    <!-- Teléfono y WhatsApp -->
+                    <div class="d-flex justify-content-center">
+                        <ng-container *ngIf="footerYLogoList[2]">
+                            <div class="d-flex align-items-center">
+                                <i [class]="footerYLogoList[2].iconoOImgAMostrar + ' p-2 animacion'"></i>
+                                <h6 class="mb-0">{{ footerYLogoList[2].textoAMostrar }}</h6>
+                            </div>
+                        </ng-container>
+                        <span class="mx-2">|</span>
+                        <ng-container *ngIf="footerYLogoList[3]">
+                            <div class="d-flex align-items-center">
+                                <a [href]="footerYLogoList[3].urlAMostrar" target="_blank" rel="noopener noreferrer">
+                                    <i [class]="footerYLogoList[3].iconoOImgAMostrar + ' pe-2 animacion'"></i>
+                                </a>
+                                <h6 class="mb-0">{{ footerYLogoList[3].textoAMostrar }}</h6>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!-- Mail -->
+                    <h6>
+                        <ng-container *ngIf="footerYLogoList[4]">
+                            <i [class]="footerYLogoList[4].iconoOImgAMostrar + ' p-2 animacion'"></i>
+                            {{ footerYLogoList[4].textoAMostrar }}
+                        </ng-container>
                     </h6>
-                    <!-- LISTA PARA PEDIDOS YA Y RAPPI-->
+
+                    <!-- Lista para Pedidos Ya y Rappi -->
                     <div class="contact-social ps-2" id="footer-social-icons">
                         <ul>
-                            <!-- pedidos ya-->
-                            <li>
-                                <a class="hover-target" href="{{ footerYLogoList[8]?.urlAMostrar }}" target="_blank"
-                                    id="elemento1">
-                                    <img src="{{ footerYLogoList[8]?.iconoOImgAMostrar }}" class="img-fluid animacion"
-                                        id="footer-social-icons-1">
-                                </a>
-                            </li>
-                            <!-- rappi-->
-                            <li>
-                                <a class="hover-target" href="{{ footerYLogoList[9]?.urlAMostrar }}" target="_blank"
-                                    id="elemento2">
-                                    <img src="{{ footerYLogoList[9]?.iconoOImgAMostrar }}" class="img-fluid animacion"
-                                        id="footer-social-icons-2">
-                                </a>
-                            </li>
+                            <ng-container *ngIf="footerYLogoList[8]">
+                                <li>
+                                    <a class="hover-target" [href]="footerYLogoList[8].urlAMostrar" target="_blank"
+                                        id="elemento1">
+                                        <img [src]="footerYLogoList[8].iconoOImgAMostrar" class="img-fluid animacion"
+                                            id="footer-social-icons-1">
+                                    </a>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="footerYLogoList[9]">
+                                <li>
+                                    <a class="hover-target" [href]="footerYLogoList[9].urlAMostrar" target="_blank"
+                                        id="elemento2">
+                                        <img [src]="footerYLogoList[9].iconoOImgAMostrar" class="img-fluid animacion"
+                                            id="footer-social-icons-2">
+                                    </a>
+                                </li>
+                            </ng-container>
                         </ul>
                     </div>
 
-
-                    <!-- LISTA PARA REDES SOCIALES-->
+                    <!-- Lista para redes sociales -->
                     <div class="contact-social">
                         <h5>Seguinos</h5>
                         <ul>
-                            <!-- instagram-->
-                            <li>
-                                <a class="hover-target" href="{{footerYLogoList[5]?.urlAMostrar}}" target="_blank"
-                                    id="icono1">
-                                    <i class="{{footerYLogoList[5]?.iconoOImgAMostrar}} animacion"></i>
-                                </a>
-                            </li>
-                            <!-- facebook-->
-                            <li>
-                                <a class="hover-target" href="{{footerYLogoList[6]?.urlAMostrar}}" target="_blank"
-                                    id="icono2">
-                                    <i class="{{footerYLogoList[6]?.iconoOImgAMostrar}} animacion"></i>
-                                </a>
-                            </li>
-                            <!-- twitter-->
-                            <li>
-                                <a class="hover-target" href="{{footerYLogoList[7]?.urlAMostrar}}" target="_blank"
-                                    id="icono3">
-                                    <i class="{{footerYLogoList[7]?.iconoOImgAMostrar}} animacion"></i>
-                                </a>
-                            </li>
+                            <ng-container *ngIf="footerYLogoList[5]">
+                                <li>
+                                    <a class="hover-target" [href]="footerYLogoList[5].urlAMostrar" target="_blank"
+                                        id="icono1">
+                                        <i [class]="footerYLogoList[5].iconoOImgAMostrar + ' animacion'"></i>
+                                    </a>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="footerYLogoList[6]">
+                                <li>
+                                    <a class="hover-target" [href]="footerYLogoList[6].urlAMostrar" target="_blank"
+                                        id="icono2">
+                                        <i [class]="footerYLogoList[6].iconoOImgAMostrar + ' animacion'"></i>
+                                    </a>
+                                </li>
+                            </ng-container>
+                            <ng-container *ngIf="footerYLogoList[7]">
+                                <li>
+                                    <a class="hover-target" [href]="footerYLogoList[7].urlAMostrar" target="_blank"
+                                        id="icono3">
+                                        <i [class]="footerYLogoList[7].iconoOImgAMostrar + ' animacion'"></i>
+                                    </a>
+                                </li>
+                            </ng-container>
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -84,5 +115,8 @@
 <!-- =============== 1.9 Contact Area End ====================-->
 <!-- =============== 1.9 Footer Area Start ====================-->
 <footer>
-    <p>Copyright &copy; 2019 <img src="https://i.ibb.co/QDy827D/ak-logo.png" alt="logo"> All Rights Reserved.</p>
+    <a href="https://portfoliogabg.web.app/" target="_blank">
+        <p>2024 - Developed by ðº°˜¨
+            (נα∂є_иσfאָ)
+            ¨˜°ºð</p></a>    
 </footer>

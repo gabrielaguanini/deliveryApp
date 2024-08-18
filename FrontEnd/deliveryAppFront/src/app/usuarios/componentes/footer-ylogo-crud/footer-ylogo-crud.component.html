@@ -1,7 +1,6 @@
 <div class="container-fluid">
 
-    <!-- BOTON PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
-
+    <!-- BOTÓN PARA CERRAR Y VOLVER AL PANEL DE CONTROL -->
     <div class="container-fluid">
         <div class="d-flex justify-content-end">
             <a class="btnPanelDeControl" routerLink="/paneldecontrol">
@@ -10,23 +9,19 @@
         </div>
     </div>
 
-     <!-- BOTONES DE DESCARGAS E INFO -->
-
-     <div class="container-fluid">
+    <!-- BOTONES DE DESCARGAS E INFO -->
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <div class="btn-group bg-success border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group"
-                    style="margin: 0 auto;">
+                <div class="btn-group bg-success border border-secondary border-2 pt-1 ps-2 pe-1 ms-auto" id="btn-group" style="margin: 0 auto;">
                     <div class="row">
                         <div class="col-md-12 mb-2">
-                            <button type="button" class="btn btn-primary btn-sm rounded-pill btn-block border border-secondary"
-                                (click)="mostrarOcultarModalInfo(templateModalInfo)">
+                            <button type="button" class="btn btn-primary btn-sm rounded-pill btn-block border border-secondary" (click)="mostrarOcultarModalInfo(templateModalInfo)">
                                 INFO
                             </button>
                         </div>
                         <div class="col-md-12 mb-2">
-                            <button type="button" (click)="exportToExcelOnClick()"
-                                class="btn btn-danger btn-success btn-sm rounded-pill btn-block border border-secondary">
+                            <button type="button" (click)="exportToExcelOnClick()" class="btn btn-danger btn-success btn-sm rounded-pill btn-block border border-secondary">
                                 DESCARGAR LISTA COMPLETA
                             </button>
                         </div>
@@ -37,30 +32,30 @@
             </div>
         </div>
 
-        <!-- MODAL QUE CON INFORMACION DE USO DEL COMPONENTE O PAGINA-->
-        <div class="container-fluid">
-            <ng-template #templateModalInfo>
-                <div class="container-fluid modal-menu">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title">COMO USAR</h4>
-                        <div class="">
-                            <button type="button" class="btn btn-outline-light btn-sm" (click)="modalInfo.hide()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+        <!-- MODAL QUE CON INFORMACIÓN DE USO DEL COMPONENTE O PÁGINA -->
+        <ng-template #templateModalInfo>
+            <div class="container-fluid modal-menu">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title">COMO USAR</h4>
+                    <div class="">
+                        <button type="button" class="btn btn-outline-light btn-sm" (click)="modalInfo.hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 </div>
-            </ng-template>
-        </div>
+                <!-- Contenido del modal -->
+            </div>
+        </ng-template>
     </div>
 
-     <!-- TARJETA GRANDE QUE MUESTRA LISTA DE REGISTOS DE LA TABLA FooterYLogo -->
+    <!-- TARJETA GRANDE QUE MUESTRA LISTA DE REGISTROS DE LA TABLA FooterYLogo -->
     <div class="row">
         <div class="col-lg-12">
             <div class="border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4" id="containerBakImg">
+                <h3 class="title col-12 mx-auto">DATOS DEL FOOTER Y LOGO DEL NAVBAR</h3>
+                <br>
                 <div class="cardGrandeFooYLo border border-secondary border-2 rounded p-4">
-                    <div class="mb-1">
-                        <h3 class="title col-12 mx-auto">DATOS DEL FOOTER Y LOGO DEL NAVBAR</h3>
+                    <div class="mb-1">                       
                         <hr>
                         <div class="container-fluid">
                             <div class="row justify-content-center">
@@ -71,12 +66,12 @@
                                         'card-warning': i % 5 === 2,
                                         'card-danger': i % 5 === 3,
                                         'card-info': i % 5 === 4}">
-                                    <div class="col-12 mx-auto">
+                                    <div class="col-12 bg-white bg-opacity-25  mx-auto">
                                         <h4 class="border border-white border-2 rounded p-1">
                                             <strong>{{FooterYLogoModel.nombreDatoAMostrar}}</strong>
                                         </h4>
                                     </div>
-                                    <div class="col-12 mx-auto border border-white border-1 rounded p-2">
+                                    <div class="col-12 bg-white bg-opacity-25 mx-auto border border-white border-1 rounded p-2">
                                         <h5 class="">
                                             Texto actual:
                                         </h5>
@@ -84,29 +79,31 @@
                                             {{FooterYLogoModel.textoAMostrar}}
                                         </p>
                                     </div>
-                                    <div class="col-12 mx-auto border border-white border-1 rounded p-2">
+                                    <div class="col-12 bg-white bg-opacity-25 mx-auto border border-white border-1 rounded p-2">
+                                        <h5 class="">
+                                            URL para link:
+                                        </h5>
+                                        <p class="">
+                                            {{FooterYLogoModel.urlAMostrar}}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 bg-white bg-opacity-25 mx-auto border border-white border-1 rounded p-2">
                                         <h5 class="">
                                             Icono/Imagen actual:
                                         </h5>
-                                        <!-- url a imagen a o a icono -->
-                                        <div>
-                                            <div class="row align-items-center justify-content-center text-center">
-                                                <!-- url a imagen -->
-                                                <img class="img-fluid w-50 h-50 animacion" (error)="onImageError($event)"
-                                                    [src]="FooterYLogoModel.iconoOImgAMostrar" id="zzz">
-                                                <!-- url a icono -->
-                                                <div class="row align-items-center justify-content-center text-center">
-                                                    <i
-                                                        class="{{FooterYLogoModel.iconoOImgAMostrar}} display-1 w-50 h-50 animacion"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ng-container *ngIf="FooterYLogoModel.iconoOImgAMostrar">
+                                            <ng-container *ngIf="isImage(FooterYLogoModel.iconoOImgAMostrar); else icon">
+                                                <img class="img-fluid w-50 h-50 animacion" [src]="FooterYLogoModel.iconoOImgAMostrar" (error)="onImageError($event)" alt="Imagen">
+                                            </ng-container>
+                                            <ng-template #icon>
+                                                <i class="{{FooterYLogoModel.iconoOImgAMostrar}} display-1 w-50 h-50 animacion"></i>
+                                            </ng-template>
+                                        </ng-container>
                                     </div>
 
                                     <div class="col-12">
                                         <br>
-                                        <button class="btn btn-outline-light btn-lg border border-white border-3"
-                                            (click)="openModalEditarfooYLo(templateEditarFooterYLogo); obtenerXId(FooterYLogoModel.idOtrosDatos, FooterYLogoModel.nombreDatoAMostrar, FooterYLogoModel.textoAMostrar, FooterYLogoModel.urlAMostrar, FooterYLogoModel.iconoOImgAMostrar)">
+                                        <button class="btn btn-outline-light btn-lg border border-white border-3" (click)="openModalEditarfooYLo(templateEditarFooterYLogo); obtenerXId(FooterYLogoModel.idOtrosDatos, FooterYLogoModel.nombreDatoAMostrar, FooterYLogoModel.textoAMostrar, FooterYLogoModel.urlAMostrar, FooterYLogoModel.iconoOImgAMostrar)">
                                             <i class="far fa-edit"></i>
                                         </button>
                                         <br><br>
@@ -115,21 +112,14 @@
                             </div>
                         </div>
 
-
-
-
-
-
-                        <!-- MODAL EDITAR FOOTER Y LOGO-->
-
+                        <!-- MODAL EDITAR FOOTER Y LOGO -->
                         <ng-template #templateEditarFooterYLogo>
                             <div class="modal-header" id="backGroT">
                                 <h4 class="modal-title text-white">EDITAR FOOTER Y LOGO</h4>
                                 <div class="card-icon card-icon-large">
                                     <i class=""></i>
                                 </div>
-                                <button type="button" class="btn btn-outline-light btn-sm"
-                                    (click)="modalEditarFooYLo.hide();">
+                                <button type="button" class="btn btn-outline-light btn-sm" (click)="modalEditarFooYLo.hide();">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -139,66 +129,52 @@
                                         <form (ngSubmit)="editarFooyLo()" novalidate #f="ngForm">
                                             <div class="form-group col-12 pt-3 pb-3">
                                                 <label for="idOtrosDatos">ID idOtrosDatos</label>
-                                                <input readonly type="number" class="form-control" id="idOtrosDatos"
-                                                    name="idOtrosDatos" [(ngModel)]="idOtrosDatos" required>
+                                                <input readonly type="number" class="form-control" id="idOtrosDatos" name="idOtrosDatos" [(ngModel)]="idOtrosDatos" required>
                                             </div>
                                             <div class="form-group col-12 pb-3">
                                                 <label for="nombreDatoAMostrar">NOMBRE DATO A MOSTRAR</label>
-                                                <input readonly type="text" class="form-control" id="nombreDatoAMostrar"
-                                                    name="nombreDatoAMostrar" [(ngModel)]="nombreDatoAMostrar" required>
-
+                                                <input readonly type="text" class="form-control" id="nombreDatoAMostrar" name="nombreDatoAMostrar" [(ngModel)]="nombreDatoAMostrar" required>
                                             </div>
-                                            <div class="form-group col-12 pb-3"
-                                                title="El registro para texto acepta 60 caracteres como maximo">
+                                            <div class="form-group col-12 pb-3" title="El registro para texto acepta 60 caracteres como máximo">
                                                 <label for="textoAMostrar">TEXTO A MOSTRAR</label>
-                                                <input type="text" class="form-control" id="textoAMostrar"
-                                                    name="textoAMostrar" [(ngModel)]="textoAMostrar" required>
+                                                <input type="text" class="form-control" id="textoAMostrar" name="textoAMostrar" [(ngModel)]="textoAMostrar" required>
                                             </div>
                                             <div class="form-group col-12 pb-3">
                                                 <label for="urlAMostrar">URL A MOSTRAR</label>
-                                                <input type="text" class="form-control" id="urlAMostrar"
-                                                    name="urlAMostrar" [(ngModel)]="urlAMostrar" required>
+                                                <input type="text" class="form-control" id="urlAMostrar" name="urlAMostrar" [(ngModel)]="urlAMostrar" required>
                                             </div>
-                                            <div class="form-group col-12 pb-3"
-                                                title="El titulo de la promo acepta 21 caracteres como maximo">
-                                                <a class="custom-link text-white" title="Más iconos"
-                                                    href="https://fontawesome.com/v5/search?o=r&m=free"
-                                                    target="_blank"><i class="fa fa-link px-1"></i>
+                                            <div class="form-group col-12 pb-3" title="El título de la promo acepta 21 caracteres como máximo">
+                                                <a class="custom-link text-white" title="Más iconos" href="https://fontawesome.com/v5/search?o=r&m=free" target="_blank">
+                                                    <i class="fa fa-link px-1"></i>
                                                 </a>
                                                 <label for="iconoOImgAMostrar">ICONO O URL A IMAGEN</label>
-                                                <input type="text" class="form-control" id="iconoOImgAMostrar"
-                                                    name="iconoOImgAMostrar" [(ngModel)]="iconoOImgAMostrar" required>
+                                                <input type="text" class="form-control" id="iconoOImgAMostrar" name="iconoOImgAMostrar" [(ngModel)]="iconoOImgAMostrar" required>
                                                 <br>
                                                 <!-- Contenedor para mostrar la imagen -->
                                                 <div class="d-flex justify-content-center">
-                                                    <img class="img-fluid w-50 h-50 border border-white border-2 rounded"
-                                                        *ngIf="iconoOImgAMostrar" [src]="iconoOImgAMostrar"
-                                                        onerror="this.style.display='none'"
-                                                        alt="Vista Previa de Imagen">
+                                                    <img class="img-fluid w-50 h-50 border border-white border-2 rounded" *ngIf="isImage(iconoOImgAMostrar)" [src]="iconoOImgAMostrar" (error)="onImageError($event)" alt="Vista Previa de Imagen">
                                                 </div>
                                                 <!-- Contenedor para mostrar el ícono -->
                                                 <div class="d-flex justify-content-center">
-                                                    <!-- Mostrar el ícono seleccionado o ingresado manualmente -->
-                                                    <i *ngIf="iconoOImgAMostrar" [class]="iconoOImgAMostrar"
-                                                        class="border border-white border-2 rounded p-3 m-3"
-                                                        style="font-size: 5rem; color: white;"></i>
+                                                    <i *ngIf="!isImage(iconoOImgAMostrar)" [class]="iconoOImgAMostrar" class="border border-white border-2 rounded p-3 m-3" style="font-size: 2rem;"></i>
                                                 </div>
-
-
                                             </div>
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <button class="btn btn-outline-light" (click)="listaFooteryLogo()">
-                                                        Enviar
-                                                    </button>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <button class="btn btn-outline-light" (click)="listaFooteryLogo()">
+                                                            Enviar
+                                                        </button>
+                                                    </div>
                                                 </div>
+    
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <br>
                             </div>
                         </ng-template>
+
                     </div>
                 </div>
             </div>
