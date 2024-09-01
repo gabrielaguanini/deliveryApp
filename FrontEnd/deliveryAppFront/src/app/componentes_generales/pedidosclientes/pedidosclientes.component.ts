@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DetallePedidos } from 'src/app/usuarios/modelos/detalle-pedidos';
 import { DetallePedidosAcotadaModel } from 'src/app/usuarios/modelos/detalle-pedidos-acotadaModel';
+import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model';
 import { PedidosModel } from 'src/app/usuarios/modelos/pedidos-model';
 import { PlatosAMostrar } from 'src/app/usuarios/modelos/platos-amostrar';
 import { DetallePedidosService } from 'src/app/usuarios/servicios/detalle-pedidos.service';
@@ -33,6 +34,10 @@ export class PedidosclientesComponent {
   pedidoConfirmado: boolean = false;
   precioPlatosAMostrar!: number;
 
+  idPlato!: number;
+
+  idPlatosAMostrar!: number;
+
   platosDelPedido!: string;
 
   idPedido!: number;
@@ -45,7 +50,7 @@ export class PedidosclientesComponent {
   porcionesPlatosList: number[] = []; // Array para almacenar las porciones de cada plato, esta lista se itera con el let i = index del componente
   totalesPlatosList: number[] = []; // Array para almacenar los totales de cada plato, esta lista se itera con el let i = index del componente
   platosSeleccionadosSioNo: Boolean[] = []; //lista en la que se agregan los datos de los chekbox seleccionados
-
+  platosLista: MenuCompletoModel[] = [];
   chekBoxSelcPlat: boolean = false;
 
   totalPedMayCerp: boolean = false;
@@ -102,8 +107,8 @@ export class PedidosclientesComponent {
 
 
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
 
   constructor(private pedidosServ: PedidosService,
@@ -111,17 +116,17 @@ export class PedidosclientesComponent {
     private plaMosServ: PlatosAMostrarService
   ) { };
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
   ngOnInit(): void {
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa
     this.inicBtnTextAgrePed(); // Inicializa todos los botones "agregar al pedido" en estado de true o con el texto "Agregar al pedido"
-    
+
   };
 
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
-//___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
+  //___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___ღ___  
 
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
@@ -159,7 +164,7 @@ export class PedidosclientesComponent {
   };
 
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅓 ◈
@@ -182,6 +187,7 @@ export class PedidosclientesComponent {
     this.modalitosPlaPed[modalName] = !this.modalitosPlaPed[modalName];
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Muestra el modal para el ingreso de datos de envío.
    * 
@@ -192,7 +198,7 @@ export class PedidosclientesComponent {
     this.modalitoNgIfDatEnv = true;
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Muestra el modal para la confirmación y envío del pedido.
    * 
@@ -202,7 +208,7 @@ export class PedidosclientesComponent {
     // Establece la visibilidad del modal a true, mostrando el modal.
     this.modalitoNgIfConfYEnvPed = true;
   };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Muestra el modal de alerta.
    * 
@@ -213,7 +219,7 @@ export class PedidosclientesComponent {
     this.modalitoNgIfAlert = true;
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Cierra el modal de alerta.
    * 
@@ -224,7 +230,7 @@ export class PedidosclientesComponent {
     this.modalitoNgIfAlert = false;
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Abre el modal de confirmación.
    * 
@@ -235,6 +241,7 @@ export class PedidosclientesComponent {
     this.modalitoNgIfConf = true;
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮ 
   /**
    * Cierra el modal de confirmación.
    * 
@@ -245,9 +252,7 @@ export class PedidosclientesComponent {
     this.modalitoNgIfConf = false;
   };
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= FUNCIONES PARA MENSAJES (ALERT, CONFIRMACION DE PEDIDOS) =☾∘∙⊱⋅•⋅
@@ -267,7 +272,7 @@ export class PedidosclientesComponent {
   };
 
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= FUNCIONES PARA BOTONES =☾∘∙⊱⋅•⋅
@@ -287,7 +292,7 @@ export class PedidosclientesComponent {
     }
     );
   };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Cambia el texto del botón "Agregar al pedido" por "Cerrar".
    * 
@@ -307,6 +312,7 @@ export class PedidosclientesComponent {
     this.botonesEstado[index] = !this.botonesEstado[index];
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   /**
    * Muestra el botón 'botonEnvPedido'.
@@ -315,6 +321,7 @@ export class PedidosclientesComponent {
     this.botonEnvPedido = true;
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Oculta el botón 'botonEnvPedido'.
    */
@@ -322,8 +329,7 @@ export class PedidosclientesComponent {
     this.botonEnvPedido = false;
   };
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= FUNCIONES PARA DEJAR OFFLINE INPUT HTML =☾∘∙⊱⋅•⋅
@@ -335,7 +341,7 @@ export class PedidosclientesComponent {
   disabledSelcPla(): void {
     this.disabledInpSelPla = true;
   };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Deshabilita el input para la selección de platos.
    */
@@ -343,13 +349,14 @@ export class PedidosclientesComponent {
     this.disabledInpSelPla = false;
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮ 
   /**
    * Habilita el input para la selección de platos.
    */
   disabledInputDatEnv(): void {
     this.disabledInDatEnv = true;
   };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Deshabilita el input para enviar datos de envio del pedido.
    */
@@ -357,11 +364,11 @@ export class PedidosclientesComponent {
     this.disabledInDatEnv = false;
   };
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= SELECCION DE PLATOS A MOSTRAR PARA EL PEDIDO, CREACION DEL PEDIDO, CREACION DE DETALLES DEL PEDIDO Y GUARDARLOS EN LA DB =☾∘∙⊱⋅•⋅
+  //⋅•⋅⊰∙∘☽CALCULAR TOTAL PLATOSAMOSTRAR Y TOTAL PEDIDO. ELIMINAR PEDIDO Y DETALLES PEDIDOS SI HAY DIFERENCIAS EN EL TOTAL DEL FRONT Y BACK =☾∘∙⊱⋅•⋅
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
 
   /**
@@ -382,9 +389,11 @@ export class PedidosclientesComponent {
     this.calcularTotalPlato(index);
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-
-//calcular total platosamostrar y total pedido. eliminar pedido y detalles pedidos si hay diferencias en el total del front y back
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
+  //⋅•⋅⊰∙∘☽= CALCULAR TOTAL PLATOSAMOSTRAR Y TOTAL PEDIDO. ELIMINAR PEDIDO Y DETALLES PEDIDOS SI HAY DIFERENCIAS EN EL TOTAL DEL FRONT Y BACK =☾∘∙⊱⋅•⋅
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
 
   /**
    * Calcula el total del plato multiplicando su precio por la cantidad de porciones ingresadas.
@@ -396,6 +405,7 @@ export class PedidosclientesComponent {
     this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮ 
   /**
    * Calcula el total del pedido sumando el precio total de todos los platos seleccionados.
    * @returns El total del pedido.
@@ -413,7 +423,7 @@ export class PedidosclientesComponent {
     return totalPlatosSeleccionados;
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
  * Obtiene un pedido por su ID y lo elimina junto con sus detalles de pedido asociados si hay diferencias
  * entre el importe total del pedido calculado por el front y el calculado por el backend.
@@ -443,7 +453,7 @@ export class PedidosclientesComponent {
     }
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
   * Agrega una porción al plato seleccionado si se marca el checkbox de selección.
   * Si se desmarca el checkbox, se restablece el número de porciones a 1 y se recalcula el total del plato.
@@ -464,7 +474,7 @@ export class PedidosclientesComponent {
     }
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Cambia el estado del checkbox del plato en el modal de agregar detalle del pedido a true o false.
    * 
@@ -475,8 +485,7 @@ export class PedidosclientesComponent {
     this.platosSeleccionadosSioNo[index] = !this.platosSeleccionadosSioNo[index];
   };
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
   * Guarda un pedido y sus respectivos detalles de pedido en la base de datos.
   * Se validan los datos del cliente y la selección de platos antes de realizar el pedido.
@@ -499,6 +508,8 @@ export class PedidosclientesComponent {
   * 
   * Si ocurre algún error en la solicitud al servidor, se muestra un mensaje de error.
   */
+
+  //✮------------------------------------------------------------------------------------------------------------✮ 
   agregarPedidoYDetPed(): void {
     // Crea una lista con los platos seleccionados mediante el checkbox
     const seleccionados = this.platosAMostrarList
@@ -586,7 +597,7 @@ export class PedidosclientesComponent {
     );
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Verifica la existencia de un pedido completo en la base de datos.
    * Utiliza el ID del pedido para realizar la verificación.
@@ -596,51 +607,65 @@ export class PedidosclientesComponent {
     return this.pedidosServ.existeXIdPedido(idPedido);
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
-  * Envia la lista de detalles de pedidos a la base de datos.
-  * Utiliza los platos seleccionados y las porciones ingresadas para crear los detalles de pedido.
-  * Antes de enviar los detalles de pedido, valida que los datos de envío del cliente estén completos.
-  * Si los datos de envío están incompletos, muestra una alerta y no realiza el envío.
-  * Si los datos de envío están completos, guarda los detalles de pedido en la base de datos y luego ejecuta la función para obtener el pedido por ID y eliminarlo si es necesario.
-  * Una vez guardados los detalles de pedido y, si es necesario, eliminado el pedido, envía el pedido por WhatsApp.
-  * 
-  * @remarks
-  * Se crea una lista de objetos `DetallePedidosAcotadaModel` con los platos seleccionados y las porciones ingresadas.
-  * Se valida que los datos de envío del cliente estén completos antes de enviar los detalles de pedido.
-  * Se muestra una alerta si faltan datos de envío del cliente.
-  * Se guarda la lista de detalles de pedido en la base de datos y se elimina el pedido si hay diferencias en el total del pedido calculado por el front y el calculado por el backend.
-  * Se envía el pedido por WhatsApp una vez que se hayan guardado los detalles de pedido y, si es necesario, eliminado el pedido.
-  */
+ * Envía los detalles de los pedidos seleccionados a la base de datos.
+ * Utiliza los platos seleccionados y las porciones ingresadas para crear los detalles del pedido.
+ * Antes de realizar el envío, verifica que los datos de envío del cliente estén completos.
+ * Si los datos están incompletos, muestra una alerta y detiene el proceso.
+ * Si los datos están completos, guarda los detalles del pedido en la base de datos.
+ * Luego, verifica si hay diferencias en el total del pedido calculado en el frontend y backend; si las hay, elimina el pedido.
+ * Finalmente, envía el pedido a través de WhatsApp.
+ * 
+ * @remarks
+ * Se crea una lista de objetos `DetallePedidosAcotadaModel` a partir de los platos seleccionados y las porciones ingresadas.
+ * Se valida que los datos de envío del cliente estén completos antes de proceder.
+ * En caso de datos faltantes, se alerta al usuario y se detiene el envío.
+ * Se guarda la lista de detalles de pedido en la base de datos y, si es necesario, se elimina el pedido.
+ * Una vez completado esto, el pedido se envía por WhatsApp.
+ */
+  /**
+   * Maneja el proceso de envío de detalles del pedido:
+   * - Filtra y construye una lista de detalles de pedidos seleccionados.
+   * - Verifica que todos los datos de envío del cliente estén completos antes de proceder.
+   * - Guarda los detalles del pedido en la base de datos.
+   * - Si hay discrepancias en el total del pedido, se elimina el pedido.
+   * - Envía el pedido por WhatsApp.
+   */
   async enviarDetallePedidos(): Promise<void> {
     try {
+      // Filtra y construye una lista de detalles de pedidos seleccionados
       const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
         .map((PlatosAMostrar, index) => {
+          // Verifica si el plato está seleccionado y si la porción correspondiente está definida
           if (this.platosSeleccionadosSioNo[index] && this.porcionesPlatosList[index] !== undefined) {
+            // Devuelve un objeto DetallePedidosAcotadaModel
             return {
-              pedidos: { idPedido: this.idPedido },
-              platosAMostrar: { idPlatosAMostrar: PlatosAMostrar.idPlatosAMostrar },
-              porcionPlato: this.porcionesPlatosList[index],
+              pedidos: { idPedido: this.idPedido }, // Asocia el pedido con su id
+              platosAMostrar: { idPlatosAMostrar: PlatosAMostrar.idPlatosAMostrar }, // Asocia el id de PlatosAMostrar
+              platos: { idPlato: PlatosAMostrar.platos.idPlato }, // Asocia el id del plato
+              porcionPlato: this.porcionesPlatosList[index], // Asigna la porción seleccionada
             };
           }
           return null;
         })
         .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];
 
-      if (this.nombreCliente == "" ||
-        this.telefonoCliente == "" ||
-        this.direccionCliente == "" ||
-        this.localidadCliente == "") {
-        alert("Ingrese datos de envio para completar el pedido");
-        console.log("Faltan ingresar datos de envio");
+      // Verifica si todos los datos de envío del cliente están completos antes de proceder
+      if (this.nombreCliente === "" ||
+        this.telefonoCliente === "" ||
+        this.direccionCliente === "" ||
+        this.localidadCliente === "") {
+        alert("Ingrese datos de envío para completar el pedido");
+        console.log("Faltan ingresar datos de envío");
       } else {
-        // Guarda los detalles de pedido en la base de datos
+        // Guarda los detalles del pedido en la base de datos
         const guardarDetallePedido = this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).toPromise();
+        console.log('elementosSeleccionados: ' + JSON.stringify(elementosSeleccionados));
         await guardarDetallePedido;
-
         console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente.');
 
-        // Si hay diferencias en el total del pedido, elimina el pedido
+        // Verifica si hay diferencias en el total del pedido y elimina el pedido si es necesario
         await this.obtenerPedidoXIdYEliminar();
 
         console.log("Enviando pedido por WhatsApp...");
@@ -650,12 +675,10 @@ export class PedidosclientesComponent {
     } catch (error) {
       console.error("Error al enviar el pedido:", error);
     }
-  };
+  }
 
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= ENVIO POR WHATSAPP DEL PEDIDO COMPLETO (PEDIDOS Y DETALLE DEL PEDIDOS) =☾∘∙⊱⋅•⋅
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
@@ -717,9 +740,7 @@ export class PedidosclientesComponent {
     }
   };
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒  𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈
   //⋅•⋅⊰∙∘☽= VISUALIZACIÓN DE DATOS DE ENVIO Y PLATOS A MOSTRAR SELECCIONADOS PARA EL CLIENTE, ANTES DE ENVIARLOS A LA DB =☾∘∙⊱⋅•⋅
@@ -742,7 +763,7 @@ export class PedidosclientesComponent {
     ];
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   /**
   * Muestra una lista de los platos seleccionados para el pedido para visualización del cliente antes de enviarla a la base de datos.
@@ -777,7 +798,7 @@ export class PedidosclientesComponent {
           platosAMostrar: platoAMostrar,
           platos: platoAMostrar.platos,
           porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
-          precioPlatosAMostrar: this.precioPlatosAMostrar,
+          precioPlato: this.precioPlatosAMostrar,
           totalPlato: this.totalesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0 // Asigna el valor adecuado si es necesario
         };
       });
@@ -788,8 +809,7 @@ export class PedidosclientesComponent {
     return seleccionados;
   };
 
-
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 ◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
   //⋅•⋅⊰∙∘☽= FUNCIONES VARIAS =☾∘∙⊱⋅•⋅
@@ -802,6 +822,7 @@ export class PedidosclientesComponent {
     event.preventDefault();
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮ 
   /**
   * Ancla para desplazarse a secciones mediante un botón.
   * @param sectionId El ID de la sección a la que se desea desplazar.
@@ -826,21 +847,20 @@ export class PedidosclientesComponent {
     }
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮ 
+  /**
+  * Actualiza 'totalPedMayCerp' en función del resultado de 'calcularTotalPedido()'.
+  * Establece 'totalPedMayCerp' a `true` si el total es mayor que 0, o a `false` si es 0.
+  */
   totalPedMayCe() {
-     if(this.calcularTotalPedido() > 0) {
+    if (this.calcularTotalPedido() > 0) {
       this.totalPedMayCerp = true;
-     };
-     if(this.calcularTotalPedido() == 0) {
+    } else {
       this.totalPedMayCerp = false;
-     };
+    }
   }
 
-
-  //para ejecutar funcione al hacer scroll en pc o en pantallas tactiles. La annotation @HostListener capta el evento scroll
-  //@HostListener('window:scroll', ['$event'])
-  //cerrarModalitoNgIfAlertConfScroll(event: Event): void {
-  //  this.cerrarModalitoNgIfAlert();
-  //};
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 
 }

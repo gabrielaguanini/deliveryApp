@@ -8,10 +8,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IPlatosRepository extends JpaRepository<Platos, Long> {
 
-    public List<Platos> findAllBytipoPlato_IdTipoPlato(Long idTipoPlato);
+// Encuentra todos los platos por ID del tipo de plato
+public List<Platos> findAllBytipoPlato_IdTipoPlato(Long idTipoPlato);
 
-    public Boolean existsByNombrePlato(String nombrePlato);
-    
-    public Boolean existsByTipoPlato_IdTipoPlato(Long idTipoPlato);
+// Verifica si existe un plato por su nombre
+public Boolean existsByNombrePlato(String nombrePlato);
+
+// Verifica si existen platos por ID del tipo de plato
+public Boolean existsByTipoPlato_IdTipoPlato(Long idTipoPlato);
+
 
 }

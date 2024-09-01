@@ -9,6 +9,7 @@ import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Repository.Pedidos.IDetallePedidosRepository;
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
+import com.delivery.delivery.Repository.Platos.IPlatosRepository;
 import com.delivery.delivery.Repository.PlatosAMostrar.IPlatosAMostrarRepository;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,9 @@ public class DetallePedidosService {
 
     @Autowired
     IPlatosAMostrarRepository iPlaMosRepo;
+
+    @Autowired
+    IPlatosRepository iPlaServ;
 
     @Autowired
     private EntityManager entityManager; //LIBRERIA QUE SOLO SE UTILIZA PARA EL METODO public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido)
@@ -62,14 +66,14 @@ public class DetallePedidosService {
         iDetPeRepo.save(detallePedidos);
 
         // Realiza operaciones adicionales después de guardar el detalle de pedido
-        // Guarda el ID del plato y calcula el total del precio del plato
+        //Guarda el ID del plato y calcula el total del precio del plato
         guardarIdPlatoTotalPrecio(detallePedidos);
 
         // Actualiza el importe total del pedido al que pertenece este detalle de pedido
         actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
 
         // Genera una lista de cadenas a partir de los detalles de pedido para el pedido al que pertenece este detalle
-        generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
+        //generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
     }
 
 //======================================================================================================================
@@ -100,16 +104,16 @@ public class DetallePedidosService {
      */
     public String generarListaCadenasDesdeDetallesPorIdPedido(Long idPedido) {
         try {
-
             List<DetallePedidos> listaObjetosDetallesPedidos = listaXIdPedido(idPedido);
 
             // Transforma la lista de DetallePedidos a una cadena
             String listaCadenasTransformada = listaObjetosDetallesPedidos.stream()
-                    .map(detalle -> " --||| Id Plato a mostrar: " + detalle.getPlatosAMostrar().getIdPlatosAMostrar()
-                    + ", Id Plato: " + detalle.getPlatos().getIdPlato() + " |||-- "
-                    + "Plato: " + detalle.getPlatos().getNombrePlato()
-                    + ", Porcion: " + detalle.getPorcionPlato()
-                    + ", $ unitario: " + detalle.getPlatos().getPrecioPlato())
+                    .map(detalle -> {
+                        return " --||| Id Plato: " + detalle.getPlatos().getIdPlato()
+                                + " ||| Plato: " + detalle.getPlatos().getNombrePlato()
+                                + ", Porcion: " + detalle.getPorcionPlato()
+                                + ", $ unitario: " + detalle.getPlatos().getPrecioPlato();
+                    })
                     .collect(Collectors.joining(", "));
 
             // Actualiza la columna listaPlatosDelPedido en la entidad Pedido
@@ -122,14 +126,14 @@ public class DetallePedidosService {
 
             return listaCadenasTransformada;
         } catch (MensajeResponseStatusException e) {
-            logger.error("Error al generar la lista de cadenas desde detalles del pedido" + e);
+            logger.error("Error al generar la lista de cadenas desde detalles del pedido: " + e);
             throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
         }
     }
-    
+
     //======================================================================================================================
     /**
-     * Genera una lista de cadenas para visualizacion del cliente a partir de 
+     * Genera una lista de cadenas para visualizacion del cliente a partir de
      * DetallesPedidos filtrados por IdPedido.
      *
      * @param idPedido Id del pedido para filtrar los DetallesPedidos.
@@ -151,8 +155,8 @@ public class DetallePedidosService {
                     .map(detalle -> " --||| "
                     + "Plato: " + detalle.getPlatos().getNombrePlato()
                     + ", Porcion: " + detalle.getPorcionPlato()
-                    + ", $ unitario: " + detalle.getPlatos().getPrecioPlato()) 
-                    .collect(Collectors.joining(", ") ) +  " |||-- ";
+                    + ", $ unitario: " + detalle.getPlatos().getPrecioPlato())
+                    .collect(Collectors.joining(", ")) + " |||-- ";
 
             // Actualiza la columna listaPlatosDelPedido en la entidad Pedido
             Pedidos pedido = iPedidosRepo.findById(idPedido).orElse(null);
@@ -168,7 +172,6 @@ public class DetallePedidosService {
             throw new MensajeResponseStatusException(new Mensaje("Error al generar la lista de cadenas para visualizacion del cliente, desde detalles del pedido").getMensaje(), HttpStatus.BAD_REQUEST, e);
         }
     }
-
 
 //======================================================================================================================
     /**
@@ -216,7 +219,7 @@ public class DetallePedidosService {
 
         // Genera la lista de cadenas actualizada a partir de los detalles de pedido del pedido modificado
         generarListaCadenasDesdeDetallesPorIdPedido(idPedido);
-        
+
         // Genera la lista de cadenas para el cliente actualizada a partir de los detalles de pedido del pedido modificado
         generarListaCadenasDesdeDetallesPorIdPedidoCli(idPedido);
 
@@ -280,55 +283,65 @@ public class DetallePedidosService {
      * @throws MensajeResponseStatusException Si hay un error al procesar el
      * detalle del pedido. Método de uso interno, SIN ENDPOINT
      */
-    public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido) {
-        try {
-            if (detallePedido.getPlatosAMostrar() != null) {
-                PlatosAMostrar platosAMostrarPersistido = entityManager.find(PlatosAMostrar.class,
-                        detallePedido.getPlatosAMostrar().getIdPlatosAMostrar());
+  public void guardarIdPlatoTotalPrecio(DetallePedidos detallePedido) {
+    try {
+        // Verifica si existe un plato asociado
+        if (detallePedido.getPlatos() != null) {
+            // Obtiene la entidad Platos persistida en la base de datos
+            Platos platosPersistido = entityManager.find(Platos.class, detallePedido.getPlatos().getIdPlato());
 
-                if (platosAMostrarPersistido != null && platosAMostrarPersistido.getPlatos() != null && !iPlaMosRepo.existsById(platosAMostrarPersistido.getPlatos().getIdPlato())) {
-                    Platos platosAsociado = platosAMostrarPersistido.getPlatos();
-                    detallePedido.setPlatos(platosAsociado);
+            // Verifica si la entidad Platos fue encontrada y existe en el servicio de platos
+            if (platosPersistido != null && iPlaServ.existsById(platosPersistido.getIdPlato())) {
+                // Asocia el plato persistido con el detalle del pedido
+                detallePedido.setPlatos(platosPersistido);
 
-                    // Obtiene el precio_plato desde la entidad Platos
-                    Float precioPlato = platosAsociado.getPrecioPlato();
-                    detallePedido.setPrecioPlatoAMostrar(precioPlato);
+                // Obtiene el precio del plato desde la entidad Platos
+                Float precioPlato = platosPersistido.getPrecioPlato();
+                detallePedido.setPrecioPlato(precioPlato);
 
-                    // Multiplica porcionPlato por precioPlatoAMostrar y establece el resultado
-                    if (detallePedido.getPorcionPlato() != null) {
-                        detallePedido.setTotalPlato(detallePedido.getPorcionPlato() * precioPlato.doubleValue());
-                    }
-
+                // Calcula el total del plato multiplicando la porción por el precio del plato
+                if (detallePedido.getPorcionPlato() != null) {
+                    detallePedido.setTotalPlato(detallePedido.getPorcionPlato() * precioPlato.doubleValue());
                 }
-            }
-            logger.info("IdPlato: " + detallePedido.getPlatos().getIdPlato() + ", TotalPlatos: " + detallePedido.getTotalPlato() + " guardados correctamente ");
-            entityManager.persist(detallePedido);
-        } catch (MensajeResponseStatusException e) {
-            logger.error("Error al actualizar idPlato o totalPrecio. ", e);
-            throw new MensajeResponseStatusException(new Mensaje("Error al procesar el/los detalle/s del pedido. Detalles: ").getMensaje(), HttpStatus.BAD_REQUEST, e);
-        } catch (Exception e) {
-            logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado"), e);
-        }
 
+
+                // Persiste el detalle del pedido en la base de datos
+                entityManager.persist(detallePedido);
+                logger.info("IdPlato: " + detallePedido.getPlatos().getIdPlato() + ", TotalPlato: " + detallePedido.getTotalPlato() + " guardados correctamente.");
+            } else {
+                logger.error("Plato con id " + detallePedido.getPlatos().getIdPlato() + " no encontrado.");
+                throw new MensajeResponseStatusException("Plato con id " + detallePedido.getPlatos().getIdPlato() + " no encontrado.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            logger.error("DetallePedido no tiene asociado un plato.");
+            throw new MensajeResponseStatusException("DetallePedido no tiene asociado un plato.", HttpStatus.BAD_REQUEST);
+        }
+    } catch (MensajeResponseStatusException e) {
+        logger.error("Error al actualizar idPlato o totalPrecio. ", e);
+        throw new MensajeResponseStatusException(new Mensaje("Error al procesar el/los detalle/s del pedido. Detalles: ").getMensaje(), HttpStatus.BAD_REQUEST, e);
+    } catch (Exception e) {
+        logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+        throw new MensajeRunTimeException(new Mensaje("Error inesperado"), e);
     }
+}
+
+
 
 //======================================================================================================================
     /**
-     * Busca los IDs de los platos mostrados asociados a un pedido específico en
-     * la base de datos.
+     * Busca los IDs de los platos asociados a un pedido específico en la base
+     * de datos.
      *
      * @param idPedido El ID del pedido para el que se van a buscar los IDs de
-     * los platos mostrados.
-     * @return Una lista de IDs de los platos mostrados asociados al pedido
-     * especificado.
+     * los platos.
+     * @return Una lista de IDs de los platos asociados al pedido especificado.
      */
-    public List<Long> findIdPlaMosXIdPedido(Long idPedido) {
+    public List<Long> findIdPlatosXIdPedido(Long idPedido) {
         // Llama al repositorio para buscar los IDs de los platos mostrados asociados al pedido
-        List<Long> lisPlaMosXIdPed = iDetPeRepo.findIdPlaMosXIdPedido(idPedido);
+        List<Long> lisPlatosXIdPed = iDetPeRepo.findIdPlatosXIdPedido(idPedido);
 
         // Retorna la lista de IDs de los platos mostrados
-        return lisPlaMosXIdPed;
+        return lisPlatosXIdPed;
     }
 
 //======================================================================================================================.
@@ -341,7 +354,6 @@ public class DetallePedidosService {
     public void eliminarVariosDetallesPorIdPedido(Long idPedidos) {
         iDetPeRepo.elimVariosDetPedXIdPedido(idPedidos);
     }
-    
-//======================================================================================================================.
 
+//======================================================================================================================.
 }

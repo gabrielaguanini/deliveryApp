@@ -2,15 +2,12 @@ package com.delivery.delivery.Entity.Pedidos;
 
 
 import com.delivery.delivery.Entity.Platos.Platos;
-import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NotFound;
@@ -28,21 +25,14 @@ public class DetallePedidos {
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)   
     @JoinColumn(name = "id_pedido")
-    private Pedidos pedidos;
-
-    @ManyToOne
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "idPlatosAMostrar")
-    //@ElementCollection  
-    private PlatosAMostrar platosAMostrar;
+    private Pedidos pedidos;  
     @ManyToOne
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "idPlato")
-    @JsonIgnore
     //@ElementCollection  
     private Platos platos;  
     private Integer porcionPlato;
-    private Float precioPlatoAMostrar;
+    private Float precioPlato;
     private Double totalPlato;
 
 
@@ -51,14 +41,15 @@ public class DetallePedidos {
     public DetallePedidos() {
     };
 
-    public DetallePedidos(Pedidos pedidos, PlatosAMostrar platosAmostrar, Platos platos, Integer porcionPlato, Float precioPlatoAMostrar, Double totalPlato) {
+    public DetallePedidos(Pedidos pedidos, Platos platos, Integer porcionPlato, Float precioPlato, Double totalPlato) {
         this.pedidos = pedidos;
-        this.platosAMostrar = platosAMostrar;
         this.platos = platos;
         this.porcionPlato = porcionPlato;
-        this.precioPlatoAMostrar = precioPlatoAMostrar;        
+        this.precioPlato = precioPlato;        
         this.totalPlato= totalPlato;
     };
+
+
 
 
   

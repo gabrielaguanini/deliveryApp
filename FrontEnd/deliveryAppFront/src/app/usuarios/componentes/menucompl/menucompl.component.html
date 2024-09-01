@@ -74,7 +74,7 @@
                 <div class="row" id="tituloListaCompletaPlato">
                     <div class="col-2 text-center pt-2">
                         <blockquote class="blockquote border-end border-top border-white">
-                            <p class="small">Plato</p>
+                            <p class="small">Id y Plato</p>
                         </blockquote>
                     </div>
                     <div class="col-2 text-center pt-2">
@@ -102,7 +102,7 @@
                 <div *ngFor="let MenuCompletoModel of menuCompModel">
                     <div class="row">
                         <div class="col-2 text-center">
-                            <p>{{MenuCompletoModel.nombrePlato}}</p>
+                            <p>ID {{MenuCompletoModel.idPlato}} - {{MenuCompletoModel.nombrePlato}}</p>
                         </div>
                         <div class="col-2 text-center">
                             <p><small>{{ MenuCompletoModel.tipoPlato ? MenuCompletoModel.tipoPlato.nombreTipoPlato :
@@ -438,7 +438,7 @@
                                 <div class="row" id="titulosListaxTipoPla">
                                     <div class="col-lg-4 col-md-12 d-none d-lg-block pt-2">
                                         <blockquote class="blockquote border-end border-top border-white">
-                                            <p class="small ps-5">Plato</p>
+                                            <p class="small ps-5">Id y Plato</p>
                                         </blockquote>
                                     </div>
                                     <div class="col-lg-1 col-md-12 d-none d-lg-block pt-2">
@@ -468,7 +468,7 @@
                                 <div *ngFor="let MenuCompletoModel of menuCompModel">
                                     <div class="row p-1">
                                         <div class="col-lg-4 col-md-12 border-end d-flex align-items-center">
-                                            <p class="">{{MenuCompletoModel.nombrePlato}}</p>
+                                            <p class="">ID {{MenuCompletoModel.idPlato}} - {{MenuCompletoModel.nombrePlato}}</p>
                                         </div>
 
                                         <div class="col-lg-1 col-md-12 border-end d-flex align-items-center ps-4">

@@ -92,7 +92,7 @@
                             </div>
 
                             <div *ngIf="modalitoPedidosXFecha">
-                                <form (ngSubmit)="listaDePedidosXFecha(fecha)" novalidate #f="ngForm"
+                                <form (ngSubmit)="listaDePedidosXFecha(fecha); scrollASeccion('anclaListPedXFe');" novalidate #f="ngForm"
                                     class="formPedidosXFecha">
                                     <!-- buscar pedidos por fecha-->
                                     <div class="row d-flex justify-content-center">
@@ -114,7 +114,7 @@
                                                     <button class="btn btn-light border border-secondary" title="borrar"
                                                         type="button" (click)="listaPedXFechaVacia(); 
                                                                                modalitoEditPedid = false;
-                                                                               modalitoAgrDetPed = false">
+                                                                               modalitoAgrDetPed = false;">
                                                         <i class="far fa-times-circle"></i>
                                                     </button>
                                                 </div>
@@ -123,7 +123,7 @@
                                     </div>
                                 </form>
                                 <!-- renderizacion de lista de pedidos por fecha -->
-                                <div class="row mt-4">
+                                <div class="row mt-4" id="anclaListPedXFe">
                                     <div class="col-md-4 mx-auto" *ngFor="let pedidosXFe of listaPedidosXFecha">
                                         <div class="card" (click)="seleccionarIdPedido(pedidosXFe.idPedido)">
                                             <div class="card-body">
@@ -160,6 +160,7 @@
                                                         <button class="btn btn-outline-light btn-sm col-3"
                                                             title="Editar platos" type="button" (click)="limpiarInputs();
                                                                       listaDetallePedidosXIdPedido(pedidosXFe.idPedido);
+                                                                      listaPlatosComp();
                                                                       mostrarOcultarModalitoEditDetallePedid();
                                                                       modalitoInputEditDetPedid = false; 
                                                                       modalitoTdEditDetPedid = true;
@@ -172,6 +173,7 @@
                                                             title="Agregar platos" type="button" (click)="limpiarInputs();
                                                                        mostrarOcultarModalitoAgrDetPed();
                                                                        modalitoEditPedid = false;
+                                                                       listaPlatosComp();
                                                                        scrollASeccion('anclaAgregDetPed');">
                                                             <i class="fas fa-plus small"></i>
                                                         </button>
@@ -347,9 +349,9 @@
 
                                         <tr *ngIf="modalitoTdEditDetPedid">
                                             <th class="text-center" scope="col">ID DET PED</th>
-                                            <th class="text-center" scope="col">ID PLATMOS</th>
                                             <th class="text-center" scope="col">PORCION</th>
                                             <th class="text-center" scope="col">PLATO</th>
+                                            <th class="text-center" scope="col">EDICION</th>
 
                                         </tr>
                                     </thead>
@@ -359,30 +361,28 @@
 
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
-                                                {{detallePedidosLi.idDetallePedido}}</td>
-                                            <td *ngIf="modalitoTdEditDetPedid"
-                                                class="text-center align-middle border-top">
-                                                {{detallePedidosLi.platosAMostrar.idPlatosAMostrar}}</td>
+                                                {{detallePedidosLi.idDetallePedido}}</td>                                           
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
                                                 {{detallePedidosLi.porcionPlato}}</td>
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
-                                                {{detallePedidosLi.platosAMostrar.platos.nombrePlato}}</td>
+                                                {{detallePedidosLi.platos.nombrePlato}}</td>
 
 
 
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
                                                 <!-- Boton editar -->
-                                                <button class="btn btn-outline-light btn-sm" title="Editar plato"
+                                                <button class="btn btn-outline-light btn-sm" title="Editar platos"
                                                     type="button" (click)="mostrarOcultarModalitoEditDetPedid();
-                                                     mostrarOcultarModalitoTdEditDetPedid();
+                                                     mostrarOcultarModalitoTdEditDetPedid();                                                     
                                                      obtenerDetPedXId(detallePedidosLi.idDetallePedido, 
-                                                     detallePedidosLi.pedidos.idPedido, 
-                                                     detallePedidosLi.platosAMostrar.idPlatosAMostrar, 
+                                                     detallePedidosLi.pedidos.idPedido,
                                                      detallePedidosLi.porcionPlato, 
-                                                     detallePedidosLi.platosAMostrar.platos.nombrePlato)">
+                                                     detallePedidosLi.platos.nombrePlato,
+                                                     detallePedidosLi.platos.idPlato
+                                                     )">
                                                     <i class="far fa-edit small"></i>
                                                 </button>
                                                 <!-- Boton borrar -->
@@ -408,7 +408,7 @@
                                                     </th>
                                                     <th class="text-center" scope="col" [style.display]="'none'">ID DET
                                                         PED </th>
-                                                    <th class="text-center" scope="col">NUEVO PLATO </th>
+                                                    <th class="text-center" scope="col">NUEVO PLATO</th>
                                                     <th class="text-center" scope="col">PORCION</th>
                                                     <th class="text-center" scope="col">PLATO ACTUAL</th>
                                                     <th class="text-center" scope="col">EDICION</th>
@@ -425,17 +425,15 @@
                                                     </td>
                                                     <td *ngIf="modalitoInputEditDetPedid"
                                                         class="text-center align-middle border-top">
-                                                        <select class="form-select" [(ngModel)]="idPlatosAMostrar"
-                                                            name="idPlaMos" required>
-                                                            <option disabled selected>{{idPlatosAMostrar}} -
-                                                                {{nombrePlato}}
-                                                            </option>
-                                                            <option *ngFor="let platoAMostrar of platosAMostrarList"
-                                                                [value]="platoAMostrar.idPlatosAMostrar">
-                                                                {{ platoAMostrar.idPlatosAMostrar }} - {{
-                                                                platoAMostrar.platos.nombrePlato }}
-                                                            </option>
-                                                        </select>
+                                                        <select class="form-select" [(ngModel)]="idPlato" name="idPla" type="text"
+                                                        required>
+                                                        <option disabled selected>Seleccionar</option>
+                                                        <option *ngFor="let listaParaSelect of listaPlatosCompleta"
+                                                            [value]="listaParaSelect.idPlato">
+                                                            {{ listaParaSelect.idPlato }} - {{
+                                                            listaParaSelect.nombrePlato }}
+                                                        </option>
+                                                    </select>
                                                     </td>
 
                                                     <td *ngIf="modalitoInputEditDetPedid"
@@ -454,7 +452,7 @@
                                                         <!-- Boton enviar edicion -->
                                                         <button
                                                             class="btn btn-light rounded-circle border border-secondary"
-                                                            title="Enviar actualizacion" type="submit">
+                                                            title="Enviar actualizacions" type="submit">
                                                             <i class="far fa-check-circle small"></i>
                                                         </button>
                                                     </td>
@@ -507,15 +505,15 @@
                                                 class="form-control" name="idPedido">
                                         </td>
                                         <td class="text-center align-middle border-top">
-                                            <select class="form-select" [(ngModel)]="idPlatosAMostrar" name="idPlaMos"
-                                                type="text" required>
-                                                <option disabled selected>Seleccionar</option>
-                                                <option *ngFor="let platoAMostrar of platosAMostrarList"
-                                                    [value]="platoAMostrar.idPlatosAMostrar">
-                                                    {{ platoAMostrar.idPlatosAMostrar }} - {{
-                                                    platoAMostrar.platos.nombrePlato }}
-                                                </option>
-                                            </select>
+                                            <select class="form-select" [(ngModel)]="idPlato" name="idPla" type="text"
+                                            required>
+                                            <option selected>Seleccionar</option>
+                                            <option *ngFor="let listaParaSelect of listaPlatosCompleta"
+                                                [value]="listaParaSelect.idPlato">
+                                                {{ listaParaSelect.idPlato }} - {{
+                                                listaParaSelect.nombrePlato }}
+                                            </option>
+                                        </select>
                                         </td>
 
                                         <td class="text-center align-middle border-top">
@@ -561,7 +559,7 @@
                                     <!-- boton abrir modalitoPedidosXId-->
                                     <button class="btn btn-outline-light btn-md"
                                         title="Buscar por id o numero de pedido" (click)="mostrarOcultarModalitoPedidosXId();
-                                    fechaPredeterminda();
+                                    fechaPredeterminada();
                                      pedidosXIdVacio(); 
                                      modalitoPedidosXFecha = false;
                                      modalitoEditPedid = false;
@@ -573,7 +571,7 @@
                                 </div>
                             </div>
                             <div *ngIf="modalitoPedidosXId">
-                                <form (ngSubmit)="obtenerPedidoXId(idPedido)" novalidate #f="ngForm"
+                                <form (ngSubmit)="obtenerPedidoXId(idPedido); scrollASeccion('anclaPedXId');" novalidate #f="ngForm"
                                     class="formPedidosXid">
                                     <!-- buscar pedidos por id-->
                                     <div class="row d-flex justify-content-center">
@@ -605,7 +603,7 @@
                                 <!-- renderizacion de lista de pedidos por id -->
                                 <div class="row mt-4">
                                     <div class="col-md-4 mx-auto" *ngIf="pedidos">
-                                        <div class="card" (click)="seleccionarIdPedido(pedidos.idPedido)">
+                                        <div class="card" (click)="seleccionarIdPedido(pedidos.idPedido)" id="anclaPedXId">
                                             <div class="card-body">
                                                 <h5 class="card-title text-center">PEDIDO N°: {{pedidos.idPedido}}
                                                 </h5>

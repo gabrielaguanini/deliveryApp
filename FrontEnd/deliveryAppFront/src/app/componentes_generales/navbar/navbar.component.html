@@ -18,7 +18,8 @@
 
         <!-- Redes sociales (centradas) -->
         <ul
-          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 border border-secondary border-2 rounded rounded-pill">
+          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 
+                 border border-secondary border-2 rounded rounded-pill" id="borderRedSoc">
           <li *ngIf="footerYLogoList[1]?.iconoOImgAMostrar" class="nav-item mx-3">
             <a class="nav-link" [href]="footerYLogoList[1].urlAMostrar" target="_blank">
               <i [class]="footerYLogoList[1].iconoOImgAMostrar" class="fa-2x" style="opacity: 0.5;"></i>
@@ -42,7 +43,8 @@
         </ul>
         <!-- Pedidos ya y Rappi (centradas) -->
         <ul
-          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 border border-secondary border-2 rounded rounded-pill">
+          class="navbar-nav d-flex flex-row justify-content-center align-items-center mb-3 mb-lg-0 
+                 border border-secondary border-2 rounded rounded-pill" id="borderPedYRap">
           <li class="nav-item mx-3" *ngIf="footerYLogoList[5]?.iconoOImgAMostrar">
             <a class="nav-link" [href]="footerYLogoList[5].urlAMostrar" target="_blank">
               <img [src]="footerYLogoList[5].iconoOImgAMostrar"

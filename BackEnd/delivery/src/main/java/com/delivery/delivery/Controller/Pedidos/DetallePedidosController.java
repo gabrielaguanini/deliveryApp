@@ -7,6 +7,7 @@ import com.delivery.delivery.Mensaje.MensajeResponseStatusException;
 import com.delivery.delivery.Mensaje.MensajeRunTimeException;
 import com.delivery.delivery.Service.Pedidos.DetallePedidosService;
 import com.delivery.delivery.Service.Pedidos.PedidosService;
+import com.delivery.delivery.Service.Platos.PlatosService;
 import com.delivery.delivery.Service.PlatosAMostrar.PlatosAMostrarService;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -36,6 +37,9 @@ public class DetallePedidosController {
 
     @Autowired
     PlatosAMostrarService plaMosSer;
+
+    @Autowired
+    PlatosService plaSer;
 
     private static final Logger logger = LoggerFactory.getLogger(DetallePedidosController.class);
 
@@ -69,16 +73,6 @@ public class DetallePedidosController {
 
 // ======================================================================================================= //
     /**
-     * Obtiene la lista de DetallesPedidos filtrados por ID_PEDIDO.
-     *
-     * @throw "e" toma del metodo del servicio que implementa el
-     * MensajeResponseStatusException que genere este
-     * @throw MensajeRunTimeException Si hay un error interno del servidor
-     * @param idPedido ID del pedido para filtrar los DetallesPedidos.
-     * @return ResponseEntity con la lista de DetallePedidos y el estado HTTP
-     * correspondiente.
-     */
-    /**
      * Obtiene una lista de detalles de pedidos asociados a un pedido específico
      * en la base de datos.
      *
@@ -104,16 +98,16 @@ public class DetallePedidosController {
             }
 
             // Obtiene una lista de IDs de platos relacionados con el IdPedido dado
-            List<Long> idPlaAMosFromList = detpeServ.findIdPlaMosXIdPedido(idPedido);
+            List<Long> idPlatosFromList = detpeServ.findIdPlatosXIdPedido(idPedido);
 
             // Supone que todos los platos existen inicialmente
             boolean todosPlatosExisten = true;
 
             // Verifica la existencia de cada plato en la base de datos
-            for (Long idPlaAMos : idPlaAMosFromList) {
-                Boolean plaMosExiste = plaMosSer.existsById(idPlaAMos);
+            for (Long idPlat : idPlatosFromList) {
+                Boolean platoExiste = plaSer.existsById(idPlat);
                 // Si algún plato no existe, cambia la variable todosPlatosExisten a false
-                if (!plaMosExiste) {
+                if (!platoExiste) {
                     todosPlatosExisten = false;
                     // Sale del bucle tan pronto como se encuentre un plato que no existe
                     break;
@@ -123,7 +117,7 @@ public class DetallePedidosController {
             // Si algunos platos no existen, lanza una excepción
             if (!todosPlatosExisten) {
                 logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException("Uno o más platos ya no existen en Platos a mostrar, no se puede editar", HttpStatus.BAD_REQUEST, null);
+                throw new MensajeResponseStatusException("Uno o más platos ya no existen en la tabla Platos, no se puede editar", HttpStatus.BAD_REQUEST, null);
             };
 
             // Si todos los platos existen, obtiene y devuelve la lista de detalles de los pedidos
@@ -154,31 +148,50 @@ public class DetallePedidosController {
     @PostMapping("/guardardetallepedido")
     public ResponseEntity<?> guardarDetallePedido(@RequestBody DetallePedidos detallePedidos) {
         try {
-            // Verifica si el plato a mostrar asociado al detalle de pedido existe
-            if (!plaMosSer.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())) {
-                // Si no existe, lanza una excepción con un mensaje personalizado y realiza el registro en el log
-                logger.info(HttpStatus.NOT_FOUND.toString());
-                throw new MensajeResponseStatusException(new Mensaje("El idPlatosAMostrar n°: " + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
-            }
 
             // Verifica si el pedido asociado al detalle de pedido existe
             if (!pedidosService.existsById(detallePedidos.getPedidos().getIdPedido())) {
                 // Si no existe, lanza una excepción con un mensaje personalizado y realiza el registro en el log
                 logger.info(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El idPedido n°: " + detallePedidos.getPedidos().getIdPedido() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
+            } 
+              // Obtiene una lista de IDs de platos relacionados con el IdPedido dado
+            List<Long> idPlatosFromList = detpeServ.findIdPlatosXIdPedido(detallePedidos.getPedidos().getIdPedido());
+
+            // Supone que todos los platos existen inicialmente
+            boolean todosPlatosExisten = true;
+
+            // Verifica la existencia de cada plato en la base de datos
+            for (Long idPlat : idPlatosFromList) {
+                Boolean platoExiste = plaSer.existsById(idPlat);
+                // Si algún plato no existe, cambia la variable todosPlatosExisten a false
+                if (!platoExiste) {
+                    todosPlatosExisten = false;
+                    // Sale del bucle tan pronto como se encuentre un plato que no existe
+                    break;
+                }
             }
+
+            // Si algunos platos no existen, lanza una excepción
+            if (!todosPlatosExisten) {
+                logger.error(HttpStatus.BAD_REQUEST.toString());
+                throw new MensajeResponseStatusException("Uno o más platos ya no existen en la tabla Platos, no se puede editar", HttpStatus.BAD_REQUEST, null);
+            };
 
             // Verifica si el detalle de pedido es nulo o ausente
             if (detallePedidos == null || detallePedidos.getPorcionPlato() == null) {
                 // Si es nulo o ausente, lanza una excepción con un mensaje personalizado y realiza el registro en el log
+
                 logger.info(HttpStatus.BAD_REQUEST.toString());
                 throw new MensajeResponseStatusException(new Mensaje("Detalle del pedido nulo o ausente").getMensaje(), HttpStatus.BAD_REQUEST, null);
             }
 
             // Guarda el detalle de pedido y realiza las actualizaciones correspondientes
             detpeServ.guardarDetallePedido(detallePedidos);
-            detpeServ.guardarIdPlatoTotalPrecio(detallePedidos);
-            detpeServ.actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
+            detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detallePedidos.getPedidos().getIdPedido());
+            detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detallePedidos.getPedidos().getIdPedido());
+            //detpeServ.guardarIdPlatoTotalPrecio(detallePedidos);
+            //detpeServ.actualizarImporteTotalPedido(detallePedidos.getPedidos().getIdPedido());
 
             // Retorna una respuesta de éxito
             return new ResponseEntity<Mensaje>(new Mensaje("Detalles del pedido enviados"), HttpStatus.OK);
@@ -288,11 +301,6 @@ public class DetallePedidosController {
     @PutMapping("/actualizardetallepedido/{idDetallePedido}")
     public ResponseEntity<?> actualizarDetallePedido(@RequestBody DetallePedidos detallePedidos, @PathVariable Long idDetallePedido) {
         try {
-            // Verificar la existencia del idPlatoAMostrar
-            if (!plaMosSer.existsById(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())) {
-                logger.error(HttpStatus.NOT_FOUND.toString());
-                throw new MensajeResponseStatusException(new Mensaje("Pedido no encontrado con idPlatoAMostrar:" + detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar()).getMensaje(), HttpStatus.NOT_FOUND, null);
-            }
 
             // Verificar la existencia del idPedido
             if (!pedidosService.existsById(detallePedidos.getPedidos().getIdPedido())) {
@@ -303,14 +311,8 @@ public class DetallePedidosController {
             // Obtener el detalle de pedido actual
             DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
 
-            // Verificar si se han realizado modificaciones al detalle del pedido
-            if (detPedid.getPlatosAMostrar().getIdPlatosAMostrar().equals(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())
-                    && detPedid.getPorcionPlato().equals(detallePedidos.getPorcionPlato())) {
-                throw new MensajeResponseStatusException(new Mensaje("No se han realizado modificaciones al detalle del pedido").getMensaje(), HttpStatus.BAD_REQUEST, null);
-            }
-
-            // Verificar si el idPlatosAMostrar es igual, pero la porcionPlato ha cambiado
-            if (detPedid.getPlatosAMostrar().getIdPlatosAMostrar().equals(detallePedidos.getPlatosAMostrar().getIdPlatosAMostrar())
+           // Verificar si el idPlato es igual, pero la porcionPlato ha cambiado
+            if (detPedid.getPlatos().getIdPlato().equals(detallePedidos.getPlatos().getIdPlato())
                     && !detPedid.getPorcionPlato().equals(detallePedidos.getPorcionPlato())) {
                 // Realizar la actualización solo si hay cambios en la porcionPlato
                 detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
@@ -319,7 +321,7 @@ public class DetallePedidosController {
                 detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
-                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detPedid.getPedidos().getIdPedido());
 
                 return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
@@ -327,17 +329,16 @@ public class DetallePedidosController {
 
             // Realizar la actualización completa si hay cambios en otros campos
             detPedid.setPedidos(detallePedidos.getPedidos());
-            detPedid.setPlatosAMostrar(detallePedidos.getPlatosAMostrar());
             detPedid.setPlatos(detallePedidos.getPlatos());
             detPedid.setPorcionPlato(detallePedidos.getPorcionPlato());
-            detPedid.setPrecioPlatoAMostrar(detallePedidos.getPrecioPlatoAMostrar());
+            detPedid.setPrecioPlato(detallePedidos.getPrecioPlato());
             detPedid.setTotalPlato(detallePedidos.getTotalPlato());
 
             detpeServ.guardarIdPlatoTotalPrecio(detPedid);
             detpeServ.actualizarImporteTotalPedido(detPedid.getPedidos().getIdPedido());
-                   //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
+            //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
             detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detPedid.getPedidos().getIdPedido());
-                   //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+            //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
             detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detPedid.getPedidos().getIdPedido());
 
             return new ResponseEntity(new Mensaje("Detalle del pedido actualizado"), HttpStatus.OK);
@@ -370,13 +371,13 @@ public class DetallePedidosController {
             // Itera sobre cada detalle de pedido recibido
             for (DetallePedidos detallitos : detallesPedidos) {
                 Long idPedido = detallitos.getPedidos().getIdPedido();
-                Long idPlatosAMostrar = detallitos.getPlatosAMostrar().getIdPlatosAMostrar();
+                Long idPlato = detallitos.getPlatos().getIdPlato();
 
                 // Verifica si existe el IdPlatosAMostrar en la base de datos
-                if (!plaMosSer.existsById(idPlatosAMostrar)) {
+                if (!plaSer.existsById(idPlato)) {
                     // Si no existe, lanza una excepción indicando que no se encontró el ID y lo registra en el log
                     logger.error(HttpStatus.NOT_FOUND.toString());
-                    throw new MensajeResponseStatusException("No se encontró el IdPlatosAMostrar n°: " + idPlatosAMostrar, HttpStatus.NOT_FOUND, null);
+                    throw new MensajeResponseStatusException("No se encontró el IdPlato n°: " + idPlato, HttpStatus.NOT_FOUND, null);
                 }
 
                 // Verifica si existe el IdPedido en la base de datos
@@ -397,11 +398,11 @@ public class DetallePedidosController {
             // Realiza operaciones adicionales sobre los detalles de pedido
             for (DetallePedidos detallitos : detallesPedidos) {
                 detpeServ.guardarIdPlatoTotalPrecio(detallitos);
-                
+
                 detpeServ.actualizarImporteTotalPedido(detallitos.getPedidos().getIdPedido());
-                                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
+                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detallitos.getPedidos().getIdPedido());
-                                 //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
+                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detallitos.getPedidos().getIdPedido());
             }
 
@@ -409,7 +410,7 @@ public class DetallePedidosController {
             detpeServ.guardarVariosDetallesPedido(detallesPedidos);
 
             // Retorna una respuesta con el estado HTTP OK indicando el éxito de la operación
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity(new Mensaje("Detalles del pedido actualizados"), HttpStatus.OK);
 
         } catch (MensajeDataAccessException e) {
             // Captura y maneja la excepción de acceso a datos
@@ -463,5 +464,4 @@ public class DetallePedidosController {
     }
 
 // ======================================================================================================= //
-
 }

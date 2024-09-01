@@ -153,7 +153,7 @@ export class PedidosplatosamostrarComponent {
   botonDisplayNoneDatosEnvio: string = "none";
   botonDisplayNoneGuardEdiDatEnv: string = "none";
   mensajePedEnviadoDB: string = "";
- 
+
   mensajeLisPedDiaVacio: String = "";
   mensajeLisPlaMosVacio: String = "";
 
@@ -174,183 +174,264 @@ export class PedidosplatosamostrarComponent {
     this.listaPedidosDeHoy(); // muestra la lista de pedidos de la fecha actual
     //this.listaDetallePedidos(); // muestra la lista de pedidos completa
     //this.listaPlatosComp();
-
+  
 
   };
 
-
-  //MODAL PLATOS A MOSTRAR
-  ////////////////////////////
-
+//✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Muestra un modal para agregar platos a mostrar.
+  * 
+  * @param {TemplateRef<any>} templateAgregarPlatoAMostrar - La plantilla del modal para agregar platos.
+  */
   openModalAgregarPlatosAMos(templateAgregarPlatoAMostrar: TemplateRef<any>) {
-    this.modalAgregarPlatosAMos = this.modalService.show(templateAgregarPlatoAMostrar, { backdrop: 'static', class:'modal-lg' })
-  };
+    this.modalAgregarPlatosAMos = this.modalService.show(templateAgregarPlatoAMostrar, { backdrop: 'static', class: 'modal-lg' });
+  }
 
-
-  //MODAL EDITAR PLATOS A MOSTRAR
-  ////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un modal para editar los platos a mostrar.
+   * 
+   * @param {TemplateRef<any>} templateEditarPlatoAMostrar - La plantilla del modal para editar platos.
+   */
   openModalEditarPlatosAMos(templateEditarPlatoAMostrar: TemplateRef<any>) {
-    this.modalEditarPlatosAMos = this.modalService.show(templateEditarPlatoAMostrar, { backdrop: 'static' })
-  };
+    this.modalEditarPlatosAMos = this.modalService.show(templateEditarPlatoAMostrar, { backdrop: 'static' });
+  }
 
-  //MODAL AGREGAR PEDIDOS
-  ////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un modal para agregar pedidos.
+   * 
+   * @param {TemplateRef<any>} templateAgregarPedido - La plantilla del modal para agregar pedidos.
+   */
   openModalAgregarPedidos(templateAgregarPedido: TemplateRef<any>) {
     const modalConfig = {
-      class: 'modal-dialog-centered modal-xl' // tamaño del modal
+      class: 'modal-dialog-centered modal-xl' // Tamaño del modal para agregar pedidos
     };
-    this.modalAgregarPedido = this.modalService.show(templateAgregarPedido, { backdrop: 'static', ...modalConfig })
-  };
+    this.modalAgregarPedido = this.modalService.show(templateAgregarPedido, { backdrop: 'static', ...modalConfig });
+  }
 
-
-  //MODAL EDITAR PEDIDOS
-  ////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un modal para editar pedidos.
+   * 
+   * @param {TemplateRef<any>} templateEditarPedido - La plantilla del modal para editar pedidos.
+   */
   openModalEditarPedidos(templateEditarPedido: TemplateRef<any>) {
     const modalConfig = {
-      class: 'modal-dialog-centered modal-lg' // tamaño del modal
+      class: 'modal-dialog-centered modal-lg' // Tamaño del modal para editar pedidos
     };
-    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig })
+    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig });
+  }
 
-  };
-
-  //MODALITO NGIF (NO BSMODALREF)
-  //PARA SELECCIONAR PLATOS DEL PEDIDO
-  /////////////////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para seleccionar platos del pedido.
+   * Este modal es utilizado para agregar platos a un pedido.
+   */
   mostrarOcultarModalitoAgregarDetPed() {
     this.modalitoAgregarPlatos = !this.modalitoAgregarPlatos;
-  };
+  }
 
-  //MODALITO NGIF (NO BSMODALREF)
-  //PARA CONFIRMAR EL PEDIDO Y EL DETALLE PEDIDO
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para confirmar el pedido y el detalle del pedido.
+   * Este modal es utilizado para confirmar los detalles antes de realizar el pedido.
+   */
   mostrarOcultarModalitoEnviarPedido(): void {
     this.modalitoEnviarPedido = !this.modalitoEnviarPedido;
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para editar el pedido.
+   * Este modal se utiliza para editar el pedido existente.
+   */
   mostrarOcultarModalitoEditDetallePedid() {
     this.modalitoEditPedid = !this.modalitoEditPedid;
-  };
+    this.modalitoInputEditDetPedid = false; 
+    this.modalitoTdEditDetPedid = true;
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para editar el detalle del pedido.
+   * Este modal se utiliza para editar detalles específicos del pedido.
+   */
   mostrarOcultarModalitoEditDetPedid() {
     this.modalitoInputEditDetPedid = !this.modalitoInputEditDetPedid;
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para la edición de detalles del pedido.
+   * Este modal se utiliza para la edición avanzada de detalles del pedido.
+   */
   mostrarOcultarModalitoTdEditDetPedid() {
     this.modalitoTdEditDetPedid = !this.modalitoTdEditDetPedid;
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un modal de información con la plantilla proporcionada.
+   * 
+   * @param {TemplateRef<any>} templateModalInfo - La plantilla del modal de información.
+   */
   mostrarOcultarModalInfo(templateModalInfo: TemplateRef<any>): void {
-    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' })
+    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' });
+  }
 
-  };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Alterna la visibilidad del modal para agregar detalles al pedido.
+   * Este modal se utiliza para agregar detalles adicionales a un pedido.
+   */
   mostrarOcultarModalitoAgrDetPed() {
     this.modalitoAgrDetPed = !this.modalitoAgrDetPed;
-  };
+  }
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   // FUNCIONES PARA LISTAS
   ///////////////////////////////////
+  /**
+  * Obtiene la lista de platos a mostrar desde el servicio y actualiza el estado del componente.
+  * Muestra un mensaje si la lista está vacía.
+  */
+
   listaPlatosAMostrar(): void {
     this.plaMosServ.listaPlatosAMostrar().subscribe(
       data => {
         if (data.length > 0) {
-          this.platosAMostrarList = data;
-          console.log("Lista de platos a mostrar recibida. ");
-          this.mensajeLisPlaMosVacio = "";
-        };
-        if (data.length < 1) {
-          this.platosAMostrarList = data;
-          console.log("Lista de platos a mostrar vacia. ");
-          this.mensajeLisPlaMosVacio = "Lista de platos a mostrar en la pagina web vacia";
-          
-        };
+          this.platosAMostrarList = data;  // Actualiza la lista de platos a mostrar
+          console.log("Lista de platos a mostrar recibida.");
+          this.mensajeLisPlaMosVacio = "";  // Limpia el mensaje de lista vacía
+        } else {
+          this.platosAMostrarList = data;  // Actualiza la lista de platos a mostrar
+          console.log("Lista de platos a mostrar vacía.");
+          this.mensajeLisPlaMosVacio = "Lista de platos a mostrar en la página web vacía";  // Mensaje de lista vacía
+        }
       },
       err => {
         console.log("Msj. Serv.: " + err.error.message);
-        alert("Msj. Serv.: " + err.error.message);
-      })
-  };
+        alert("Msj. Serv.: " + err.error.message);  // Muestra un mensaje de error
+      }
+    );
+  }
 
-  //listaPlatosForSelect(): void {
-    //this.platosServ.listaPlatos().subscribe(data => this.platosListForSelect = data);
-   // this.platosListForSelect = []
-  //};
+  //✮------------------------------------------------------------------------------------------------------------✮
+  listaPlatosForSele(): void {
+    this.platosServ.listaPlatos().subscribe(
+      data => {
+      
+          this.platosListForSelect = data;  // Actualiza la lista de platos
+          
+          if (this.platosListForSelect.length > 0 && !this.idPlato) {
+            this.idPlato = this.platosListForSelect[0].idPlato; // O el valor adecuado para tu caso
+          }
+      
+          console.log("Lista de platos recibida.");        
+      },
+      err => {
+        console.log("Msj. Serv.: " + err.error.message);
+        alert("Msj. Serv.: " + err.error.message);  // Muestra un mensaje de error
+      }
+    );
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista de pedidos del día desde el servicio y actualiza el estado del componente.
+   * Muestra un mensaje si no hay pedidos y llama a la función para verificar el estado del pedido.
+   */
   listaPedidosDeHoy(): void {
     this.pedidosServ.listaPedidosDeHoy().subscribe(
       data => {
-        this.pedidosDeHoyList = data;
-        if( this.pedidosDeHoyList.length < 1){
-          console.log("La lista de pedidos de hoy no contiene registros. ")
-          this.mensajeLisPedDiaVacio = "Sin pedidos hasta el momento"
-        };
-        if(this.pedidosDeHoyList.length > 0 ){
-          console.log("Lista de platos del día o fecha actual recibida");
-          this.mensajeLisPedDiaVacio = ""
-        };  
-        this.pedidoConfiAVerdOFalso();
-      
+        this.pedidosDeHoyList = data;  // Actualiza la lista de pedidos del día
+        if (this.pedidosDeHoyList.length < 1) {
+          console.log("La lista de pedidos de hoy no contiene registros.");
+          this.mensajeLisPedDiaVacio = "Sin pedidos hasta el momento";  // Mensaje si no hay pedidos
+        } else {
+          console.log("Lista de pedidos del día o fecha actual recibida.");
+          this.mensajeLisPedDiaVacio = "";  // Limpia el mensaje de lista vacía
+        }
+        this.pedidoConfiAVerdOFalso();  // Llama a función para verificar el estado del pedido
       },
-      err => {     
-        console.log("Msj. Servidor: " + err.error.message)
-      }
-    )
-  };
-
-  //listaDetallePedidos(): void {
-    //this.detallePedidServ.listaDetallePedidos().subscribe(data => this.detallePedidosList = data);
- // };
-
-  listaDetallePedidosXIdPedido(idPedido: number): void {
-
-    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data =>
-      this.detallePedidosListxIdPedido = data,
       err => {
-        console.log("Msj. Serv: " + err.error.message);
-        alert("Msj. Serv: " + err.error.message);
-      });
-  };
-
-  listaPlatosComp(): void {
-    this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);
-  };
-
-
-
-
-
-  //AGREGAR PLATOS A MOSTRAR
-  //////////////////////////
-  agregarPlatoAMos(): void {
-    const tipoPlat = new TipoPlato(0, "", "", "");
-    const plat = new MenuCompletoModel(this.idPlato, tipoPlat, "", 0, "");
-    const plaMos = new PlatosAMostrar(0, this.descripcionPlatoAMostrar, plat)
-    this.plaMosServ.guardarPlatoAMostrar(plaMos).subscribe(data => {
-      this.listaPlatosAMostrar();
-      console.log("Plato a mostrar guardado")
-      alert("Plato a mostrar guardado");
-    },
-      err => {
-        alert(err.error.message);
-        console.log("Msj. Servidor: " + err.error.message);
+        console.log("Msj. Servidor: " + err.error.message);  // Muestra un mensaje de error
       }
     );
-  };
+  }
 
-  //EDITAR PLATOS A MOSTRAR
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista de detalles de un pedido específico utilizando su ID.
+   * 
+   * @param {number} idPedido - El ID del pedido para obtener los detalles.
+   */
+  listaDetallePedidosXIdPedido(idPedido: number): void {
+    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(
+      data => this.detallePedidosListxIdPedido = data,  // Actualiza la lista de detalles del pedido
+      err => {
+        console.log("Msj. Serv: nn " + err.error.message);  // Muestra un mensaje de error
+        alert("Msj. Serv: " + err.error.message);  // Muestra un mensaje de error
+      }
+    );
+  }
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista completa de platos desde el servicio.
+   */
+  listaPlatosComp(): void {
+    this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);  // Actualiza la lista completa de platos
+  }
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  //AGREGAR PLATOS A MOSTRAR
   //////////////////////////
+  /**
+  * Agrega un nuevo plato a mostrar utilizando el servicio `plaMosServ`.
+  * Después de guardar el plato, actualiza la lista de platos a mostrar y muestra un mensaje de confirmación.
+  */
+  agregarPlatoAMos(): void {
+    const tipoPlat = new TipoPlato(0, "", "", "");  // Crea un nuevo tipo de plato vacío
+    const plat = new MenuCompletoModel(this.idPlato, tipoPlat, "", 0, "");  // Crea un nuevo modelo de plato completo
+    const plaMos = new PlatosAMostrar(0, this.descripcionPlatoAMostrar, plat);  // Crea un nuevo plato a mostrar
+
+    this.plaMosServ.guardarPlatoAMostrar(plaMos).subscribe(data => {
+      this.listaPlatosAMostrar();  // Actualiza la lista de platos a mostrar
+      console.log("Plato a mostrar guardado");
+      alert("Plato a mostrar guardado");  // Muestra un mensaje de confirmación
+    },
+      err => {
+        alert(err.error.message);  // Muestra un mensaje de error
+        console.log("Msj. Servidor: " + err.error.message);
+      });
+  }
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Establece los valores necesarios para editar un plato a mostrar utilizando su ID.
+   * 
+   * @param {number} idPlatoAMostrar - ID del plato a mostrar que se va a editar.
+   * @param {number} idPlato - ID del plato asociado.
+   * @param {string} descripcionPlatoAMostrar - Descripción del plato a mostrar.
+   */
   obtenerPlaMosXId(idPlatoAMostrar: number, idPlato: number, descripcionPlatoAMostrar: string): void {
     this.idPlatosAMostrar = idPlatoAMostrar;
     this.idPlato = idPlato;
     this.descripcionPlatoAMostrar = descripcionPlatoAMostrar;
+  }
 
-  };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Actualiza un plato a mostrar con los valores actuales.
+   * Muestra el JSON enviado en la solicitud HTTP y actualiza la lista de platos a mostrar después de la actualización.
+   */
   editarPlatoAMos(): void {
-    const tipoPl = new TipoPlato(0, "", "", "");
-    const platos = new MenuCompletoModel(this.idPlato, tipoPl, "", 0, "");
-    const plaMos = new PlatosAMostrar(this.idPlatosAMostrar, this.descripcionPlatoAMostrar, platos);
+    const tipoPl = new TipoPlato(0, "", "", "");  // Crea un nuevo tipo de plato vacío
+    const platos = new MenuCompletoModel(this.idPlato, tipoPl, "", 0, "");  // Crea un nuevo modelo de plato completo
+    const plaMos = new PlatosAMostrar(this.idPlatosAMostrar, this.descripcionPlatoAMostrar, platos);  // Crea un plato a mostrar con los nuevos valores
 
     // Mostrar el JSON que se enviará en la solicitud HTTP
     const requestData = {
@@ -363,116 +444,130 @@ export class PedidosplatosamostrarComponent {
     console.log("Datos del plato para editar (antes de la solicitud HTTP):", requestData);
 
     this.plaMosServ.actualizarPlatoAMostrar(this.idPlatosAMostrar, plaMos).subscribe(data => {
-      this.listaPlatosAMostrar();
-      alert("Plato actualizado");
+      this.listaPlatosAMostrar();  // Actualiza la lista de platos a mostrar
+      alert("Plato actualizado");  // Muestra un mensaje de confirmación
     }, err => {
-      alert("No se actualizó el plato");
+      alert("No se actualizó el plato");  // Muestra un mensaje de error
     });
   }
 
-
-  //BORRAR PLATO A MOSTRAR
-  /////////////////////////
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Elimina un plato a mostrar utilizando su ID.
+   * Muestra un mensaje de confirmación y actualiza la lista de platos a mostrar después de eliminar el plato.
+   * 
+   * @param {number} idPlatosAMostrar - ID del plato a mostrar que se va a eliminar.
+   */
   borrarPlatoAMostrar(idPlatosAMostrar: number): void {
     if (idPlatosAMostrar != undefined) {
       this.plaMosServ.borrarPlatoAMostrar(idPlatosAMostrar).subscribe(data => {
-        alert("Plato a mostrar eliminado.");
-        console.log("Plato eliminado.")
-        this.listaPlatosAMostrar(); //refresca la lista de platos a mostrar cuando se elimina un registro
+        alert("Plato a mostrar eliminado.");  // Muestra un mensaje de confirmación
+        console.log("Plato eliminado.");
+        this.listaPlatosAMostrar();  // Actualiza la lista de platos a mostrar
       }, err => {
-        alert("Msj. Servidor: " + err.error.message);
+        alert("Msj. Servidor: " + err.error.message);  // Muestra un mensaje de error
         console.log("Msj. Servidor: " + err.error.message);
-      })
-    };
-  };
+      });
+    }
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un mensaje de advertencia antes de eliminar un plato.
+   * Si el usuario confirma, llama a la función para eliminar el plato.
+   * 
+   * @param {number} idPlatosAMostrar - ID del plato a mostrar que se va a eliminar.
+   */
   borrarPlatMosMensajeAdv(idPlatosAMostrar: number): void {
     const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
     if (msjAdvertenciaElim) {
-      this.borrarPlatoAMostrar(idPlatosAMostrar);
-    } else {
-      ""
-    };
-  };
+      this.borrarPlatoAMostrar(idPlatosAMostrar);  // Llama a la función para eliminar el plato
+    }
+  }
 
-  //CARGAR PLATOS EN INPUT
-  /////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Carga los detalles de un plato en los campos de entrada del formulario utilizando su ID.
+   * 
+   * @param {number} idPlato - ID del plato que se va a cargar.
+   */
   agregarPlatosEnInputs(idPlato: number): void {
     this.platosServ.obtPlatoXID(idPlato).subscribe(
       (plato) => {
-        // Asignar los valores del plato a las variables correspondientes
+        // Asigna los valores del plato a las variables correspondientes
         this.idPlatosAMostrar = plato.idPlato;
-        this.imgPlato = plato.imgPlato
+        this.imgPlato = plato.imgPlato;
         this.tipoPlato = plato.tipoPlato.nombreTipoPlato;
         this.nombrePlato = plato.nombrePlato;
         this.precioPlato = plato.precioPlato;
-
       },
       (error) => {
         // Maneja el error, si es necesario
       }
     );
-  };
+  }
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //AGREGAR PEDIDO
   /////////////////////////       
 
+  /**
+   * Agrega una lista de platos a un pedido existente utilizando el servicio `pedidosServ`.
+   * Actualiza la lista de pedidos del día después de agregar los platos.
+   */
   agregarListaDetPed(): void {
     this.pedidosServ.actualizarPedidosConListaPlatos(this.idPedido).subscribe(
       data => {
-        this.listaPedidosDeHoy();
+        this.listaPedidosDeHoy();  // Actualiza la lista de pedidos del día
         console.log("Lista de platos agregada correctamente al idPedido n°: " + this.idPedido, "Msj Servidor: " + data);
-
       },
       err => {
-        console.log("Error al agregar platos: Msj Servidor: ", err);
-
-
+        console.log("Error al agregar platos: Msj Servidor: ", err);  // Muestra un mensaje de error
       }
     );
-  };
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Crea un nuevo pedido validando la selección de platos y porciones.
+   * 
+   * - Valida que al menos un plato esté seleccionado.
+   * - Valida que se ingresen porciones para los platos seleccionados.
+   * - Valida que todos los platos seleccionados tengan porciones ingresadas.
+   * 
+   * Luego guarda el pedido utilizando el servicio `pedidosServ` y actualiza la lista de pedidos del día.
+   */
   agregarPedido(): void {
-    //todos los validadores de esta funcion se agregan por las dudas, ya que las funciones seleccionarChekBoxSiHayPorcionPla(index) y 
-    // agregarPorcionesPlaSeleccionandoChekBox(index) agregan porcion/es o seleccionan el/los chekbox/es al hacer click en el input o el chekbox
-
+    // Filtra los platos seleccionados basándose en los índices y valores booleanos de selección
     const seleccionados = this.platosAMostrarList
       .filter((_, index) => this.platosSeleccionadosSioNo[index]);
-    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
-    const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);
-    const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);;
+    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;  // Verifica si no se ingresaron porciones
+    const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);  // Verifica si hay platos sin porciones ingresadas
+    const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);  // Verifica si al menos un plato está seleccionado
 
-    //validador sin seleccion alguna de chekbox
+    // Valida que se haya seleccionado al menos un plato
     if (seleccionados.length === 0) {
       alert("Selecciona al menos un plato");
       this.modalitoEnviarPedido = false;
-
       return;
-    };
+    }
 
-    //validador para seleccion de su chekbox y no ingreso de porciones
+    // Valida que se ingresen porciones para todos los platos seleccionados
     if (porcionesNoIngresadas) {
-      alert("Ingresa porcion/es");
+      alert("Ingresa porción/es");
       this.modalitoEnviarPedido = false;
-      //console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
       return;
-    };
+    }
 
-    //validador para seleccion de 2 o mas platos, uno o mas (menos q el total seleccionado) sin porciones 
-    if (totalesPlatosIncluyeCero && unPlatoSeleccionado === true) {
-      console.log("Ingresa porciones a todos los platos seleccionados: " + totalesPlatosIncluyeCero);
-      //console.log("Lista totalesPlatos: " + this.totalesPlatosList);
-      //console.log("un plato seleccionado minimo?: " + unPlatoSeleccionado);
+    // Valida que todos los platos seleccionados tengan porciones ingresadas
+    if (totalesPlatosIncluyeCero && unPlatoSeleccionado) {
       alert("Ingresa porciones a todos los platos seleccionados");
       this.modalitoEnviarPedido = false;
-      this.botonDisabledCrPe = false;  // Desactivar el botón solo si totalesPlatos es verdadero
+      this.botonDisabledCrPe = false;  // Desactiva el botón si hay platos sin porciones
       return;
-    };
+    }
 
+    // Crea un objeto de pedido con los datos ingresados
     const pedido = new PedidosModel(
       this.idPedido,
       this.nombreCliente,
@@ -487,120 +582,163 @@ export class PedidosplatosamostrarComponent {
       this.pedidoConfirmado
     );
 
+    // Guarda el pedido utilizando el servicio `pedidosServ`
     this.pedidosServ.guardarPedido(pedido).subscribe(
       (data: PedidosModel) => {
         this.modalitoEnviarPedido = true;
         this.inputReadOnlyPorcionPlato = true;
         this.chekBoxSelcPlat = true;
-        this.idPedido = data.idPedido;
-        this.listaPedidosDeHoy();
-        alert("Pedido N° " + this.idPedido + " creado");
-        console.log("Pedido guardado con idPedido N°: " + this.idPedido + ". Msj servidor: objeto JSON instancia clase Pedidos: " + JSON.stringify(data));
+        this.idPedido = data.idPedido;  // Actualiza el ID del pedido con el recibido del servidor
+        this.listaPedidosDeHoy();  // Actualiza la lista de pedidos del día
+        alert("Pedido N° " + this.idPedido + " creado");  // Muestra un mensaje de confirmación
+        console.log("Pedido guardado con idPedido N°: " + this.idPedido);
         this.botonDisabledCrPe = true;
         this.inputDisabledPorcionPlato = true;
       },
       err => {
-        alert("Msj. Servidor: " + err.error.message);
+        alert("Msj. Servidor: " + err.error.message);  // Muestra un mensaje de error
         console.log("Msj. Servidor: " + err.error.message);
       }
     );
+  }
 
-  };
-
-  //selecciona el chekbox al utilizar la flecha aumento o decremento del input
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+ * Selecciona el checkbox asociado a un plato si se ingresan porciones en el input.
+ * - Si no hay porciones ingresadas, establece el valor inicial como 1.
+ * - Marca el checkbox como seleccionado y recalcula el total del plato.
+ * 
+ * @param index - El índice del plato en las listas.
+ */
   seleccionarChekBoxSiHayPorcionPla(index: number): void {
-
     if (!this.porcionesPlatosList[index]) {
-      this.porcionesPlatosList[index] = 1; // Establece el valor inicial solo si no hay ninguna porción ingresada
+      this.porcionesPlatosList[index] = 1; // Establece el valor inicial si no hay porción ingresada
       this.platosSeleccionadosSioNo[index] = false;
-
     }
-    this.platosSeleccionadosSioNo[index] = true;  // Establece el checkbox como seleccionado
-    this.calcularTotalPlato(index);
+    this.platosSeleccionadosSioNo[index] = true; // Marca el checkbox como seleccionado
+    this.calcularTotalPlato(index); // Recalcula el total del plato
     console.log("porcionesPlatosList: " + this.porcionesPlatosList);
     console.log("chekBoxSelcPlat: " + this.chekBoxSelcPlat);
     console.log("inputReadOnlyPorcionPlato: " + this.inputReadOnlyPorcionPlato);
   }
 
-
-
-  //agrega 1 porcionPlato si se selecciona el chekbox
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Agrega o elimina porciones de un plato al seleccionar o deseleccionar el checkbox.
+   * - Si se selecciona el checkbox, se elimina la porción del plato (establece NaN).
+   * - Si se deselecciona, se establece una porción inicial y se recalcula el total.
+   * 
+   * @param index - El índice del plato en las listas.
+   */
   agregarPorcionesPlaSeleccionandoChekBox(index: number): void {
-    if (this.platosSeleccionadosSioNo[index] && this.chekBoxSelcPlat == false) {
-      // si se selecciona el checkbox 
+    if (this.platosSeleccionadosSioNo[index] && !this.chekBoxSelcPlat) {
+      // Si se selecciona el checkbox, se elimina la porción del plato
       this.porcionesPlatosList[index] = NaN;
       this.totalesPlatosList[index] = NaN;
-
-    }
-    else {
-      // si se deselecciona el chekbox que antes se selecciono
+    } else {
+      // Si se deselecciona el checkbox, se establece una porción y se recalcula el total
       this.porcionesPlatosList[index] = 1;
       this.calcularTotalPlato(index);
     }
-  };
+  }
 
-
-  //el validador actua cuando no se ingresan todos los datos del cliente
-  //en el modal agregar pedido. 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Valida que se hayan ingresado todos los datos del cliente antes de continuar con el pedido.
+   * - Muestra un mensaje de alerta si falta algún dato.
+   * - Si todos los datos están presentes, habilita la selección de platos y muestra los botones correspondientes.
+   */
   validadorDatosCliente(): void {
     const validadorDatosCliente = [
       this.nombreCliente,
       this.telefonoCliente,
       this.direccionCliente,
       this.localidadCliente
-    ]
+    ];
 
     if (validadorDatosCliente.some(valiDaCli => valiDaCli === undefined ||
       valiDaCli === null ||
       valiDaCli === "")) {
-
-      //this.mostrarModalitoAgregarPlatos = false;
-      console.log("Falta ingresar datos para envio del pedido: " + validadorDatosCliente);
+      // Muestra un mensaje de alerta si falta algún dato
+      console.log("Falta ingresar datos para envío del pedido: " + validadorDatosCliente);
       alert("Ingresa los datos del cliente para continuar");
-
     } else {
+      // Habilita la selección de platos y muestra los botones correspondientes
       this.botonDisabledSeleccPlato = true;
       this.modalitoAgregarPlatos = true;
       this.inputReadOnlyDatEnvio = true;
       this.botonDisplayNoneDatosEnvio = "";
       this.ocultarBotonGuardarDatosEditados();
       this.mostrarBtnAgregarPlatPedido();
-
     }
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Oculta el botón para agregar platos al pedido y restablece el estado de los campos de datos del cliente.
+   */
   ocultarBtonAgregarPlatPedido(): void {
     this.botonDisplayNoneSeleccPlato = "none";
     this.inputReadOnlyDatEnvio = false;
     this.botonDisplayNoneGuardEdiDatEnv = "";
-    this.botonDisplayNonedEnvDetPe = "none"
-    //this.botonDisplayNoneDatosEnvio = "none";
-    //this.mostrarModalitoAgregarPlatos = false;
+    this.botonDisplayNonedEnvDetPe = "none";
+  }
 
-  };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra el botón para agregar platos al pedido.
+   */
   mostrarBtnAgregarPlatPedido(): void {
-    this.botonDisplayNonedEnvDetPe = ""
-  };
+    this.botonDisplayNonedEnvDetPe = "";
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Oculta el botón para editar datos de envío y muestra el modal para agregar platos.
+   */
   ocultarBtonEditarDatEnv(): void {
     this.inputReadOnlyDatEnvio = true;
     this.botonDisplayNoneDatosEnvio = "";
     this.modalitoAgregarPlatos = true;
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Oculta el botón para guardar datos editados.
+   */
   ocultarBotonGuardarDatosEditados(): void {
-    this.botonDisplayNoneGuardEdiDatEnv = "none"
-  };
+    this.botonDisplayNoneGuardEdiDatEnv = "none";
+  }
 
-
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //EDITAR PEDIDO
   /////////////////////////
-  obtPedidoXId(idPedido: number, fecha: string, horaPedido: string, nombreCliente: string, telefonoCliente: string,
-    direccionCliente: string, localidadCliente: string, listaPlatosDelPedido: string, importeTotalPedido: number, pedidoConfirmado: boolean): void {
-
+  /**
+  * Asigna los valores del pedido a las propiedades de la clase.
+  * 
+  * @param idPedido - El identificador del pedido.
+  * @param fecha - La fecha del pedido.
+  * @param horaPedido - La hora del pedido.
+  * @param nombreCliente - El nombre del cliente.
+  * @param telefonoCliente - El teléfono del cliente.
+  * @param direccionCliente - La dirección del cliente.
+  * @param localidadCliente - La localidad del cliente.
+  * @param listaPlatosDelPedido - La lista de platos del pedido.
+  * @param importeTotalPedido - El importe total del pedido.
+  * @param pedidoConfirmado - Indica si el pedido está confirmado.
+  */
+  obtPedidoXId(
+    idPedido: number,
+    fecha: string,
+    horaPedido: string,
+    nombreCliente: string,
+    telefonoCliente: string,
+    direccionCliente: string,
+    localidadCliente: string,
+    listaPlatosDelPedido: string,
+    importeTotalPedido: number,
+    pedidoConfirmado: boolean
+  ): void {
     this.idPedido = idPedido;
     this.nombreCliente = nombreCliente;
     this.telefonoCliente = telefonoCliente;
@@ -611,11 +749,13 @@ export class PedidosplatosamostrarComponent {
     this.hora = horaPedido;
     this.importeTotalPedido = importeTotalPedido;
     this.pedidoConfirmado = pedidoConfirmado;
+  }
 
-  };
-
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Actualiza un pedido con los datos actuales y notifica al usuario del éxito o fracaso de la operación.
+   * - Envía los datos actualizados al servidor y maneja la respuesta.
+   */
   editarPedido(): void {
     const pedid = new PedidosModel(
       this.idPedido,
@@ -632,51 +772,53 @@ export class PedidosplatosamostrarComponent {
     );
 
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
-      this.listaPedidosDeHoy();
+      this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
       console.log("Msj. Servidor: " + JSON.stringify(data));
       alert("Pedido N°: " + this.idPedido + " actualizado");
     },
       err => {
         console.log("Msj. Servidor: " + err.error.message);
         alert("Msj. Servidor: " + err.error.message);
-      })
-  };
+      });
+  }
 
-  //BORRAR PEDIDO
-  ///////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Elimina un pedido después de la confirmación del usuario.
+   * - Muestra una advertencia de confirmación antes de proceder con la eliminación.
+   * 
+   * @param idPedido - El identificador del pedido a eliminar.
+   */
   eliminarPedido(idPedido: number): void {
-
-    //Advertencia para eliminar el pedido
     const confirmacion = window.confirm("El pedido N°: " + idPedido + " se eliminará. ¿Desea continuar?");
 
     if (confirmacion) {
       this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
         console.log("Pedido N°: " + idPedido + " eliminado.");
         alert("Pedido N°: " + idPedido + " eliminado.");
-        this.listaPedidosDeHoy();
+        this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
       }, err => {
-        // Error al eliminar el pedido
         console.log("Msj. Servidor: " + err.error.message);
         alert("Msj. Servidor: " + err.error.message);
-      }
-      );
+      });
     }
-  };
+  }
 
-// elimina un pedido generado en el modal para crear un pedido al que no se le han seleccionado detalles pedido o platosamostrar
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Elimina pedidos que no tienen detalles asociados ni platos seleccionados.
+   * - Itera sobre los pedidos del día y elimina aquellos sin platos seleccionados.
+   */
   eliminarPedidoSinDetPed(): void {
-    // Itera sobre cada elemento en pedidosDeHoyList
     for (const pedido of this.pedidosDeHoyList) {
-      // Accede a la propiedad listaPlatosDelPedido de cada elemento
       const listaPlatos = pedido.listaPlatosDelPedido;
 
-      // Verifica si listaPlatos está vacía antes de intentar eliminar el pedido
       if (!listaPlatos || listaPlatos.trim() === '') {
-        // Elimina el pedido solo si listaPlatos está vacía
+        // Elimina el pedido si no tiene platos seleccionados
         this.pedidosServ.borrarPedido(pedido.idPedido).subscribe(
           data => {
-            console.log("Pedido eliminado por falta seleccion platos. Mensaje servidor: " + JSON.stringify(data));
-            this.listaPedidosDeHoy();
+            console.log("Pedido eliminado por falta de selección de platos. Mensaje servidor: " + JSON.stringify(data));
+            this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
           },
           err => {
             console.log("No se pudo eliminar el pedido", err);
@@ -684,10 +826,13 @@ export class PedidosplatosamostrarComponent {
         );
       }
     }
-  };
+  }
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Obtiene y muestra la lista de datos del cliente antes del envío.
+  * Este método construye una lista de strings con la información del cliente.
+  */
   getListaDatosClienteAntesEnvio(): void {
     const listaDatos: string[] = [
       `Nombre Cliente: ${this.nombreCliente}`,
@@ -695,221 +840,264 @@ export class PedidosplatosamostrarComponent {
       `Dirección: ${this.direccionCliente}`,
       `Localidad: ${this.localidadCliente}`
     ];
-  };
+    // Nota: Aquí no se hace nada con `listaDatos`. Podrías mostrarlo en la interfaz o usarlo de alguna manera si es necesario.
+  }
 
-
-  //AGREGAR DETALLE PEDIDO  (CON EL ID QUE GENERA agregarPedido())
-  ///////////////////////////////////
-
-  //cambia el chekbox del modal agregar detalle pedido a true o false
+  /**
+   * Cambia el estado del checkbox para seleccionar un plato en el modal de agregar detalle pedido.
+   * 
+   * @param index - El índice del plato en la lista de platos.
+   */
   chekBoxSeleccion(index: number): void {
     this.platosSeleccionadosSioNo[index] = !this.platosSeleccionadosSioNo[index];
-  };
+  }
 
-  //calcula el total del plato respecto a las porciones ingresadas
+  /**
+   * Calcula el total del plato basado en el precio del plato y la cantidad de porciones ingresadas.
+   * 
+   * @param index - El índice del plato en la lista de platos.
+   */
   calcularTotalPlato(index: number): void {
     this.totalesPlatosList[index] = this.platosAMostrarList[index].platos.precioPlato * this.porcionesPlatosList[index] || NaN;
-  };
+  }
 
-  //envia lista de detalle pedidos
-  enviarDetallePedidos(): void {
-    // Filtra los elementos seleccionados
-    const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
-      .map((PlatosAMostrar, index) => {
-        if (this.platosSeleccionadosSioNo[index] && this.porcionesPlatosList[index] !== undefined) {
-          return {
-            pedidos: { idPedido: this.idPedido },
-            platosAMostrar: { idPlatosAMostrar: PlatosAMostrar.idPlatosAMostrar },
-            porcionPlato: this.porcionesPlatosList[index],
-          };
-        }
-        return null;
-      })
-      .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];
-    //console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
+ /**
+ * Envía los detalles del pedido al servidor.
+ * 
+ * Este método realiza las siguientes acciones:
+ * 1. Filtra y construye una lista de objetos `DetallePedidos` basados en los platos seleccionados
+ *    por el usuario y las porciones correspondientes.
+ * 2. Verifica que todos los datos del cliente (nombre, teléfono, dirección y localidad) estén completos.
+ * 3. Si los datos del cliente están completos, envía la lista de detalles del pedido al servidor utilizando
+ *    el servicio `detallePedidServ`.
+ * 4. Maneja la respuesta del servidor, actualizando la interfaz según sea necesario.
+ * 5. Si algún dato del cliente falta, muestra un mensaje de alerta solicitando completar la información.
+ */
+enviarDetallePedidos(): void {
+  // Construye la lista de DetallePedidos basada en la selección del usuario y las porciones
+  const elementosSeleccionados: DetallePedidos[] = this.platosAMostrarList
+    .map((PlatosAMostrar, index) => {
+      // Verifica si el plato está seleccionado y si la porción correspondiente está definida
+      if (this.platosSeleccionadosSioNo[index] && this.porcionesPlatosList[index] !== undefined) {
+        // Devuelve un objeto DetallePedidos
+        return {
+          pedidos: { idPedido: this.idPedido }, // Asocia el pedido con su id,
+          platos: { idPlato: PlatosAMostrar.platos.idPlato }, // Asocia el id del plato
+          porcionPlato: this.porcionesPlatosList[index], // Asigna la porción seleccionada
+        };
+      }
+      return null;
+    })
+    // Filtra los elementos nulos para quedarse solo con los seleccionados correctamente
+    .filter(elemento => elemento !== null) as DetallePedidos[];
 
-    if (this.nombreCliente == "" ||
-      this.telefonoCliente == "" ||
-      this.direccionCliente == "" ||
-      this.localidadCliente == "") {
-
-      alert("Ingrese datos de envio para completar el pedido");
-      console.log("Faltan ingresar datos de envio")
-    }
-    else {
-      //console.log("nombreCliente: " + this.nombreCliente)
-      //console.log('JSON a enviar:', JSON.stringify(elementosSeleccionados));
-      this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
-        data => {
-
-          this.listaPedidosDeHoy();
-          this.botonDisabledEnvDetPe = true;
-          this.botonEditarPlatosSelecYDat = "none";
-          this.botonDisplayNoneDatosEnvio = "none";
-          this.botonDisplayNoneGuardEdiDatEnv = "none";
-          this.mensajePedEnviadoDB = " registrado"; // agrega enviado a la etiqueta <p class="d-flex flex-row justify-content-center h5">Pedido N° {{idPedido}}: {{mensajePedEnviadoDB}}</p>
-          console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
-          alert("Pedido N°: " + this.idPedido + " enviado");
-        },
-        err => {
-          // Manejar errores si es necesario
-          console.log("Msj. Servidor: " + JSON.stringify(err.error.message));
-          alert("Msj. Servidor: " + err.error.message);
-        }
-      );
-    };
-  };
+  // Verifica que los datos del cliente estén completos antes de enviar el pedido
+  if (this.nombreCliente === "" ||
+    this.telefonoCliente === "" ||
+    this.direccionCliente === "" ||
+    this.localidadCliente === "") {
+    alert("Ingrese datos de envío para completar el pedido");
+  } else {
+    // Envía los detalles del pedido al servidor si los datos del cliente son válidos
+    this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).subscribe(
+      data => {
+        this.listaPedidosDeHoy(); // Actualiza la lista de pedidos de hoy
+        this.botonDisabledEnvDetPe = true; // Deshabilita el botón de envío de pedidos
+        this.botonEditarPlatosSelecYDat = "none"; // Oculta el botón de editar platos seleccionados
+        this.botonDisplayNoneDatosEnvio = "none"; // Oculta la sección de datos de envío
+        this.botonDisplayNoneGuardEdiDatEnv = "none"; // Oculta el botón de guardar/editar datos de envío
+        this.mensajePedEnviadoDB = " registrado"; // Actualiza el mensaje de confirmación
+        console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
+        alert("Pedido N°: " + this.idPedido + " enviado"); // Muestra una alerta de confirmación
+      },
+      err => {
+        // Maneja errores si el envío al servidor falla
+        console.log("Msj. Servidor: " + JSON.stringify(err.error.message));
+        alert("Msj. Servidor: " + err.error.message);
+      }
+    );
+  }
+}
 
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   //AGREGAR 1 DETALLE PEDIDO SOLAMENTE
 
-  seleccionarIdPedido(idPedido: number) {
+  /**
+ * Selecciona el ID del pedido para agregar detalles.
+ * 
+ * @param idPedido - El ID del pedido a seleccionar.
+ */
+  seleccionarIdPedido(idPedido: number): void {
     this.idPedidoGuardDetPed = idPedido;
-  };
+  }
 
-  agregarUnDetallePedido() {
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Agrega un detalle al pedido.
+   * - Verifica si la porción es válida y si todos los campos necesarios están presentes.
+   * - Si los datos son válidos, crea un nuevo detalle de pedido y lo guarda en el servidor.
+   */
+  agregarUnDetallePedido(): void {
+    const confirmacion = window.confirm("El pedido N°: " + this.idPedidoGuardDetPed + " se editara. El/Los dato/s a editar podría/n contener diferencia/s en el/los precios unitario/s, total/es, etc. ¿Desea continuar?");
 
-
+    if (confirmacion) {
+    // Validación de porciones
     if (this.porcionPlato > 10) {
-      alert("El maximo permitido de porciones es 10");
-      return; // Agregado return para salir de la función si la validación falla
-
+      alert("El máximo permitido de porciones es 10");
+      return; // Salir de la función si la validación falla
     }
-    
-    if (this.idPedidoGuardDetPed == null || this.idPedidoGuardDetPed == 0 || isNaN(this.idPedidoGuardDetPed) ||
-       this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0 || isNaN(this.idPlatosAMostrar) ||
-       this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
 
-       
+    // Validación de datos
+    if (this.idPedidoGuardDetPed == null || this.idPedidoGuardDetPed <= 0 || isNaN(this.idPedidoGuardDetPed) ||
+      this.idPlato == null || this.idPlato <= 0 || isNaN(this.idPlato) ||
+      this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
 
-      alert("Seleccione un plato o ingrese porcion/es");
+      alert("Seleccione un plato o ingrese porción/es");
       this.modalitoAgrDetPed = true;
-      return; // Agregado return para salir de la función si la validación falla
-      
-    } else {
+      return; // Salir de la función si la validación falla
 
-     
-      const DetPedAAgreg = new DetallePedidosAcotadaModel(this.idPedidoGuardDetPed, this.idPlatosAMostrar, this.porcionPlato);
+    } else {
+      // Crear el objeto DetallePedidosAcotadaModel y enviarlo al servidor
+      const DetPedAAgreg = new DetallePedidosAcotadaModel(this.idPedidoGuardDetPed, this.idPlato, this.porcionPlato);
 
       this.detallePedidServ.guardarDetPediAcotada(DetPedAAgreg).subscribe(data => {
-        this.listaPedidosDeHoy();
+        this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
         console.log("Msj servidor: " + JSON.stringify(data));
+        console.log("DetPedListaEnviar: " + JSON.stringify(DetPedAAgreg))
         alert("Plato agregado al pedido N°: " + this.idPedidoGuardDetPed);
       },
         err => {
           console.log("Msj servidor: " + err.error.message);
           alert(err.error.message);
-
-        })
+        });
     }
-  };
+  } 
+}
 
-  //EDITAR DETALLE PEDIDO 
-  /////////////////////////////
-
-
-  obtenerDetPedXId(idDetallePedido: number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato: string) {
-    const msjAdvertencia = window.confirm('El/Los dato/s a editar se reemplazarán con los datos actuales de tabla PLATOS A MOSTRAR. ¿Desea continuar?');
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene los detalles de un pedido específico para su edición.
+   * - Muestra una advertencia al usuario sobre la sustitución de datos.
+   * - Si el usuario confirma, recupera los detalles del pedido desde el servidor.
+   * 
+   * @param idDetallePedido - El ID del detalle del pedido a obtener.
+   * @param idPedido - El ID del pedido asociado.
+   * @param idPlatosAMostrar - El ID del plato a mostrar.
+   * @param porcionPlato - La porción del plato.
+   * @param nombrePlato - El nombre del plato.
+   */
+  obtenerDetPedXId(idDetallePedido: number, idPedido: number, porcionPlato: number, nombrePlato: string, idPlato: number): void {
+    const msjAdvertencia = window.confirm('El/Los dato/s a editar podría/n contener diferencia/s en el/los precios unitario/s, total/es, etc. ¿Desea continuar?');
     if (!msjAdvertencia) {
-      this.cerrarModalitosLimpiarInput();
-    };
+      this.cerrarModalitosLimpiarInput(); // Cierra el modal y limpia los campos si el usuario cancela
+    }
     if (msjAdvertencia) {
       this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
         this.idDetallePedido = idDetallePedido;
         this.idPedido = idPedido;
-        this.idPlatosAMostrar = idPlatosAMostrar;
-        this.porcionPlato = porcionPlato
+        this.porcionPlato = porcionPlato;
         this.nombrePlato = nombrePlato;
+        this.idPlato = idPlato;
         console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
-
       }, err => {
         console.log(err);
-        alert("Error, no se trajeron los detalles del pedido")
-      })
+        alert("Error, no se trajeron los detalles del pedido");
+      });
     }
-  };
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Actualiza un detalle de pedido.
+  * - Realiza validaciones para asegurar que todos los datos necesarios son válidos.
+  * - Si los datos son válidos, envía una solicitud para actualizar el detalle del pedido.
+  */
   editarDetallePedidos(): void {
+    // Validación de datos
+    if (this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido) ||
+      this.idPlato == null || this.idPlato == 0 || isNaN(this.idPlato) ||
+      this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
 
-    if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
-      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0) || isNaN(this.idPlatosAMostrar) ||
-      (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
-
-      alert("Seleccione un plato o ingrese porcion/es");
+      alert("Seleccione un plato o ingrese porción/es");
       this.modalitoInputEditDetPedid = true;
-      return; // Agregado return para salir de la función si la validación falla
-      //this.modalitoInputEditDetPedid = true; 
-      //this.modalitoTdEditDetPedid = false;
-
+      return; // Salir de la función si la validación falla
     }
+
     if (this.porcionPlato > 10) {
-      alert("El maximo permitido de porciones es 10");
-      return; // Agregado return para salir de la función si la validación falla
-
+      alert("El máximo permitido de porciones es 10");
+      return; // Salir de la función si la validación falla
     } else {
+      // Crear el objeto DetallePedidosAcotadaModel
+      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlato, this.porcionPlato);
 
-      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
-
+      // Enviar solicitud para actualizar el detalle del pedido
       this.detallePedidServ
         .actualizarDetallePedido(this.idDetallePedido, detPed)
         .subscribe(
           (data) => {
-
-            this.listaDetallePedidosXIdPedido(this.idPedido);
-            this.listaPedidosDeHoy();
-            this.modalitoInputEditDetPedid = false;
-            this.modalitoTdEditDetPedid = true;
+            this.listaDetallePedidosXIdPedido(this.idPedido); // Actualizar la lista de detalles del pedido
+            this.listaPedidosDeHoy(); // Actualizar la lista de pedidos del día
+            this.modalitoInputEditDetPedid = false; // Cerrar el modal de edición
+            this.modalitoTdEditDetPedid = true; // Mostrar el modal de detalles editados
             console.log("Msj servidor: " + JSON.stringify(data));
             alert("Detalles del pedido N°: " + this.idPedido + " actualizados.");
           },
           (err) => {
-
             console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
-            //console.log("DetPEd: " + JSON.stringify(detPed));
             alert("Error al actualizar el detalle del pedido. " + err.error.message);
           }
         );
     }
-  };
+  }
 
+
+  //✮------------------------------------------------------------------------------------------------------------✮
   //BORRAR DETALLE PEDIDO 
   /////////////////////////////
 
+  /**
+  * Elimina un detalle de pedido específico.
+  * - Solicita confirmación del usuario antes de proceder con la eliminación.
+  * - Si el usuario confirma, envía una solicitud para eliminar el detalle del pedido.
+  */
   eliminarDetallePedidos(idDetallePedido: number, idPedido: number): void {
-    //Advertencia para eliminar el pedido
-    const confirmacion = window.confirm("El detalle del pedido se eliminará");
+    // Solicita confirmación al usuario
+    const confirmacion = window.confirm("El detalle del pedido se eliminará. ¿Desea continuar?");
 
     if (confirmacion) {
-      this.detallePedidServ.eliminarDetallePedido(idDetallePedido, idPedido).subscribe(data => {
-        alert("Detalle del pedido eliminado.");
-        this.listaDetallePedidosXIdPedido(idPedido);
-        this.listaPedidosDeHoy();
-      }, err => {
-        // Error al eliminar el pedido
-        console.log("No se pudo eliminar el detalle del pedido", err);
-        alert("Error al eliminar el detalle del pedido.");
-      }
+      // Envía solicitud para eliminar el detalle del pedido
+      this.detallePedidServ.eliminarDetallePedido(idDetallePedido, idPedido).subscribe(
+        data => {
+          // Muestra un mensaje de éxito y actualiza las listas
+          alert("Detalle del pedido eliminado.");
+          this.listaDetallePedidosXIdPedido(idPedido); // Actualiza la lista de detalles del pedido
+          this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
+        },
+        err => {
+          // Maneja errores si ocurre un problema al eliminar
+          console.log("No se pudo eliminar el detalle del pedido. Error:", err);
+          alert("Error al eliminar el detalle del pedido. " + err.error.message);
+        }
       );
     }
-  };
+  }
 
-  calcularTotalPedidoAlEditarDetPed(): void {
-
-  };
-
-
-
-
-
-  //muestra una lista de los platos seleccionados para el pedido antes de enviarla a la DB
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Devuelve una lista de platos seleccionados con los detalles del pedido.
+  * - Filtra y mapea los elementos seleccionados de la lista de platos a mostrar.
+  * - Incluye detalles del pedido, plato y porción.
+  * @returns {DetallePedidos[]} Lista de platos seleccionados para el pedido.
+  */
   getPlatosSeleccionados(): DetallePedidos[] {
-    // Filtra los elementos seleccionados
+    // Filtra los platos seleccionados
     const seleccionados = this.platosAMostrarList
-      .filter((_, index) => this.platosSeleccionadosSioNo[index])
+      .filter((_, index) => this.platosSeleccionadosSioNo[index]) // Filtra según los platos seleccionados
       .map((platoAMostrar, index) => {
+        // Mapea los platos seleccionados a un formato adecuado para la base de datos
         return {
-          idDetallePedido: 0, // Asigna el valor adecuado si es necesario
+          idDetallePedido: 0, // Asigna un valor adecuado si es necesario
 
           pedidos: {
             idPedido: this.idPedido,
@@ -925,9 +1113,9 @@ export class PedidosplatosamostrarComponent {
           },
           platosAMostrar: platoAMostrar,
           platos: platoAMostrar.platos,
-          porcionPlato: this.porcionesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0,
-          precioPlatosAMostrar: this.precioPlatosAMostrar,
-          totalPlato: this.totalesPlatosList.filter((_, i) => this.platosSeleccionadosSioNo[i])[index] || 0 // Asigna el valor adecuado si es necesario
+          porcionPlato: this.porcionesPlatosList[this.platosSeleccionadosSioNo.indexOf(true)] || 0,
+          precioPlato: platoAMostrar.platos.precioPlato, // Asegúrate de que esta propiedad exista
+          totalPlato: this.totalesPlatosList[this.platosSeleccionadosSioNo.indexOf(true)] || 0
         };
       });
 
@@ -935,100 +1123,152 @@ export class PedidosplatosamostrarComponent {
     //console.log('Platos seleccionados:', seleccionados);
 
     return seleccionados;
-  };
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //EDITAR PLATOS SELECCIONADOS
   /////////////////////////////
+  /**
+ * Configura el estado de la interfaz de usuario para permitir la edición de platos seleccionados.
+ * Desmarca los checkboxes, habilita los campos de entrada y ajusta la visibilidad de los botones.
+ */
   editarPlatSeleccAntesEnv(): void {
-    //this.botonDisabledCrPe = false;
+    // Desmarca los checkboxes de selección de platos
     this.chekBoxSelcPlat = false;
-    this.inputReadOnlyPorcionPlato = false;
-    this.botonDisplayNoneSeleccPlato = "none";
-    this.botonDisplayNoneCrPe = "none";
-    this.botonDisplayNonedEnvDetPe = "none";
-    this.inputDisabledPorcionPlato = false;
-    this.botonEditarPlatosSelecYDat = "none";
 
+    // Permite la edición de porciones de platos
+    this.inputReadOnlyPorcionPlato = false;
+
+    // Oculta el botón para seleccionar platos
+    this.botonDisplayNoneSeleccPlato = "none";
+
+    // Oculta el botón para crear un nuevo pedido
+    this.botonDisplayNoneCrPe = "none";
+
+    // Oculta el botón para enviar detalles del pedido
+    this.botonDisplayNonedEnvDetPe = "none";
+
+    // Habilita el campo de entrada para porciones
+    this.inputDisabledPorcionPlato = false;
+
+    // Oculta el botón de editar platos y datos
+    this.botonEditarPlatosSelecYDat = "none";
   };
 
-  //oculta botones agregar platos al pedido y crear pedido
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Oculta el botón para editar platos seleccionados y muestra el botón para confirmar la edición.
+   * Se utiliza para cambiar la interfaz después de iniciar el proceso de edición.
+   */
   ocultarBotonParaEditar(): void {
-    this.botonEditarPlatosSelecYDat = "none"
+    // Oculta el botón de editar platos y datos
+    this.botonEditarPlatosSelecYDat = "none";
+
+    // Muestra el botón de confirmar edición de platos y datos
     this.botonConfirEdicPlatosSelecYDat = "";
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Valida la selección de platos y porciones antes de permitir la confirmación de los platos seleccionados.
+   * Muestra alertas en caso de que falten datos y ajusta la visibilidad de los botones según el estado.
+   */
   confirmarPlatSelecc(): void {
+    // Filtra los platos seleccionados según los checkboxes
     const seleccionados = this.platosAMostrarList
       .filter((_, index) => this.platosSeleccionadosSioNo[index]);
-    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
-    const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);
-    const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);;
 
-    //validador sin seleccion alguna de chekbox
+    // Verifica si no se han ingresado porciones
+    const porcionesNoIngresadas = this.porcionesPlatosList.length === 0;
+
+    // Verifica si hay platos seleccionados sin porciones ingresadas
+    const totalesPlatosIncluyeCero = this.totalesPlatosList.includes(0);
+
+    // Verifica si al menos un plato está seleccionado
+    const unPlatoSeleccionado = this.platosSeleccionadosSioNo.some(elemento => elemento === true);
+
+    // Valida que al menos un plato esté seleccionado
     if (seleccionados.length === 0) {
       alert("Selecciona al menos un plato");
-
-
       return;
-    };
+    }
 
-    //validador para seleccion de su chekbox y no ingreso de porciones
+    // Valida que se hayan ingresado porciones
     if (porcionesNoIngresadas) {
-      alert("Ingresa porcion/es");
-
-      //console.log(`Valor ingresado en el input: ${porcionesNoIngresadas}`);
+      alert("Ingresa porción/es");
       return;
-    };
+    }
 
-    //validador para seleccion de 2 o mas platos, uno o mas (menos q el total seleccionado) sin porciones 
+    // Valida que todos los platos seleccionados tengan porciones ingresadas
     if (totalesPlatosIncluyeCero && unPlatoSeleccionado === true) {
-      console.log("Ingresa porciones a todos los platos seleccionados: " + totalesPlatosIncluyeCero);
-      //console.log("Lista totalesPlatos: " + this.totalesPlatosList);
-      //console.log("un plato seleccionado minimo?: " + unPlatoSeleccionado);
       alert("Ingresa porciones a todos los platos seleccionados");
       return;
-    };
+    }
 
+    // Oculta el botón de confirmar edición de platos y datos
     this.botonConfirEdicPlatosSelecYDat = "none";
-    this.botonEditarPlatosSelecYDat = ""
-    this.inputReadOnlyPorcionPlato = true;
-    this.chekBoxSelcPlat = true;
-    this.inputReadOnlyDatEnvio = true;
-    //this.botonConfirEdicPlatosSelecYDat = "";
-    this.botonDisplayNonedEnvDetPe = "";
-    this.inputDisabledPorcionPlato = true;
 
+    // Muestra el botón para editar platos y datos
+    this.botonEditarPlatosSelecYDat = "";
+
+    // Establece los campos de entrada como solo lectura
+    this.inputReadOnlyPorcionPlato = true;
+    this.chekBoxSelcPlat = true; // Desmarca los checkboxes de selección de platos
+    this.inputReadOnlyDatEnvio = true; // Establece los datos de envío como solo lectura
+
+    // Muestra el botón para enviar detalles del pedido
+    this.botonDisplayNonedEnvDetPe = "";
+
+    // Desactiva el campo de entrada de porciones
+    this.inputDisabledPorcionPlato = true;
   };
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Controla la visibilidad del botón para editar platos seleccionados.
+   * Muestra u oculta el botón de edición basado en la selección de platos.
+   */
   mostrarONoBtnEditarPlaSelec(): void {
+    // Filtra los platos seleccionados según los checkboxes
     const seleccionados = this.platosAMostrarList
       .filter((_, index) => this.platosSeleccionadosSioNo[index]);
-    //validador sin seleccion alguna de chekbox
+
+    // Valida si no se ha seleccionado ningún plato
     if (seleccionados.length === 0) {
+      // Muestra un mensaje en la consola si no hay platos seleccionados
       console.log("Selecciona al menos un plato para el pedido");
+
+      // Oculta el modal para enviar el pedido
       this.modalitoEnviarPedido = false;
 
+      // Sale de la función si no se ha seleccionado ningún plato
       return;
-    };
-    this.botonEditarPlatosSelecYDat = ""
+    }
+
+    // Muestra el botón de editar platos seleccionados y datos
+    this.botonEditarPlatosSelecYDat = "";
   };
 
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCION PARA CREAR EXCEL CON LISTA COMPLETA
   ///////////////////////////////////////////////////
-
-
-  //genera el excel
+  /**
+ * Genera un archivo Excel con dos hojas: una para los pedidos de hoy y otra para los platos a mostrar.
+ * 
+ * @param liPedidosHoy Lista de pedidos para el día de hoy.
+ * @param liPlaMos Lista de platos a mostrar.
+ * @param pedidosHoyPlaMostrar Nombre base para el archivo Excel a generar.
+ */
   generateExcel(liPedidosHoy: any[], liPlaMos: any[], pedidosHoyPlaMostrar: string): void {
+    // Crear un nuevo libro de trabajo de Excel
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
 
-    // Creamos la hoja de Excel para la primera lista o pedidos de hoy
+    // Crear la hoja de Excel para la lista de pedidos de hoy
     const worksheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(liPedidosHoy);
     XLSX.utils.book_append_sheet(workbook, worksheet1, 'Pedidos Hoy');
 
-    // Creamos la hoja de Excel para la segunda lista o platos a mostrar
+    // Crear la hoja de Excel para la lista de platos a mostrar
     const platosAMostrarData = this.platosAMostrarList.map((plato) => {
       return {
         'ID Plato a Mostrar': plato.idPlatosAMostrar,
@@ -1044,67 +1284,89 @@ export class PedidosplatosamostrarComponent {
     const worksheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(platosAMostrarData);
     XLSX.utils.book_append_sheet(workbook, worksheet2, 'Platos a Mostrar');
 
-
-    // Convertimos el libro de Excel en un archivo binario y creamos un enlace de descarga
+    // Convertir el libro de Excel a un buffer binario
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    // Crear un blob con el buffer binario y generar una URL para la descarga
     const dataBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     const url = window.URL.createObjectURL(dataBlob);
+
+    // Crear un enlace de descarga y simular un clic para iniciar la descarga
     const link = document.createElement('a');
     link.href = url;
     link.download = pedidosHoyPlaMostrar + '.xlsx'; // Nombre del archivo de Excel
-    link.click(); // Simulamos un clic en el enlace para iniciar la descarga
-    window.URL.revokeObjectURL(url); // Liberamos el recurso del enlace
+    link.click(); // Simular clic en el enlace para descargar el archivo
 
-
+    // Liberar el recurso del enlace
+    window.URL.revokeObjectURL(url);
   };
 
-  //descargar el excel generado
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Maneja el clic para exportar datos a un archivo Excel.
+   * Muestra un mensaje de advertencia y, si el usuario confirma, obtiene los datos y genera el archivo Excel.
+   */
   exportToExcelOnClick(): void {
-    // Mostrar mensaje de advertencia para la descarga del archivo
+    // Mostrar un mensaje de advertencia antes de iniciar la descarga
     const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo ¿desea continuar?');
 
     if (msjAdvertenciaDescarga) {
       // Obtener las listas de pedidos y platos a mostrar en paralelo
       forkJoin([
-        this.pedidosServ.listaPedidosDeHoy().pipe(catchError(error => of([]))), // Si ocurre un error al obtener la lista de pedidos, devuelve una lista vacía
-        this.plaMosServ.listaPlatosAMostrar().pipe(catchError(error => of([])))  // Si ocurre un error al obtener la lista de platos, devuelve una lista vacía
+        this.pedidosServ.listaPedidosDeHoy().pipe(catchError(error => of([]))), // Manejo de errores para la lista de pedidos
+        this.plaMosServ.listaPlatosAMostrar().pipe(catchError(error => of([])))  // Manejo de errores para la lista de platos
       ]).subscribe(([pedidos, platos]) => {
-        // Generar el archivo Excel con las listas obtenidas
+        // Generar el archivo Excel con los datos obtenidos
         this.generateExcel(pedidos, platos, 'pedidosHoyPlaMostrar');
       });
     }
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCIONES VARIAS
   ///////////////////////////////////
 
 
-  //resetea formularios, toma el id del form, deselecciona chekbox
-  resetFormCleanChekBox(idFormulario: string) {
+  /**
+  * Resetea el formulario especificado por su ID y deselecciona los checkboxes.
+  * 
+  * @param idFormulario ID del formulario que se desea resetear.
+  */
+  resetFormCleanChekBox(idFormulario: string): void {
+    // Obtiene el formulario por su ID
     const formulario = document.getElementById(idFormulario) as HTMLFormElement | null;
 
+    // Si el formulario existe, se resetea
     if (formulario) {
       formulario.reset();
-    };
-    //deseleccionar chekbox
+    }
+
+    // Deselecciona los checkboxes correspondientes
     for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
       if (this.platosSeleccionadosSioNo[i]) {
         this.chekBoxSeleccion(i);
+      }
+    }
+  }
 
-      };
-    };
-  };
-
-  //cierra modalitos (no bsmodalref)
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Cierra los modales y limpia los inputs y estados relacionados.
+   * Reinicia varios estados y variables para que los formularios y modales estén en su estado inicial.
+   */
   cerrarModalitosLimpiarInput(): void {
+    // Cierra los modales
     this.modalitoAgregarPlatos = false;
     this.modalitoEnviarPedido = false;
-    //reinicia la lista de porciones para borrarla y que cuando
-    //la funcion agregarPedido() valide si hay porciones por segunda vez
-    //la lista de porciones comience vacio, sin esto contendria el valor agregado la 
-    //primera vez que se envia un pedido
+
+    this.modalitoEditPedid = false;
+    this.modalitoInputEditDetPedid = false;
+    this.modalitoTdEditDetPedid = true;
+
+    // Reinicia la lista de porciones para que se valide vacía al enviar un pedido
     this.porcionesPlatosList = [];
+
+    // Reinicia los botones y campos de entrada
     this.botonDisabledCrPe = false;
     this.botonDisabledEnvDetPe = false;
     this.inputReadOnlyDatEnvio = false;
@@ -1119,55 +1381,60 @@ export class PedidosplatosamostrarComponent {
     this.inputDisabledPorcionPlato = false;
     this.botonDisplayNoneDatosEnvio = "none";
     this.botonDisplayNoneGuardEdiDatEnv = "none";
+
+    // Limpia los mensajes y campos de datos del cliente
     this.mensajePedEnviadoDB = "";
     this.totalPlato = NaN;
     this.nombreCliente = "";
     this.telefonoCliente = "";
     this.direccionCliente = "";
     this.localidadCliente = "";
-    this.modalitoEditPedid = false;
-    this.detallePedidosListxIdPedido = [];
+
+    // Limpia los datos de los pedidos y platos   
+   // this.detallePedidosListxIdPedido = [];
     this.idPedido = NaN;
-    this.modalitoInputEditDetPedid = false;
-    this.modalitoTdEditDetPedid = true;
-
     this.imgPlato = "";
-
     this.idPlato = NaN;
     this.idPlatosAMostrar = NaN;
     this.descripcionPlatoAMostrar = "";
     this.fecha = "";
     this.hora = "";
-
     this.platosDelPedido = "";
     this.importeTotalPedido = NaN;
-
     this.idDetallePedido = NaN;
     this.porcionPlato = NaN;
     this.precioPlatosAMostrar = NaN;
     this.totalPlato = NaN;
     this.nombrePlato = "";
-
     this.tipoPlato = "";
     this.precioPlato = NaN;
-
     this.listaPlatosCompleta = [];
+  }
 
-    
-
-  };
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Actualiza el estado de confirmación del pedido como "CONFIRMADO" o "NO CONFIRMADO".
+   */
   pedidoConfiAVerdOFalso(): void {
     this.pedidoConfirAVerdOFal = this.pedidoConfirmado ? "CONFIRMADO" : "NO CONFIRMADO";
-  };
+  }
 
-  // Evita que se ingresen numeros o porciones manualmente en el input
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Maneja el evento de teclado para evitar la entrada de números o porciones manualmente en el input.
+   * 
+   * @param event Evento de teclado que se va a manejar.
+   */
   handleKeydown(event: KeyboardEvent): void {
     event.preventDefault();
-  };
+  }
 
-
-  // Ancla para ir a secciones mediante un button
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Desplaza la vista hacia la sección especificada por su ID con un comportamiento de desplazamiento suave.
+   * 
+   * @param sectionId ID de la sección a la que se desea hacer scroll.
+   */
   scrollASeccion(sectionId: string): void {
     try {
       const tryScroll = () => {
@@ -1178,18 +1445,18 @@ export class PedidosplatosamostrarComponent {
           return;
         }
 
-        //console.log('Sección encontrada:', section);
+        // Desplazar suavemente hacia la sección
         section.scrollIntoView({ behavior: 'smooth' });
       };
 
-      // scroll a ancla después de 500 milisegundos
+      // Ejecutar el scroll después de 500 milisegundos
       setTimeout(tryScroll, 500);
     } catch (error) {
       console.error('Error al intentar hacer scroll:', error);
     }
-  };
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 }
 

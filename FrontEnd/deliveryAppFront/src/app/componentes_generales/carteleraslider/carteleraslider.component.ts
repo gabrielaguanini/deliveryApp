@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Carteleramodel } from '../modelos/carteleramodel';
-import { CartelerasliderService } from '../servicios/carteleraslider.service';
 import { SliderIntervalService } from '../servicios/Slider-interval.service';
+import { Cartelera } from 'src/app/usuarios/modelos/cartelera';
+import { CarteleraService } from 'src/app/usuarios/servicios/cartelera.service';
 
 @Component({
   selector: 'app-carteleraslider',
@@ -10,8 +10,8 @@ import { SliderIntervalService } from '../servicios/Slider-interval.service';
 })
 export class CartelerasliderComponent {
 
- 
-  cartelera: Carteleramodel[] = [];
+
+  cartelera: Cartelera[] = [];
 
   idPromo!: number;
   imgParaCelOPc!: string;
@@ -26,26 +26,39 @@ export class CartelerasliderComponent {
   currentIndex = 0;
   interval: any;
 
-  constructor(private cartServ: CartelerasliderService, private slidIntServ: SliderIntervalService) { };
+  constructor(private cartServ: CarteleraService, private slidIntServ: SliderIntervalService) { };
 
   ngOnInit(): void {
     this.listaPromoNovedad();
     this.startAutoPlay(); // Iniciar el autoplay al cargar el componente
   };
 
+//✮------------------------------------------------------------------------------------------------------------✮
+
+  // Obtiene y asigna la lista de promociones y novedades a 'cartelera'
   listaPromoNovedad(): void {
     this.cartServ.listPromosNov().subscribe(data => this.cartelera = data);
   };
 
+//✮------------------------------------------------------------------------------------------------------------✮
+
+  // Inicia el auto-play del slider, avanzando cada 5 segundos
   startAutoPlay() {
     this.intervalId = this.slidIntServ.startInterval(5000, () => {
-      this.currentIndex = (this.currentIndex + 1) % 3; // o 4, si es necesario
+      this.currentIndex = (this.currentIndex + 1) % 3; // o 4 si es necesario
     }, 'carteleraslider');
   };
 
+//✮------------------------------------------------------------------------------------------------------------✮
+
+  // Detiene el auto-play del slider si está en ejecución
   stopAutoPlay() {
     if (this.intervalId !== undefined) {
       this.slidIntServ.stopInterval('carteleraslider');
     };
   };
+
+//✮------------------------------------------------------------------------------------------------------------✮
+
+
 }

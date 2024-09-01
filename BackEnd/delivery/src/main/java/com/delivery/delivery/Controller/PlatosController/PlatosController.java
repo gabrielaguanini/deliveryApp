@@ -283,9 +283,9 @@ public class PlatosController {
                     String mensaje = platMost.map(plato -> {
                         // Extraer los atributos relevantes del objeto PlatosAMostrar
                         String id = "**" + String.valueOf(plato.getIdPlatosAMostrar());
-                        String nombrePlaMost = plato.getPlatos().getNombrePlato() + "**";
+                        String nombrePla = plato.getPlatos().getNombrePlato() + "**";
                         // Concatenar los atributos en una cadena legible
-                        return "ID: " + id + ", NOM. PLA A MOS.: " + nombrePlaMost;
+                        return "ID: " + id + ", NOMBRE PLATO: " + nombrePla;
                     }).orElse("No se encontraron registros en PLATOS A MOSTRAR.");
 
                     // Lanza una excepción indicando que el plato está siendo utilizado en otro registro

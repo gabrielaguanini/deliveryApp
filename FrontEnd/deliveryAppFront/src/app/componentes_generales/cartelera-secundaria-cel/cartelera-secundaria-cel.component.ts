@@ -10,25 +10,27 @@ import { SliderIntervalService } from '../servicios/Slider-interval.service';
 })
 export class CarteleraSecundariaCelComponent {
 
-  
-  carteleraSec: CarteleraSecundaria[] = [];
- 
 
-  constructor(private cartSecServ: CarteleraSecundariaService, private slidIntServ: SliderIntervalService) { };
+  carteleraSec: CarteleraSecundaria[] = [];
+
+
+  constructor(private cartSecServ: CarteleraSecundariaService) { };
 
   ngOnInit(): void {
     this.listaPromoNovedadSec();
     this.agradSlidDesarrollador();
   };
 
+  // Obtiene y asigna la lista de promociones y novedades a 'carteleraSec'
   listaPromoNovedadSec(): void {
     this.cartSecServ.listPromosNovSec().subscribe(data => this.carteleraSec = data);
   };
 
-
-  agradSlidDesarrollador(): void{
-    console.log("Slider secundario adaptado del codigo original proporcionado por Script Raccoon. Link a su trabajo en codepen: https://codepen.io/scriptraccoon")
+  // Muestra un mensaje en consola sobre la adaptación del slider
+  agradSlidDesarrollador(): void {
+    console.log("Slider secundario adaptado del código original proporcionado por Script Raccoon. Link a su trabajo en codepen: https://codepen.io/scriptraccoon");
   };
-  
-  }
-  
+
+
+}
+

@@ -75,8 +75,8 @@ export class MenucomplComponent {
 
   //LISTAS
   ///////////////////////////////////
-  listaIconosTipoPlato: String [] = [];
-  listaColorTipoPlato: String [] = [];
+  listaIconosTipoPlato: String[] = [];
+  listaColorTipoPlato: String[] = [];
 
 
   menuCompModel: MenuCompletoModel[] = [];
@@ -84,7 +84,7 @@ export class MenucomplComponent {
   tiposPlatosFiltrados: TipoPlato[] = [];
 
 
- 
+
   //CREAR PLATO Y EDITAR PLATO
   ///////////////////////////////////
 
@@ -95,7 +95,7 @@ export class MenucomplComponent {
   precioPlato!: any;
   idTipoPla!: number;
   imgPlato!: string;
-  
+
 
   //CREAR Y EDITAR TIPO DE PLATO
   ///////////////////////////////
@@ -106,7 +106,7 @@ export class MenucomplComponent {
   colorCardTipoPlato!: string;
   colorCardTipoPlatoParaInput!: string;
 
-   //EDITAR PROMO/NOVEDAD/CARTELERA
+  //EDITAR PROMO/NOVEDAD/CARTELERA
   /////////////////////////////////
 
   idPromo!: number;
@@ -117,29 +117,24 @@ export class MenucomplComponent {
   urlImagenPromo!: string;
   fechaPromo!: string;
 
-  
-
- //EDITAR PROMO/NOVEDAD/CARTELERA
-/////////////////////////////////
-
 
 
   constructor(private modalService: BsModalService,
     private menucomServ: MenuCompletoServiceService,
-    private tipoPlaServ: TiposPlatosService,   
+    private tipoPlaServ: TiposPlatosService,
     private cartServ: CarteleraService,
     private cartServSec: CarteleraSecundariaService
-    
+
   ) { }
 
   ngOnInit(): void {
-    
+
     this.listaFiltradaTipPla(); //genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
     this.listTipPla(); //genera la card grande con la lista completa de tipos de platos
     this.listaPlatosCompleta();
   }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //MODAL MOSTRAR LISTA
   //////////////////////
@@ -150,140 +145,218 @@ export class MenucomplComponent {
     };
     this.modalMenuComp = this.modalService.show(templateMenuComp, { backdrop: 'static', ...modalConfig });
   };
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-  //MODAL AGREGAR PLATO
-  //////////////////////////
-
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  //  ⋅•⋅⊰∙∘☽= MODALES =☾∘∙⊱⋅•⋅   
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  /**
+  * Abre un modal para agregar un nuevo plato.
+  * 
+  * @param templateAgregarPlato - La plantilla del modal para agregar el plato.
+  * @param idTipoPlato - El ID del tipo de plato que se va a agregar.
+  */
   openModalAgregarPl(templateAgregarPlato: TemplateRef<any>, idTipoPlato: number) {
     this.idTipoPla = idTipoPlato;
-    this.modalAgregarPla = this.modalService.show(templateAgregarPlato, {backdrop: 'static'});
+    // Muestra el modal para agregar un plato con un fondo estático.
+    this.modalAgregarPla = this.modalService.show(templateAgregarPlato, { backdrop: 'static' });
   }
 
-  //MODAL EDITAR PLATO
-  //////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
 
+  /**
+   * Abre un modal para editar un plato existente.
+   * 
+   * @param templateEditarMenuComp - La plantilla del modal para editar el plato.
+   */
   openModalEditarMenuComp(templateEditarMenuComp: TemplateRef<any>) {
-    this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp, {backdrop: 'static'});
+    // Muestra el modal para editar un plato con un fondo estático.
+    this.modalEditarMenuComp = this.modalService.show(templateEditarMenuComp, { backdrop: 'static' });
   }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-  //MODAL AGREGAR TIPO PLATO
-  //////////////////////
-
+  /**
+   * Abre un modal para agregar un nuevo tipo de plato.
+   * 
+   * @param templateAgregarTipoPlato - La plantilla del modal para agregar el tipo de plato.
+   */
   openModalAgregarTipoPlato(templateAgregarTipoPlato: TemplateRef<any>) {
-    this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato, {backdrop: 'static'});
+    // Muestra el modal para agregar un tipo de plato con un fondo estático.
+    this.modalAgregarTipoPlato = this.modalService.show(templateAgregarTipoPlato, { backdrop: 'static' });
   }
 
-  //MODAL EDITAR TIPO PLATO
-  //////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
 
+  /**
+   * Abre un modal para editar un tipo de plato existente.
+   * 
+   * @param templateEditarTipoPlato - La plantilla del modal para editar el tipo de plato.
+   */
   openModalEditarTipoPlato(templateEditarTipoPlato: TemplateRef<any>) {
-    this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato, {backdrop: 'static'});
+    // Muestra el modal para editar un tipo de plato con un fondo estático.
+    this.modalEditarTipoPlato = this.modalService.show(templateEditarTipoPlato, { backdrop: 'static' });
   }
 
- //MODAL AGREGAR TARJETA
-  //////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
 
+  /**
+   * Abre un modal para agregar o editar una tarjeta.
+   * 
+   * @param templateEditarPaAgregarCard - La plantilla del modal para agregar o editar la tarjeta.
+   */
   openModalEditarcard(templateEditarPaAgregarCard: TemplateRef<any>) {
-    this.modalEditarPaAgregarCard = this.modalService.show(templateEditarPaAgregarCard, {backdrop: 'static'});
+    // Muestra el modal para agregar o editar una tarjeta con un fondo estático.
+    this.modalEditarPaAgregarCard = this.modalService.show(templateEditarPaAgregarCard, { backdrop: 'static' });
   }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-
-  //MODAL VER LISTA COMPLETA DE PLATOS
-  ////////////////////////////////////
-
-  openModalListaComPlatos(templateListaComPlato: TemplateRef<any>){
+  /**
+   * Abre un modal para ver la lista completa de platos.
+   * 
+   * @param templateListaComPlato - La plantilla del modal para ver la lista completa de platos.
+   */
+  openModalListaComPlatos(templateListaComPlato: TemplateRef<any>) {
     const modalConfig = {
-      class: 'modal-dialog-centered modal-xl' // 'modal-lg' por 'modal-xl' para un modal más ancho
+      class: 'modal-dialog-centered modal-xl' // Ajusta el modal a un tamaño más ancho.
     };
+    // Muestra el modal para ver la lista completa de platos con un fondo estático y configuración de tamaño.
     this.modalListaComPlatos = this.modalService.show(templateListaComPlato, { backdrop: 'static', ...modalConfig });
-    
-  };
+  }
 
-  //MODAL EDITAR LISTA COMPLETA DE PLATOS
-  ////////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
 
+  /**
+   * Abre un modal para editar la lista completa de platos.
+   * 
+   * @param templateEditarListCompPlatos - La plantilla del modal para editar la lista completa de platos.
+   */
   openModalEditarListCompPlatos(templateEditarListCompPlatos: TemplateRef<any>) {
-    this.modalEditarListCompPlatos = this.modalService.show(templateEditarListCompPlatos, {backdrop: 'static'});
+    // Muestra el modal para editar la lista completa de platos con un fondo estático.
+    this.modalEditarListCompPlatos = this.modalService.show(templateEditarListCompPlatos, { backdrop: 'static' });
   }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-  //MODAL INFORMACION
-  ////////////////////////////////////
-  
+  /**
+   * Abre un modal para mostrar información general.
+   * 
+   * @param templateModalInfo - La plantilla del modal para mostrar la información.
+   */
   openModalInfo(templateModalInfo: TemplateRef<any>) {
-    this.modalInfo = this.modalService.show(templateModalInfo, {backdrop: 'static'});
+    // Muestra el modal para mostrar información general con un fondo estático.
+    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' });
   }
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-  // FUNCIONES PARA LISTAS
-  ///////////////////////////////////
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  //⋅•⋅⊰∙∘☽= LISTAS =☾∘∙⊱⋅•⋅   
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
 
+
+  /**
+  * Obtiene la lista de iconos de tipos de plato y la asigna a `listaIconosTipoPlato`.
+  */
   listaIconos(): void {
-    this.tipoPlaServ.listIconosTipPlat().subscribe(data => this.listaIconosTipoPlato = data)
-  };
+    this.tipoPlaServ.listIconosTipPlat().subscribe(data => this.listaIconosTipoPlato = data);
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista de colores de tipos de plato y la asigna a `listaColorTipoPlato`.
+   */
   listaColores(): void {
-    this.tipoPlaServ.listColoresTipPlat().subscribe(data => this.listaColorTipoPlato = data)
-  };
+    this.tipoPlaServ.listColoresTipPlat().subscribe(data => this.listaColorTipoPlato = data);
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra la lista de platos para un tipo específico de plato, basado en `idTipoPlato`.
+   * 
+   * @param idTipoPlato - El ID del tipo de plato para el que se deben listar los platos.
+   */
   mostrarListaTipoPlato(idTipoPlato: number): void {
     this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista completa de tipos de platos y la asigna a `tiposPlatosModel`.
+   */
   listTipPla(): void {
-    this.tipoPlaServ.listTiposPlatos().subscribe(data => this.tiposPlatosModel = data); //genera la card grande con la lista completa de tipos de platos
-  };
+    this.tipoPlaServ.listTiposPlatos().subscribe(data => this.tiposPlatosModel = data);
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista filtrada de tipos de platos que están en la entidad de platos y la asigna a `tiposPlatosFiltrados`.
+   */
   listaFiltradaTipPla(): void {
-    this.tipoPlaServ.listFiltradaTiposPlatos().subscribe(data => this.tiposPlatosFiltrados = data);//genera las card pequeña con la lista filtrada de tipos de platos que esten en la entity platos
-  };
+    this.tipoPlaServ.listFiltradaTiposPlatos().subscribe(data => this.tiposPlatosFiltrados = data);
+  }
 
-
-
-  listaPlatosCompleta(): void{
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista completa de platos y la asigna a `menuCompModel`.
+   */
+  listaPlatosCompleta(): void {
     this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  //⋅•⋅⊰∙∘☽= PLATOS =☾∘∙⊱⋅•⋅   
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
 
-
-
-  //CREAR PLATO
-  ///////////////////////////////////
-  //verifica antes de guardar que no exista el plato
+  /**
+  * Crea un nuevo plato con la información proporcionada.
+  * 
+  * Verifica que todos los campos requeridos estén completos y sean válidos:
+  * - `idTipoPla` debe ser un número válido y mayor que cero.
+  * - `nombrePlato` no debe estar vacío.
+  * - `precioPlato` debe ser un número válido mayor que cero.
+  * - `imgPlato` debe contener una URL de imagen válida.
+  * 
+  * Luego, verifica si ya existe un plato con el mismo nombre en la base de datos. Si no existe, guarda el nuevo plato.
+  */
   onCreate(): void {
-
-    if(this.idTipoPla == 0 || this.idTipoPla == undefined || isNaN(this.idTipoPla)){
+    // Verifica si `idTipoPla` es válido
+    if (this.idTipoPla == 0 || this.idTipoPla == undefined || isNaN(this.idTipoPla)) {
       alert("Seleccione un tipo de plato");
-      return
-    };
+      return;
+    }
 
-    if(this.nombrePlato == "" || this.nombrePlato == undefined){
+    // Verifica si `nombrePlato` está vacío
+    if (this.nombrePlato == "" || this.nombrePlato == undefined) {
       alert("Ingrese el nombre del plato");
-      return
-    };
+      return;
+    }
 
-    if(this.precioPlato == 0 || this.precioPlato == undefined || isNaN(this.precioPlato)){
+    // Verifica si `precioPlato` es válido
+    if (this.precioPlato == 0 || this.precioPlato == undefined || isNaN(this.precioPlato)) {
       alert("Ingrese un precio para el plato");
-      return
-    };
-    
-    if(this.imgPlato == "" || this.imgPlato == undefined){
-      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
-      return
-    };
+      return;
+    }
 
+    // Verifica si `imgPlato` está vacío
+    if (this.imgPlato == "" || this.imgPlato == undefined) {
+      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
+      return;
+    }
+
+    // Verifica si ya existe un plato con el mismo nombre
     this.menucomServ.existeXNombre(this.nombrePlato).subscribe(
       (existePlato: boolean) => {
         if (existePlato) {
-          console.log("el plato con nombre: " +  this.nombrePlato + " ya existe en la base de datos");
-          alert("el plato con nombre: **" +  this.nombrePlato + "** ya existe en la base de datos");
+          console.log("El plato con nombre: " + this.nombrePlato + " ya existe en la base de datos");
+          alert("El plato con nombre: **" + this.nombrePlato + "** ya existe en la base de datos");
         } else {
           const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
-  
+
           const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
+          // Guarda el nuevo plato
           this.menucomServ.guardarPlato(menuCompMod).subscribe(
             data => {
               alert("Plato guardado");
@@ -301,166 +374,269 @@ export class MenucomplComponent {
       }
     );
   }
-  
-  
 
-  //BORRAR PLATO CON IDTIPOPLATO E IDPLATO
-  ///////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮ 
+  /**
+  * Elimina un plato específico dado su ID y el ID del tipo de plato.
+  * 
+  * Realiza una solicitud para borrar el plato con el `idPlato` proporcionado y el `idTipoPla` asociado.
+  * - Si el plato se elimina con éxito, muestra un mensaje de confirmación.
+  * - Luego, actualiza la lista de platos y la lista filtrada para reflejar el cambio.
+  * - Si no hay más registros después de la eliminación, se vacía la lista de platos.
+  * 
+  * @param idPlato - El ID del plato a eliminar.
+  * @param idTipoPla - El ID del tipo de plato al que pertenece el plato.
+  */
   borrarPlato(idPlato: number, idTipoPla: number): void {
-    console.log("idPlato: " + idPlato  + "idTipoPlato: " + idTipoPla)
+    // Muestra los IDs en la consola para depuración
+    console.log("idPlato: " + idPlato + " idTipoPlato: " + idTipoPla);
+
+    // Verifica si `idPlato` no está indefinido
     if (idPlato != undefined) {
+      // Llama al servicio para eliminar el plato
       this.menucomServ.borrarPlato(idPlato, idTipoPla).subscribe(data => {
+        // Muestra un mensaje de éxito en la consola
         console.log("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado. " + "Msj. Servidor: " + JSON.stringify(data));
-        alert("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado. ");
-      
-              // Refresca la lista de platos con el registro eliminado
-      if (this.menuCompModel.length > 1) {
-        this.mostrarListaTipoPlato(idTipoPla);
-      } 
-      else {
-        this.menuCompModel = []; // Lista vacía si no hay más registros
-      }
-        
-        this.listaFiltradaTipPla();  //refresca la lista que genera las card pequeñas
+        // Muestra un mensaje de éxito al usuario
+        alert("El plato con idPlato N°: " + "**" + idPlato + "**" + " ha sido eliminado.");
+
+        // Refresca la lista de platos o vacía la lista si no hay más registros
+        if (this.menuCompModel.length > 1) {
+          this.mostrarListaTipoPlato(idTipoPla);
+        } else {
+          this.menuCompModel = []; // Lista vacía si no hay más registros
+        }
+
+        // Refresca la lista filtrada que genera las tarjetas pequeñas
+        this.listaFiltradaTipPla();
       }, err => {
-        console.log("Msj. Serv.:" + err.error.message);
-        alert("Msj. Serv.:" + err.error.message);
-      }
-      )
+        // Muestra un mensaje de error en la consola
+        console.log("Msj. Serv.: " + err.error.message);
+        // Muestra un mensaje de error al usuario
+        alert("Msj. Serv.: " + err.error.message);
+      });
     }
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
 
-
-    //funcion que muestra un cartel de warning antes de borrar
-    borrarPlaMsjEli(idPlato:number, idTipoPla: number): void{
-      const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
-      if(msjAdvertenciaElim){
-        this.borrarPlato(idPlato, idTipoPla);
-      } else {
-        ""
-      };
+  /**
+  * Muestra un mensaje de advertencia antes de proceder con la eliminación de un plato.
+  * 
+  * Si el usuario confirma la eliminación, se llama a la función `borrarPlato` para eliminar el plato.
+  * 
+  * @param idPlato - El ID del plato a eliminar.
+  * @param idTipoPla - El ID del tipo de plato al que pertenece el plato.
+  */
+  borrarPlaMsjEli(idPlato: number, idTipoPla: number): void {
+    // Muestra un cuadro de diálogo de confirmación
+    const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
+    if (msjAdvertenciaElim) {
+      // Si el usuario confirma, se llama a la función para eliminar el plato
+      this.borrarPlato(idPlato, idTipoPla);
+    } else {
+      // No hace nada si el usuario cancela
+      ""
     };
+  }
 
-  
-    
-  //BORRAR PLATO SOLO CON IDPLATO
-  ///////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Elimina un plato de la lista completa dado su ID.
+   * 
+   * Realiza una solicitud para borrar el plato con el `idPlato` proporcionado.
+   * - Si la eliminación es exitosa, muestra un mensaje de confirmación y actualiza las listas filtradas y completas.
+   * 
+   * @param idPlato - El ID del plato a eliminar.
+   */
   borrarPlatoLisComp(idPlato: number): void {
+    // Verifica si `idPlato` no está indefinido
     if (idPlato != undefined) {
+      // Llama al servicio para eliminar el plato de la lista completa
       this.menucomServ.borrarPlatoLisCompleta(idPlato).subscribe(data => {
+        // Muestra un mensaje de éxito en la consola
         console.log("El plato con idPlato N°: " + "** " + idPlato + " **" + " ha sido eliminado. Msj. Serv: " + JSON.stringify(data));
-        alert("El plato con idPlato N°: " + "** " + idPlato + " **" + " ha sido eliminado. ");
+        // Muestra un mensaje de éxito al usuario
+        alert("El plato con idPlato N°: " + "** " + idPlato + " **" + " ha sido eliminado.");
+        // Refresca la lista filtrada y la lista completa
         this.listaFiltradaTipPla();
         this.listaPlatosCompleta();
       }, err => {
-        console.log("Msj. Serv.:" + err.error.message);
-        alert("Msj. Serv.:" + err.error.message);
-      })
+        // Muestra un mensaje de error en la consola
+        console.log("Msj. Serv.: " + err.error.message);
+        // Muestra un mensaje de error al usuario
+        alert("Msj. Serv.: " + err.error.message);
+      });
     }
-  };
+  }
 
-    //funcion que muestra un cartel de warning antes de borrar
-    borrarPlaLisComMsjEli(idPlato:number): void{
-      const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
-      if(msjAdvertenciaElim){
-        this.borrarPlatoLisComp(idPlato);
-        } else {
-        ""
-      };
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra un mensaje de advertencia antes de proceder con la eliminación de un plato de la lista completa.
+   * 
+   * Si el usuario confirma la eliminación, se llama a la función `borrarPlatoLisComp` para eliminar el plato.
+   * 
+   * @param idPlato - El ID del plato a eliminar.
+   */
+  borrarPlaLisComMsjEli(idPlato: number): void {
+    // Muestra un cuadro de diálogo de confirmación
+    const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
+    if (msjAdvertenciaElim) {
+      // Si el usuario confirma, se llama a la función para eliminar el plato de la lista completa
+      this.borrarPlatoLisComp(idPlato);
+    } else {
+      // No hace nada si el usuario cancela
+      ""
     };
-  
+  }
 
-  //EDITAR PLATO
-  ///////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  // ⋅•⋅⊰∙∘☽= EDITAR PLATOS =☾∘∙⊱⋅•⋅   
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓  𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
 
+  /**
+   * Asigna los valores proporcionados a las propiedades del plato en la instancia actual.
+   * 
+   * Esta función se utiliza para actualizar los detalles de un plato en la instancia actual con los valores
+   * proporcionados, como el ID del plato, el nombre, el precio, el ID del tipo de plato y la URL de la imagen.
+   * 
+   * @param idPlato - El ID del plato.
+   * @param nombrePlato - El nombre del plato.
+   * @param precioPlato - El precio del plato.
+   * @param idTipoPlato - El ID del tipo de plato al que pertenece el plato.
+   * @param imgPlato - La URL de la imagen del plato.
+   */
   obtenerPlaXId(idPlato: number, nombrePlato: string, precioPlato: number, idTipoPlato: number, imgPlato: string): void {
+    // Asigna el ID del plato a la propiedad `idPlato`
     this.idPlato = idPlato;
+    // Asigna el nombre del plato a la propiedad `nombrePlato`
     this.nombrePlato = nombrePlato;
+    // Asigna el precio del plato a la propiedad `precioPlato`
     this.precioPlato = precioPlato;
+    // Asigna el ID del tipo de plato a la propiedad `idTipoPla`
     this.idTipoPla = idTipoPlato;
+    // Asigna la URL de la imagen del plato a la propiedad `imgPlato`
     this.imgPlato = imgPlato;
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Valida y edita un plato en el sistema.
+   * 
+   * La función realiza una serie de validaciones sobre las propiedades del plato y, si todas son válidas,
+   * solicita confirmación al usuario antes de proceder con la edición del plato en el sistema. Si el usuario
+   * confirma, se envía una solicitud para actualizar el plato con los nuevos datos.
+   * 
+   * @returns {void}
+   */
   editarPlato(): void {
 
+    // Verifica si el ID del plato es válido
     if (this.idPlato == 0 || this.idPlato === undefined || isNaN(this.idPlato)) {
       alert("No se ha cargado un idPlato, informar al desarrollador");
       console.log("No se ha cargado un idPlato, informar al desarrollador");
-      return
-    };
+      return;
+    }
 
+    // Verifica si el tipo de plato es válido
     if (this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)) {
       alert("Seleccione un tipo de plato");
-      return
-    };
+      return;
+    }
 
+    // Verifica si el nombre del plato es válido
     if (this.nombrePlato === "" || this.nombrePlato === undefined) {
       alert("Ingrese el nombre del plato");
-      return
-    };
+      return;
+    }
 
+    // Verifica si el precio del plato es válido
     if (this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)) {
       alert("Ingrese un precio para el plato");
-      return
-    };
+      return;
+    }
 
+    // Verifica si la URL de la imagen del plato es válida
     if (this.imgPlato === "" || this.imgPlato === undefined) {
       alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
-      return
-    };
+      return;
+    }
 
+    // Solicita confirmación al usuario antes de proceder con la edición
     const msjAdvertencia = window.confirm('Editar un plato modificará los registros asociados de la tabla PLATOS A MOSTRAR. ¿Desea continuar?');
     if (msjAdvertencia) {
 
+      // Crea un objeto TipoPlato con el ID del tipo de plato
       const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
 
+      // Crea un objeto MenuCompletoModel con los datos del plato
       const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
+
+      // Llama al servicio para actualizar el plato
       this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
-        this.listaPlatosCompleta();
+        this.listaPlatosCompleta(); // Refresca la lista de platos
         alert("Plato editado");
       }, err => {
         alert("No se editó el plato");
       });
     }
-  };
+  }
 
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  //◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
+  //  ⋅•⋅⊰∙∘☽= TIPOS DE PLATOS =☾∘∙⊱⋅•⋅   
+  //◈◈𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓 𝅒 𝅓◈
 
-  //CREAR TIPO DE PLATO
-  ///////////////////////
-     //antes de crear el tipo de plato, verifica que no exista en la tabla
+
+  /**
+   * Valida y crea un nuevo tipo de plato en el sistema.
+   * 
+   * La función realiza una serie de validaciones sobre las propiedades del tipo de plato y, si todas son válidas,
+   * verifica si el nombre del tipo de plato ya existe en la base de datos. Si no existe, guarda el nuevo tipo de plato
+   * y actualiza la lista de tipos de platos.
+   * 
+   * @returns {void}
+   */
   onCreateTipoPla(): void {
 
-   if(this.nombreTipoPlato === "" || this.nombreTipoPlato === undefined){
-       alert("Ingrese un nombre para el tipo de plato");
-       return
-   };
-   
+    // Verifica si el nombre del tipo de plato es válido
+    if (this.nombreTipoPlato === "" || this.nombreTipoPlato === undefined) {
+      alert("Ingrese un nombre para el tipo de plato");
+      return;
+    }
+
+    // Verifica si al menos uno de los iconos es válido
     if ((this.iconoTipoPlato === undefined || this.iconoTipoPlato === '') &&
       (this.iconoTipoPlatoParaInput === undefined || this.iconoTipoPlatoParaInput === '')) {
       alert("Debe ingresar un icono para el tipo de plato");
       return;
-    };
+    }
 
+    // Verifica si al menos uno de los colores es válido
     if ((this.colorCardTipoPlato === undefined || this.colorCardTipoPlato === '') &&
       (this.colorCardTipoPlatoParaInput === undefined || this.colorCardTipoPlatoParaInput === '')) {
       alert("Debe ingresar un color para el tipo de plato");
       return;
-    };
+    }
 
+    // Verifica si el nombre del tipo de plato ya existe en la base de datos
     this.tipoPlaServ.existeXNombre(this.nombreTipoPlato).subscribe(
       (existePlato: boolean) => {
         if (existePlato) {
           alert("El nombre del tipo plato: " + "**" + this.nombreTipoPlato + "**" + " ya existe en la base de datos. No se aceptan registros duplicados.");
           console.log("El nombre del tipo plato: " + "**" + this.nombreTipoPlato + "**" + " ya existe en la base de datos. No se aceptan registros duplicados. ");
         } else {
+          // Crea un objeto TipoPlato con los datos proporcionados
           const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
+
+          // Llama al servicio para guardar el nuevo tipo de plato
           this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(
             data => {
               console.log(data.mensajePersonalizado);
               alert("Tipo de plato guardado");
-              this.listTipPla();
+              this.listTipPla(); // Actualiza la lista de tipos de platos
             },
             err => {
               console.log("Msj. Servidor: " + err.error.message);
@@ -474,152 +650,209 @@ export class MenucomplComponent {
       }
     );
   }
-  
 
-  //BORRAR TIPO DE PLATO
-  /////////////////////////
-
-  //funcion que elimina el plato sin advertir
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Elimina un tipo de plato dado su ID sin mostrar advertencia previa.
+   * 
+   * La función llama al servicio para eliminar el tipo de plato y, si la eliminación es exitosa, muestra una alerta
+   * informando sobre la eliminación y actualiza las listas de tipos de platos.
+   * 
+   * @param idTipoPlato - El ID del tipo de plato a eliminar.
+   * @returns {void}
+   */
   borrarTipoPlato(idTipoPlato: number) {
-    
-
     if (idTipoPlato != undefined) {
-      
-
-      this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(data => {
-        alert("Tipo de plato eliminado");
-        this.listTipPla();
-        this.listaFiltradaTipPla();
+      this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(
+        data => {
+          alert("Tipo de plato eliminado");
+          this.listTipPla(); // Actualiza la lista de tipos de platos
+          this.listaFiltradaTipPla(); // Actualiza la lista filtrada de tipos de platos
         },
-        err => { 
+        err => {
           console.log("Msj. Serv.: " + err.error.message);
           alert("Msj. Serv.: " + err.error.message);
         }
-        )
+      );
     }
-  };
+  }
 
-
-  //funcion que muestra un cartel de warning antes de borrar
-  borrarTiPladvEli(idTipoPlato:number): void{
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Muestra una advertencia de confirmación antes de eliminar un tipo de plato.
+   * 
+   * La función utiliza una ventana de confirmación para solicitar la confirmación del usuario antes de proceder con la
+   * eliminación del tipo de plato. Si el usuario confirma, llama a `borrarTipoPlato` para realizar la eliminación.
+   * 
+   * @param idTipoPlato - El ID del tipo de plato a eliminar.
+   * @returns {void}
+   */
+  borrarTiPladvEli(idTipoPlato: number): void {
     const msjAdvertenciaElim = window.confirm('¿Estás seguro de que quieres eliminar estos datos?');
-    if(msjAdvertenciaElim){
-      this.borrarTipoPlato(idTipoPlato); //refresca la lista con el registro eliminado
+    if (msjAdvertenciaElim) {
+      this.borrarTipoPlato(idTipoPlato); // Llama a la función de eliminación
     } else {
-      ""
-    };
-  };
+      // No hace nada si el usuario cancela
+    }
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //EDITAR TIPO DE PLATO
   /////////////////////////
 
+  /**
+  * Asigna los valores proporcionados a las propiedades del objeto para su edición.
+  * 
+  * Esta función se utiliza para establecer los valores actuales de un tipo de plato en el objeto del componente,
+  * permitiendo su edición posterior.
+  * 
+  * @param idTipoPla - El ID del tipo de plato.
+  * @param nombreTipoPla - El nombre del tipo de plato.
+  * @param iconoTipoPlato - El icono del tipo de plato.
+  * @param colorCardTipoPlato - El color de la tarjeta del tipo de plato.
+  * @returns {void}
+  */
   obtenerTipoPlaXId(idTipoPla: number, nombreTipoPla: string, iconoTipoPlato: string, colorCardTipoPlato: string): void {
     this.idTipoPlato = idTipoPla;
     this.nombreTipoPlato = nombreTipoPla;
     this.iconoTipoPlato = iconoTipoPlato;
     this.colorCardTipoPlato = colorCardTipoPlato;
-    
-    
-    
-  };
+  }
 
+  /**
+   * Actualiza un tipo de plato existente con nuevos valores.
+   * 
+   * La función verifica que todos los campos requeridos estén completos y luego muestra una advertencia de confirmación
+   * antes de proceder con la actualización. Si el usuario confirma, se envía una solicitud al servidor para actualizar
+   * el tipo de plato y se actualizan las listas relevantes.
+   * 
+   * @returns {void}
+   */
   editarTipoPlato() {
-
     if (this.nombreTipoPlato === "" || this.nombreTipoPlato === undefined) {
       alert("Ingrese un nombre para el tipo de plato");
-      return
-    };
-
+      return;
+    }
 
     if ((this.iconoTipoPlato === undefined || this.iconoTipoPlato === '') &&
       (this.iconoTipoPlatoParaInput === undefined || this.iconoTipoPlatoParaInput === '')) {
       alert("Debe ingresar un icono para el tipo de plato");
       return;
-    };
+    }
 
     if ((this.colorCardTipoPlato === undefined || this.colorCardTipoPlato === '') &&
       (this.colorCardTipoPlatoParaInput === undefined || this.colorCardTipoPlatoParaInput === '')) {
       alert("Debe ingresar un color para el tipo de plato");
       return;
-    };
+    }
 
     const msjAdvertencia = window.confirm('Editar un tipo de plato modificará los registros asociados de la tabla PLATOS y PLATOS A MOSTRAR. ¿Desea continuar?');
     if (msjAdvertencia) {
+      const tipoPla = new TipoPlato(
+        this.idTipoPlato,
+        this.nombreTipoPlato,
+        this.iconoTipoPlato || this.iconoTipoPlatoParaInput,
+        this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput
+      );
 
-      const tipoPla = new TipoPlato(this.idTipoPlato, this.nombreTipoPlato, this.iconoTipoPlato || this.iconoTipoPlatoParaInput, this.colorCardTipoPlato || this.colorCardTipoPlatoParaInput);
-      this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(data => {
-        console.log("Msj. Servidor: " + data.mensaje);
-        alert("Tipo de plato: " + "** " + this.idTipoPlato +" - " + this.nombreTipoPlato + " **" + " actualizado. ");
-        this.listTipPla();
-        this.listaFiltradaTipPla();
-      }, err => {
-        console.log("Msj. Servidor: " + err.error.message);
-        alert("Msj. Servidor: " + err.error.message);
-      })
+      this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(
+        data => {
+          console.log("Msj. Servidor: " + data.mensaje);
+          alert("Tipo de plato: " + "** " + this.idTipoPlato + " - " + this.nombreTipoPlato + " **" + " actualizado.");
+          this.listTipPla();
+          this.listaFiltradaTipPla();
+        },
+        err => {
+          console.log("Msj. Servidor: " + err.error.message);
+          alert("Msj. Servidor: " + err.error.message);
+        }
+      );
     }
-  };
+  }
 
-  
-  //GENERAR CARD PEQUEÑA (PARA HACERLO SE DEBE AGREGAR UN PLATO, LA FUNCION EN REALIDAD HACE ESO Y X ESO GENERA LA CARD PEQUEÑA)
+  //✮------------------------------------------------------------------------------------------------------------✮  
+  //GENERAR CARD PEQUEÑA 
   /////////////////////////
 
+  /**
+   * Crea y guarda un nuevo plato en el sistema.
+   * 
+   * La función realiza varias verificaciones para asegurar que los campos necesarios estén completos antes de
+   * enviar la información al servidor para guardar el nuevo plato. Si todos los campos son válidos, se crea una
+   * instancia del plato con los datos proporcionados y se guarda en la base de datos. Luego se actualiza la lista
+   * de platos mostrados en la interfaz.
+   * 
+   * @returns {void}
+   */
   generarCardPequena(): void {
-
-  
-    if(this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)){
+    // Verifica si se ha seleccionado un tipo de plato válido
+    if (this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)) {
       alert("Seleccione un tipo de plato");
-      return
-    };
+      return;
+    }
 
-    if(this.nombrePlato === "" || this.nombrePlato === undefined){
+    // Verifica si se ha ingresado un nombre para el plato
+    if (this.nombrePlato === "" || this.nombrePlato === undefined) {
       alert("Ingrese el nombre del plato");
-      return
-    };
+      return;
+    }
 
-    if(this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)){
+    // Verifica si se ha ingresado un precio válido para el plato
+    if (this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)) {
       alert("Ingrese un precio para el plato");
-      return
-    };
-    
-    if(this.imgPlato === "" || this.imgPlato === undefined){
-      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
-      return
-    };
-     
+      return;
+    }
 
+    // Verifica si se ha ingresado una URL válida para la imagen del plato
+    if (this.imgPlato === "" || this.imgPlato === undefined) {
+      alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
+      return;
+    }
+
+    // Crea una instancia de TipoPlato con el ID seleccionado
     const tipoPlato = new TipoPlato(this.idTipoPla, "", "", "");
+
+    // Crea una instancia de MenuCompletoModel con los datos del plato
     const menuCompMod = new MenuCompletoModel(this.idPlato, tipoPlato, this.nombrePlato, this.precioPlato, this.imgPlato);
-    this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {      
+
+    // Llama al servicio para guardar el nuevo plato
+    this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
       console.log("Plato guardado.");
       alert("Plato guardado");
-      this.listaFiltradaTipPla(); //refresca la lista de cards de tipos de platos cuando se agrega
+
+      // Actualiza la lista de platos filtrados para mostrar el nuevo plato
+      this.listaFiltradaTipPla();
     }, err => {
-      console.log("Msj. Servidor: "  + err.error.message);
-      alert("Msj. Servidor: "  + err.error.message);
+      // Maneja los errores en caso de que la operación falle
+      console.log("Msj. Servidor: " + err.error.message);
+      alert("Msj. Servidor: " + err.error.message);
     });
-  
-  };
-  
- //✮------------------------------------------------------------------------------------------------------------✮ 
-
- 
+  }
 
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮ 
 
   //FUNCION PARA CREAR EXCEL CON LISTA COMPLETA
-  ///////////////////////////////////////////////////
-
-  generateExcel() {
+  //////////////////////////////////////////////
+  /**
+   * Genera y descarga un archivo Excel con los datos de los platos y tipos de platos.
+   * 
+   * La función realiza una confirmación para asegurarse de que el usuario desea continuar con la descarga.
+   * Luego, obtiene los datos de los platos y tipos de platos mediante servicios, los formatea, y crea un archivo
+   * Excel con dos hojas: una para los platos y otra para los tipos de platos. Finalmente, inicia la descarga del archivo.
+   * 
+   * @returns {void}
+   */
+  generateExcel(): void {
+    // Muestra un mensaje de confirmación antes de comenzar la descarga
     const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo. ¿Desea continuar?');
-    
+
     if (msjAdvertenciaDescarga) {
-      // Suscribirse al servicio para obtener los datos necesarios
+      // Suscribirse al servicio para obtener la lista de platos
       this.menucomServ.listaPlatos().subscribe(data => {
-        // Procesar los datos recibidos para formatearlos como lo necesitas para el Excel
+        // Procesar los datos de platos para formatearlos como se necesita para el archivo Excel
         const menuCompModelFormatted = data.map(item => {
-          // Crear un nuevo objeto solo con las propiedades que deseas mantener
+          // Crear un nuevo objeto solo con las propiedades deseadas
           return {
             idPlato: item.idPlato,
             nombre_plato: item.nombrePlato,
@@ -629,72 +862,74 @@ export class MenucomplComponent {
             nombre_tipo_plato: item.tipoPlato.nombreTipoPlato,
           };
         });
-  
+
         // Crear un nuevo libro de Excel
         const archivoExcel = XLSX.utils.book_new();
+
+        // Crear y agregar la hoja para la lista de platos
         const hojaArchivoExcel = XLSX.utils.json_to_sheet(menuCompModelFormatted);
-  
-        // Agregar la hoja al libro de Excel
         XLSX.utils.book_append_sheet(archivoExcel, hojaArchivoExcel, 'ListaCompletaPlatos');
-  
-         // Agregar la hoja "ListaTiposPlatos"
-      const hojaTiposPlatosFiltrados = XLSX.utils.json_to_sheet(this.tiposPlatosModel);
-      XLSX.utils.book_append_sheet(archivoExcel, hojaTiposPlatosFiltrados, 'ListaTiposPlatos');
 
-      // Guardar el archivo Excel
-      const buffer = XLSX.write(archivoExcel, { type: 'buffer' });
-      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'lista_completa_platos.xlsx'; // Nombre del archivo Excel
-      a.click();
-      window.URL.revokeObjectURL(url);
-    });
+        // Crear y agregar la hoja para la lista de tipos de platos
+        const hojaTiposPlatosFiltrados = XLSX.utils.json_to_sheet(this.tiposPlatosModel);
+        XLSX.utils.book_append_sheet(archivoExcel, hojaTiposPlatosFiltrados, 'ListaTiposPlatos');
+
+        // Guardar el archivo Excel
+        const buffer = XLSX.write(archivoExcel, { type: 'buffer' });
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'lista_completa_platos.xlsx'; // Nombre del archivo Excel
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+    }
   }
-}
 
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   // FUNCION PARA MODALITO NGIF (NO BSMODALREF) PARA MOSTRAR COLORES E ICONOS
   ///////////////////////////////////////////////////////////////////////////
-  mostrarOcultarModalitoColores(){
+  mostrarOcultarModalitoColores() {
     this.mostrarModalitoColores = !this.mostrarModalitoColores;
   };
 
-  mostrarOcultarModalitoIconos(){
+  mostrarOcultarModalitoIconos() {
     this.mostrarModalitoIconos = !this.mostrarModalitoIconos;
   };
-  
-  
 
+
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCIONES VARIAS
   ///////////////////////////////////
-  
- borrarInputsCerrarModalito(): void{
-  //borrar inputs
-  this.idTipoPlato = 0;
-  this.nombrePlato = "";
-  this.precioPlato = 0;
-  this.imgPlato  = "";
-  this.idTipoPla = 0;
 
-  this.nombreTipoPlato = "";
-  this.iconoTipoPlato = "";
-  this.iconoTipoPlatoParaInput = "";
-  this.colorCardTipoPlato = "";
-  this.colorCardTipoPlatoParaInput = "";
-  
+  borrarInputsCerrarModalito(): void {
+    //borrar inputs
+    this.idTipoPlato = 0;
+    this.nombrePlato = "";
+    this.precioPlato = 0;
+    this.imgPlato = "";
+    this.idTipoPla = 0;
 
-  this.imgParaCelOPc = "";
-  this.tituloPromo = "";
-  this.textoPromo = "";
-  this.urlImagenPromo = "";
- 
-  //cerrar modalitos
-  this.mostrarModalitoColores = false;
-  this.mostrarModalitoIconos = false;
- 
- };
+    this.nombreTipoPlato = "";
+    this.iconoTipoPlato = "";
+    this.iconoTipoPlatoParaInput = "";
+    this.colorCardTipoPlato = "";
+    this.colorCardTipoPlatoParaInput = "";
+
+
+    this.imgParaCelOPc = "";
+    this.tituloPromo = "";
+    this.textoPromo = "";
+    this.urlImagenPromo = "";
+
+    //cerrar modalitos
+    this.mostrarModalitoColores = false;
+    this.mostrarModalitoIconos = false;
+  };
+
+  //✮------------------------------------------------------------------------------------------------------------✮
 }
 
 

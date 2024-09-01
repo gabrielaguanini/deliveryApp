@@ -14,41 +14,46 @@ export class MenuCompletoServiceService {
 
   constructor(private httpClient:HttpClient) { }
 
-  public listaPlatos(): Observable<MenuCompletoModel[]> {
-    return this.httpClient.get<MenuCompletoModel[]>(this.URL + 'listadeplatos');  
-  };
+ // Obtiene la lista de todos los platos
+public listaPlatos(): Observable<MenuCompletoModel[]> {
+  return this.httpClient.get<MenuCompletoModel[]>(this.URL + 'listadeplatos');
+}
 
-  public listaTipoPlatos(idTipoPlato:number): Observable<MenuCompletoModel[]> {
-    return this.httpClient.get<MenuCompletoModel[]>(this.URL + `listatipoplatos/${idTipoPlato}`);  
-  };
+// Obtiene la lista de platos de un tipo específico por ID
+public listaTipoPlatos(idTipoPlato: number): Observable<MenuCompletoModel[]> {
+  return this.httpClient.get<MenuCompletoModel[]>(this.URL + `listatipoplatos/${idTipoPlato}`);
+}
 
-  public guardarPlato(menuCompletoModel:MenuCompletoModel): Observable<any>{
-    return this.httpClient.post<any>(this.URL + 'guardarplato', menuCompletoModel);
-  };
+// Guarda un nuevo plato
+public guardarPlato(menuCompletoModel: MenuCompletoModel): Observable<any> {
+  return this.httpClient.post<any>(this.URL + 'guardarplato', menuCompletoModel);
+}
 
-  public actualizarPlato(idPlato:number, menuCompletoModel:MenuCompletoModel): Observable<any>{
-    return this.httpClient.put<any>(this.URL + `actualizarplato/${idPlato}`, menuCompletoModel);
-  };
-  
-//Borra plato con el idPlato y el idTipoPlato, es para usar con las tarjetas pequeñas
-  public borrarPlato(idPlato:number, idTipoPlato:number): Observable<any>{
-    return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
-  };
+// Actualiza un plato existente por ID
+public actualizarPlato(idPlato: number, menuCompletoModel: MenuCompletoModel): Observable<any> {
+  return this.httpClient.put<any>(this.URL + `actualizarplato/${idPlato}`, menuCompletoModel);
+}
 
-//Borra plato solo con el idPlato y el idTipoPlato, es para usar con la lista de platos completa
-  public borrarPlatoLisCompleta(idPlato:number): Observable<any>{
-    return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
-  };
+// Elimina un plato por ID (para tarjetas pequeñas)
+public borrarPlato(idPlato: number, idTipoPlato: number): Observable<any> {
+  return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
+}
 
+// Elimina un plato por ID (para lista completa de platos)
+public borrarPlatoLisCompleta(idPlato: number): Observable<any> {
+  return this.httpClient.delete<any>(this.URL + `borrarplato/${idPlato}`);
+}
 
-  public obtPlatoXID(idPlato:number): Observable<MenuCompletoModel>{
-    return this.httpClient.get<MenuCompletoModel>(this.URL + `obtenerplatoxid/${idPlato}`);
-  };
+// Obtiene un plato específico por ID
+public obtPlatoXID(idPlato: number): Observable<MenuCompletoModel> {
+  return this.httpClient.get<MenuCompletoModel>(this.URL + `obtenerplatoxid/${idPlato}`);
+}
 
-//SABER SI UN PLATO EXISTE EN LA DB POR SU NOMBRE
-public existeXNombre(nombrePlato: string){
-  return this.httpClient.get<boolean>(this.URL + `platoexistenombre/${nombrePlato}`)
-};
+// Verifica si un plato existe en la base de datos por nombre
+public existeXNombre(nombrePlato: string): Observable<boolean> {
+  return this.httpClient.get<boolean>(this.URL + `platoexistenombre/${nombrePlato}`);
+}
+
   
 }
 

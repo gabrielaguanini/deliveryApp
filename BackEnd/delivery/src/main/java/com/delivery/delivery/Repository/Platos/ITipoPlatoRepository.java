@@ -1,4 +1,3 @@
-
 package com.delivery.delivery.Repository.Platos;
 
 import com.delivery.delivery.Entity.Platos.TipoPlato;
@@ -9,26 +8,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ITipoPlatoRepository extends JpaRepository <TipoPlato, Long>{ 
-    
-    //METODO ABSTRACTO PARA GENERAR UNA LISTA FILTRADA CON LOS REGISTROS DE LA ENTIDAD PLATOS PRESENTES EN LA ENTIDAD TIPOPLATO
-    @Modifying 
+public interface ITipoPlatoRepository extends JpaRepository<TipoPlato, Long> {
+
+// Genera una lista de TipoPlato que tienen registros en Platos
+    @Modifying
     @Query(value = "SELECT DISTINCT tipo_plato.* FROM tipo_plato INNER JOIN platos ON tipo_plato.id_tipo_plato = platos.id_tipo_plato;", nativeQuery = true)
     List<TipoPlato> findAllWithPlatos();
-    
-    
-    @Modifying 
+
+// Filtra colores de tarjeta únicos de TipoPlato
+    @Modifying
     @Query(value = "SELECT DISTINCT color_card_tipo_plato FROM tipo_plato;", nativeQuery = true)
     List<String> filterColorCardTipoPlato();
-    
-    
-    @Modifying 
+
+// Filtra íconos únicos de TipoPlato
+    @Modifying
     @Query(value = "SELECT DISTINCT icono_tipo_plato FROM tipo_plato", nativeQuery = true)
     List<String> filterIconoTipoPlato();
-    
-    public Boolean existsByNombreTipoPlato(String nombreTipoPlato);
-  
-    
-  };
 
-    
+// Verifica si existe un TipoPlato por nombre
+    public Boolean existsByNombreTipoPlato(String nombreTipoPlato);
+
+};

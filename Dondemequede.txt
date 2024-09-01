@@ -1,4 +1,4 @@
-
+***SEGUIR CON EL PROBLEMA PARA GUARDAR 1 DETALLEPEDIDOS, RECORDAR QUE A LA FUNCION guardarDetallePedido() (LA Q GUARDA 1 DETPED) LE SAQUE:  --||| Id Plato a mostrar: "  .map(detalle -> " --||| Id Plato a mostrar: " + detalle.getPlatosAMostrar().getIdPlatosAMostrar() PARA QUE NO MAPEE, RECORDAR QUE HAY UNA FUNCION LLAMADA generarListaCadenasDesdeDetallesPorIdPedidoCli() QUE TB DEBE REVISARSE, AL IGUAL QUE TODOS LOS METODOS PARA CRUD, YA QUE ESTA LISTA DE CADENAS SE ACTUALIZA ANTE CUALQUIER CAMBIO.
 
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
 *agregar @param a los repo en donde falten, ver otras medidas de seguridad a tomar, sobre todo por las consultas sql nativas

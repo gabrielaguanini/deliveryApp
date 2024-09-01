@@ -8,12 +8,12 @@ import { TipoPlato } from '../modelos/tipo-plato';
 })
 export class TiposPlatosService {
 
-URL = 'http://localhost:8080/';
+  URL = 'http://localhost:8080/';
 
   constructor(private httpClient: HttpClient) { }
 
   //LISTA DE TIPOS DE PLATOS COMPLETA
-  public listTiposPlatos(): Observable <TipoPlato[]> {
+  public listTiposPlatos(): Observable<TipoPlato[]> {
     return this.httpClient.get<TipoPlato[]>(this.URL + 'listatipoplatos')
   };
 
@@ -35,29 +35,29 @@ URL = 'http://localhost:8080/';
 
 
   //GUARDAR TIPO PLATO
-  public guardarTipoPlato(tipoPlato: TipoPlato): Observable <any>{
+  public guardarTipoPlato(tipoPlato: TipoPlato): Observable<any> {
     return this.httpClient.post<any>(this.URL + 'guardartipoplato', tipoPlato)
   };
 
- //ACTUALIZAR TIPO PLATO
- public actualizarTipoPla(idTipoPlato: number, tipoPlato: TipoPlato): Observable<any>{
-  return this.httpClient.put<any>(this.URL + `actualizartipoplato/${idTipoPlato}`, tipoPlato)
- }
+  //ACTUALIZAR TIPO PLATO
+  public actualizarTipoPla(idTipoPlato: number, tipoPlato: TipoPlato): Observable<any> {
+    return this.httpClient.put<any>(this.URL + `actualizartipoplato/${idTipoPlato}`, tipoPlato)
+  }
 
- //BORRAR TIPO PLATO
- public borrarTipoPlato(idTipoPlato: number): Observable <any>{
-  return this.httpClient.delete<any>(this.URL + `eliminartipoplatos/${idTipoPlato}`)
- }
- 
- //OBTENER TIPO PLATO POR ID
- public obtenerTipoPlatoXId(idTipoPlato: number): Observable <TipoPlato>{
-  return this.httpClient.get<TipoPlato>(this.URL + `obtenertiplaxid/${idTipoPlato}`)
- }
+  //BORRAR TIPO PLATO
+  public borrarTipoPlato(idTipoPlato: number): Observable<any> {
+    return this.httpClient.delete<any>(this.URL + `eliminartipoplatos/${idTipoPlato}`)
+  }
 
-//SABER SI UN PLATO EXISTE EN LA DB POR SU NOMBRE
-public existeXNombre(nombreTipoPlato: string){
-  return this.httpClient.get<boolean>(this.URL + `tipoplatoexistenombre/${nombreTipoPlato}`)
-};
+  //OBTENER TIPO PLATO POR ID
+  public obtenerTipoPlatoXId(idTipoPlato: number): Observable<TipoPlato> {
+    return this.httpClient.get<TipoPlato>(this.URL + `obtenertiplaxid/${idTipoPlato}`)
+  }
+
+  //SABER SI UN PLATO EXISTE EN LA DB POR SU NOMBRE
+  public existeXNombre(nombreTipoPlato: string) {
+    return this.httpClient.get<boolean>(this.URL + `tipoplatoexistenombre/${nombreTipoPlato}`)
+  };
 
 }
 

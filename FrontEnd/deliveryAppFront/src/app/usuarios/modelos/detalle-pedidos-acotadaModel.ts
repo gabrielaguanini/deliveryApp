@@ -5,12 +5,12 @@ export class DetallePedidosAcotadaModel {
 
  
   pedidos: { idPedido: number };
-  platosAMostrar: { idPlatosAMostrar: number };
+  platos: { idPlato: number };
   porcionPlato: number;
    
-  constructor(idPedido: number, idPlatosAMostrar: number, porcionPlato: number) {
+  constructor(idPedido: number, idPlato: number, porcionPlato: number) {
     this.pedidos = { idPedido };
-    this.platosAMostrar = { idPlatosAMostrar };
+    this.platos = { idPlato };
     this.porcionPlato = porcionPlato;
   }
     }

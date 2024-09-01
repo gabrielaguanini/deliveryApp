@@ -94,12 +94,6 @@ footer img {
     width: 44px;
 }
 
-/* formato para img de pedidosya y rappi */
-
-#footer-social-icons-1,
-#footer-social-icons-2 {
-    margin-top: -18px;
-}
 
 #footer-social-icons ul {
     list-style: none;
@@ -149,17 +143,16 @@ footer img {
 #footer-social-icons-1,
 #footer-social-icons-2 {
     border: 1px solid #8b9199;
-    /* Hace que el área de clic sea todo el contenedor a */
+    margin-top: -18px;
 }
 
 
-  /*animacion botones */
-  .animacion {
-	transition: color 0.3s ease, transform 0.5s ease;
-  }
-  
-  .animacion:hover {
-	color: #f0f0f0;
-	transform: rotate(360deg);
-  }
-  
+/*animacion botones */
+.animacion {
+    transition: color 0.3s ease, transform 0.5s ease;
+}
+
+.animacion:hover {
+    color: #f0f0f0;
+    transform: rotate(360deg);
+}

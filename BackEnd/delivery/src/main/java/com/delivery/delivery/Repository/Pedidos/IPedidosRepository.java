@@ -23,6 +23,7 @@ public List<Pedidos> obtenerPedidosDelDia(@Param("fechaActual") LocalDate fechaA
 @Query
 public List<Pedidos> findByFecha(@Param("fecha") LocalDate fecha);
 
+//METODO ABSTRACTO PARA CONOCER SI UN PEDIDO EXISTE POR FECHA 
 public boolean existsByFecha(LocalDate fecha);
 
 };

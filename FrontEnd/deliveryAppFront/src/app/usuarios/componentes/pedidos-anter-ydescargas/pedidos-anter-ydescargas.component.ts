@@ -8,6 +8,8 @@ import { DetallePedidosAcotadaModel } from '../../modelos/detalle-pedidos-acotad
 import { PlatosAMostrar } from '../../modelos/platos-amostrar';
 import { PlatosAMostrarService } from '../../servicios/platos-amostrar.service';
 import * as XLSX from 'xlsx';
+import { MenuCompletoModel } from '../../modelos/menu-completo-model';
+import { MenuCompletoServiceService } from '../../servicios/menu-completo-service.service';
 
 
 @Component({
@@ -38,15 +40,16 @@ export class PedidosAnterYDescargasComponent {
   listaPlatosDelPedidoCli!: string;
   detPedidAcotada!: DetallePedidosAcotadaModel;
   idPedidoGuardDetPed!: number; //idPedido tomado de la lista {{pedidosXFe.idPedido}} del html. Para guardar un nuevo detalle pedido
-  
- 
+  idPlato!: number;
+
 
   //LISTAS
   listaPedidosXFecha: PedidosModel[] = [];
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPeConfTrueFalse: Boolean[] = [true, false];
   platosAMostrarList: PlatosAMostrar[] = [];
- 
+  listaPlatosCompleta: MenuCompletoModel[] = [];
+
 
 
   //MODALES
@@ -64,32 +67,39 @@ export class PedidosAnterYDescargasComponent {
     private pedidosServ: PedidosService,
     private detallePedidServ: DetallePedidosService,
     private modalService: BsModalService,
-    private plaMosServ: PlatosAMostrarService
-
+    private plaMosServ: PlatosAMostrarService,
+    private platosServ: MenuCompletoServiceService
   ) { };
 
   ngOnInit(): void {
 
     this.listaPlatosAMostrar(); //muestra la lista de platos a mostrar completa para select edicion detalle pedidos
-
   };
 
-
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   //FUNCIONES LISTAS
+  /**
+ * Obtiene una lista de pedidos filtrados por la fecha proporcionada.
+ * 
+ * @param fecha - La fecha para filtrar los pedidos en formato 'yyyy-mm-dd'.
+ * @param alertConLog - Si es true, muestra alertas y mensajes de error en la consola. Si es false, solo actualiza la lista sin mostrar alertas.
+ * @param isRequestByDate - Indica si la solicitud se realiza por fecha. Si es true, se muestra una alerta si no se encuentran registros. Si es false, no se muestra la alerta.
+ */
   listaDePedidosXFecha(fecha: string, alertConLog: boolean = true, isRequestByDate: boolean = true): void {
+    // Si la fecha es la predeterminada (1900-01-01), no se realiza ninguna acción
     if (fecha === '1900-01-01') {
-      // No se realiza ninguna acción
       return;
     }
+
     if (alertConLog) {
+      // Si alertConLog es true, muestra alertas y logs en la consola
       if (fecha === undefined || fecha.trim() === '' || fecha === '') {
-        this.fecha = ""; 
+        this.fecha = "";
         console.error('La fecha no puede estar vacía');
         alert('La fecha no puede estar vacía');
       } else {
+        // Realiza la solicitud para obtener la lista de pedidos por fecha
         this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
           data => {
             this.listaPedidosXFecha = data;
@@ -110,6 +120,7 @@ export class PedidosAnterYDescargasComponent {
       if (fecha === undefined || fecha.trim() === '' || fecha === '') {
         this.fecha = "";
       } else {
+        // Realiza la solicitud para obtener la lista de pedidos por fecha sin mostrar alertas
         this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
           data => {
             this.listaPedidosXFecha = data;
@@ -124,81 +135,143 @@ export class PedidosAnterYDescargasComponent {
         );
       }
     }
-  };
+  }
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene los detalles de los pedidos filtrados por el ID del pedido.
+   * 
+   * @param idPedido - El ID del pedido para obtener los detalles.
+   */
   listaDetallePedidosXIdPedido(idPedido: number): void {
-
-      this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(data => {
-        
+    // Realiza la solicitud para obtener los detalles del pedido por ID
+    this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(
+      data => {
         this.detallePedidosListxIdPedido = data;
-        //this.modalitoEditPedid = false;
-      }, err => {
+        // Se puede agregar lógica adicional aquí si es necesario
+      },
+      err => {
         alert("Msj. Serv: " + err.error.message);
         console.log("Msj. Serv: " + err.error.message);
-      });    
-  };
+        this.modalitoEditPedid = false;
+      }
+    );
+  }
 
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+   * Obtiene la lista de platos a mostrar.
+   */
   listaPlatosAMostrar(): void {
-    this.plaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data)
+    // Realiza la solicitud para obtener la lista de platos a mostrar
+    this.plaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data);
+  }
 
-  };
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+ * Obtiene la lista completa de platos desde el servicio.
+ */
+  listaPlatosComp(): void {
+    this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);  // Actualiza la lista completa de platos
+  }
 
-
-  
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCIONES MODALES
 
-  //modal editar detalles del pedidos
+  /**
+   * Alterna la visibilidad del modal para editar detalles del pedido.
+   */
   mostrarOcultarModalitoEditDetallePedid() {
-   
-   this.modalitoEditPedid = !this.modalitoEditPedid;
-   !this.modalitoInputEditDetPedid == this.modalitoInputEditDetPedid;
+    // Cambia el estado de visibilidad del modal de edición de detalles del pedido
+    this.modalitoEditPedid = !this.modalitoEditPedid;
 
-  };
+    // Ajusta el estado de visibilidad del modal de entrada de edición de detalles del pedido
+    // Nota: La comparación actual no tiene efecto; puede que necesite una revisión.
+    !this.modalitoInputEditDetPedid == this.modalitoInputEditDetPedid;
+  }
 
-  //modal editar pedidos
+  /**
+   * Abre el modal para editar un pedido.
+   * 
+   * @param templateEditarPedido - La plantilla del modal que se utilizará para editar el pedido.
+   */
   openModalEditarPedidos(templateEditarPedido: TemplateRef<any>) {
+    // Configuración del modal (centrado y tamaño grande)
     const modalConfig = {
-      class: 'modal-dialog-centered modal-lg' // tamaño del modal
+      class: 'modal-dialog-centered modal-lg' // Tamaño del modal
     };
-    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig })
-  };
 
-  //modal lista opciones editar detalle pedidos
+    // Abre el modal utilizando la configuración proporcionada
+    this.modalEditarPedido = this.modalService.show(templateEditarPedido, { backdrop: 'static', ...modalConfig });
+  }
+
+  /**
+   * Alterna la visibilidad del modal para editar opciones de detalles del pedido.
+   */
   mostrarOcultarModalitoTdEditDetPedid() {
+    // Cambia el estado de visibilidad del modal para editar opciones de detalles del pedido
     this.modalitoTdEditDetPedid = !this.modalitoTdEditDetPedid;
-  };
-  //modal formulario editar detalle pedidos
+  }
+
+  /**
+   * Alterna la visibilidad del modal para editar detalles del pedido.
+   */
   mostrarOcultarModalitoEditDetPedid() {
+    // Cambia el estado de visibilidad del modal para editar detalles del pedido
     this.modalitoInputEditDetPedid = !this.modalitoInputEditDetPedid;
-  };
+  }
 
+  /**
+   * Muestra el modal con la información proporcionada.
+   * 
+   * @param templateModalInfo - La plantilla del modal que se utilizará para mostrar la información.
+   */
   mostrarOcultarModalInfo(templateModalInfo: TemplateRef<any>) {
-    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static'})
-   };
+    // Abre el modal utilizando la plantilla proporcionada
+    this.modalInfo = this.modalService.show(templateModalInfo, { backdrop: 'static' });
+  }
 
-   mostrarOcultarModalitoPedidosXId(){
+  /**
+   * Alterna la visibilidad del modal para mostrar pedidos por ID.
+   */
+  mostrarOcultarModalitoPedidosXId() {
+    // Cambia el estado de visibilidad del modal para mostrar pedidos por ID
     this.modalitoPedidosXId = !this.modalitoPedidosXId;
-   };
+  }
 
-   mostrarOcultarModalitoPedidosXFecha(){ 
+  /**
+   * Alterna la visibilidad del modal para mostrar pedidos por fecha.
+   */
+  mostrarOcultarModalitoPedidosXFecha() {
+    // Cambia el estado de visibilidad del modal para mostrar pedidos por fecha
     this.modalitoPedidosXFecha = !this.modalitoPedidosXFecha;
-   };
+  }
 
-   mostrarOcultarModalitoAgrDetPed(){ 
+  /**
+   * Alterna la visibilidad del modal para agregar detalles del pedido.
+   */
+  mostrarOcultarModalitoAgrDetPed() {
+    // Cambia el estado de visibilidad del modal para agregar detalles del pedido
     this.modalitoAgrDetPed = !this.modalitoAgrDetPed;
-   };
+  }
 
- 
-
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //EDITAR PEDIDO
   /////////////////////////
+  /**
+   * Configura los detalles del pedido a partir de los parámetros proporcionados.
+   * 
+   * @param idPedido - Identificador único del pedido.
+   * @param fecha - Fecha del pedido.
+   * @param horaPedido - Hora en que se realizó el pedido.
+   * @param nombreCliente - Nombre del cliente que hizo el pedido.
+   * @param telefonoCliente - Número de teléfono del cliente.
+   * @param direccionCliente - Dirección del cliente.
+   * @param localidadCliente - Localidad del cliente.
+   * @param listaPlatosDelPedido - Lista de platos incluidos en el pedido (como cadena de texto).
+   * @param importeTotalPedido - Importe total del pedido.
+   * @param pedidoConfirmado - Indicador de si el pedido ha sido confirmado.
+   */
   obtPedidoXId(idPedido: number, fecha: string, horaPedido: string, nombreCliente: string, telefonoCliente: string,
     direccionCliente: string, localidadCliente: string, listaPlatosDelPedido: string, importeTotalPedido: number, pedidoConfirmado: boolean): void {
 
@@ -212,37 +285,41 @@ export class PedidosAnterYDescargasComponent {
     this.horaPedido = horaPedido;
     this.importeTotalPedido = importeTotalPedido;
     this.pedidoConfirmado = pedidoConfirmado;
+  }
 
-  };
-
-
-  //BORRAR PEDIDO
-  ///////////////////////////////////
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Elimina un pedido basado en el ID proporcionado.
+  * 
+  * @param idPedido - Identificador del pedido a eliminar.
+  */
   eliminarPedido(idPedido: number): void {
-    
-    //Advertencia para eliminar el pedido
-    const confirmacion = window.confirm("El pedido se eliminará. ¿Desea continuar? ");
+    // Confirmación antes de eliminar el pedido
+    const confirmacion = window.confirm("El pedido se eliminará. ¿Desea continuar?");
 
     if (confirmacion) {
-      this.pedidosServ.borrarPedido(idPedido).subscribe(data => {        
-        this.listaDePedidosXFecha(this.fecha, false, false); //  actualiza la lista de pedidos por fecha
-        this.pedidosXIdVacio(); // elimina de la pantalla el pedido buscado por idPedido
+      // Llamada al servicio para eliminar el pedido
+      this.pedidosServ.borrarPedido(idPedido).subscribe(data => {
+        // Actualiza la lista de pedidos por fecha y elimina el pedido de la pantalla
+        this.listaDePedidosXFecha(this.fecha, false, false);
+        this.pedidosXIdVacio();
         alert("Pedido eliminado.");
         console.log(data);
-
-
       }, err => {
-        // Error al eliminar el pedido
+        // Manejo de errores en caso de fallo al eliminar el pedido
         this.fecha = "";
         console.log("No se pudo eliminar el pedido", err);
         alert("Error al eliminar el pedido.");
-      }
-      );
+      });
     }
-  };
+  }
 
-  //EDITAR PEDIDO
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Edita un pedido existente con los datos actuales.
+  */
   editarPedido(): void {
+    // Crea una instancia del modelo de pedido con los datos actuales
     const pedid = new PedidosModel(
       this.idPedido,
       this.nombreCliente,
@@ -257,171 +334,206 @@ export class PedidosAnterYDescargasComponent {
       this.pedidoConfirmado
     );
 
+    // Llama al servicio para actualizar el pedido
     this.pedidosServ.actualizarPedido(this.idPedido, pedid).subscribe(data => {
+      // Actualiza la lista de pedidos por fecha y obtiene el pedido actualizado
       this.listaDePedidosXFecha(this.fecha, false, false);
       this.obtenerPedidoXId(this.idPedido);
       console.log("Msj. Servidor: " + JSON.stringify(data));
       alert("Pedido actualizado");
     },
       err => {
+        // Manejo de errores en caso de fallo al actualizar el pedido
         console.log("Msj. Servidor: " + err.error.message);
         alert("Error, no se pudo editar el pedido");
-        console.log(err)
-      })
-  };
+        console.log(err);
+      });
+  }
 
-   //OBTENER PEDIDO X ID (obtejo tipo pedido completo)
-    obtenerPedidoXId(idPedido: number): void {
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Obtiene un pedido completo basado en el ID proporcionado.
+  * 
+  * @param idPedido - Identificador del pedido a obtener.
+  */
+  obtenerPedidoXId(idPedido: number): void {
+    // Verifica si el ID es válido
+    if (idPedido == null || isNaN(idPedido) || idPedido == 0) {
+      alert("Ingrese un Id válida");
+      this.idPedido = NaN;
+    } else {
+      // Llama al servicio para obtener los detalles del pedido por ID
+      this.pedidosServ.obtenerPedidoXId(idPedido).subscribe(data => {
+        this.pedidos = data;
+      }, err => {
+        // Manejo de errores en caso de fallo al obtener el pedido
+        console.log("Msj. Servidor: " + err.error.message);
+        alert(err.error.message);
+      });
+    }
+  }
 
-      if(idPedido == null || isNaN(idPedido) || idPedido == 0){
-        alert("Ingrese un Id válida");
-        this.idPedido = NaN;
-      } else {
-      this.pedidosServ.obtenerPedidoXId(idPedido).subscribe( data => 
-        this.pedidos = data, 
-        err => {
-          console.log("Msj. Servidor: " + err.error.message);
-          alert(err.error.message);
-        })
-      }
-    };
-
-
+  //✮------------------------------------------------------------------------------------------------------------✮
   //EDITAR DETALLE PEDIDO 
   /////////////////////////////
 
-  obtenerDetPedXId(idDetallePedido: number, idPedido: number, idPlatosAMostrar: number, porcionPlato: number, nombrePlato: string) {
-    const msjAdvertencia = window.confirm('El/Los dato/s a editar se reemplazarán con los datos actuales de tabla PLATOS A MOSTRAR. ¿Desea continuar?');
+  /**
+  * Obtiene los detalles de un pedido específico basado en el ID del detalle del pedido.
+  * 
+  * @param idDetallePedido - Identificador del detalle del pedido a obtener.
+  * @param idPedido - Identificador del pedido asociado.
+  * @param idPlatosAMostrar - Identificador del plato a mostrar.
+  * @param porcionPlato - Porción del plato.
+  * @param nombrePlato - Nombre del plato.
+  */
+  obtenerDetPedXId(idDetallePedido: number, idPedido: number, porcionPlato: number, nombrePlato: string, idPlato: number) {
+    // Solicita confirmación para reemplazar los datos actuales con los nuevos datos de la tabla PLATOS A MOSTRAR
+    const msjAdvertencia = window.confirm("El pedido N°: " + this.idPedidoGuardDetPed + " se editara. El/Los dato/s a editar podría/n contener diferencia/s en el/los precios unitario/s, total/es, etc. ¿Desea continuar?");
+
     if (!msjAdvertencia) {
-      this.modalitoEditPedid = false;
-    };
-    if (msjAdvertencia) {
-      this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
-        this.idDetallePedido = idDetallePedido;
-        this.idPedido = idPedido;
-        this.idPlatosAMostrar = idPlatosAMostrar;
-        this.porcionPlato = porcionPlato
-        this.nombrePlato = nombrePlato;
-        console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
-
-      }, err => {
-        console.log(err);
-        alert("Error, no se trajeron los detalles del pedido")
-      })
+      this.modalitoEditPedid = false; // Cierra el modal si el usuario cancela la operación
+      return;
     }
-  };
 
+    // Si el usuario confirma, realiza la solicitud para obtener los detalles del pedido
+    this.detallePedidServ.obtDetallePedidoXId(idDetallePedido).subscribe(data => {
+      // Configura los detalles del pedido con los datos obtenidos
+      this.idDetallePedido = idDetallePedido;
+      this.idPedido = idPedido;
+      this.porcionPlato = porcionPlato;
+      this.nombrePlato = nombrePlato;
+      this.idPlato = idPlato;
+      console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
+    }, err => {
+      // Maneja errores en caso de fallo al obtener los detalles del pedido
+      console.log(err);
+      alert("Error, no se trajeron los detalles del pedido");
+    });
+  }
 
-  //BORRAR DETALLE PEDIDO 
-  /////////////////////////////
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Elimina un detalle de pedido específico basado en el ID del detalle del pedido.
+  * 
+  * @param idDetallePedido - Identificador del detalle del pedido a eliminar.
+  * @param idPedido - Identificador del pedido asociado.
+  */
   eliminarDetallePedidos(idDetallePedido: number, idPedido: number): void {
-    //Advertencia para eliminar el pedido
+    // Solicita confirmación para eliminar el detalle del pedido
     const confirmacion = window.confirm("El detalle del pedido se eliminará");
 
     if (confirmacion) {
+      // Llama al servicio para eliminar el detalle del pedido
       this.detallePedidServ.eliminarDetallePedido(idDetallePedido, idPedido).subscribe(data => {
         alert("Detalle del pedido eliminado.");
+        // Actualiza las listas después de eliminar el detalle
         this.listaDetallePedidosXIdPedido(idPedido);
         this.listaDePedidosXFecha(this.fecha);
         this.obtenerPedidoXId(idPedido);
-
       }, err => {
-        // Error al eliminar el pedido
+        // Maneja errores en caso de fallo al eliminar el detalle del pedido
         console.log("No se pudo eliminar el detalle del pedido", err);
         alert("Error al eliminar el detalle del pedido.");
-      }
-      );
+      });
     }
-  };
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Edita un detalle de pedido existente con los datos actuales.
+  */
   editarDetallePedidos(): void {
-
+    // Valida los datos antes de proceder con la edición
     if ((this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido)) ||
-      (this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0)|| isNaN(this.idPlatosAMostrar)||
+      (this.idPlato == null || this.idPlato == 0 || isNaN(this.idPlato)) ||
       (this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato))) {
 
       alert("Seleccione un plato o ingrese porcion/es");
-      return; // Agregado return para salir de la función si la validación falla
-      //this.modalitoInputEditDetPedid = true; 
-      //this.modalitoTdEditDetPedid = false;
-
+      return; // Sale de la función si la validación falla
     }
+
+    // Valida el rango de porciones permitido
     if (this.porcionPlato > 10) {
-      alert("El maximo permitido de porciones es 10");
-      return; // Agregado return para salir de la función si la validación falla
-
+      alert("El máximo permitido de porciones es 10");
+      return; // Sale de la función si la validación falla
     } else {
-      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
-      this.detallePedidServ
-        .actualizarDetallePedido(this.idDetallePedido, detPed)
-        .subscribe(
-          (data) => {
-            this.modalitoTdEditDetPedid = true; // abre modalito con lista para editar detalles del pedido
-            this.modalitoInputEditDetPedid = false; //cierra modalito con formulario para editar detalles del pedido al editar
-            this.listaDetallePedidosXIdPedido(this.idPedido); //actualiza la lista de detalles pedidos al editar
-            this.listaDePedidosXFecha(this.fecha, false, false); //actualiza la lista de pedidos por fecha al editar
-            this.obtenerPedidoXId(this.idPedido); //actualiza sobre la busqueda de pedido x id el pedido editado
-            console.log("Msj servidor: " + JSON.stringify(data));
-            alert("Detalles del pedido actualizados.");
-          },
-          (err) => {
+      // Crea una instancia del modelo de detalle de pedido con los datos actuales
+      const detPed = new DetallePedidosAcotadaModel(this.idPedido, this.idPlato, this.porcionPlato);
 
-            console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
-
-            //console.log("DetPEd: " + JSON.stringify(detPed));
-            alert("Error al actualizar el detalle del pedido. " + err.error.message);
-          }
-        );
+      // Llama al servicio para actualizar el detalle del pedido
+      this.detallePedidServ.actualizarDetallePedido(this.idDetallePedido, detPed).subscribe(data => {
+        // Actualiza las vistas después de editar el detalle
+        this.modalitoTdEditDetPedid = true; // Abre modal con lista para editar detalles del pedido
+        this.modalitoInputEditDetPedid = false; // Cierra modal con formulario para editar detalles del pedido
+        this.listaDetallePedidosXIdPedido(this.idPedido); // Actualiza la lista de detalles de pedidos
+        this.listaDePedidosXFecha(this.fecha, false, false); // Actualiza la lista de pedidos por fecha
+        this.obtenerPedidoXId(this.idPedido); // Actualiza la búsqueda del pedido por ID
+        console.log("Msj servidor: " + JSON.stringify(data));
+        alert("Detalles del pedido actualizados.");
+      }, err => {
+        // Maneja errores en caso de fallo al actualizar el detalle del pedido
+        console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
+        alert("Error al actualizar el detalle del pedido. " + err.error.message);
+      });
     }
-  };
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   //AGREGAR DETALLE PEDIDO
 
-  //toma el idPedido de la lista {{pedidosXFe.idPedido}} y se utiliza para guardar un nuevo detalle pedido
+  /**
+  * Guarda el ID del pedido seleccionado para agregar un nuevo detalle de pedido.
+  * 
+  * @param idPedido - Identificador del pedido que se utilizará para el nuevo detalle.
+  */
   seleccionarIdPedido(idPedido: number) {
-    this.idPedidoGuardDetPed = idPedido;
-  };
+    this.idPedidoGuardDetPed = idPedido; // Almacena el ID del pedido seleccionado
+  }
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Agrega un nuevo detalle de pedido al pedido seleccionado.
+  */
   agregarDetallePedidos() {
-      // Actualiza this.idPedido con this.idPedidoGuardDetPed
-      this.idPedido = this.idPedidoGuardDetPed;
-      console.log("Porciones: " + this.porcionPlato);
+    // Actualiza el ID del pedido con el valor guardado
+    this.idPedido = this.idPedidoGuardDetPed;
 
-    if ( this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido) ||
-      this.idPlatosAMostrar == null || this.idPlatosAMostrar == 0 || isNaN(this.idPlatosAMostrar) ||
+    // Valida los datos ingresados antes de agregar el detalle del pedido
+    if (this.idPedido == null || this.idPedido == 0 || isNaN(this.idPedido) ||
+      this.idPlato == null || this.idPlato == 0 || isNaN(this.idPlato) ||
       this.porcionPlato == null || this.porcionPlato <= 0 || isNaN(this.porcionPlato)) {
 
       alert("Seleccione un plato o ingrese porcion/es");
-      return; // Agregado return para salir de la función si la validación falla
+      return; // Sale de la función si la validación falla
     }
+
+    // Valida que la porción esté dentro del rango permitido
     if (this.porcionPlato > 10) {
-      alert("El maximo permitido de porciones es 10");
-      return; // Agregado return para salir de la función si la validación falla
-
+      alert("El máximo permitido de porciones es 10");
+      return; // Sale de la función si la validación falla
     } else {
-
-      // inicializa this.detPedidAcotada 
-      this.detPedidAcotada = new DetallePedidosAcotadaModel(this.idPedido, this.idPlatosAMostrar, this.porcionPlato);
-
-      // Llamar al servicio para guardar el detalle del pedido
+      // Inicializa un nuevo objeto DetallePedidosAcotadaModel con los datos del pedido    
+      this.detPedidAcotada = new DetallePedidosAcotadaModel(this.idPedido, this.idPlato, this.porcionPlato);
+      
+      // Llama al servicio para guardar el nuevo detalle del pedido
       this.detallePedidServ.guardarDetPediAcotada(this.detPedidAcotada).subscribe(data => {
-        this.listaDetallePedidosXIdPedido(this.idPedido); //actualiza la lista de detalles pedidos al editar
-        this.listaDePedidosXFecha(this.fecha, false, false); //actualiza la lista de pedidos por fecha al editar
-        this.obtenerPedidoXId(this.idPedido); //actualiza sobre la busqueda de pedido x id el pedido editado
+        // Actualiza las listas después de agregar el detalle
+        this.listaDetallePedidosXIdPedido(this.idPedido); // Actualiza la lista de detalles de pedidos
+        this.listaDePedidosXFecha(this.fecha, false, false); // Actualiza la lista de pedidos por fecha
+        this.obtenerPedidoXId(this.idPedido); // Actualiza la búsqueda del pedido por ID
         console.log("Msj servidor: " + JSON.stringify(data));
         alert("Detalles del pedido guardados.");
       },
         (err) => {
+          // Maneja errores en caso de fallo al guardar el detalle del pedido
           console.log("No se pudo guardar el detalle del pedido. ", err.error.message);
-          alert("Error al guardar el detalle del pedido. ");
+          console.log("zzzz: " +this.idPedidoGuardDetPed.toString())
+          alert("Msj Serv: " + err.error.message);
         });
     }
-  };
-  
+  }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCION PARA CREAR EXCEL CON LISTA PEDIDOS COMPLETA
   ///////////////////////////////////////////////////
 
@@ -450,7 +562,7 @@ export class PedidosAnterYDescargasComponent {
   exportToExcelOnClick(): void {
     // Mostrar mensaje de advertencia para la descarga
     const msjAdvertenciaDescarga = window.confirm('Comenzará la descarga del archivo. ¿Desea continuar?');
-  
+
     // Suscribirse al servicio para obtener la lista completa de pedidos y generar el archivo Excel
     if (msjAdvertenciaDescarga) {
       this.pedidosServ.listaPedidos().subscribe(
@@ -468,83 +580,103 @@ export class PedidosAnterYDescargasComponent {
       );
     }
   }
-  
 
+  //✮------------------------------------------------------------------------------------------------------------✮
   //FUNCIONES VARIAS
 
-  //limpia inputa
+  /**
+  * Limpia todos los campos de entrada y variables utilizadas en el formulario.
+  */
   limpiarInputs(): void {
+    // Limpia las propiedades relacionadas con el cliente
+    this.nombreCliente = "";               // Establece el nombre del cliente como cadena vacía
+    this.telefonoCliente = "";             // Establece el teléfono del cliente como cadena vacía
+    this.direccionCliente = "";            // Establece la dirección del cliente como cadena vacía
+    this.localidadCliente = "";            // Establece la localidad del cliente como cadena vacía
 
-    this.nombreCliente = "";
-    this.telefonoCliente = "";
-    this.direccionCliente = "";
-    this.localidadCliente = "";
-    //this.modalitoEditPedid = false;
-    this.detallePedidosListxIdPedido = [];
-    this.idPedido = NaN;
-    //this.modalitoInputEditDetPedid = false;
-    //this.modalitoTdEditDetPedid = true;
-    this.idPlatosAMostrar = NaN;
+    // Limpia la lista de detalles del pedido actual
+    this.detallePedidosListxIdPedido = []; // Reinicia la lista de detalles del pedido a un array vacío
+   
 
-    this.platosDelPedido = "";
-    this.importeTotalPedido = NaN;
+    // Restablece el ID del pedido a un valor no definido
+    this.idPedido = NaN;                   // Establece el ID del pedido como NaN (Not-a-Number)
 
-    this.idDetallePedido = NaN;
-    this.porcionPlato = NaN;
+    // Limpia las propiedades relacionadas con los platos del pedido
+    this.idPlatosAMostrar = NaN;           // Establece el ID del plato a mostrar como NaN
+    this.platosDelPedido = "";             // Establece los platos del pedido como cadena vacía
+    this.importeTotalPedido = NaN;         // Establece el importe total del pedido como NaN
 
-    this.nombrePlato = "";
+    // Limpia las propiedades relacionadas con los detalles del pedido
+    this.idDetallePedido = NaN;            // Establece el ID del detalle del pedido como NaN
+    this.porcionPlato = NaN;               // Establece la porción del plato como NaN
 
-    this.idPedidoGuardDetPed = NaN;
+    // Limpia el nombre del plato
+    this.nombrePlato = "";                // Establece el nombre del plato como cadena vacía
 
-  };
-  
-  // Envia esta fecha predeterminada al campo fecha del input "buscar por fecha" cuando se busca un pedido por idPedido, ya que
-  // se activan los validadores de la funcion listaDePedidosXFecha() al buscar por idPedido un pedido especifico
-   fechaPredeterminda(){
-    this.fecha = "1900-01-01";
-   };
+    // Restablece el ID del pedido guardado para detalles
+    this.idPedidoGuardDetPed = NaN;       // Establece el ID del pedido guardado para detalles como NaN
 
-
-  // Genera una lista de pedidos de hoy vacia para poder eliminar los registros
-  // traidos de la pantalla. Algo asi como borrar.
-  listaPedXFechaVacia(): void {
-    this.fecha = "";
-    this.listaPedidosXFecha = [];
-  };
-
-
-  // Genera un objeto de tipo pedidos vacio para poder eliminar los registros
-  // traidos de la pantalla. Algo asi como borrar.
-  pedidosXIdVacio(): PedidosModel | null {
-    this.idPedido = NaN; // elimina el idPedido ingresado
-    this.pedidos = null; //Genera un objeto de tipo pedidos vacio
-    return this.pedidos;
-    
+    this.idPlato = NaN;       // Establece el ID del plato guardado para detalles como NaN
   }
 
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Establece una fecha predeterminada para el campo de fecha del input "buscar por fecha".
+  * Esta función se utiliza cuando se busca un pedido por idPedido, ya que activa
+  * los validadores de la función listaDePedidosXFecha().
+  */
+  fechaPredeterminada(): void {
+    this.fecha = "1900-01-01"; // Establece la fecha a un valor predeterminado específico
+  };
 
-  // Ancla para ir a secciones mediante un button
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Genera una lista de pedidos vacía para eliminar los registros actuales de la pantalla.
+  * Esta función se utiliza para borrar los pedidos mostrados en la interfaz de usuario.
+  */
+  listaPedXFechaVacia(): void {
+    this.fecha = ""; // Limpia el valor del campo de fecha
+    this.listaPedidosXFecha = []; // Establece la lista de pedidos por fecha a un array vacío
+  };
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Genera un objeto de tipo PedidosModel vacío para eliminar los registros actuales.
+  * Se utiliza para borrar los datos de un pedido específico mostrado en la pantalla.
+  * @returns {PedidosModel | null} - Devuelve el objeto de pedido vacío (null) o de tipo PedidosModel vacío.
+  */
+  pedidosXIdVacio(): PedidosModel | null {
+    this.idPedido = NaN; // Elimina el ID del pedido ingresado, estableciéndolo a NaN
+    this.pedidos = null; // Establece el objeto de pedidos a null, vaciando su contenido
+    return this.pedidos; // Retorna el objeto de pedidos vacío (null)
+  };
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Realiza un desplazamiento suave hacia una sección específica del documento.
+  * Se utiliza para navegar a una sección de la página mediante un botón.
+  * @param {string} sectionId - El ID de la sección a la que se desea desplazar.
+  */
   scrollASeccion(sectionId: string): void {
     try {
       const tryScroll = () => {
-        const section = document.getElementById(sectionId);
+        const section = document.getElementById(sectionId); // Obtiene el elemento con el ID especificado
 
         if (!section) {
-          console.error(`La sección con ID '${sectionId}' no fue encontrada.`);
+          console.error(`La sección con ID '${sectionId}' no fue encontrada.`); // Muestra un error si no se encuentra la sección
           return;
         }
 
-        //console.log('Sección encontrada:', section);
-        section.scrollIntoView({ behavior: 'smooth' });
+        section.scrollIntoView({ behavior: 'smooth' }); // Realiza un desplazamiento suave hacia la sección encontrada
       };
 
-      // scroll a ancla después de 500 milisegundos
-      setTimeout(tryScroll, 500);
+      // Ejecuta la función de desplazamiento después de un retraso de 500 milisegundos
+      setTimeout(tryScroll, 600);
     } catch (error) {
-      console.error('Error al intentar hacer scroll:', error);
+      console.error('Error al intentar hacer scroll:', error); // Muestra un error en caso de fallo al intentar hacer scroll
     }
   };
 
-
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 }
