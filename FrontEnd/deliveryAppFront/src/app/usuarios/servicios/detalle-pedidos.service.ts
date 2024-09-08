@@ -43,7 +43,7 @@ export class DetallePedidosService {
 
   // Guarda varios detalles de pedidos acotados
   public guardarVariosDetallesPedido(detallesPedidosAcotada: DetallePedidosAcotadaModel[]): Observable<string> {
-    return this.httpClient.post<any>(this.URL + 'guardarvariosdetallespedidos', detallesPedidosAcotada);
+    return this.httpClient.post(`${this.URL}guardarvariosdetallespedidos`, detallesPedidosAcotada, { responseType: 'text' });
   }
 
   // Elimina un detalle de pedido específico por ID

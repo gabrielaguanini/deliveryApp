@@ -252,14 +252,16 @@ public class PedidosController {
     public ResponseEntity<Pedidos> obtPedidoXId(@PathVariable("idPedido") Long idPedido) {
         try {
 
-            // Intenta obtener el pedido con el ID proporcionado
-            Pedidos pedido = pedidosServ.getOne(idPedido).get();
+       
 
             // Verifica si el pedido con el ID proporcionado existe en la base de datos
             if (!pedidosServ.existsById(idPedido)) {
                 // Si no existe, lanza una excepción con un mensaje descriptivo y un estado HTTP NOT FOUND
                 throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe en la base de datos", HttpStatus.NOT_FOUND);
-            }
+            };
+            
+            // Intenta obtener el pedido con el ID proporcionado
+            Pedidos pedido = pedidosServ.getOne(idPedido).get();
 
             // Si se encuentra, devuelve el pedido con estado HTTP OK
             return new ResponseEntity(pedido, HttpStatus.OK);

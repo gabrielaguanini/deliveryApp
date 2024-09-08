@@ -79,6 +79,7 @@ export class PedidosplatosamostrarComponent {
   detallePedidosListxIdPedido: DetallePedidos[] = [];
   listaPlatosDelPedido: string[] = [];
   detallesPedidosAcotada: DetallePedidosAcotadaModel[] = [];
+  // Esta lista contiene objetos que representan dos estados posibles: `CONFIRMADO`: Indicado por el valor `true`, `NO CONFIRMADO`: Indicado por el valor `false`.
   listaPeConfTrueFalse = [
     { value: true, label: 'CONFIRMADO' },
     { value: false, label: 'NO CONFIRMADO' }
@@ -617,9 +618,9 @@ export class PedidosplatosamostrarComponent {
     }
     this.platosSeleccionadosSioNo[index] = true; // Marca el checkbox como seleccionado
     this.calcularTotalPlato(index); // Recalcula el total del plato
-    console.log("porcionesPlatosList: " + this.porcionesPlatosList);
-    console.log("chekBoxSelcPlat: " + this.chekBoxSelcPlat);
-    console.log("inputReadOnlyPorcionPlato: " + this.inputReadOnlyPorcionPlato);
+    //console.log("porcionesPlatosList: " + this.porcionesPlatosList);
+    //console.log("chekBoxSelcPlat: " + this.chekBoxSelcPlat);
+    //console.log("inputReadOnlyPorcionPlato: " + this.inputReadOnlyPorcionPlato);
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -906,8 +907,8 @@ enviarDetallePedidos(): void {
         this.botonEditarPlatosSelecYDat = "none"; // Oculta el botón de editar platos seleccionados
         this.botonDisplayNoneDatosEnvio = "none"; // Oculta la sección de datos de envío
         this.botonDisplayNoneGuardEdiDatEnv = "none"; // Oculta el botón de guardar/editar datos de envío
-        this.mensajePedEnviadoDB = " registrado"; // Actualiza el mensaje de confirmación
-        console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente. Msj servidor: ', data);
+        this.mensajePedEnviadoDB = " registrado"; // Actualiza el mensaje de confirmación       
+        console.log('Msj servidor: ', data);
         alert("Pedido N°: " + this.idPedido + " enviado"); // Muestra una alerta de confirmación
       },
       err => {
@@ -964,7 +965,7 @@ enviarDetallePedidos(): void {
       this.detallePedidServ.guardarDetPediAcotada(DetPedAAgreg).subscribe(data => {
         this.listaPedidosDeHoy(); // Actualiza la lista de pedidos del día
         console.log("Msj servidor: " + JSON.stringify(data));
-        console.log("DetPedListaEnviar: " + JSON.stringify(DetPedAAgreg))
+        //console.log("DetPedListaEnviar: " + JSON.stringify(DetPedAAgreg))
         alert("Plato agregado al pedido N°: " + this.idPedidoGuardDetPed);
       },
         err => {

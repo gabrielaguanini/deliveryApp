@@ -634,7 +634,7 @@ export class MenucomplComponent {
           // Llama al servicio para guardar el nuevo tipo de plato
           this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(
             data => {
-              console.log(data.mensajePersonalizado);
+              console.log("Msj. Servidor: " + data.mensaje);
               alert("Tipo de plato guardado");
               this.listTipPla(); // Actualiza la lista de tipos de platos
             },

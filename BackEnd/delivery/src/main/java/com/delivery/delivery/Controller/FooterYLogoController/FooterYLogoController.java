@@ -201,7 +201,7 @@ public class FooterYLogoController {
             // Guarda el objeto actualizado.
             fooYLoServ.guardarFooYLo(ActualizadoFooterYLogo);
 
-            return new ResponseEntity<>(new Mensaje("Registro para tabla FooterYLogo guardado correctamente."), HttpStatus.OK);
+            return new ResponseEntity<>(new Mensaje("Registro para tabla FooterYLogo editado correctamente."), HttpStatus.OK);
         } catch (MensajeDataAccessException e) {
             // Captura y maneja la excepción de acceso a datos.
             logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);

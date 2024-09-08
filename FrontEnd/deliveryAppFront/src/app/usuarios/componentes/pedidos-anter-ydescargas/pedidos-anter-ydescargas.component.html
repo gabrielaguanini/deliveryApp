@@ -66,14 +66,14 @@
                         <div class="divPediAnter border border-secondary border-2 rounded pt-4 ps-5 pe-5 mb-4">
 
                             <div class="row">
-                               <!-- Botón ir a sección -->
-                               <div class="col-1 ms-auto">
-                                <button class=" btn btn-outline-secondary btn-md"
-                                    title="IR A BUSCAR PEDIDOS POR N° DE PEDIDO O ID"
-                                    (click)="scrollASeccion('anclaBscXId')">
-                                    <i class="fas fa-arrow-circle-down animacion"></i>
-                                </button>
-                            </div>
+                                <!-- Botón ir a sección -->
+                                <div class="col-1 ms-auto">
+                                    <button class=" btn btn-outline-secondary btn-md"
+                                        title="IR A BUSCAR PEDIDOS POR N° DE PEDIDO O ID"
+                                        (click)="scrollASeccion('anclaBscXId')">
+                                        <i class="fas fa-arrow-circle-down animacion"></i>
+                                    </button>
+                                </div>
                                 <div class="col-12 text-center">
                                     <h6 class="title col-6 mx-auto" id="anclaBscXFec">BUSCAR PEDIDOS POR FECHA</h6>
                                     <hr>
@@ -92,8 +92,8 @@
                             </div>
 
                             <div *ngIf="modalitoPedidosXFecha">
-                                <form (ngSubmit)="listaDePedidosXFecha(fecha); scrollASeccion('anclaListPedXFe');" novalidate #f="ngForm"
-                                    class="formPedidosXFecha">
+                                <form (ngSubmit)="listaDePedidosXFecha(fecha); scrollASeccion('anclaListPedXFe');"
+                                    novalidate #f="ngForm" class="formPedidosXFecha">
                                     <!-- buscar pedidos por fecha-->
                                     <div class="row d-flex justify-content-center">
                                         <h5 class="card-title pb-3 text-center"><small>Ingresar una fecha</small></h5>
@@ -123,23 +123,35 @@
                                     </div>
                                 </form>
                                 <!-- renderizacion de lista de pedidos por fecha -->
-                                <div class="row mt-4" id="anclaListPedXFe">
+                                <div class="row g-4 mt-4" id="anclaListPedXFe">
                                     <div class="col-md-4 mx-auto" *ngFor="let pedidosXFe of listaPedidosXFecha">
                                         <div class="card" (click)="seleccionarIdPedido(pedidosXFe.idPedido)">
                                             <div class="card-body">
-
-
-                                                <div class="card-body">
-
+                                                <div class="col-12 text-center">
                                                     <h5 class="card-title text-center">PEDIDO N°:
                                                         {{pedidosXFe.idPedido}}
                                                     </h5>
+                                                    <h6 class="card-title text-center">
+                                                        {{pedidosXFe.pedidoConfirmado
+                                                        ? 'CONFIRMADO' : 'NO CONFIRMADO'}}
+                                                    </h6>
+                                                    <button class="btn btn-outline-light btn-sm"
+                                                    type="button" title="Editar datos del pedido"
+                                                    (click)="openModalEditarPedidos(templateEditarPedido);
+                                                            obtPedidoXId(pedidosXFe.idPedido, pedidosXFe.fecha, pedidosXFe.hora, 
+                                                            pedidosXFe.nombreCliente, pedidosXFe.telefonoCliente, 
+                                                            pedidosXFe.direccionCliente, pedidosXFe.localidadCliente, 
+                                                            pedidosXFe.listaPlatosDelPedido, pedidosXFe.importeTotalPedido, pedidosXFe.pedidoConfirmado?? false)">
+                                                    <i class="fas fa-sync"></i>
+                                                    </button>
+                                                    <br>
                                                     <br>
                                                     <h5 class="card-title  text-center">{{pedidosXFe.nombreCliente}}
                                                     </h5>
+                                                </div>
                                                     <br>
-                                                    <br>
-                                                    <p class="card-text"><strong>ID del Pedido: </strong> <span
+                                               
+                                                    <p class="card-text"><strong>ID del Pedidos: </strong> <span
                                                             class="text-white">{{pedidosXFe.idPedido}}</span></p>
                                                     <p class="card-text"><strong>Telefono: </strong> <span
                                                             class="text-white">{{pedidosXFe.telefonoCliente}}</span></p>
@@ -152,8 +164,7 @@
                                                     <p class="card-text"><strong>Platos: </strong> <span
                                                             class="text-white">{{pedidosXFe.listaPlatosDelPedido}}</span>
                                                     </p>
-
-
+                                               
                                                     <!-- botones edicion platos o detalle pedidosS -->
                                                     <div class="row justify-content-center">
                                                         <!-- Boton editar platos -->
@@ -179,9 +190,6 @@
                                                         </button>
                                                     </div>
                                                     <br>
-
-
-
                                                     <p class="card-text"><strong>Fecha: </strong> <span
                                                             class="text-white">{{pedidosXFe.fecha}}</span></p>
                                                     <p class="card-text"><strong>Hora: </strong> <span
@@ -190,14 +198,8 @@
                                                     <p class="card-text"><strong>Importe $: </strong> <span
                                                             class="text-white">{{pedidosXFe.importeTotalPedido}}</span>
                                                     </p>
-                                                    <p class="card-text"><strong>Confirmado: </strong> <span
-                                                            class="text-white">{{pedidosXFe.pedidoConfirmado}}</span>
-                                                    </p>
-
                                                 </div>
-
-
-                                                <div class="d-flex justify-content-center">
+                                                <div class="card-body d-flex justify-content-center border-top">
                                                     <!-- boton editar -->
                                                     <button class="btn btn-sm border border-white rounded-5 text-white"
                                                         type="button" title="Editar datos del pedido"
@@ -208,16 +210,14 @@
                                                                 pedidosXFe.listaPlatosDelPedido, pedidosXFe.importeTotalPedido, pedidosXFe.pedidoConfirmado?? false)">
                                                         <i class="far fa-edit small"></i>
                                                     </button>
-
                                                     <!-- boton borrar -->
                                                     <button class="btn btn-sm border border-white rounded-5 text-white"
                                                         type="button" title="Eliminar pedido"
                                                         (click)="limpiarInputs(); eliminarPedido(pedidosXFe.idPedido)">
                                                         <i class="far fa-trash-alt small"></i>
                                                     </button>
+                                                    <br>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -253,9 +253,9 @@
                                                         <label for="pedidoConfirmado">PEDIDO CONFIRMADO</label>
                                                         <select class="form-select" [(ngModel)]="pedidoConfirmado"
                                                             name="pedidoConfirmado" required>
-                                                            <option *ngFor="let trueOFalse of listaPeConfTrueFalse"
-                                                                [value]="trueOFalse">
-                                                                {{ trueOFalse}}
+                                                            <option *ngFor="let option of listaPeConfTrueFalse"
+                                                                [ngValue]="option.value">
+                                                                {{ option.label }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -361,7 +361,7 @@
 
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
-                                                {{detallePedidosLi.idDetallePedido}}</td>                                           
+                                                {{detallePedidosLi.idDetallePedido}}</td>
                                             <td *ngIf="modalitoTdEditDetPedid"
                                                 class="text-center align-middle border-top">
                                                 {{detallePedidosLi.porcionPlato}}</td>
@@ -425,15 +425,15 @@
                                                     </td>
                                                     <td *ngIf="modalitoInputEditDetPedid"
                                                         class="text-center align-middle border-top">
-                                                        <select class="form-select" [(ngModel)]="idPlato" name="idPla" type="text"
-                                                        required>
-                                                        <option disabled selected>Seleccionar</option>
-                                                        <option *ngFor="let listaParaSelect of listaPlatosCompleta"
-                                                            [value]="listaParaSelect.idPlato">
-                                                            {{ listaParaSelect.idPlato }} - {{
-                                                            listaParaSelect.nombrePlato }}
-                                                        </option>
-                                                    </select>
+                                                        <select class="form-select" [(ngModel)]="idPlato" name="idPla"
+                                                            type="text" required>
+                                                            <option disabled selected>Seleccionar</option>
+                                                            <option *ngFor="let listaParaSelect of listaPlatosCompleta"
+                                                                [value]="listaParaSelect.idPlato">
+                                                                {{ listaParaSelect.idPlato }} - {{
+                                                                listaParaSelect.nombrePlato }}
+                                                            </option>
+                                                        </select>
                                                     </td>
 
                                                     <td *ngIf="modalitoInputEditDetPedid"
@@ -506,14 +506,14 @@
                                         </td>
                                         <td class="text-center align-middle border-top">
                                             <select class="form-select" [(ngModel)]="idPlato" name="idPla" type="text"
-                                            required>
-                                            <option selected>Seleccionar</option>
-                                            <option *ngFor="let listaParaSelect of listaPlatosCompleta"
-                                                [value]="listaParaSelect.idPlato">
-                                                {{ listaParaSelect.idPlato }} - {{
-                                                listaParaSelect.nombrePlato }}
-                                            </option>
-                                        </select>
+                                                required>
+                                                <option selected>Seleccionar</option>
+                                                <option *ngFor="let listaParaSelect of listaPlatosCompleta"
+                                                    [value]="listaParaSelect.idPlato">
+                                                    {{ listaParaSelect.idPlato }} - {{
+                                                    listaParaSelect.nombrePlato }}
+                                                </option>
+                                            </select>
                                         </td>
 
                                         <td class="text-center align-middle border-top">
@@ -548,8 +548,7 @@
                                 <!-- Botón ir a sección -->
                                 <div class="col-1 ms-auto">
                                     <button class=" btn btn-outline-secondary btn-md"
-                                        title="IR A BUSCAR PEDIDOS POR FECHA"
-                                        (click)="scrollASeccion('anclaBscXFec')">
+                                        title="IR A BUSCAR PEDIDOS POR FECHA" (click)="scrollASeccion('anclaBscXFec')">
                                         <i class="fas fa-arrow-circle-up animacion"></i>
                                     </button>
                                 </div>
@@ -571,8 +570,8 @@
                                 </div>
                             </div>
                             <div *ngIf="modalitoPedidosXId">
-                                <form (ngSubmit)="obtenerPedidoXId(idPedido); scrollASeccion('anclaPedXId');" novalidate #f="ngForm"
-                                    class="formPedidosXid">
+                                <form (ngSubmit)="obtenerPedidoXId(idPedido); scrollASeccion('anclaPedXId');" novalidate
+                                    #f="ngForm" class="formPedidosXid">
                                     <!-- buscar pedidos por id-->
                                     <div class="row d-flex justify-content-center">
                                         <h5 class="card-title pb-3 text-center"><small>Ingresar un N° de pedido o
@@ -603,13 +602,27 @@
                                 <!-- renderizacion de lista de pedidos por id -->
                                 <div class="row mt-4">
                                     <div class="col-md-4 mx-auto" *ngIf="pedidos">
-                                        <div class="card" (click)="seleccionarIdPedido(pedidos.idPedido)" id="anclaPedXId">
+                                        <div class="card" (click)="seleccionarIdPedido(pedidos.idPedido)"
+                                            id="anclaPedXId">
                                             <div class="card-body">
-                                                <h5 class="card-title text-center">PEDIDO N°: {{pedidos.idPedido}}
-                                                </h5>
+                                                <div class="col-12 text-center">
+                                                    <h5 class="card-title text-center">PEDIDO N°: {{pedidos.idPedido}}
+                                                    </h5>
+                                                    <h6 class="card-title text-center">
+                                                        {{pedidos.pedidoConfirmado
+                                                        ? 'CONFIRMADO' : 'NO CONFIRMADO'}}</h6>
+                                                    <button  class="btn btn-outline-light btn-sm"
+                                                        type="button" title="Editar datos del pedido" (click)="openModalEditarPedidos(templateEditarPedido);
+                                                            obtPedidoXId(pedidos.idPedido,pedidos.fecha, pedidos.hora, 
+                                                            pedidos.nombreCliente, pedidos.telefonoCliente, 
+                                                            pedidos.direccionCliente, pedidos.localidadCliente, 
+                                                            pedidos.listaPlatosDelPedido, pedidos.importeTotalPedido,
+                                                            pedidos.pedidoConfirmado?? false)">
+                                                        <i class="fas fa-sync"></i>
+                                                    </button>
+                                                </div>
                                                 <br>
                                                 <h5 class="card-title  text-center">{{pedidos.nombreCliente}}</h5>
-                                                <br>
                                                 <br>
                                                 <p class="card-text"><strong>ID del Pedido:
                                                     </strong>{{pedidos.idPedido}}<span class="text-white"></span></p>
@@ -647,16 +660,13 @@
                                                         title="Agregar platos" type="button" (click)="limpiarInputs();
                                                                mostrarOcultarModalitoAgrDetPed();
                                                                modalitoEditPedid = false;
+                                                               listaPlatosComp();
                                                                scrollASeccion('anclaAgregDetPed');">
                                                         <i class="fas fa-plus small"></i>
                                                     </button>
 
                                                 </div>
                                                 <br>
-
-
-
-
                                                 <p class="card-text"><strong>Fecha: </strong>{{pedidos.fecha}}<span
                                                         class="text-white"></span></p>
                                                 <p class="card-text"><strong>Hora: </strong>{{pedidos.hora}}<span
@@ -666,8 +676,6 @@
                                                     </strong>${{pedidos.importeTotalPedido}}<span
                                                         class="text-white"></span>
                                                 </p>
-                                                <p class="card-text"><strong>Confirmado: </strong>
-                                                    {{pedidos.pedidoConfirmado}}<span class="text-white"></span></p>
                                                 <div class="d-flex justify-content-center">
                                                     <!-- boton editar -->
                                                     <button class="btn btn-sm border border-white rounded-5 text-white"

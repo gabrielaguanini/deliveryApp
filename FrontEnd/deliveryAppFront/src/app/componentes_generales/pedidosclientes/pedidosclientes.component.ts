@@ -572,7 +572,8 @@ export class PedidosclientesComponent {
         this.cerrarModalitoNgIfAlert(); // Oculta el modalitoNgIfAlert
         this.mostrarModalitoNgIfConf(); // Abre el modalitoNgIfConf
         this.mostrarMensaje("Pedido N° " + this.idPedido + " creado."); // Muestra el mensaje de pedido creado
-        console.log("Pedido guardado con idPedido N°: " + this.idPedido + ". Msj servidor: objeto JSON instancia clase Pedidos: " + JSON.stringify(data));
+        console.log("Pedido guardado con idPedido N°: " + this.idPedido);
+        //console.log("Pedido guardado con idPedido N°: " + this.idPedido + ". Msj servidor: objeto JSON instancia clase Pedidos: " + JSON.stringify(data));
 
         // Envía la lista de platos seleccionados para crear los detalles de pedido asociados al pedido principal.
         // Se agrega la función aquí y no en el botón para que el idPedido necesario para guardar
@@ -661,7 +662,7 @@ export class PedidosclientesComponent {
       } else {
         // Guarda los detalles del pedido en la base de datos
         const guardarDetallePedido = this.detallePedidServ.guardarVariosDetallesPedido(elementosSeleccionados).toPromise();
-        console.log('elementosSeleccionados: ' + JSON.stringify(elementosSeleccionados));
+        //console.log('elementosSeleccionados: ' + JSON.stringify(elementosSeleccionados));
         await guardarDetallePedido;
         console.log('Detalles/platos del Pedido con idPedido N°: ' + this.idPedido + ' guardados correctamente.');
 

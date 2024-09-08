@@ -42,11 +42,18 @@ export class PedidosAnterYDescargasComponent {
   idPedidoGuardDetPed!: number; //idPedido tomado de la lista {{pedidosXFe.idPedido}} del html. Para guardar un nuevo detalle pedido
   idPlato!: number;
 
+  errorFormatoFechaMensaje: string = ''; // Mensaje de error para formatos de fecha incorrectos
+  fechaFormato = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/; // Expresión regular para validar el formato de fecha "aaaa-mm-dd"
+
 
   //LISTAS
   listaPedidosXFecha: PedidosModel[] = [];
   detallePedidosListxIdPedido: DetallePedidos[] = [];
-  listaPeConfTrueFalse: Boolean[] = [true, false];
+   // Esta lista contiene objetos que representan dos estados posibles: `CONFIRMADO`: Indicado por el valor `true`, `NO CONFIRMADO`: Indicado por el valor `false`.
+   listaPeConfTrueFalse = [
+    { value: true, label: 'CONFIRMADO' },
+    { value: false, label: 'NO CONFIRMADO' }
+  ];
   platosAMostrarList: PlatosAMostrar[] = [];
   listaPlatosCompleta: MenuCompletoModel[] = [];
 
@@ -79,39 +86,66 @@ export class PedidosAnterYDescargasComponent {
   //✮------------------------------------------------------------------------------------------------------------✮
 
   //FUNCIONES LISTAS
+
+
   /**
- * Obtiene una lista de pedidos filtrados por la fecha proporcionada.
- * 
- * @param fecha - La fecha para filtrar los pedidos en formato 'yyyy-mm-dd'.
- * @param alertConLog - Si es true, muestra alertas y mensajes de error en la consola. Si es false, solo actualiza la lista sin mostrar alertas.
- * @param isRequestByDate - Indica si la solicitud se realiza por fecha. Si es true, se muestra una alerta si no se encuentran registros. Si es false, no se muestra la alerta.
- */
+   * Valida si una fecha cumple con el formato requerido "aaaa-mm-dd".
+   * 
+   * @param fecha - La fecha en formato de cadena que se desea validar.
+   * @returns Un valor booleano que indica si la fecha es válida (true) o no (false).
+   * 
+   * Esta función utiliza una expresión regular para verificar que la fecha
+   * tenga el formato correcto. El formato esperado es un año de 4 dígitos,
+   * seguido por un mes de 2 dígitos y un día de 2 dígitos, separados por guiones.
+   */
+  validarFormatoFecha(fecha: string): boolean {
+    return this.fechaFormato.test(fecha); // Retorna true si la fecha cumple con el formato, false en caso contrario
+  }
+
+  //✮------------------------------------------------------------------------------------------------------------✮
+  /**
+  * Obtiene una lista de pedidos filtrados por la fecha proporcionada.
+  * 
+  * @param fecha - La fecha para filtrar los pedidos en formato 'yyyy-mm-dd'. Debe ser una cadena con el año, mes y día separados por guiones.
+  * @param alertConLog - Si es true, muestra alertas y mensajes de error en la consola. Si es false, solo actualiza la lista sin mostrar alertas.
+  * @param isRequestByDate - Indica si la solicitud se realiza por fecha. Si es true, se muestra una alerta si no se encuentran registros. Si es false, no se muestra la alerta.
+  */
   listaDePedidosXFecha(fecha: string, alertConLog: boolean = true, isRequestByDate: boolean = true): void {
-    // Si la fecha es la predeterminada (1900-01-01), no se realiza ninguna acción
+    // Si la fecha es la predeterminada (1900-01-01), no realiza ninguna acción
     if (fecha === '1900-01-01') {
       return;
+    }
+
+    // Valida el formato de la fecha
+    if (!this.validarFormatoFecha(fecha)) {
+      this.errorFormatoFechaMensaje = 'El formato de la fecha debe ser aaaa-mm-dd. Ejemplo: 2024-10-09 para el 9 de octubre de 2024';
+      if (alertConLog) {
+        console.error(this.errorFormatoFechaMensaje); // Muestra el mensaje de error en la consola
+        alert(this.errorFormatoFechaMensaje); // Muestra el mensaje de error en una alerta
+      }
+      return; // Sale de la función si la fecha tiene un formato incorrecto
     }
 
     if (alertConLog) {
       // Si alertConLog es true, muestra alertas y logs en la consola
       if (fecha === undefined || fecha.trim() === '' || fecha === '') {
         this.fecha = "";
-        console.error('La fecha no puede estar vacía');
-        alert('La fecha no puede estar vacía');
+        console.error('La fecha no puede estar vacía'); // Muestra el mensaje de error en la consola
+        alert('La fecha no puede estar vacía'); // Muestra el mensaje de error en una alerta
       } else {
         // Realiza la solicitud para obtener la lista de pedidos por fecha
         this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
           data => {
-            this.listaPedidosXFecha = data;
+            this.listaPedidosXFecha = data; // Actualiza la lista de pedidos con los datos recibidos
             if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
               this.fecha = "";
-              alert('No existen registros con la fecha ingresada');
+              alert('No existen registros con la fecha ingresada'); // Muestra una alerta si no hay registros
             }
           },
           err => {
             this.fecha = "";
-            console.error(err.error.message);
-            alert(err.error.message);
+            console.error(err.error.message); // Muestra el mensaje de error en la consola
+            alert(err.error.message); // Muestra el mensaje de error en una alerta
           }
         );
       }
@@ -123,19 +157,21 @@ export class PedidosAnterYDescargasComponent {
         // Realiza la solicitud para obtener la lista de pedidos por fecha sin mostrar alertas
         this.pedidosServ.listaPedidosXFecha(fecha).subscribe(
           data => {
-            this.listaPedidosXFecha = data;
+            this.listaPedidosXFecha = data; // Actualiza la lista de pedidos con los datos recibidos
             if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
               this.fecha = "";
-              alert('No existen registros con la fecha ingresada');
+              alert('No existen registros con la fecha ingresada'); // Muestra una alerta si no hay registros
             }
           },
           err => {
             this.fecha = "";
+            // No se muestran alertas ni logs en caso de error si alertConLog es false
           }
         );
       }
     }
   }
+
 
   //✮------------------------------------------------------------------------------------------------------------✮
   /**
@@ -514,7 +550,7 @@ export class PedidosAnterYDescargasComponent {
     } else {
       // Inicializa un nuevo objeto DetallePedidosAcotadaModel con los datos del pedido    
       this.detPedidAcotada = new DetallePedidosAcotadaModel(this.idPedido, this.idPlato, this.porcionPlato);
-      
+
       // Llama al servicio para guardar el nuevo detalle del pedido
       this.detallePedidServ.guardarDetPediAcotada(this.detPedidAcotada).subscribe(data => {
         // Actualiza las listas después de agregar el detalle
@@ -527,7 +563,7 @@ export class PedidosAnterYDescargasComponent {
         (err) => {
           // Maneja errores en caso de fallo al guardar el detalle del pedido
           console.log("No se pudo guardar el detalle del pedido. ", err.error.message);
-          console.log("zzzz: " +this.idPedidoGuardDetPed.toString())
+          console.log("zzzz: " + this.idPedidoGuardDetPed.toString())
           alert("Msj Serv: " + err.error.message);
         });
     }
@@ -596,7 +632,7 @@ export class PedidosAnterYDescargasComponent {
 
     // Limpia la lista de detalles del pedido actual
     this.detallePedidosListxIdPedido = []; // Reinicia la lista de detalles del pedido a un array vacío
-   
+
 
     // Restablece el ID del pedido a un valor no definido
     this.idPedido = NaN;                   // Establece el ID del pedido como NaN (Not-a-Number)
