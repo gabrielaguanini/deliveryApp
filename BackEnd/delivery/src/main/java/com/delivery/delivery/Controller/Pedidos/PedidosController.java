@@ -214,11 +214,11 @@ public class PedidosController {
             if (pedidosServ.existsById(idPedido)) {
                 // Si existe, elimina el pedido y devuelve un mensaje de confirmación con estado HTTP OK
                 pedidosServ.borrarPedido(idPedido);
-                return new ResponseEntity(new Mensaje("Pedido eliminado"), HttpStatus.OK);
+                return new ResponseEntity("Pedido eliminado", HttpStatus.OK);
             } else {
                 // Si el pedido no existe, lanza una excepción con un mensaje descriptivo y un estado HTTP NOT FOUND
                 logger.error(HttpStatus.NOT_FOUND.toString());
-                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe en la base de datos", HttpStatus.NOT_FOUND);
+                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " a eliminar no existe en la base de datos", HttpStatus.NOT_FOUND);
             }
         } catch (MensajeDataAccessException e) {
             // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
@@ -257,7 +257,7 @@ public class PedidosController {
             // Verifica si el pedido con el ID proporcionado existe en la base de datos
             if (!pedidosServ.existsById(idPedido)) {
                 // Si no existe, lanza una excepción con un mensaje descriptivo y un estado HTTP NOT FOUND
-                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " no existe en la base de datos", HttpStatus.NOT_FOUND);
+                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " a obtener no existe en la base de datos", HttpStatus.NOT_FOUND);
             };
             
             // Intenta obtener el pedido con el ID proporcionado
@@ -319,7 +319,7 @@ public class PedidosController {
                 // Registra la excepción en el looger
                 logger.error(HttpStatus.NOT_FOUND.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP NOT FOUND
-                throw new MensajeResponseStatusException(new Mensaje("El idPedido N°: " + idPedido + " no existe en la base de datos.").getMensaje(), HttpStatus.NOT_FOUND);
+                throw new MensajeResponseStatusException(new Mensaje("El idPedido N°: " + idPedido + " a actualizar no existe en la base de datos.").getMensaje(), HttpStatus.NOT_FOUND);
             };
 
             // Obtiene el pedido existente en la base de datos con el ID proporcionado

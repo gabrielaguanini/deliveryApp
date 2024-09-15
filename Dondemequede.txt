@@ -1,4 +1,4 @@
-***VER COMO ARREGLAR COMO SE MUESTRAN LOS ERRORES AL CLIENTE EN PEDIDOSCLIENTES, ACTUALMENTE AL NO GUARDARSE UN DETALLE PEDIDOS NO MUESTRA NADA AL CLIENTE
+***CONTINUAR MODIFICANDO LOS ALERT Y CONSOLE LOG. A LOS ALERT MODIFICAR POR UN MENSAJE QUE NO TRAIGA LA RESPUESTA DEL SERVIDOR. LOS CONSOLE.LOG DE ERROR HAY QUE CAMBIRLOS CON CONSOLE.ERROR, ALLI AGREGAR EL MISMO MENSAJE DE LOS ALERT MAS "MSJ. SERV.: " + ERR.ERROR.MESSAGE. PEDIDOSPLATOSAMOSTRAR YA ESTA HECHO
 
 * Pensar como hacer si se eliminan todos los platos de un pedido, quiza agregar un string que diga "Todos los platos eliminados por administrador" o ver que hacer.
 *agregar @param a los repo en donde falten, ver otras medidas de seguridad a tomar, sobre todo por las consultas sql nativas

@@ -508,8 +508,6 @@ export class PedidosclientesComponent {
   * 
   * Si ocurre algún error en la solicitud al servidor, se muestra un mensaje de error.
   */
-
-  //✮------------------------------------------------------------------------------------------------------------✮ 
   agregarPedidoYDetPed(): void {
     // Crea una lista con los platos seleccionados mediante el checkbox
     const seleccionados = this.platosAMostrarList
@@ -574,7 +572,7 @@ export class PedidosclientesComponent {
         this.mostrarMensaje("Pedido N° " + this.idPedido + " creado."); // Muestra el mensaje de pedido creado
         console.log("Pedido guardado con idPedido N°: " + this.idPedido);
         //console.log("Pedido guardado con idPedido N°: " + this.idPedido + ". Msj servidor: objeto JSON instancia clase Pedidos: " + JSON.stringify(data));
-
+       
         // Envía la lista de platos seleccionados para crear los detalles de pedido asociados al pedido principal.
         // Se agrega la función aquí y no en el botón para que el idPedido necesario para guardar
         // la lista de platosAMostrar vuelva del servidor (el servidor devuelve el idPedido con "data")
@@ -592,7 +590,7 @@ export class PedidosclientesComponent {
       err => {
         // Muestra un mensaje de error si ocurre algún problema con la solicitud al servidor
         this.mostrarModalitoNgIfAlert();
-        this.mostrarMensaje(err.error.message);
+        this.mostrarMensaje("Error al crear el pedido.");
         console.log("Msj. Servidor: " + err.error.message);
       }
     );
@@ -674,7 +672,10 @@ export class PedidosclientesComponent {
         await this.obtenerPedidoYEnviarWhatsApp(this.idPedido);
       }
     } catch (error) {
-      console.error("Error al enviar el pedido:", error);
+      console.error("Error al enviar el detalle del pedido:", error);
+      this.cerrarModalitoNgIfConf();
+      this.mostrarModalitoNgIfAlert();
+      this.mostrarMensaje("Error al crear el pedido.");
     }
   }
 

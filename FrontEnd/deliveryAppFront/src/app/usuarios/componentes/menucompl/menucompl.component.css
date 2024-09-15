@@ -93,7 +93,7 @@
 
 /* formato de los modales */ 
 .modal-menu {
-    background-color:#F5A69B;
+    background-color:#d48464;
     color: #fff;
 }
 
@@ -101,7 +101,7 @@
     background-color:#e4d187;
 }
 
-#backGroundForm, #backGroundForm2, #backGroundFormTp, #backGroundFormEdTp, #listaCoP, #backGLiPlC2{
+#backGroundForm, #backGroundForm2, #backGroundFormTp, #backGroundFormEdTp, #backGroundFormEdpl, #backGroundFormEdpl2, #backgTitleEdTiPl, #listaCoP, #backGLiPlC2{
     background-color:#0666cd;  
 }
 

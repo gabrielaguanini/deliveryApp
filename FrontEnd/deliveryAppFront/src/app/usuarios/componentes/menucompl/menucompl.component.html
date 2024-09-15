@@ -121,7 +121,8 @@
                         <div class="col-3 d-flex justify-content-center align-items-center mx-auto">
                             <!-- Boton editar-->
                             <button class="btn btn-outline-light btn-md" (click)="openModalEditarListCompPlatos(templateEditarListCompPlatos);
-                                obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
+                            modalListaComPlatos.hide();    
+                            obtenerPlaXId(MenuCompletoModel?.idPlato || 0,
                                               MenuCompletoModel?.nombrePlato || '',
                                               MenuCompletoModel?.precioPlato || 0,
                                               MenuCompletoModel?.tipoPlato?.idTipoPlato || 0,
@@ -144,7 +145,7 @@
                         <ng-template #templateEditarListCompPlatos>
                             <div class="container-fluid modal-menu">
                                 <div class="row">
-                                    <div class="modal-header">
+                                    <div class="modal-header" id="backGroundFormEdpl">
                                         <h4 class="modal-title">EDITAR LISTA COMPLETA DE PLATOS</h4>
                                         <div class="card-icon card-icon-large">
                                             <i class=""></i>
@@ -516,7 +517,7 @@
                                     <ng-template #templateEditarMenuComp>
                                         <div class="container-fluid modal-menu">
                                             <div class="row">
-                                                <div class="modal-header">
+                                                <div class="modal-header" id="backGroundFormEdpl2">
                                                     <h4 class="modal-title">EDITAR</h4>
                                                     <div class="card-icon card-icon-large">
                                                         <i class=""></i>
@@ -819,8 +820,8 @@
                     <!-- MODAL EDITAR TIPOS DE PLATOS-->
 
                     <ng-template #templateEditarTipoPlato>
-                        <div class="modal-header" id="backgTitleEdTiPl">
-                            <h4 class="modal-title text-white">EDITAR</h4>
+                        <div class="modal-header" >
+                            <h4 class="modal-title text-white" >EDITAR</h4>
                             <div class="card-icon card-icon-large">
                                 <i class=""></i>
                             </div>

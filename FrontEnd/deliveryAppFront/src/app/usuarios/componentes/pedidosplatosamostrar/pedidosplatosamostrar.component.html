@@ -74,9 +74,10 @@
                         <div class="card-icon card-icon-large">
                             <i class=""></i>
                         </div>
-                        <button type="button" class="btn btn-outline-light btn-sm" (click)=" cerrarModalitosLimpiarInput();  
+                        <button type="button" class="btn btn-outline-light btn-sm" title="Cerrar" (click) =" cerrarModalitosLimpiarInput();  
                                       resetFormCleanChekBox('formularioPedidYDetPedid'); 
-                                       modalAgregarPedido.hide()">
+                                      modalAgregarPedido.hide();
+                                      eliminarPedidoSinDetPed()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>

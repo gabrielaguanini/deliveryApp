@@ -235,6 +235,7 @@ export class MenucomplComponent {
   openModalEditarListCompPlatos(templateEditarListCompPlatos: TemplateRef<any>) {
     // Muestra el modal para editar la lista completa de platos con un fondo estático.
     this.modalEditarListCompPlatos = this.modalService.show(templateEditarListCompPlatos, { backdrop: 'static' });
+    
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮

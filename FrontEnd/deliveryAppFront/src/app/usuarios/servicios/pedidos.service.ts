@@ -31,9 +31,10 @@ export class PedidosService {
   }
 
   // Elimina un pedido por ID
-  public borrarPedido(idPedido: number): Observable<any> {
-    return this.httpClient.delete<any>(this.URL + `borrarpedido/${idPedido}`);
+  public borrarPedido(idPedido: number): Observable<string> {
+    return this.httpClient.delete<string>(`${this.URL}borrarpedido/${idPedido}`, { responseType: 'text' as 'json' });
   }
+  
 
   // Actualiza un pedido existente por ID
   public actualizarPedido(idPedido: number, pedido: PedidosModel): Observable<any> {
