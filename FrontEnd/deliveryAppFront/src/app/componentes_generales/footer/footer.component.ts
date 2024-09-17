@@ -52,7 +52,11 @@ export class FooterComponent {
       setTimeout(() => {
         this.eliminarBordes();
       }, 1000);
-    });
+      console.log("Lista para footer y logo completa recibida correctamente.");
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista para footer y logo completa. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
 
@@ -97,8 +101,8 @@ export class FooterComponent {
         }
       });
     }
-  }
-  ;
+  };
+  
 
   //✮------------------------------------------------------------------------------------------------------------✮
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { PlatosAMostrar } from '../modelos/platos-amostrar';
 import { PedidosModel } from '../modelos/pedidos-model';
 
@@ -34,7 +34,7 @@ export class PedidosService {
   public borrarPedido(idPedido: number): Observable<string> {
     return this.httpClient.delete<string>(`${this.URL}borrarpedido/${idPedido}`, { responseType: 'text' as 'json' });
   }
-  
+
 
   // Actualiza un pedido existente por ID
   public actualizarPedido(idPedido: number, pedido: PedidosModel): Observable<any> {

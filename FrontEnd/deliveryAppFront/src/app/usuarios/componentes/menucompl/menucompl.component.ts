@@ -4,11 +4,10 @@ import { MenuCompletoModel } from 'src/app/usuarios/modelos/menu-completo-model'
 import { TipoPlato } from 'src/app/usuarios/modelos/tipo-plato';
 import { MenuCompletoServiceService } from 'src/app/usuarios/servicios/menu-completo-service.service';
 import { TiposPlatosService } from 'src/app/usuarios/servicios/tipos-platos.service';
-import { Cartelera } from '../../modelos/cartelera';
 import { CarteleraService } from '../../servicios/cartelera.service';
 import * as XLSX from 'xlsx';
 import { CarteleraSecundariaService } from '../../servicios/cartelera-secundaria.service';
-import { CarteleraSecundaria } from '../../modelos/cartelera-secundaria';
+
 
 
 
@@ -235,7 +234,7 @@ export class MenucomplComponent {
   openModalEditarListCompPlatos(templateEditarListCompPlatos: TemplateRef<any>) {
     // Muestra el modal para editar la lista completa de platos con un fondo estático.
     this.modalEditarListCompPlatos = this.modalService.show(templateEditarListCompPlatos, { backdrop: 'static' });
-    
+
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -261,7 +260,13 @@ export class MenucomplComponent {
   * Obtiene la lista de iconos de tipos de plato y la asigna a `listaIconosTipoPlato`.
   */
   listaIconos(): void {
-    this.tipoPlaServ.listIconosTipPlat().subscribe(data => this.listaIconosTipoPlato = data);
+    this.tipoPlaServ.listIconosTipPlat().subscribe(data => {
+      this.listaIconosTipoPlato = data;
+      console.log("Lista de iconos recibida correctamente.")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de iconos. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -269,7 +274,13 @@ export class MenucomplComponent {
    * Obtiene la lista de colores de tipos de plato y la asigna a `listaColorTipoPlato`.
    */
   listaColores(): void {
-    this.tipoPlaServ.listColoresTipPlat().subscribe(data => this.listaColorTipoPlato = data);
+    this.tipoPlaServ.listColoresTipPlat().subscribe(data => {
+      this.listaColorTipoPlato = data;
+      console.log("Lista de colores recibida correctamente.")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de colores. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -279,7 +290,13 @@ export class MenucomplComponent {
    * @param idTipoPlato - El ID del tipo de plato para el que se deben listar los platos.
    */
   mostrarListaTipoPlato(idTipoPlato: number): void {
-    this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => this.menuCompModel = data);
+    this.menucomServ.listaTipoPlatos(idTipoPlato).subscribe(data => {
+      this.menuCompModel = data;
+      console.log("Lista de tipos de platos por idTipoPlato recibida correctamente")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de tipos de platos por idTipoPlato. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -287,7 +304,13 @@ export class MenucomplComponent {
    * Obtiene la lista completa de tipos de platos y la asigna a `tiposPlatosModel`.
    */
   listTipPla(): void {
-    this.tipoPlaServ.listTiposPlatos().subscribe(data => this.tiposPlatosModel = data);
+    this.tipoPlaServ.listTiposPlatos().subscribe(data => {
+      this.tiposPlatosModel = data;
+      console.log("Lista de tipos de platos completa recibida correctamente");
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de tipos de platos completa. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -295,7 +318,14 @@ export class MenucomplComponent {
    * Obtiene la lista filtrada de tipos de platos que están en la entidad de platos y la asigna a `tiposPlatosFiltrados`.
    */
   listaFiltradaTipPla(): void {
-    this.tipoPlaServ.listFiltradaTiposPlatos().subscribe(data => this.tiposPlatosFiltrados = data);
+    this.tipoPlaServ.listFiltradaTiposPlatos().subscribe(data => {
+      this.tiposPlatosFiltrados = data;
+      console.log("Lista filtrada de tipos de platos presentes en la tabla platos recibida correctamente");
+    },
+      err => {
+        console.error("Error al procesar la solicitud para obtener una lista filtrada de tipos de platos presentes en la tabla platos. Msj. Serv: " + err.error.message);
+      }
+    );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -303,7 +333,12 @@ export class MenucomplComponent {
    * Obtiene la lista completa de platos y la asigna a `menuCompModel`.
    */
   listaPlatosCompleta(): void {
-    this.menucomServ.listaPlatos().subscribe(data => this.menuCompModel = data);
+    this.menucomServ.listaPlatos().subscribe(data => {
+      this.menuCompModel = data;
+      console.log("Lista de platos completa recibida correctamente");
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de platos completa. Msj. Serv: " + err.error.message);
+    });
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -325,24 +360,28 @@ export class MenucomplComponent {
   onCreate(): void {
     // Verifica si `idTipoPla` es válido
     if (this.idTipoPla == 0 || this.idTipoPla == undefined || isNaN(this.idTipoPla)) {
+      console.log("Seleccione un tipo de plato");
       alert("Seleccione un tipo de plato");
       return;
     }
 
     // Verifica si `nombrePlato` está vacío
     if (this.nombrePlato == "" || this.nombrePlato == undefined) {
+      console.log("Ingrese el nombre del plato");
       alert("Ingrese el nombre del plato");
       return;
     }
 
     // Verifica si `precioPlato` es válido
     if (this.precioPlato == 0 || this.precioPlato == undefined || isNaN(this.precioPlato)) {
+      console.log("Ingrese un precio para el plato");
       alert("Ingrese un precio para el plato");
       return;
     }
 
     // Verifica si `imgPlato` está vacío
     if (this.imgPlato == "" || this.imgPlato == undefined) {
+      console.log("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       return;
     }
@@ -360,18 +399,19 @@ export class MenucomplComponent {
           // Guarda el nuevo plato
           this.menucomServ.guardarPlato(menuCompMod).subscribe(
             data => {
+              console.log("Plato guardado. Msj. Serv.: " + data.mensaje)
               alert("Plato guardado");
             },
             err => {
-              alert("Msj. Servidor: " + err.error.message);
-              console.log("Msj. Servidor: " + err.error.message);
+              alert("Error al procesar la solicitud para guardar un plato");
+              console.error("Error al procesar la solicitud para guardar un plato. Msj. Servidor: " + err.error.message);
             }
           );
         }
       },
       err => {
-        alert("Msj. Servidor: " + err.error.message);
-        console.log("Msj. Servidor: " + err.error.message);
+        alert("Error al procesar la solicitud para conocer si existe un plato por nombre");
+        console.error("Error al procesar la solicitud para conocer si existe un plato por nombre. Msj. Servidor: " + err.error.message);
       }
     );
   }
@@ -390,7 +430,7 @@ export class MenucomplComponent {
   */
   borrarPlato(idPlato: number, idTipoPla: number): void {
     // Muestra los IDs en la consola para depuración
-    console.log("idPlato: " + idPlato + " idTipoPlato: " + idTipoPla);
+    //console.log("idPlato: " + idPlato + " idTipoPlato: " + idTipoPla);
 
     // Verifica si `idPlato` no está indefinido
     if (idPlato != undefined) {
@@ -412,9 +452,9 @@ export class MenucomplComponent {
         this.listaFiltradaTipPla();
       }, err => {
         // Muestra un mensaje de error en la consola
-        console.log("Msj. Serv.: " + err.error.message);
+        console.error("Error al procesar la solicitud para eliminar un plato. Msj. Serv.: " + err.error.message);
         // Muestra un mensaje de error al usuario
-        alert("Msj. Serv.: " + err.error.message);
+        alert("Error al procesar la solicitud para eliminar un plato");
       });
     }
   }
@@ -443,7 +483,7 @@ export class MenucomplComponent {
 
   //✮------------------------------------------------------------------------------------------------------------✮
   /**
-   * Elimina un plato de la lista completa dado su ID.
+   * Elimina un plato de la tabla platos con su idPlato como parametro.
    * 
    * Realiza una solicitud para borrar el plato con el `idPlato` proporcionado.
    * - Si la eliminación es exitosa, muestra un mensaje de confirmación y actualiza las listas filtradas y completas.
@@ -464,9 +504,9 @@ export class MenucomplComponent {
         this.listaPlatosCompleta();
       }, err => {
         // Muestra un mensaje de error en la consola
-        console.log("Msj. Serv.: " + err.error.message);
+        console.error("Error al procesar la solicitud para eliminar un plato por idPlato. Msj. Serv.: " + err.error.message);
         // Muestra un mensaje de error al usuario
-        alert("Msj. Serv.: " + err.error.message);
+        alert("Error al procesar la solicitud para eliminar un plato por idPlato");
       });
     }
   }
@@ -535,31 +575,35 @@ export class MenucomplComponent {
 
     // Verifica si el ID del plato es válido
     if (this.idPlato == 0 || this.idPlato === undefined || isNaN(this.idPlato)) {
-      alert("No se ha cargado un idPlato, informar al desarrollador");
       console.log("No se ha cargado un idPlato, informar al desarrollador");
+      alert("No se ha cargado un idPlato, informar al desarrollador");
       return;
     }
 
     // Verifica si el tipo de plato es válido
     if (this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)) {
+      console.log("Seleccione un tipo de plato");
       alert("Seleccione un tipo de plato");
       return;
     }
 
     // Verifica si el nombre del plato es válido
     if (this.nombrePlato === "" || this.nombrePlato === undefined) {
+      console.log("Ingrese el nombre del plato");
       alert("Ingrese el nombre del plato");
       return;
     }
 
     // Verifica si el precio del plato es válido
     if (this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)) {
+      console.log("Ingrese un precio para el plato");
       alert("Ingrese un precio para el plato");
       return;
     }
 
     // Verifica si la URL de la imagen del plato es válida
     if (this.imgPlato === "" || this.imgPlato === undefined) {
+      console.log("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       return;
     }
@@ -577,9 +621,11 @@ export class MenucomplComponent {
       // Llama al servicio para actualizar el plato
       this.menucomServ.actualizarPlato(this.idPlato, menuCompMod).subscribe(data => {
         this.listaPlatosCompleta(); // Refresca la lista de platos
+        console.log("Plato editado. Msj. Serv.: " + data.mensaje);
         alert("Plato editado");
       }, err => {
-        alert("No se editó el plato");
+        console.error("Error al procesar la solicitud para editar un plato. Msj. Serv: " + err.error.message);
+        alert("Error al procesar la solicitud para editar un plato");
       });
     }
   }
@@ -635,18 +681,19 @@ export class MenucomplComponent {
           // Llama al servicio para guardar el nuevo tipo de plato
           this.tipoPlaServ.guardarTipoPlato(tipoPla).subscribe(
             data => {
-              console.log("Msj. Servidor: " + data.mensaje);
+              console.log("Tipo de plato guardado. Msj. Serv.: " + data.mensaje);
               alert("Tipo de plato guardado");
               this.listTipPla(); // Actualiza la lista de tipos de platos
             },
             err => {
-              console.log("Msj. Servidor: " + err.error.message);
-              alert("Msj. Servidor: " + err.error.message);
+              console.error("Error al procesar la solicitud para guardar un tipo de plato. Msj. Serv: " + err.error.message);
+              alert("Error al procesar la solicitud para guardar un tipo de plato");
             }
           );
         }
       },
       err => {
+        console.error("Campo vacío o error al intentar guardar. Msj. Serv: " + err.error.message)
         alert("Campo vacío o error al intentar guardar");
       }
     );
@@ -666,13 +713,14 @@ export class MenucomplComponent {
     if (idTipoPlato != undefined) {
       this.tipoPlaServ.borrarTipoPlato(idTipoPlato).subscribe(
         data => {
+          console.log("Tipo de plato eliminado. Msj. Serv.: " + data.mensaje);
           alert("Tipo de plato eliminado");
           this.listTipPla(); // Actualiza la lista de tipos de platos
           this.listaFiltradaTipPla(); // Actualiza la lista filtrada de tipos de platos
         },
         err => {
-          console.log("Msj. Serv.: " + err.error.message);
-          alert("Msj. Serv.: " + err.error.message);
+          console.error("Error al procesar la solicitud para eliminar un tipo de plato. Msj. Serv.: " + err.error.message);
+          alert("Error al procesar la solicitud para eliminar un tipo de plato");
         }
       );
     }
@@ -758,14 +806,14 @@ export class MenucomplComponent {
 
       this.tipoPlaServ.actualizarTipoPla(this.idTipoPlato, tipoPla).subscribe(
         data => {
-          console.log("Msj. Servidor: " + data.mensaje);
+          console.log("Tipo de Plato actualizado: Msj. Serv.: " + data.mensaje);
           alert("Tipo de plato: " + "** " + this.idTipoPlato + " - " + this.nombreTipoPlato + " **" + " actualizado.");
           this.listTipPla();
           this.listaFiltradaTipPla();
         },
         err => {
-          console.log("Msj. Servidor: " + err.error.message);
-          alert("Msj. Servidor: " + err.error.message);
+          console.error("Error al procesar la solicitud para actualizar un tipo de plato. Msj. Servidor: " + err.error.message);
+          alert("Error al procesar la solicitud para actualizar un tipo de plato");
         }
       );
     }
@@ -788,24 +836,28 @@ export class MenucomplComponent {
   generarCardPequena(): void {
     // Verifica si se ha seleccionado un tipo de plato válido
     if (this.idTipoPla == 0 || this.idTipoPla === undefined || isNaN(this.idTipoPla)) {
+      console.log("Seleccione un tipo de plato");
       alert("Seleccione un tipo de plato");
       return;
     }
 
     // Verifica si se ha ingresado un nombre para el plato
     if (this.nombrePlato === "" || this.nombrePlato === undefined) {
+      console.log("Ingrese el nombre del plato");
       alert("Ingrese el nombre del plato");
       return;
     }
 
     // Verifica si se ha ingresado un precio válido para el plato
     if (this.precioPlato == 0 || this.precioPlato === undefined || isNaN(this.precioPlato)) {
+      console.log("Ingrese un precio para el plato");
       alert("Ingrese un precio para el plato");
       return;
     }
 
     // Verifica si se ha ingresado una URL válida para la imagen del plato
     if (this.imgPlato === "" || this.imgPlato === undefined) {
+      console.log("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       alert("Ingrese una URL a una imagen para el plato con el siguiente formato: https://images.unsplash.com/photo");
       return;
     }
@@ -818,15 +870,15 @@ export class MenucomplComponent {
 
     // Llama al servicio para guardar el nuevo plato
     this.menucomServ.guardarPlato(menuCompMod).subscribe(data => {
-      console.log("Plato guardado.");
+      console.log("Plato guardado. Msj. Serv.: " + data.mensaje);
       alert("Plato guardado");
 
       // Actualiza la lista de platos filtrados para mostrar el nuevo plato
       this.listaFiltradaTipPla();
     }, err => {
       // Maneja los errores en caso de que la operación falle
-      console.log("Msj. Servidor: " + err.error.message);
-      alert("Msj. Servidor: " + err.error.message);
+      console.error("Error al procesar la solicitud para guardar un plato. Msj. Servidor: " + err.error.message);
+      alert("Error al procesar la solicitud para guardar un plato");
     });
   }
 

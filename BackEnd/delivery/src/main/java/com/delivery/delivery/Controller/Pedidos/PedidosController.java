@@ -177,7 +177,7 @@ public class PedidosController {
                 return new ResponseEntity<>(pedidoGuardado, HttpStatus.CREATED);
             } else {
                 // Si el pedido no se creó correctamente, lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
-                throw new MensajeResponseStatusException("El pedido no se creó correctamente", HttpStatus.BAD_REQUEST);
+                throw new MensajeResponseStatusException("El pedido no se creó.", HttpStatus.BAD_REQUEST);
             }
         } catch (MensajeDataAccessException e) {
             // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR
@@ -207,7 +207,7 @@ public class PedidosController {
      * la ejecución del método. Devuelve un estado HTTP INTERNAL SERVER ERROR
      * con un mensaje descriptivo.
      */
-    @DeleteMapping("/borrarpedido/{idPedido}")
+     @DeleteMapping("/borrarpedido/{idPedido}")
     public ResponseEntity<?> borrarPedido(@PathVariable("idPedido") Long idPedido) {
         try {
             // Verifica si el pedido con el ID proporcionado existe en el sistema
@@ -218,7 +218,7 @@ public class PedidosController {
             } else {
                 // Si el pedido no existe, lanza una excepción con un mensaje descriptivo y un estado HTTP NOT FOUND
                 logger.error(HttpStatus.NOT_FOUND.toString());
-                throw new MensajeResponseStatusException("El idPedido N°: " + idPedido + " a eliminar no existe en la base de datos", HttpStatus.NOT_FOUND);
+                throw new MensajeResponseStatusException(new Mensaje("El idPedido N°: " + idPedido + " a eliminar no existe en la base de datos").getMensaje(), HttpStatus.NOT_FOUND);
             }
         } catch (MensajeDataAccessException e) {
             // Captura y maneja la excepción de acceso a datos, lanzando una nueva excepción con un mensaje adecuado y un estado HTTP INTERNAL SERVER ERROR

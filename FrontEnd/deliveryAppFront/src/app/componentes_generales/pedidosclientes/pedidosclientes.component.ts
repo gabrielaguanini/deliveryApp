@@ -156,9 +156,9 @@ export class PedidosclientesComponent {
       },
       err => {
         // Muestra un mensaje de error en la consola si ocurre un error en la solicitud
-        console.log("Msj. Serv.: " + err.error.message);
+        console.error("Error al procesar la solicitud para obtener una lista de platos a mostrar completa. Msj. Serv.: " + err.error.message);
         // Muestra una alerta al usuario con el mensaje de error
-        alert("Msj. Serv.: " + err.error.message);
+        alert("Error al procesar la solicitud para obtener una lista de platos a mostrar completa");
       }
     );
   };
@@ -591,7 +591,7 @@ export class PedidosclientesComponent {
         // Muestra un mensaje de error si ocurre algún problema con la solicitud al servidor
         this.mostrarModalitoNgIfAlert();
         this.mostrarMensaje("Error al crear el pedido.");
-        console.log("Msj. Servidor: " + err.error.message);
+        console.error("Error al procesar la solicitud para crear un pedido y sus detalles o platos. Msj. Servidor: " + err.error.message);
       }
     );
   };
@@ -672,7 +672,7 @@ export class PedidosclientesComponent {
         await this.obtenerPedidoYEnviarWhatsApp(this.idPedido);
       }
     } catch (error) {
-      console.error("Error al enviar el detalle del pedido:", error);
+      console.error("Error al enviar el detalle del pedido: Msj. Serv.: ", error);
       this.cerrarModalitoNgIfConf();
       this.mostrarModalitoNgIfAlert();
       this.mostrarMensaje("Error al crear el pedido.");

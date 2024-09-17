@@ -11,7 +11,7 @@ import { SliderIntervalService } from '../servicios/Slider-interval.service';
 export class CarteleraSecundariaComponent {
 
   carteleraSec: CarteleraSecundaria[] = [];
- 
+
 
   constructor(private cartSecServ: CarteleraSecundariaService) { };
 
@@ -20,7 +20,13 @@ export class CarteleraSecundariaComponent {
   };
 
   listaPromoNovedadSec(): void {
-    this.cartSecServ.listPromosNovSec().subscribe(data => this.carteleraSec = data);
+    this.cartSecServ.listPromosNovSec().subscribe(data => {
+      this.carteleraSec = data;
+      console.log("Lista de promos/novedades para cartelera secundaria recibida correctamente.")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de promos/novedades para cartelera secundaria. Msj. Serv: " + err.error.message);
+    }
+    );
   };
 
 }

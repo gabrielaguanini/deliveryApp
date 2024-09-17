@@ -32,8 +32,12 @@ export class FooterYLogoCrudComponent {
   listaFooteryLogo(): void {
     this.fooYLoServ.listaFooterYLogo().subscribe(data => {
       this.footerYLogoList = data;
+      console.log("Lista de footer y logo recibida correctamente")
       //console.log('Datos recibidos:', this.footerYLogoList); // Muestra los datos en la consola
-    });
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de de footer y logo. Msj. Serv: " + err.error.message);
+    }
+    );
   }
 
 
@@ -136,12 +140,12 @@ export class FooterYLogoCrudComponent {
     this.fooYLoServ.actualizarFooYLo(this.idOtrosDatos, footYLogo).subscribe(
       data => {
         alert("Footer y logo editados");
-        console.log("Msj. Servidor: " + JSON.stringify(data));
+        console.log("Footer y logo editados. Msj. Serv.: " + JSON.stringify(data));
         this.listaFooteryLogo();  // Actualiza la lista de FooterYLogo después de la edición
       },
       err => {
-        console.log("Msj. Serv: " + err.error.message);
-        alert("Msj. Serv: " + err.error.message);
+        console.error("Error al procesar la solicitud para actualizar un registro de footer y logo. Msj. Serv: " + err.error.message);
+        alert("Error al procesar la solicitud para actualizar un registro de footer y logo");
       }
     );
   }

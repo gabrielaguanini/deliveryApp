@@ -33,7 +33,4 @@ public class MensajeResponseStatusException extends ResponseStatusException {
         return mensaje;
     }
     
-    
-
-
 }

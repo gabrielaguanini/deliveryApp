@@ -33,14 +33,20 @@ export class CartelerasliderComponent {
     this.startAutoPlay(); // Iniciar el autoplay al cargar el componente
   };
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   // Obtiene y asigna la lista de promociones y novedades a 'cartelera'
   listaPromoNovedad(): void {
-    this.cartServ.listPromosNov().subscribe(data => this.cartelera = data);
+    this.cartServ.listPromosNov().subscribe(data => {
+      this.cartelera = data;
+      console.log("Lista de promos/novedades para cartelera slider recibida correctamente.")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de promos/novedades para cartelera slider. Msj. Serv: " + err.error.message);
+    }
+    );
   };
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   // Inicia el auto-play del slider, avanzando cada 5 segundos
   startAutoPlay() {
@@ -49,7 +55,7 @@ export class CartelerasliderComponent {
     }, 'carteleraslider');
   };
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
   // Detiene el auto-play del slider si está en ejecución
   stopAutoPlay() {
@@ -58,7 +64,7 @@ export class CartelerasliderComponent {
     };
   };
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 
 }

@@ -23,7 +23,13 @@ export class CarteleraSecundariaCelComponent {
 
   // Obtiene y asigna la lista de promociones y novedades a 'carteleraSec'
   listaPromoNovedadSec(): void {
-    this.cartSecServ.listPromosNovSec().subscribe(data => this.carteleraSec = data);
+    this.cartSecServ.listPromosNovSec().subscribe(data => {
+      this.carteleraSec = data;
+      console.log("Lista de promos/novedades para cartelera secundaria cel recibida correctamente.")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de Lista de promos/novedades para cartelera secundaria cel. Msj. Serv: " + err.error.message);
+    }
+    );
   };
 
   // Muestra un mensaje en consola sobre la adaptación del slider

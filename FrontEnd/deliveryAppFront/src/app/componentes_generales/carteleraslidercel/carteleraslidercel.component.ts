@@ -37,7 +37,13 @@ export class CarteleraslidercelComponent {
 
   // Obtiene y asigna la lista de promociones y novedades a 'carteleraCel'
   listaPromoNovedadCel(): void {
-    this.cartServ.listPromosNov().subscribe(data => this.carteleraCel = data);
+    this.cartServ.listPromosNov().subscribe(data => {
+      this.carteleraCel = data;
+      console.log("Lista de promos/novedades para cartelera slider cel recibida correctamente.");
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de promos/novedades para cartelera slider cel. Msj. Serv: " + err.error.message);
+
+    });
   };
 
 //✮------------------------------------------------------------------------------------------------------------✮

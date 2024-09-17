@@ -24,36 +24,36 @@ export class NavbarComponent {
     this.isExpanded = !this.isExpanded;
   };
 
-/**
- * Obtiene la lista de footer y logo por IDs y asigna a 'footerYLogoList'.
- * Llama a 'eliminarBordes' después de 1 segundo para permitir la renderización completa.
- * Elimina los bordes si `iconoOImgAMostrar` está vacío en posiciones específicas.
- */
-obtenerFooterYLogoList(ids: number[]): void {
-  this.footYLogServ.listaFooterYLogoxId(ids).subscribe(
-    data => {
-      this.footerYLogoList = data; // Asigna los datos a la propiedad
-      console.log('listaFooterYLogoxId recibida');
-      // Llama a eliminarBordes después de 1 segundo
-      setTimeout(() => {
-        this.eliminarBordes();
-      }, 1000);
-    },
-    err => {
-      console.error('Msj. Servidor: :' + err.error.message);
-    }
-  );
-}
+  /**
+   * Obtiene la lista de footer y logo por IDs y asigna a 'footerYLogoList'.
+   * Llama a 'eliminarBordes' después de 1 segundo para permitir la renderización completa.
+   * Elimina los bordes si `iconoOImgAMostrar` está vacío en posiciones específicas.
+   */
+  obtenerFooterYLogoList(ids: number[]): void {
+    this.footYLogServ.listaFooterYLogoxId(ids).subscribe(
+      data => {
+        this.footerYLogoList = data; // Asigna los datos a la propiedad
+        console.log('listaFooterYLogoxId recibida correctamente');
+        // Llama a eliminarBordes después de 1 segundo
+        setTimeout(() => {
+          this.eliminarBordes();
+        }, 1000);
+      },
+      err => {
+        console.error('Error al procesar la solicitud para obtener una listaFooterYLogoxId. Msj. Serv.: :' + err.error.message);
+      }
+    );
+  }
 
-//✮------------------------------------------------------------------------------------------------------------✮
-  
-/**
-  * Si los elementos en las posiciones 1, 2, 3 y 4 de la lista `footerYLogoList` tienen 
-  * `iconoOImgAMostrar` vacío, elimina los bordes de los íconos correspondientes.
-  * 
-  * Si los elementos en las posiciones 5 y 6 de la lista `footerYLogoList` tienen 
-  * `iconoOImgAMostrar` vacío, elimina los bordes de los íconos correspondientes
-  */
+  //✮------------------------------------------------------------------------------------------------------------✮
+
+  /**
+    * Si los elementos en las posiciones 1, 2, 3 y 4 de la lista `footerYLogoList` tienen 
+    * `iconoOImgAMostrar` vacío, elimina los bordes de los íconos correspondientes.
+    * 
+    * Si los elementos en las posiciones 5 y 6 de la lista `footerYLogoList` tienen 
+    * `iconoOImgAMostrar` vacío, elimina los bordes de los íconos correspondientes
+    */
   eliminarBordes(): void {
 
     // Verifica si los elementos en las posiciones 1, 2, 3 y 4 no tienen íconos o imágenes.
@@ -78,7 +78,7 @@ obtenerFooterYLogoList(ids: number[]): void {
     }
   }
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
 
 }
 

@@ -120,7 +120,7 @@ export class CartelerasCrudComponent {
     this.fechaPromo = fechaPromo;
   }
 
-//✮------------------------------------------------------------------------------------------------------------✮
+  //✮------------------------------------------------------------------------------------------------------------✮
   /**
    * Valida los datos de la promoción y actualiza la promoción si todos los datos son válidos.
    * Muestra alertas si faltan datos o si los datos no cumplen con los requisitos.
@@ -176,12 +176,12 @@ export class CartelerasCrudComponent {
     this.cartServ.actualizarPromosNov(this.idPromo, cartelera).subscribe(
       data => {
         alert("Cartelera editada");
-        console.log("Msj. Servidor: " + JSON.stringify(data));
+        console.log("Cartelera editada. Msj. Servidor: " + JSON.stringify(data));
         this.listaPromoNovedad(); // Actualiza la lista de promociones y novedades
       },
       err => {
-        console.log("Msj. Serv: " + err.error.message);
-        alert("Msj. Serv: " + err.error.message);
+        console.error("Error al procesar la solicitud para editar la cartelera. Msj. Serv: " + err.error.message);
+        alert("Error al procesar la solicitud para editar la cartelera.");
       }
     );
   }
@@ -269,12 +269,12 @@ export class CartelerasCrudComponent {
     this.cartServSec.actualizarPromosNovSec(this.idPromo, carteleraSec).subscribe(
       data => {
         alert("Cartelera secundaria editada");
-        console.log("Msj. Servidor: " + JSON.stringify(data));
+        console.log("Cartelera secundaria editada. Msj. Servidor: " + JSON.stringify(data));
         this.listaPromoNovedadSec(); // Actualiza la lista de promociones secundarias
       },
       err => {
-        console.log("Msj. Serv: " + err.error.message);
-        alert("Msj. Serv: " + err.error.message);
+        console.error("Error al procesar la solicitud para editar la cartelera secundaria. Msj. Serv: " + err.error.message);
+        alert("Error al procesar la solicitud para editar la cartelera secundaria");
       }
     );
   }

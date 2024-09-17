@@ -49,8 +49,8 @@ export class PedidosAnterYDescargasComponent {
   //LISTAS
   listaPedidosXFecha: PedidosModel[] = [];
   detallePedidosListxIdPedido: DetallePedidos[] = [];
-   // Esta lista contiene objetos que representan dos estados posibles: `CONFIRMADO`: Indicado por el valor `true`, `NO CONFIRMADO`: Indicado por el valor `false`.
-   listaPeConfTrueFalse = [
+  // Esta lista contiene objetos que representan dos estados posibles: `CONFIRMADO`: Indicado por el valor `true`, `NO CONFIRMADO`: Indicado por el valor `false`.
+  listaPeConfTrueFalse = [
     { value: true, label: 'CONFIRMADO' },
     { value: false, label: 'NO CONFIRMADO' }
   ];
@@ -130,7 +130,7 @@ export class PedidosAnterYDescargasComponent {
       // Si alertConLog es true, muestra alertas y logs en la consola
       if (fecha === undefined || fecha.trim() === '' || fecha === '') {
         this.fecha = "";
-        console.error('La fecha no puede estar vacía'); // Muestra el mensaje de error en la consola
+        console.log('La fecha no puede estar vacía'); // Muestra el mensaje de error en la consola
         alert('La fecha no puede estar vacía'); // Muestra el mensaje de error en una alerta
       } else {
         // Realiza la solicitud para obtener la lista de pedidos por fecha
@@ -139,13 +139,14 @@ export class PedidosAnterYDescargasComponent {
             this.listaPedidosXFecha = data; // Actualiza la lista de pedidos con los datos recibidos
             if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
               this.fecha = "";
+              console.log("No existen registros con la fecha ingresada");
               alert('No existen registros con la fecha ingresada'); // Muestra una alerta si no hay registros
             }
           },
           err => {
             this.fecha = "";
-            console.error(err.error.message); // Muestra el mensaje de error en la consola
-            alert(err.error.message); // Muestra el mensaje de error en una alerta
+            console.error("Error al procesar la solicitud para obtener un la lista de pedidos por fecha. Msj. Serv.: " + err.error.message); // Muestra el mensaje de error en la consola
+            alert("Error al procesar la solicitud para obtener un la lista de pedidos por fecha"); // Muestra el mensaje de error en una alerta
           }
         );
       }
@@ -160,6 +161,7 @@ export class PedidosAnterYDescargasComponent {
             this.listaPedidosXFecha = data; // Actualiza la lista de pedidos con los datos recibidos
             if (this.listaPedidosXFecha.length === 0 && isRequestByDate) {
               this.fecha = "";
+              console.log("No existen registros con la fecha ingresada");
               alert('No existen registros con la fecha ingresada'); // Muestra una alerta si no hay registros
             }
           },
@@ -184,11 +186,11 @@ export class PedidosAnterYDescargasComponent {
     this.detallePedidServ.listaDetPedXIdPedido(idPedido).subscribe(
       data => {
         this.detallePedidosListxIdPedido = data;
-        // Se puede agregar lógica adicional aquí si es necesario
+        console.log("Lista de detalles del pedido por idPedido recibida correctamente.")
       },
       err => {
-        alert("Msj. Serv: " + err.error.message);
-        console.log("Msj. Serv: " + err.error.message);
+        console.log("Error al procesar la solicitud para obtener una lista de detalles del pedido por idPedido. Msj. Serv: " + err.error.message);
+        alert("Error al procesar la solicitud para obtener una lista de detalles del pedido por idPedido");
         this.modalitoEditPedid = false;
       }
     );
@@ -200,7 +202,14 @@ export class PedidosAnterYDescargasComponent {
    */
   listaPlatosAMostrar(): void {
     // Realiza la solicitud para obtener la lista de platos a mostrar
-    this.plaMosServ.listaPlatosAMostrar().subscribe(data => this.platosAMostrarList = data);
+    this.plaMosServ.listaPlatosAMostrar().subscribe(data => {
+      this.platosAMostrarList = data;
+      console.log("Lista de platos a mostrar completa recibida correctamente")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de de platos a mostrar completa. Msj. Serv: " + err.error.message);
+
+    }
+  );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -208,7 +217,13 @@ export class PedidosAnterYDescargasComponent {
  * Obtiene la lista completa de platos desde el servicio.
  */
   listaPlatosComp(): void {
-    this.platosServ.listaPlatos().subscribe(data => this.listaPlatosCompleta = data);  // Actualiza la lista completa de platos
+    this.platosServ.listaPlatos().subscribe(data => {
+      this.listaPlatosCompleta = data;
+      console.log("Lista de platos completa recibida correctamente")
+    }, err => {
+      console.error("Error al procesar la solicitud para obtener una lista de platos completa. Msj. Serv: " + err.error.message);
+    }
+  );  // Actualiza la lista completa de platos
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -339,12 +354,12 @@ export class PedidosAnterYDescargasComponent {
         // Actualiza la lista de pedidos por fecha y elimina el pedido de la pantalla
         this.listaDePedidosXFecha(this.fecha, false, false);
         this.pedidosXIdVacio();
-        alert("Pedido eliminado.");
-        console.log(data);
+        console.log("Pedido eliminado. Msj. Serv.: " + data);
+        alert("Pedido eliminado.");        
       }, err => {
         // Manejo de errores en caso de fallo al eliminar el pedido
         this.fecha = "";
-        console.log("No se pudo eliminar el pedido", err);
+        console.error("No se pudo eliminar el pedido. Msj. Serv.: ", err);
         alert("Error al eliminar el pedido.");
       });
     }
@@ -375,14 +390,13 @@ export class PedidosAnterYDescargasComponent {
       // Actualiza la lista de pedidos por fecha y obtiene el pedido actualizado
       this.listaDePedidosXFecha(this.fecha, false, false);
       this.obtenerPedidoXId(this.idPedido);
-      console.log("Msj. Servidor: " + JSON.stringify(data));
+      console.log("Pedido actualizado. Msj. Servidor: " + JSON.stringify(data));
       alert("Pedido actualizado");
     },
       err => {
         // Manejo de errores en caso de fallo al actualizar el pedido
-        console.log("Msj. Servidor: " + err.error.message);
-        alert("Error, no se pudo editar el pedido");
-        console.log(err);
+        console.error("Error en la solicitud para actualizar un pedido. Msj. Servidor: " + err.error.message);
+        alert("Error en la solicitud para actualizar un pedido");
       });
   }
 
@@ -401,10 +415,11 @@ export class PedidosAnterYDescargasComponent {
       // Llama al servicio para obtener los detalles del pedido por ID
       this.pedidosServ.obtenerPedidoXId(idPedido).subscribe(data => {
         this.pedidos = data;
+        console.log("Pedido por id obtenido correctamente")
       }, err => {
         // Manejo de errores en caso de fallo al obtener el pedido
-        console.log("Msj. Servidor: " + err.error.message);
-        alert(err.error.message);
+        console.error("Error en la solicitud para obtener un pedido. Msj. Servidor: " + err.error.message);
+        alert("Error en la solicitud para obtener un pedido");
       });
     }
   }
@@ -442,9 +457,10 @@ export class PedidosAnterYDescargasComponent {
       console.log("Detalles del pedido obtenidos con idDetallePedido: " + idDetallePedido);
     }, err => {
       // Maneja errores en caso de fallo al obtener los detalles del pedido
-      console.log(err);
-      alert("Error, no se trajeron los detalles del pedido");
-    });
+      console.error("Error al procesar la solicitud para obtener el detalle del pedido o platos por idDetallePedido. Msj. Serv.: " + err.error.message);
+      alert("Error al procesar la solicitud para obtener el detalle del pedido");
+    }
+  );
   }
 
   //✮------------------------------------------------------------------------------------------------------------✮
@@ -461,6 +477,7 @@ export class PedidosAnterYDescargasComponent {
     if (confirmacion) {
       // Llama al servicio para eliminar el detalle del pedido
       this.detallePedidServ.eliminarDetallePedido(idDetallePedido, idPedido).subscribe(data => {
+        console.log("Detalle del pedido eliminado")
         alert("Detalle del pedido eliminado.");
         // Actualiza las listas después de eliminar el detalle
         this.listaDetallePedidosXIdPedido(idPedido);
@@ -468,8 +485,8 @@ export class PedidosAnterYDescargasComponent {
         this.obtenerPedidoXId(idPedido);
       }, err => {
         // Maneja errores en caso de fallo al eliminar el detalle del pedido
-        console.log("No se pudo eliminar el detalle del pedido", err);
-        alert("Error al eliminar el detalle del pedido.");
+        console.error("Error al procesar la solicitud para eliminar el detalle del pedido. Msj. Serv.: ", err);
+        alert("Error al procesar la solicitud para eliminar el detalle del pedido");
       });
     }
   }
@@ -504,12 +521,12 @@ export class PedidosAnterYDescargasComponent {
         this.listaDetallePedidosXIdPedido(this.idPedido); // Actualiza la lista de detalles de pedidos
         this.listaDePedidosXFecha(this.fecha, false, false); // Actualiza la lista de pedidos por fecha
         this.obtenerPedidoXId(this.idPedido); // Actualiza la búsqueda del pedido por ID
-        console.log("Msj servidor: " + JSON.stringify(data));
+        console.log("Detalles del pedido actualizados. Msj servidor: " + JSON.stringify(data));
         alert("Detalles del pedido actualizados.");
       }, err => {
         // Maneja errores en caso de fallo al actualizar el detalle del pedido
-        console.log("No se pudo actualizar el detalle del pedido. ", err.error.message);
-        alert("Error al actualizar el detalle del pedido. " + err.error.message);
+        console.error("No se pudo actualizar el detalle del pedido. Msj. Serv.: ", err.error.message);
+        alert("Error al actualizar el detalle del pedido. ");
       });
     }
   }
@@ -557,15 +574,16 @@ export class PedidosAnterYDescargasComponent {
         this.listaDetallePedidosXIdPedido(this.idPedido); // Actualiza la lista de detalles de pedidos
         this.listaDePedidosXFecha(this.fecha, false, false); // Actualiza la lista de pedidos por fecha
         this.obtenerPedidoXId(this.idPedido); // Actualiza la búsqueda del pedido por ID
-        console.log("Msj servidor: " + JSON.stringify(data));
+        console.log("Detalles del pedido guardado. Msj servidor: " + JSON.stringify(data));
         alert("Detalles del pedido guardados.");
       },
         (err) => {
           // Maneja errores en caso de fallo al guardar el detalle del pedido
-          console.log("No se pudo guardar el detalle del pedido. ", err.error.message);
-          console.log("zzzz: " + this.idPedidoGuardDetPed.toString())
-          alert("Msj Serv: " + err.error.message);
-        });
+          console.error("Error al procesar la solicitud para guardar el detalle del pedido. Msj. Serv.: ", err.error.message);
+          alert("Error al procesar la solicitud para guardar el detalle del pedido");
+        //console.log("this.idPedidoGuardDetPed: " + this.idPedidoGuardDetPed.toString())
+        }
+      );
     }
   }
 
