@@ -1,5 +1,5 @@
 HELP.md
-target/
+##target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Configuración de la aplicación ###
+# Ignorar el archivo de configuración de la aplicación
+application.properties

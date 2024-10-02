@@ -1,6 +1,6 @@
 package com.delivery.delivery.Controller.PlatosAMostrar;
 
-import com.delivery.delivery.Entity.Platos.TipoPlato;
+
 import com.delivery.delivery.Entity.PlatosAMostrar.PlatosAMostrar;
 import com.delivery.delivery.Mensaje.Mensaje;
 import com.delivery.delivery.Mensaje.MensajeDataAccessException;
@@ -25,7 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://deliveryappfe.web.app")
 public class PlatosAMostrarController {
 
     @Autowired
