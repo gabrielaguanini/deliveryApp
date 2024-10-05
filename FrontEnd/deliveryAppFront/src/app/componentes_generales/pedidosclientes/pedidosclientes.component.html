@@ -36,14 +36,7 @@
         <img class="img-fluid" src="{{PlatosAMostrar.platos.imgPlato}}" alt="Plato">
     </div>
 </div>
-
-
-
-
-
-
-
-                        <!-- Descripción -->
+ <!-- Descripción -->
                         <div class="col-lg-6 col-md-12 text-center divDescrpPla">
                             <p class="justify-content-center">{{PlatosAMostrar.descripcionPlatoAMostrar}}</p>
                         </div>
@@ -66,7 +59,7 @@
                                         <div class="col-lg-4 col-md-9 d-flex flex-column align-items-center">
                                             Cantidad
                                             <input type="number" [value]="porcionesPlatosList[i]"
-                                                [disabled]="disabledInpSelPla" (keydown)="handleKeydown($event)"
+                                                [disabled]="disabledInpSelPla"
                                                 class="form-control text-center bg-transparent text-white"
                                                 id="inputSelPed1"
                                                 (click)="seleccionarChekBoxSiHayPorcionPla(i); calcularTotalPlato(i)"

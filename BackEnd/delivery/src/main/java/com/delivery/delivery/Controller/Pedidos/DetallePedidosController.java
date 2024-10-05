@@ -155,8 +155,8 @@ public class DetallePedidosController {
                 // Si no existe, lanza una excepción con un mensaje personalizado y realiza el registro en el log
                 logger.info(HttpStatus.NOT_FOUND.toString());
                 throw new MensajeResponseStatusException(new Mensaje("El idPedido n°: " + detallePedidos.getPedidos().getIdPedido() + " no existe.").getMensaje(), HttpStatus.NOT_FOUND, null);
-            } 
-              // Obtiene una lista de IDs de platos relacionados con el IdPedido dado
+            }
+            // Obtiene una lista de IDs de platos relacionados con el IdPedido dado
             List<Long> idPlatosFromList = detpeServ.findIdPlatosXIdPedido(detallePedidos.getPedidos().getIdPedido());
 
             // Supone que todos los platos existen inicialmente
@@ -312,7 +312,7 @@ public class DetallePedidosController {
             // Obtener el detalle de pedido actual
             DetallePedidos detPedid = detpeServ.getOne(idDetallePedido).get();
 
-           // Verificar si el idPlato es igual, pero la porcionPlato ha cambiado
+            // Verificar si el idPlato es igual, pero la porcionPlato ha cambiado
             if (detPedid.getPlatos().getIdPlato().equals(detallePedidos.getPlatos().getIdPlato())
                     && !detPedid.getPorcionPlato().equals(detallePedidos.getPorcionPlato())) {
                 // Realizar la actualización solo si hay cambios en la porcionPlato
@@ -358,52 +358,60 @@ public class DetallePedidosController {
     /**
      * Método para guardar varios detalles de pedidos en la base de datos.
      *
-     * @param detallesPedidos La lista de detalles de pedidos a guardar.
-     * @return ResponseEntity con el estado HTTP OK si la operación se realiza
-     * correctamente.
+     * Este método recibe una lista de detalles de pedidos y valida su
+     * contenido. Si la validación es exitosa, guarda los detalles en la base de
+     * datos y actualiza los importes totales del pedido correspondiente.
+     *
+     * @param detallesPedidos La lista de objetos DetallePedidos a guardar. No
+     * debe ser nula ni estar vacía.
+     * @return ResponseEntity<String> con el estado HTTP 200 OK y un mensaje
+     * indicando que los detalles del pedido fueron actualizados correctamente.
+     * @throws MensajeResponseStatusException Si los detalles del pedido son
+     * nulos o vacíos, o si el IdPlato o IdPedido no se encuentran en la base de
+     * datos, o si las porciones están fuera del rango permitido (1 a 15).
      * @throws MensajeDataAccessException Si ocurre un error al acceder a la
-     * base de datos.
+     * base de datos durante el proceso de guardado.
      * @throws MensajeRunTimeException Si ocurre un error inesperado durante la
      * ejecución.
      */
     @PostMapping("/guardarvariosdetallespedidos")
     public ResponseEntity<String> guardarDetallesPedido(@RequestBody List<DetallePedidos> detallesPedidos) {
+        if (detallesPedidos == null || detallesPedidos.isEmpty()) {
+            logger.error(HttpStatus.BAD_REQUEST.toString());
+            throw new MensajeResponseStatusException("Detalles del pedido nulos o ausentes", HttpStatus.BAD_REQUEST, null);
+        }
+
         try {
             // Itera sobre cada detalle de pedido recibido
             for (DetallePedidos detallitos : detallesPedidos) {
                 Long idPedido = detallitos.getPedidos().getIdPedido();
                 Long idPlato = detallitos.getPlatos().getIdPlato();
+                Integer porcionPlato = detallitos.getPorcionPlato();
 
-                // Verifica si existe el IdPlatosAMostrar en la base de datos
+                // Verifica si existe el IdPlato en la base de datos
                 if (!plaSer.existsById(idPlato)) {
-                    // Si no existe, lanza una excepción indicando que no se encontró el ID y lo registra en el log
                     logger.error(HttpStatus.NOT_FOUND.toString());
                     throw new MensajeResponseStatusException("No se encontró el IdPlato n°: " + idPlato, HttpStatus.NOT_FOUND, null);
                 }
 
                 // Verifica si existe el IdPedido en la base de datos
                 if (!pedidosService.existsById(idPedido)) {
-                    // Si no existe, lanza una excepción indicando que no se encontró el ID y lo registra en el log
                     logger.error(HttpStatus.NOT_FOUND.toString());
                     throw new MensajeResponseStatusException("No se encontró el IdPedido n°: " + idPedido, HttpStatus.NOT_FOUND, null);
                 }
-            }
 
-            // Verifica si la lista de detalles de pedido está vacía o nula
-            if (detallesPedidos.isEmpty()) {
-                // Si está vacía o nula, lanza una excepción indicando que los detalles del pedido están ausentes y lo registra en el log
-                logger.error(HttpStatus.BAD_REQUEST.toString());
-                throw new MensajeResponseStatusException("Detalles del pedido nulos o ausentes", HttpStatus.BAD_REQUEST, null);
+                // Verifica si alguna de las porciones es mayor a 15 o menor a 1
+                if (porcionPlato > 15 || porcionPlato < 1) {
+                    logger.error(HttpStatus.BAD_REQUEST.toString());
+                    throw new MensajeResponseStatusException("La/s porcion/es no pueden ser mayores a 15.", HttpStatus.BAD_REQUEST, null);
+                }
             }
 
             // Realiza operaciones adicionales sobre los detalles de pedido
             for (DetallePedidos detallitos : detallesPedidos) {
                 detpeServ.guardarIdPlatoTotalPrecio(detallitos);
-
                 detpeServ.actualizarImporteTotalPedido(detallitos.getPedidos().getIdPedido());
-                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de usuarios
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedido(detallitos.getPedidos().getIdPedido());
-                //genera lista de strings o cadenas de los detalles del pedido para visualizacion de clientes
                 detpeServ.generarListaCadenasDesdeDetallesPorIdPedidoCli(detallitos.getPedidos().getIdPedido());
             }
 
@@ -414,13 +422,11 @@ public class DetallePedidosController {
             return new ResponseEntity(new Mensaje("Detalles del pedido actualizados"), HttpStatus.OK);
 
         } catch (MensajeDataAccessException e) {
-            // Captura y maneja la excepción de acceso a datos
             logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
-            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud para guardar varios detalles pedidos. ", HttpStatus.INTERNAL_SERVER_ERROR, null);
+            throw new MensajeDataAccessException("Error al acceder a la base de datos para procesar la solicitud para guardar varios detalles pedidos.", HttpStatus.INTERNAL_SERVER_ERROR, null);
         } catch (MensajeRunTimeException e) {
-            // Captura y maneja la excepción de tiempo de ejecución
             logger.error(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e);
-            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para guardar varios detalles pedidos. "), HttpStatus.INTERNAL_SERVER_ERROR, null);
+            throw new MensajeRunTimeException(new Mensaje("Error inesperado al procesar la solicitud para guardar varios detalles pedidos."), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 

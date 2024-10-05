@@ -8,7 +8,8 @@ import { Cartelera } from '../modelos/cartelera';
 })
 export class CarteleraService {
 
-  URL = 'http://localhost:8080/';
+  //URL = 'http://localhost:8080/';
+  URL = 'https://deliveryapprender.onrender.com/'
 
   constructor(private httpClient: HttpClient) { }
 

@@ -541,7 +541,12 @@ export class PedidosclientesComponent {
       return;
     }
 
-    // Validadores para selección de platos
+    
+  // Validación cantidad de porciones
+  if (!this.validarPorciones()) {
+    return; // Detener si la validación falla
+  }
+
     // Validador sin selección alguna de checkbox
     if (seleccionados.length === 0) {
       this.mostrarModalitoNgIfAlert();
@@ -569,7 +574,7 @@ export class PedidosclientesComponent {
         this.idPedido = data.idPedido;
         this.cerrarModalitoNgIfAlert(); // Oculta el modalitoNgIfAlert
         this.mostrarModalitoNgIfConf(); // Abre el modalitoNgIfConf
-        this.mostrarMensaje("Pedido N° " + this.idPedido + " creado."); // Muestra el mensaje de pedido creado
+        this.mostrarMensaje("Pedido N° " + this.idPedido + " creado. Tu pedido será enviado por Whatsapp."); // Muestra el mensaje de pedido creado
         console.log("Pedido guardado con idPedido N°: " + this.idPedido);
         //console.log("Pedido guardado con idPedido N°: " + this.idPedido + ". Msj servidor: objeto JSON instancia clase Pedidos: " + JSON.stringify(data));
        
@@ -595,6 +600,28 @@ export class PedidosclientesComponent {
       }
     );
   };
+
+  // validador para que la cantidad de porciones sea mayor a 1 y menor a 15
+  validarPorciones(): boolean {
+    for (let i = 0; i < this.platosSeleccionadosSioNo.length; i++) {
+      // Si el plato está seleccionado, verifica la porción
+      if (this.platosSeleccionadosSioNo[i]) {
+        const porcion = this.porcionesPlatosList[i];
+        
+        // Si la porción no es válida 
+        if (porcion < 1 || porcion > 15) {
+          this.mostrarModalitoNgIfAlert();
+          this.mostrarMensaje(`Por favor ingresa una porción válida (entre 1 y 15) para el plato: ${this.platosAMostrarList[i].platos.nombrePlato}`);
+          return false;
+        }
+      }
+    }
+    return true; // Si todas las porciones son válidas
+  }
+  
+  
+  
+
 
   //✮------------------------------------------------------------------------------------------------------------✮
   /**
@@ -633,9 +660,9 @@ export class PedidosclientesComponent {
    */
   async enviarDetallePedidos(): Promise<void> {
     try {
-      // Filtra y construye una lista de detalles de pedidos seleccionados
+      // Filtra y construye una lista de detalles de pedidos seleccionados para verificar si porcionPlato es mayor a 15
       const elementosSeleccionados: DetallePedidosAcotadaModel[] = this.platosAMostrarList
-        .map((PlatosAMostrar, index) => {
+        .map((PlatosAMostrar, index) => {         
           // Verifica si el plato está seleccionado y si la porción correspondiente está definida
           if (this.platosSeleccionadosSioNo[index] && this.porcionesPlatosList[index] !== undefined) {
             // Devuelve un objeto DetallePedidosAcotadaModel
@@ -648,7 +675,7 @@ export class PedidosclientesComponent {
           }
           return null;
         })
-        .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];
+        .filter(elemento => elemento !== null) as DetallePedidosAcotadaModel[];     
 
       // Verifica si todos los datos de envío del cliente están completos antes de proceder
       if (this.nombreCliente === "" ||
@@ -729,7 +756,7 @@ export class PedidosclientesComponent {
             `¡Muchas gracias!`;
 
           // Abre un enlace de WhatsApp con el mensaje predefinido
-          const url = `https://web.whatsapp.com/send?phone=541169996458&text=${encodeURIComponent(mensaje)}`;
+          const url = `https://wa.me/541169996458?text=${encodeURIComponent(mensaje)}`;
           window.open(url, '_blank');
         } else {
           console.log("El pedido con ID " + idPedido + " no existe.");

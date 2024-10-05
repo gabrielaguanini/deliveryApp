@@ -160,7 +160,7 @@ public class PedidosController {
                     || pedidos.getTelefonoCliente() == null || pedidos.getTelefonoCliente().isEmpty()
                     || pedidos.getDireccionCliente() == null || pedidos.getDireccionCliente().isEmpty()
                     || pedidos.getLocalidadCliente() == null || pedidos.getLocalidadCliente().isEmpty()
-                    || pedidos.getPedidoConfirmado() == null) {
+                    ) {
                 // Registra la excepcion en el looger
                 logger.error(HttpStatus.BAD_REQUEST.toString());
                 // Lanza una excepción con un mensaje descriptivo y un estado HTTP BAD REQUEST
