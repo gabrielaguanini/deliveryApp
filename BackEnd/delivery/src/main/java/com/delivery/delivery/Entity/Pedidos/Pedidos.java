@@ -62,7 +62,7 @@ public class Pedidos {
     //METODO PARA QUE LA FECHA Y HORA SEA SIEMPRE LA DE ARGENTINA
     @PrePersist
     public void antesDePersistir() {
-        ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        ZoneId zonaHorariaArgentina = ZoneId.of("UTC-03:00");
         ZonedDateTime fechaYHoraArgentina = ZonedDateTime.now(zonaHorariaArgentina);
 
         fecha = fechaYHoraArgentina.toLocalDate();
