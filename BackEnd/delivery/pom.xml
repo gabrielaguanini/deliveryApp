@@ -15,7 +15,6 @@
     <description>Project for delivery</description>
     <properties>
         <java.version>19</java.version>
-         <mysql.version>8.0.33</mysql.version> <!-- Versión del conector MySQL -->
     </properties>
     <dependencies>
         <dependency>
@@ -33,12 +32,14 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-       <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>${mysql.version}</version>
-    <scope>runtime</scope>
-</dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Asegúrate de que esta versión funcione con MySQL 5 -->
+            <scope>runtime</scope>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-             <scope>test</scope>  <!-- Solo para pruebas -->
+            <scope>test</scope>  <!-- Solo para pruebas -->
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
