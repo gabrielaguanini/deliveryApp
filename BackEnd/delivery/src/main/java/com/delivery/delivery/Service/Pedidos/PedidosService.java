@@ -50,8 +50,11 @@ public class PedidosService {
      * orden descendente.
      */
     public List<Pedidos> obtenerPedidosDelDia() {
-        // Obtiene la fecha actual
-        LocalDate fechaActual = LocalDate.now();
+        // Define la zona horaria de Argentina
+        ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
+
+        // Obtiene la fecha actual en la zona horaria de Argentina
+        LocalDate fechaActual = LocalDate.now(zonaHorariaArgentina);
 
         // Obtiene la lista de pedidos del día actual desde el repositorio
         List<Pedidos> pedidosDiaList = iPedidosRepo.obtenerPedidosDelDia(fechaActual);
@@ -133,17 +136,23 @@ public class PedidosService {
 
 //======================================================================================================= 
     /**
-     * Actualiza la fecha y hora del pedido con el ID especificado.
+     * agrega la fecha y hora del pedido especificado por su ID.
      *
-     * @param idPedido El ID del pedido cuya fecha y hora se desea actualizar.
+     * Este método obtiene la fecha y hora actuales de la zona horaria de Buenos
+     * Aires y utiliza el método del repositorio `actualizarFechaYHoraDelPedido`
+     * para actualizar esos valores en la base de datos.
+     *
+     * @param idPedido El ID del pedido cuya fecha y hora se desean actualizar.
      */
-    public void updateFechaHora(Long idPedido) {
-        // Utiliza el método actualizarFechaYHoraDelPedido del repositorio para actualizar la fecha y hora del pedido
-        ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
+    public void agregarFechaHora(Long idPedido) {
+        // Define la zona horaria de Argentina
+        ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires"); //Cambiar a la zona horaria que se requiera
+
+        // Obtiene la fecha y hora actuales en la zona horaria de Argentina
         LocalDate fecha = LocalDate.now(zonaHorariaArgentina);
         LocalTime hora = LocalTime.now(zonaHorariaArgentina);
-        
-        // Llamar al método del repositorio para actualizar la fecha y la hora
+
+        // Llama al método del repositorio para actualizar la fecha y la hora del pedido
         iPedidosRepo.actualizarFechaYHoraDelPedido(idPedido, fecha, hora);
     }
 

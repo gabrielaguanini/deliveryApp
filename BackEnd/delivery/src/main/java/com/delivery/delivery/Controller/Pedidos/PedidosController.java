@@ -170,7 +170,7 @@ public class PedidosController {
             // Guarda el pedido en la base de datos
             Pedidos pedidoGuardado = pedidosServ.guardarPedido(pedidos);
             // Actualiza la fecha y hora del pedido
-            pedidosServ.updateFechaHora(pedidos.getIdPedido());
+            pedidosServ.agregarFechaHora(pedidos.getIdPedido());
 
             // Verifica si el pedido se creó correctamente
             if (pedidosServ.existsById(pedidos.getIdPedido())) {
