@@ -4,6 +4,8 @@ import com.delivery.delivery.Entity.Pedidos.Pedidos;
 
 import com.delivery.delivery.Repository.Pedidos.IPedidosRepository;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -137,7 +139,12 @@ public class PedidosService {
      */
     public void updateFechaHora(Long idPedido) {
         // Utiliza el método actualizarFechaYHoraDelPedido del repositorio para actualizar la fecha y hora del pedido
-        iPedidosRepo.actualizarFechaYHoraDelPedido(idPedido);
+        ZoneId zonaHorariaArgentina = ZoneId.of("America/Argentina/Buenos_Aires");
+        LocalDate fecha = LocalDate.now(zonaHorariaArgentina);
+        LocalTime hora = LocalTime.now(zonaHorariaArgentina);
+        
+        // Llamar al método del repositorio para actualizar la fecha y la hora
+        iPedidosRepo.actualizarFechaYHoraDelPedido(idPedido, fecha, hora);
     }
 
 //======================================================================================================= 
